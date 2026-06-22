@@ -208,6 +208,53 @@
       font-size: clamp(1rem, 2.2vw, 1.2rem);
     }
 
+    /* Image zones */
+    .img-zone {
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    .img-zone img {
+      width: 100%;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+    }
+
+    .img-zone .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .img-placeholder-icon {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.1);
+    }
+
+    .img-placeholder-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    .img-caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
     /* Tape divider */
     .tape-divider {
       display: flex;
@@ -382,6 +429,16 @@
       </p>
     </div>
 
+    <!-- IMAGE 1 : visuel d'ouverture -->
+    <div class="img-zone">
+      <!-- Remplace src par le chemin de ton image : src="images/harley-01.jpg" -->
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Image 1 — Visuel d'ouverture</span>
+      </div>
+      <p class="img-caption">Ex : affiche VHS, plan d'ouverture, photo de la cassette originale</p>
+    </div>
+
     <div class="tape-divider">
       <div class="tape-line"></div>
       <span class="tape-icon">▶ &nbsp; REC</span>
@@ -412,6 +469,16 @@
       </p>
     </div>
 
+    <!-- IMAGE 2 : contexte d'époque -->
+    <div class="img-zone">
+      <!-- Remplace src par le chemin de ton image : src="images/harley-02.jpg" -->
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Image 2 — Contexte d'époque</span>
+      </div>
+      <p class="img-caption">Ex : Mickey Rourke / Don Johnson, still de tournage, presse 1991</p>
+    </div>
+
     <!-- 04 RÉSUMÉ -->
     <div class="sequence">
       <div class="seq-header">
@@ -440,6 +507,16 @@
       <p class="seq-text">
         Ce film n'aurait pas dû exister en 1991. Il appartient à une autre époque. Et Rourke et Johnson le savent. Pas leurs personnages. Eux. Il y a dans leurs regards quelque chose que le script n'a pas écrit. Une lassitude réelle. Une élégance fatiguée. C'est ça que le film a capturé sans le chercher. Pas une histoire de braquage. Un portrait.
       </p>
+    </div>
+
+    <!-- IMAGE 3 : plan du film -->
+    <div class="img-zone">
+      <!-- Remplace src par le chemin de ton image : src="images/harley-03.jpg" -->
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Image 3 — Plan du film</span>
+      </div>
+      <p class="img-caption">Ex : capture cinématique, jaquette recto/verso, visuel AI généré</p>
     </div>
 
     <!-- 06 POURQUOI OUBLIÉ -->
