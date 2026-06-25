@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boutique — SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --off-black: #0e0e0e;
+      --white: #e8e4dc;
+      --dim: #6b6660;
+      --accent: #c8392b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    }
+
+    .nav-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--white); }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.3em;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.5;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 10rem 2rem 5rem;
+      text-align: center;
+      background: radial-gradient(ellipse at center, #1a0d08 0%, var(--black) 70%);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* FILTRES */
+    .filters {
+      max-width: 1100px;
+      margin: 4rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 1.5rem;
+    }
+
+    .filter-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--dim);
+      cursor: pointer;
+      transition: all 0.2s;
+      background: none;
+    }
+
+    .filter-tag:hover,
+    .filter-tag.active {
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .stock-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--dim);
+    }
+
+    /* GRILLE */
+    .catalogue {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 8rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2px;
+    }
+
+    /* CARTE VHS */
+    .vhs-card {
+      background: var(--off-black);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.2s;
+    }
+
+    .vhs-card:hover { background: #141210; }
+
+    /* Zone image */
+    .vhs-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+      background: #111;
+    }
+
+    .vhs-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%) contrast(1.05);
+      transition: transform 0.4s ease;
+    }
+
+    .vhs-card:hover .vhs-img img { transform: scale(1.03); }
+
+    /* Placeholder image */
+    .vhs-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      border: 1px dashed rgba(255,255,255,0.07);
+    }
+
+    .vhs-img-placeholder-icon {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 2rem;
+      color: rgba(255,255,255,0.07);
+    }
+
+    .vhs-img-placeholder-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      color: rgba(107,102,96,0.4);
+      text-transform: uppercase;
+    }
+
+    /* Badge statut */
+    .vhs-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      background: var(--accent);
+      color: var(--black);
+    }
+
+    .vhs-badge.vendu {
+      background: rgba(107,102,96,0.3);
+      color: var(--dim);
+    }
+
+    .vhs-badge.reserve {
+      background: rgba(200,160,43,0.8);
+      color: var(--black);
+    }
+
+    /* Infos carte */
+    .vhs-info {
+      padding: 1.25rem 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+    }
+
+    .vhs-genre {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .vhs-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .vhs-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+    }
+
+    .vhs-desc {
+      font-size: 0.8rem;
+      color: rgba(232,228,220,0.5);
+      line-height: 1.6;
+      margin-top: 0.25rem;
+    }
+
+    .vhs-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .vhs-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .vhs-price .currency {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--dim);
+      vertical-align: middle;
+      margin-right: 0.2rem;
+    }
+
+    .vhs-cta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--accent);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .vhs-cta:hover { opacity: 0.85; }
+
+    .vhs-cta.indispo {
+      background: rgba(107,102,96,0.2);
+      color: var(--dim);
+      cursor: default;
+    }
+
+    /* CONTACT BLOCK */
+    .contact-block {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem 8rem;
+      text-align: center;
+    }
+
+    .tape-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0 0 4rem;
+    }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--dim);
+      letter-spacing: 0.2em;
+    }
+
+    .contact-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .contact-text {
+      font-size: 0.9rem;
+      color: rgba(232,228,220,0.55);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .contact-email {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 0.2rem;
+      transition: color 0.2s;
+    }
+    .contact-email:hover { color: var(--accent); }
+
+    .contact-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--dim);
+      margin-top: 1.5rem;
+      font-style: italic;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .footer-nav a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .catalogue { grid-template-columns: 1fr 1fr; gap: 1px; }
+      .vhs-desc { display: none; }
+      .filters { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 380px) {
+      .catalogue { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Accueil</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Objets chinés — VHS d'époque</p>
+    <h1 class="hero-title">VIDÉO<br/>CLUB</h1>
+    <p class="hero-sub">
+      Des cassettes récupérées dans des vide-greniers, des marchés aux puces, des caves.<br />
+      Chacune a sa propre histoire. Certaines ont peut-être connu les mêmes étagères que les vôtres.
+    </p>
+  </section>
+
+  <!-- FILTRES -->
+  <div class="filters">
+    <span class="filter-label">Filtrer</span>
+    <div class="filter-tags">
+      <button class="filter-tag active">Tout</button>
+      <button class="filter-tag">Action</button>
+      <button class="filter-tag">Thriller</button>
+      <button class="filter-tag">Neo-noir</button>
+      <button class="filter-tag">Série B</button>
+    </div>
+    <span class="stock-count">6 cassettes en stock</span>
+  </div>
+
+  <!-- CATALOGUE -->
+  <div class="catalogue">
+
+    <!-- VHS 01 -->
+    <div class="vhs-card">
+      <div class="vhs-img">
+        <!-- <img src="images/vhs-harley.jpg" alt="Harley Davidson et l'homme aux santiags VHS" /> -->
+        <div class="vhs-img-placeholder">
+          <span class="vhs-img-placeholder-icon">▶</span>
+          <span class="vhs-img-placeholder-label">Photo à venir</span>
+        </div>
+        <span class="vhs-badge">Disponible</span>
+      </div>
+      <div class="vhs-info">
+        <span class="vhs-genre">Action</span>
+        <p class="vhs-title">Harley Davidson et l'homme aux santiags</p>
+        <p class="vhs-meta">1991 — VHS Pathé &nbsp;·&nbsp; État : Bon</p>
+        <p class="vhs-desc">Jaquette d'origine. Cassette testée et fonctionnelle. Légères traces d'usure sur le boîtier.</p>
+        <div class="vhs-footer">
+          <p class="vhs-price"><span class="currency">€</span>8</p>
+          <a href="mailto:contact@stampede-production.fr?subject=VHS%20—%20Harley%20Davidson" class="vhs-cta">Contacter →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VHS 02 -->
+    <div class="vhs-card">
+      <div class="vhs-img">
+        <div class="vhs-img-placeholder">
+          <span class="vhs-img-placeholder-icon">▶</span>
+          <span class="vhs-img-placeholder-label">Photo à venir</span>
+        </div>
+        <span class="vhs-badge">Disponible</span>
+      </div>
+      <div class="vhs-info">
+        <span class="vhs-genre">Action / Thriller</span>
+        <p class="vhs-title">Joshua Tree</p>
+        <p class="vhs-meta">1993 — VHS &nbsp;·&nbsp; État : Très bon</p>
+        <p class="vhs-desc">Boîtier intact. Jaquette d'origine sans accroc. Cassette en parfait état de lecture.</p>
+        <div class="vhs-footer">
+          <p class="vhs-price"><span class="currency">€</span>7</p>
+          <a href="mailto:contact@stampede-production.fr?subject=VHS%20—%20Joshua%20Tree" class="vhs-cta">Contacter →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VHS 03 — placeholder -->
+    <div class="vhs-card">
+      <div class="vhs-img">
+        <div class="vhs-img-placeholder">
+          <span class="vhs-img-placeholder-icon">▶</span>
+          <span class="vhs-img-placeholder-label">Photo à venir</span>
+        </div>
+        <span class="vhs-badge">Disponible</span>
+      </div>
+      <div class="vhs-info">
+        <span class="vhs-genre">Neo-noir</span>
+        <p class="vhs-title">Titre à renseigner</p>
+        <p class="vhs-meta">Année — État : à renseigner</p>
+        <p class="vhs-desc">Description de l'état de la cassette et du boîtier.</p>
+        <div class="vhs-footer">
+          <p class="vhs-price"><span class="currency">€</span>—</p>
+          <a href="mailto:contact@stampede-production.fr" class="vhs-cta">Contacter →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VHS 04 — placeholder -->
+    <div class="vhs-card">
+      <div class="vhs-img">
+        <div class="vhs-img-placeholder">
+          <span class="vhs-img-placeholder-icon">▶</span>
+          <span class="vhs-img-placeholder-label">Photo à venir</span>
+        </div>
+        <span class="vhs-badge">Disponible</span>
+      </div>
+      <div class="vhs-info">
+        <span class="vhs-genre">Série B</span>
+        <p class="vhs-title">Titre à renseigner</p>
+        <p class="vhs-meta">Année — État : à renseigner</p>
+        <p class="vhs-desc">Description de l'état de la cassette et du boîtier.</p>
+        <div class="vhs-footer">
+          <p class="vhs-price"><span class="currency">€</span>—</p>
+          <a href="mailto:contact@stampede-production.fr" class="vhs-cta">Contacter →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VHS 05 — VENDUE exemple -->
+    <div class="vhs-card">
+      <div class="vhs-img">
+        <div class="vhs-img-placeholder">
+          <span class="vhs-img-placeholder-icon">▶</span>
+          <span class="vhs-img-placeholder-label">Photo à venir</span>
+        </div>
+        <span class="vhs-badge vendu">Vendue</span>
+      </div>
+      <div class="vhs-info">
+        <span class="vhs-genre">Action</span>
+        <p class="vhs-title">Titre à renseigner</p>
+        <p class="vhs-meta">Année — État : à renseigner</p>
+        <p class="vhs-desc">Cette cassette a trouvé preneur.</p>
+        <div class="vhs-footer">
+          <p class="vhs-price"><span class="currency">€</span>—</p>
+          <a class="vhs-cta indispo">Vendue</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VHS 06 — placeholder -->
+    <div class="vhs-card">
+      <div class="vhs-img">
+        <div class="vhs-img-placeholder">
+          <span class="vhs-img-placeholder-icon">▶</span>
+          <span class="vhs-img-placeholder-label">Photo à venir</span>
+        </div>
+        <span class="vhs-badge">Disponible</span>
+      </div>
+      <div class="vhs-info">
+        <span class="vhs-genre">Thriller</span>
+        <p class="vhs-title">Titre à renseigner</p>
+        <p class="vhs-meta">Année — État : à renseigner</p>
+        <p class="vhs-desc">Description de l'état de la cassette et du boîtier.</p>
+        <div class="vhs-footer">
+          <p class="vhs-price"><span class="currency">€</span>—</p>
+          <a href="mailto:contact@stampede-production.fr" class="vhs-cta">Contacter →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-block">
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">✉</span>
+      <div class="tape-line"></div>
+    </div>
+    <h2 class="contact-title">Une cassette vous intéresse ?</h2>
+    <p class="contact-text">
+      Envoyez un message en précisant le titre.<br />
+      Réponse sous 48h. Envoi possible en France métropolitaine<br />
+      ou retrait sur place selon disponibilité.
+    </p>
+    <a href="mailto:contact@stampede-production.fr" class="contact-email">contact@stampede-production.fr</a>
+    <p class="contact-note">Paiement par virement ou PayPal — Envoi suivi uniquement</p>
+  </div>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#episodes">Les épisodes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
