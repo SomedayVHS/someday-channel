@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EP.03 — Showdown in Little Tokyo · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0810 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.3em; color: var(--dim); margin-bottom: 0.75rem; }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Épisode 03 &nbsp;·&nbsp; Saison 1 &nbsp;·&nbsp; Fil conducteur — Brandon Lee</div>
+      <h1 class="hero-title">Showdown in Little Tokyo</h1>
+      <p class="hero-subtitle">Dans les griffes du dragon rouge</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1991</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Mark L. Lester</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Dolph Lundgren · Brandon Lee</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="ep02-joshua-tree.html">← EP. 02 — Joshua Tree</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="#">EP. 04 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là, je ne l'ai pas trouvé dans un placard.<br /><br />
+        Je l'ai cherché.<br /><br />
+        En épluchant la filmographie de Dolph Lundgren, un nom est apparu dans le casting que je ne m'attendais pas à trouver là.<br /><br />
+        Brandon Lee.<br /><br />
+        Je connaissais Brandon Lee par The Crow. Ce film sombre, gothique, tourné dans l'ombre de sa propre mort. Une carrière réduite à une seule image — celle d'un homme qu'on n'a pas eu le temps de vraiment connaître.<br /><br />
+        J'étais curieux de voir ce qu'il était avant ça.<br /><br />
+        J'ai mis le film.<br /><br />
+        Ce soir, on découvre ensemble.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <!-- <img src="images/showdown-01.jpg" alt="Showdown in Little Tokyo — visuel d'ouverture" /> -->
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Image 1 — Visuel d'ouverture</span>
+      </div>
+      <p class="img-caption">Jaquette VHS originale, parasites analogiques</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Showdown in Little Tokyo.<br /><br />
+        1991. Réalisé par Mark L. Lester — l'homme derrière Commando avec Schwarzenegger en 1985. Avec Dolph Lundgren et Brandon Lee.<br /><br />
+        79 minutes. Produit par Warner Bros, sorti rapidement des salles américaines, parti directement dans les bacs VHS partout en Europe.<br /><br />
+        La jaquette promettait de l'action, des arts martiaux, deux grands gaillards contre la pègre japonaise de Los Angeles.<br /><br />
+        Ce qu'on trouve à l'intérieur est plus surprenant. Pas à cause des scènes d'action — elles sont exactement ce qu'on attend. Mais à cause de ce qui se passe entre les deux acteurs. Une chimie réelle, inattendue, qui transforme un buddy movie d'action générique en quelque chose de plus vivant.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1991.<br /><br />
+        Hollywood est en pleine fièvre des arts martiaux. Deux ans plus tôt, Kickboxer a lancé Van Damme. Marked for Death vient de sortir avec Seagal. Le public action américain est friand de combat chorégraphié, de vilains asiatiques caricaturaux et de héros musclés qui parlent peu.<br /><br />
+        Warner Bros commande Showdown in Little Tokyo dans cet esprit. Un film d'action urbain, Los Angeles, la pègre japonaise, deux acteurs imposants. Mark L. Lester aux commandes — un réalisateur qui sait ce qu'il fait quand il s'agit de filmer de l'action pure.<br /><br />
+        Mais il y a un problème de casting que personne n'avait anticipé.<br /><br />
+        Lundgren et Brandon Lee se trouvent vraiment bien ensemble.<br /><br />
+        Brandon Lee a 25 ans. Il est le fils de Bruce Lee, ce qui est à la fois une chance et un fardeau — chaque journaliste lui pose la même question, chaque producteur attend la même chose de lui. Il cherche à exister par lui-même, à construire une identité propre.<br /><br />
+        Dans Showdown in Little Tokyo il y parvient. Face à Lundgren, il est drôle, léger, charismatique. Il vole des scènes sans forcer. Il prouve quelque chose.<br /><br />
+        Warner ne s'en rend pas compte. Le film sort, disparaît, et Brandon Lee continue sa route vers The Crow.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <!-- <img src="images/showdown-02.jpg" alt="Lundgren et Brandon Lee — contexte 1991" /> -->
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Image 2 — Contexte d'époque</span>
+      </div>
+      <p class="img-caption">Archives, photos Lundgren & Brandon Lee, affiches de l'époque</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Los Angeles. Little Tokyo.<br /><br />
+        Kenner est un flic américain élevé au Japon, imprégné de la culture et des codes samouraïs. Johnny Murata est un flic américano-japonais qui n'a jamais mis les pieds au Japon et qui préfère les voitures rapides aux traditions ancestrales.<br /><br />
+        On les associe de force. Ils ne se supportent pas. Vous connaissez la mécanique.<br /><br />
+        Sauf que le film s'en moque un peu de la mécanique. Ce qui l'intéresse c'est de regarder ces deux hommes interagir — leurs différences, leurs frictions, et progressivement quelque chose qui ressemble à du respect mutuel.<br /><br />
+        L'intrigue tourne autour d'un chef de yakuza qui contrôle le quartier de Little Tokyo avec une brutalité sans nuances. Kenner et Murata vont le coincer.<br /><br />
+        La façon dont ils y arrivent compte moins que ce qui se passe entre eux en chemin.<br /><br />
+        Et la scène dans le restaurant vous rappellera pourquoi on aimait le cinéma d'action des années 90.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Showdown in Little Tokyo n'est pas un grand film.<br /><br />
+        Mais il contient quelque chose qu'on ne fabriquait pas — et qu'on ne fabrique plus.<br /><br />
+        La chimie entre Lundgren et Brandon Lee n'était pas dans le script. Elle n'était pas prévue par Warner, pas anticipée par Mark L. Lester, pas calculée par qui que ce soit. Elle s'est produite sur le plateau, entre deux hommes qui n'avaient aucune raison évidente de bien fonctionner ensemble — l'un massif, sobre, nordique, l'autre léger, ironique, en perpétuelle recherche de sa propre identité.<br /><br />
+        Et pourtant.<br /><br />
+        Brandon Lee vole chaque scène où il apparaît. Pas en forçant — en étant simplement plus vivant que tout le reste. Il regarde Lundgren avec une tendresse moqueuse qui n'est pas du tout ce que le film demandait, et c'est exactement ce dont le film avait besoin.<br /><br />
+        La scène du restaurant en est la démonstration parfaite. Pas pour l'action — pour ce qui se passe dans les regards, entre les coups. Deux hommes qui commencent à se faire confiance sans se le dire.<br /><br />
+        En 1991, Brandon Lee a 25 ans. Il cherche encore qui il est au cinéma. Showdown in Little Tokyo est l'un des rares films où on peut voir cette recherche en temps réel — et entrevoir ce qu'il aurait pu devenir si The Crow n'avait pas été le dernier mot.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <!-- <img src="images/showdown-03.jpg" alt="Showdown in Little Tokyo — scène restaurant" /> -->
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Image 3 — Scène du restaurant</span>
+      </div>
+      <p class="img-caption">Capture cinématique, scène restaurant, visuel AI généré</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Showdown in Little Tokyo est tombé dans un angle mort précis.<br /><br />
+        Trop sérieux pour être un film de kung-fu marrant. Trop léger pour être pris au sérieux comme thriller. Les critiques de 1991 n'ont pas su quoi en faire — et quand les critiques ne savent pas quoi en faire, ils expédient. Deux lignes, une étoile, suivant.<br /><br />
+        Warner Bros n'a pas cru au film non plus. Sortie limitée, marketing minimal, passage rapide dans les bacs vidéo. Le studio avait d'autres priorités cette année-là.<br /><br />
+        Et puis il y a le problème de la date. 1991 c'est l'année où le cinéma d'action américain commence à changer de visage — Terminator 2 arrive six mois plus tard et change les règles du genre pour une décennie. Un buddy movie d'action construit sur de la présence humaine et de la chorégraphie physique, sans effets spéciaux, sans franchise derrière — ça devient soudainement anachronique.<br /><br />
+        Enfin il y a Brandon Lee. En 1991 il n'est pas encore une icône — il est juste le fils de Bruce Lee qui cherche sa voie. Personne ne comprend encore ce qu'il vaut. Ce n'est qu'après The Crow, après sa mort, que les gens ont commencé à chercher ce qu'il avait laissé derrière lui.<br /><br />
+        Showdown in Little Tokyo était là. Personne ne regardait.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que Brandon Lee mérite mieux qu'une seule image.<br /><br />
+        The Crow est un grand film. Mais il est aussi un tombeau — une œuvre définitive qui a figé Brandon Lee dans une seule posture, celle du martyr gothique, de l'icône maudite. Une image puissante qui a effacé tout le reste.<br /><br />
+        Showdown in Little Tokyo est le reste.<br /><br />
+        Un jeune homme de 25 ans qui cherche, qui teste, qui trouve. Léger là où The Crow est lourd. Ironique là où The Crow est grave. Vivant d'une façon différente — pas tragique, pas romantique, juste présent, drôle, magnétique.<br /><br />
+        Et à côté de lui, Lundgren — qu'on redécouvre depuis l'épisode précédent — confirme ce qu'on commençait à comprendre. Qu'il était capable de bien plus que ce que Hollywood lui demandait. Que la sobriété pouvait être une force.<br /><br />
+        Ces deux hommes ensemble, dans ce film imparfait, pendant 79 minutes — c'est un document.<br /><br />
+        Pas sur le cinéma d'action des années 90.<br /><br />
+        Sur ce qu'on a perdu trop tôt.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Showdown in Little Tokyo n'est pas le film que j'attendais quand j'ai cherché Brandon Lee dans la filmographie de Lundgren.<br /><br />
+        C'est mieux que ce que j'espérais.<br /><br />
+        Pas un chef-d'œuvre. Pas un film qui change la vie. Mais un film qui prouve quelque chose d'important — que la présence humaine, la vraie, celle qu'on ne fabrique pas, peut transformer n'importe quel matériau en quelque chose qui vaut la peine d'être vu.<br /><br />
+        Brandon Lee avait cette présence.<br /><br />
+        On n'a pas eu le temps de s'en rendre compte.<br /><br />
+        SOMEDAY est aussi là pour ça.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Showdown in Little Tokyo</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">79 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Warner Bros</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Brandon Lee — Saison 1</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — EP. 03</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#episodes">Tous les épisodes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
