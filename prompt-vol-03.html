@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vol. 03 — VHS Aesthetic · Stampede Production</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--white:#e8e4dc;--dim:#6b6660;--accent:#6a8a7a}
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:1000}
+    body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:999}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;background:linear-gradient(to bottom,rgba(8,8,8,.97),transparent)}
+    .nav-back{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .nav-back:hover{color:var(--white)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.3em;color:var(--white);text-decoration:none;opacity:.5}
+    .hero{min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 2rem 4rem;border-bottom:1px solid rgba(255,255,255,.05);position:relative;background:radial-gradient(ellipse at 30% 70%,#6a8a7a18 0%,var(--black) 65%)}
+    .hero-inner{max-width:900px;margin:0 auto;width:100%;position:relative}
+    .vol-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.45em;color:var(--accent);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem}
+    .vol-eyebrow::after{content:'';height:1px;width:50px;background:var(--accent);opacity:.4}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,7rem);line-height:.88;letter-spacing:.02em;color:var(--white);margin-bottom:1rem}
+    .hero-tagline{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.12em;color:var(--dim);font-style:italic;margin-bottom:2.5rem}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:2rem}
+    .meta-item{display:flex;flex-direction:column;gap:.3rem}
+    .meta-key{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.35em;color:var(--dim);text-transform:uppercase}
+    .meta-val{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--white)}
+    .content{max-width:760px;margin:0 auto;padding:6rem 2rem 8rem}
+    .vol-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:5rem;padding:1.25rem 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+    .vol-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .vol-nav a:hover{color:var(--white)}
+    .section-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.4em;color:var(--accent);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+    .section-label::after{content:'';height:1px;flex:1;background:#6a8a7a28}
+    .body-text{font-size:clamp(.95rem,2vw,1.1rem);line-height:1.95;color:rgba(232,228,220,.7);margin-bottom:4rem}
+    .body-text strong{color:var(--white);font-weight:400}
+    .prompts-block{margin-bottom:5rem}
+    .prompt-item{padding:1.5rem;border:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.015);margin-bottom:2px;position:relative;transition:border-color .2s}
+    .prompt-item:hover{border-color:#6a8a7a50}
+    .prompt-num{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+    .prompt-text{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(232,228,220,.6);line-height:1.7;letter-spacing:.02em}
+    .prompt-text.blurred{filter:blur(4px);user-select:none;pointer-events:none}
+    .prompt-lock{position:absolute;top:50%;right:1.5rem;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+    .preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:5rem}
+    .preview-img{aspect-ratio:1/1;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem}
+    .preview-img-icon{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;color:rgba(255,255,255,.07)}
+    .preview-img-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.25em;color:rgba(107,102,96,.4);text-transform:uppercase;text-align:center;padding:0 1rem}
+    .cta-block{border:1px solid #6a8a7a40;background:#6a8a7a08;padding:3rem;margin-bottom:2rem}
+    .cta-inner{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+    .cta-vol{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:.5rem}
+    .cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.03em;color:var(--white);line-height:1;margin-bottom:1rem}
+    .cta-desc{font-size:.82rem;color:rgba(232,228,220,.45);line-height:1.7;max-width:380px}
+    .cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+    .price-group{text-align:right}
+    .price-std{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.03em;color:var(--white);line-height:1}
+    .price-std .cur{font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:var(--dim);vertical-align:middle}
+    .price-prem{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:var(--dim);margin-top:.3rem}
+    .price-prem span{color:#b8972a}
+    .btn-group{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end}
+    .btn-std{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:.85rem 1.75rem;text-decoration:none;transition:opacity .2s;white-space:nowrap}
+    .btn-std:hover{opacity:.85}
+    .btn-prem{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#b8972a;border:1px solid #b8972a40;padding:.85rem 1.75rem;text-decoration:none;transition:all .2s;white-space:nowrap}
+    .btn-prem:hover{background:#b8972a15}
+    .includes-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+    .include-item{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--dim);display:flex;align-items:center;gap:.75rem}
+    .include-item::before{content:'✓';color:var(--accent);font-size:.7rem}
+    .include-item.premium-only{color:#b8972a50}
+    .include-item.premium-only::before{content:'★';color:#b8972a}
+    .tape-divider{display:flex;align-items:center;gap:1rem;margin:3rem 0}
+    .tape-line{height:1px;flex:1;background:rgba(255,255,255,.05)}
+    .tape-icon{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.2em}
+    footer{padding:3rem 2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:var(--dim);margin-bottom:.75rem}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;margin-top:1rem;flex-wrap:wrap}
+    .footer-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .footer-nav a:hover{color:var(--white)}
+    @media(max-width:600px){.preview-grid{grid-template-columns:1fr}.cta-inner{flex-direction:column}.cta-right{align-items:flex-start}.btn-group{align-items:flex-start}.vol-nav{flex-direction:column;gap:.75rem}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="prompts.html" class="nav-back">← Tous les volumes</a>
+    <a href="prompts.html" class="nav-logo">STAMPEDE</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="vol-eyebrow">Vol. 03 &nbsp;·&nbsp; Cinematic Prompt Pack</div>
+      <h1 class="hero-title">VHS Aesthetic</h1>
+      <p class="hero-tagline">La mémoire qui s'efface lentement.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-key">Format</span><span class="meta-val">PDF téléchargeable</span></div>
+        <div class="meta-item"><span class="meta-key">Outil</span><span class="meta-val">GPT Image 2</span></div>
+        <div class="meta-item"><span class="meta-key">Standard</span><span class="meta-val">27 €</span></div>
+        <div class="meta-item"><span class="meta-key">Premium</span><span class="meta-val">34 €</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+    <div class="vol-nav">
+      <a href="prompt-vol-02.html">← Vol. 02</a>
+      <a href="prompts.html">Tous les volumes</a>
+      <a href="prompt-vol-04.html">Vol. 04 →</a>
+    </div>
+
+    <div class="section-label">Le registre</div>
+    <p class="body-text">La <strong>VHS Aesthetic</strong> est le registre de l'image imparfaite comme intention. Grain vidéo, aberration chromatique, signal instable — pas comme défaut, comme choix.<br /><br />Saturation basse et instable. Scan lines visibles. Couleurs qui saignent sur les bords. L'image comme souvenir — quelque chose qui existait vraiment mais que le temps abîme.<br /><br /><strong>Principe fondateur :</strong> l'imperfection analogique est intentionnelle. Chaque prompt encode cette phrase comme clôture.</p>
+
+    <div class="section-label">Aperçu des prompts</div>
+    <div class="prompts-block" id="prompts-03"><div class="prompt-item"><p class="prompt-num">Prompt 03 — Anniversaire enregistré</p><p class="prompt-text">1989 suburban backyard birthday party on VHS, oversaturated colors bleeding at edges, tracking error horizontal lines mid-frame, handheld shake, families in period clothing, scan lines visible, date stamp bottom right corner DD/MM/YY. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 04 — Film capturé depuis la télé</p><p class="prompt-text">Late night movie captured from TV onto VHS, broadcast grain, slight color ghosting on moving subjects, warm tube-television glow, letterbox bars with VHS noise, lo-fi 1993 home recording aesthetic, signal dropout top quarter. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 05 — Cassette réenregistrée</p><p class="prompt-text">Third-generation VHS copy — each generational loss visible, faces losing detail, backgrounds dissolving into color fields, audio-visual sync slightly off implied by grain pattern, 1988 aesthetic, family gathering barely recognizable. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 06 — Caméra de surveillance</p><p class="prompt-text">Security camera footage degraded to VHS quality, empty parking lot 3am, single figure crossing frame, chromatic aberration heavy, timestamp visible, wide angle lens distortion, surveillance aesthetic meeting consumer tape decay. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 07 — Vacances perdues</p><p class="prompt-text">Summer vacation Super-8 transferred to VHS, beach 1986, light leaks at frame edges, color shifted toward magenta, faces overexposed, water reflecting blown-out, the joy preserved and decayed simultaneously. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 08 — Match enregistré</p><p class="prompt-text">Football match recorded from TV, 1991, crowd noise implied by scan line pattern, stadium lights creating horizontal flare, players as color blobs in middle distance, sports graphic overlay partially visible through tape noise. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 09 — Noël en famille</p><p class="prompt-text">Christmas morning 1987, living room, VHS camcorder, warm incandescent light destroying white balance, faces orange-red, tree lights blooming into halos, wrapping paper catching light and blowing out camera sensor, handheld tracking through scene. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt 10 — Fin de cassette</p><p class="prompt-text">End of tape — image degrading progressively bottom to top, last frame of recorded content a blurry garden scene 1990, above it pure white static consuming the image, the moment of loss captured as aesthetic. Analog imperfection is intentional.</p></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P01 — Combinaison VHS × Neo-Noir</p><p class="prompt-text blurred">VHS-recorded noir scene — tracking errors cutting through shot of rain-soaked alley, neon colors bleeding further in tape degradation, the VHS process amplifying noir's existing decay, surveillance camera aesthetic meeting 1980s thriller grammar. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P02 — Combinaison VHS × Contemplative Auteur</p><p class="prompt-text blurred">Art film recorded onto VHS, slow pan across landscape now corrupted by tape noise, the meditative intention surviving the degradation, grain upon grain, the image reaching for meaning through noise. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P03 — Variante — Double exposition</p><p class="prompt-text blurred">Rewound tape frame, ghost double exposure of two separate recordings at 40% opacity, 1987 and 1994 recordings colliding, faces not quite aligning, two temporalities in one unstable image. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P04 — Variante — Pause sur l'image</p><p class="prompt-text blurred">VHS pause artifact — horizontal distortion band through center of frozen frame, image splitting and rejoining, 1992 home video paused on unremarkable moment now made strange by the pause itself, domestic scene. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P05 — Variante — Rembobinage accidentel</p><p class="prompt-text blurred">Partial rewind, two scenes overlapping in fragmented horizontal bands, Christmas 1989 and unknown street scene 1991 in same frame, the tape's memory bleeding through the new recording. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P06 — Couleur — Blanc cassé</p><p class="prompt-text blurred">White balance catastrophically wrong, outdoor scene rendered entirely in deep blue-purple tones, figures as silhouettes against blown-out sky, the failure of the camera technology as aesthetic choice. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P07 — Texture — Grain en mouvement</p><p class="prompt-text blurred">Close-up of VHS grain itself — the texture moving and shifting as subject, no recognizable content, pure analog noise as landscape, different densities of interference creating topography. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P08 — Temps — L'horodatage</p><p class="prompt-text blurred">Extreme close-up on VHS timestamp in corner of frame, the date and time consuming half the composition, the moment behind it blurred and irrelevant, time as subject not context, 12:47:33 AM 03/14/1991. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P09 — Transition — Fondu cassette</p><p class="prompt-text blurred">Transition between two VHS recordings, previous recording not fully erased, ghost image at 20% visible beneath new content, the tape remembering what it was told to forget. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+<div class="prompt-item"><p class="prompt-num">Prompt P10 — Archive — Le catalogue</p><p class="prompt-text blurred">Shelf of VHS cassettes in rental store, handwritten labels, each spine a different color of tape label, 1993 lighting, warm and dusty, the archive of a culture that did not know it was being archived. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div>
+</div><div class="prompt-item"><p class="prompt-num">Prompt 02 — Aperçu gratuit</p><p class="prompt-text">Late night TV movie captured on VHS tape, broadcast grain, slight color ghosting on moving subjects, warm tube-television glow, letterbox bars with VHS noise, lo-fi 1993 home recording aesthetic, signal dropout in top quarter of frame. Analog imperfection is intentional.</p></div><div class="prompt-item"><p class="prompt-num">Prompt 03 — Premium</p><p class="prompt-text blurred">Rewound tape frame, static discharge pattern replacing image center, ghost double exposure of two separate recordings layered at 40% opacity, 1987 and 1994 recordings colliding in one frame. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div><div class="prompt-item"><p class="prompt-num">Prompt 04 — Premium</p><p class="prompt-text blurred">Security camera footage degraded to VHS quality, empty parking lot 3am, single figure crossing frame, chromatic aberration heavy, timestamp visible, surveillance aesthetic. Analog imperfection is intentional.</p><span class="prompt-lock">🔒 Premium</span></div></div>
+
+    <div class="section-label">Exemples visuels</div>
+    <div class="preview-grid">
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Exemple généré — prompt 01</span></div>
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Exemple généré — prompt 02</span></div>
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Exemple généré — prompt 03</span></div>
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Exemple généré — prompt 04</span></div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <p class="cta-vol">Vol. 03 — Analogique · Dégradé</p>
+          <h2 class="cta-title">VHS Aesthetic</h2>
+          <p class="cta-desc">PDF téléchargeable immédiatement. Prompts utilisables tels quels dans GPT Image 2. Standard : l'outil. Premium : l'outil + la réflexion éditoriale derrière.</p>
+          <div class="includes-list">
+            <span class="include-item">10 prompts complets utilisables directement</span>
+            <span class="include-item">Note de contexte cinématographique par prompt</span>
+            <span class="include-item">Paramètres du registre — lumière, grain, cadrage, palette</span>
+            <span class="include-item premium-only">20 prompts au lieu de 10 — 10 variantes avancées</span>
+            <span class="include-item premium-only">Combinaisons de styles entre volumes</span>
+            <span class="include-item premium-only">Notes de direction artistique longues par prompt</span>
+            <span class="include-item premium-only">Phrase de clôture variable selon registre et usage</span>
+          </div>
+        </div>
+        <div class="cta-right">
+          <div class="price-group">
+            <p class="price-std"><span class="cur">€</span>27</p>
+            <p class="price-prem">Premium <span>€34</span></p>
+          </div>
+          <div class="btn-group">
+            <a href="https://gumroad.com" class="btn-std">Acheter Standard →</a>
+            <a href="https://gumroad.com" class="btn-prem">★ &nbsp;Version Premium</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tape-divider"><div class="tape-line"></div><span class="tape-icon">— — —</span><div class="tape-line"></div></div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-align:center">
+      Besoin des 7 volumes ? &nbsp;→&nbsp; <a href="prompts.html#pack-complet" style="color:var(--accent);text-decoration:none">Collection intégrale — 149 €</a>
+    </p>
+  </div>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">SOMEDAY</a>
+      <a href="prompts.html">Prompt Packs</a>
+      <a href="boutique.html">Vidéo Club</a>
+    </nav>
+  </footer>
+</body>
+</html>
