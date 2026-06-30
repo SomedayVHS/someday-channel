@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMEDAY — Générateur de Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after{ box-sizing:border-box; margin:0; padding:0; }
+
+  :root{
+    --black: #080808;
+    --off-black: #0e0e0e;
+    --white: #e8e4dc;
+    --dim: #6b6660;
+    --accent: #c8392b;
+    --tape: #1a1815;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+  }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight:300;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* VHS grain overlay */
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity:0.035;
+    pointer-events:none;
+    z-index:1000;
+  }
+
+  /* Scanlines */
+  body::after{
+    content:'';
+    position:fixed; inset:0;
+    background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events:none;
+    z-index:999;
+  }
+
+  .tracking-bar{
+    position:fixed; left:0; right:0;
+    height:2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity:0.4;
+    z-index:998;
+    pointer-events:none;
+    animation: drift 9s linear infinite;
+  }
+  @keyframes drift{ from{ top:-2px; } to{ top:101%; } }
+
+  header{
+    border-bottom:1px solid rgba(255,255,255,0.07);
+    padding: 3.5rem 2rem 2.5rem;
+    position:relative;
+    max-width:960px;
+    margin:0 auto;
+  }
+
+  .rec{
+    display:flex; align-items:center; gap:0.5rem;
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color: var(--accent);
+    margin-bottom:1.5rem;
+    opacity:0.9;
+  }
+  .rec-dot{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--accent);
+    animation: blink 1.4s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0.15; } }
+
+  h1{
+    font-family: var(--display);
+    text-transform:uppercase;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing:0.02em;
+    line-height:0.92;
+    color: var(--white);
+  }
+
+  header p.lede{
+    font-size:0.95rem;
+    line-height:1.7;
+    color: rgba(232,228,220,0.6);
+    max-width:560px;
+    margin-top:1.2rem;
+    font-weight:300;
+  }
+
+  .timecode{
+    position:absolute; top:3.5rem; right:2rem;
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.15em;
+    color: var(--dim);
+  }
+  @media (max-width:640px){ .timecode{ position:static; margin-top:1rem; display:block; } }
+
+  main{
+    max-width:960px;
+    margin:0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .mode-switch{
+    display:flex;
+    border:1px solid rgba(255,255,255,0.1);
+    margin-bottom:3rem;
+  }
+  .mode-switch button{
+    flex:1;
+    background:transparent;
+    border:none;
+    color: var(--dim);
+    font-family:var(--mono);
+    font-size:0.65rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    padding:1.1rem 0.8rem;
+    cursor:pointer;
+    border-right:1px solid rgba(255,255,255,0.1);
+    transition: color 0.2s, background 0.2s;
+  }
+  .mode-switch button:last-child{ border-right:none; }
+  .mode-switch button.active{
+    color: var(--black);
+    background: var(--white);
+  }
+  .mode-switch button:focus-visible{ outline:2px solid var(--accent); outline-offset:-2px; }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; animation: fadein 0.3s ease; }
+  @keyframes fadein{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:translateY(0); } }
+
+  .section-label{
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color: var(--accent);
+    margin-bottom:0.6rem;
+  }
+  .panel-title{
+    font-family:var(--display);
+    text-transform:uppercase;
+    font-size:1.8rem;
+    letter-spacing:0.03em;
+    margin-bottom:2rem;
+    color: var(--white);
+  }
+
+  .field-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.4rem 1.6rem;
+    margin-bottom:2.2rem;
+  }
+  @media (max-width:560px){ .field-grid{ grid-template-columns:1fr; } }
+
+  .field label{
+    display:block;
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color: var(--dim);
+    margin-bottom:0.6rem;
+  }
+  .field select{
+    width:100%;
+    background: var(--tape);
+    border:1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    font-family:var(--mono);
+    font-size:0.85rem;
+    padding:0.8rem 0.9rem;
+    appearance:none;
+    cursor:pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%), linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+    background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat:no-repeat;
+  }
+  .field select:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  .btn{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    padding:0.9rem 1.8rem;
+    border:1px solid var(--accent);
+    background:transparent;
+    color: var(--accent);
+    cursor:pointer;
+    transition: background 0.18s, color 0.18s;
+  }
+  .btn:hover{ background:var(--accent); color: var(--black); }
+  .btn:focus-visible{ outline:2px solid var(--white); outline-offset:2px; }
+
+  .surprise-row{
+    display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap;
+    margin-bottom:2.2rem;
+  }
+  .surprise-row p{
+    font-size:0.85rem;
+    line-height:1.6;
+    color: rgba(232,228,220,0.55);
+    max-width:400px;
+    font-weight:300;
+  }
+
+  .output{
+    border:1px solid rgba(255,255,255,0.1);
+    background: var(--tape);
+    padding:1.6rem;
+    margin-top:0.5rem;
+  }
+  .output .row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:0.9rem; }
+  .output-text{
+    font-family:var(--mono);
+    font-size:0.9rem;
+    line-height:1.75;
+    color: var(--white);
+    white-space:pre-wrap;
+    min-height:60px;
+  }
+
+  .copy-btn{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.15);
+    color: var(--dim);
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding:0.45rem 0.9rem;
+    cursor:pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .copy-btn:hover{ border-color:var(--accent); color: var(--accent); }
+  .copy-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  footer{
+    padding:3rem 2rem;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.05);
+  }
+  .footer-logo{
+    font-family:var(--display);
+    font-size:1.1rem;
+    letter-spacing:0.3em;
+    color: var(--dim);
+    margin-bottom:0.75rem;
+  }
+  .footer-sub{
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.25em;
+    color: rgba(107,102,96,0.5);
+    text-transform:uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .tracking-bar{ animation:none; display:none; }
+    .rec-dot{ animation:none; }
+    .panel.active{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tracking-bar"></div>
+
+<header>
+  <div class="rec"><span class="rec-dot"></span> REC · SOMEDAY ARCHIVE</div>
+  <h1>Générateur de Prompts</h1>
+  <p class="lede">Reconstitue l'esthétique du cinéma américain oublié, 1982–2005. Choisis tes paramètres ou laisse la cassette tirer pour toi.</p>
+  <div class="timecode" id="clock">00:00:00:00</div>
+</header>
+
+<main>
+
+  <div class="mode-switch" role="tablist">
+    <button class="active" id="tab-builder" role="tab" aria-selected="true">Mode Builder</button>
+    <button id="tab-surprise" role="tab" aria-selected="false">Mode Surprise</button>
+  </div>
+
+  <!-- BUILDER -->
+  <section class="panel active" id="panel-builder">
+    <div class="section-label">Paramètres</div>
+    <h2 class="panel-title">Compose ta scène</h2>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="sel-acteur">Visage / silhouette</label>
+        <select id="sel-acteur"></select>
+      </div>
+      <div class="field">
+        <label for="sel-decennie">Décennie</label>
+        <select id="sel-decennie"></select>
+      </div>
+      <div class="field">
+        <label for="sel-lieu">Lieu</label>
+        <select id="sel-lieu"></select>
+      </div>
+      <div class="field">
+        <label for="sel-ambiance">Ambiance</label>
+        <select id="sel-ambiance"></select>
+      </div>
+    </div>
+
+    <button class="btn" id="btn-build">Générer le prompt</button>
+
+    <div class="output" id="output-builder-wrap" style="display:none;">
+      <div class="row">
+        <span class="section-label" style="margin:0;">Prompt</span>
+        <button class="copy-btn" data-target="output-builder">Copier</button>
+      </div>
+      <div class="output-text" id="output-builder"></div>
+    </div>
+  </section>
+
+  <!-- SURPRISE -->
+  <section class="panel" id="panel-surprise">
+    <div class="section-label">Tirage</div>
+    <h2 class="panel-title">Laisse la cassette choisir</h2>
+
+    <div class="surprise-row">
+      <p>Tirage aléatoire parmi les 7 volumes de la collection : Contemplative Auteur, Neo-Noir, VHS Aesthetic, Major Directors 80s–90s, Vehicles, Femme Fatale, The Hero.</p>
+      <button class="btn" id="btn-surprise">Éjecter une cassette</button>
+    </div>
+
+    <div class="output" id="output-surprise-wrap" style="display:none;">
+      <div class="row">
+        <span class="section-label" id="surprise-vol-label" style="margin:0;">Prompt</span>
+        <button class="copy-btn" data-target="output-surprise">Copier</button>
+      </div>
+      <div class="output-text" id="output-surprise"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="footer-logo">STAMPEDE PRODUCTION</p>
+  <p class="footer-sub">SOMEDAY · ANALOG IMPERFECTION IS INTENTIONAL</p>
+</footer>
+
+<script>
+  // --- clock ---
+  function tick(){
+    const d = new Date();
+    const f = n => String(n).padStart(2,'0');
+    document.getElementById('clock').textContent =
+      `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}:${f(Math.floor(d.getMilliseconds()/10))}`;
+  }
+  setInterval(tick, 40); tick();
+
+  // --- tabs ---
+  const tabBuilder = document.getElementById('tab-builder');
+  const tabSurprise = document.getElementById('tab-surprise');
+  const panelBuilder = document.getElementById('panel-builder');
+  const panelSurprise = document.getElementById('panel-surprise');
+
+  function showTab(which){
+    const isBuilder = which === 'builder';
+    tabBuilder.classList.toggle('active', isBuilder);
+    tabSurprise.classList.toggle('active', !isBuilder);
+    tabBuilder.setAttribute('aria-selected', isBuilder);
+    tabSurprise.setAttribute('aria-selected', !isBuilder);
+    panelBuilder.classList.toggle('active', isBuilder);
+    panelSurprise.classList.toggle('active', !isBuilder);
+  }
+  tabBuilder.addEventListener('click', () => showTab('builder'));
+  tabSurprise.addEventListener('click', () => showTab('surprise'));
+
+  // --- data ---
+  const ACTEURS = [
+    {label:"Anti-héros blasé, blouson de cuir", desc:"a weathered anti-hero in his late thirties, leather jacket, three-day stubble, eyes that have seen too much"},
+    {label:"Silhouette féline, robe fendue", desc:"a sharp-featured woman with a controlled, predatory grace, slit dress catching the light, unreadable expression"},
+    {label:"Flic désabusé, cravate desserrée", desc:"a disillusioned detective, loosened tie, sleeves rolled, the kind of tired that comes from caring too long"},
+    {label:"Mercenaire taciturne, treillis usé", desc:"a quiet mercenary with a worn-out military jacket, scarred hands, the stillness of someone used to waiting"},
+    {label:"Star déchue, lunettes fumées", desc:"a fallen celebrity hiding behind tinted glasses, faded glamour, a cigarette burning slower than the conversation"},
+    {label:"Adolescent rebelle, walkman au cou", desc:"a restless teenager with a walkman around his neck, oversized jacket, the energy of someone about to do something stupid"}
+  ];
+
+  const DECENNIES = [
+    {label:"1982 — VHS premier âge", desc:"shot in 1982, early VHS color science, soft chroma bleed, warm halation around light sources"},
+    {label:"1988 — âge d'or de l'action", desc:"shot in 1988, peak action-cinema look, saturated primaries, hard rim lighting"},
+    {label:"1993 — thriller crépusculaire", desc:"shot in 1993, desaturated thriller palette, fluorescent greens and institutional blues"},
+    {label:"1999 — néo-noir tardif", desc:"shot in 1999, late neo-noir grading, deep shadows, rain-slicked reflections"},
+    {label:"2005 — fin de pellicule", desc:"shot in 2005, the last gasp of film stock before digital, visible grain, slightly faded highlights"}
+  ];
+
+  const LIEUX = [
+    {label:"Autoroute désertique, nuit", desc:"an empty desert highway at night, headlights cutting through dust, motel sign flickering in the distance"},
+    {label:"Entrepôt portuaire", desc:"a derelict harbor warehouse, shafts of light through broken skylights, the smell of rust implied by the texture"},
+    {label:"Boîte de nuit néon", desc:"a smoke-filled nightclub lit by neon signage, magenta and cyan washing over every surface"},
+    {label:"Banlieue pavillonnaire, crépuscule", desc:"a suburban cul-de-sac at dusk, sprinklers running, the unsettling calm before something happens"},
+    {label:"Parking souterrain", desc:"a concrete underground parking garage, sodium-vapor lighting, long shadows between the pillars"},
+    {label:"Chambre de motel", desc:"a cheap motel room, venetian blinds slicing the light, a television humming static in the corner"}
+  ];
+
+  const AMBIANCES = [
+    {label:"Neo-noir tendu", desc:"tense neo-noir atmosphere, high contrast, every frame loaded with unspoken threat"},
+    {label:"Mélancolie contemplative", desc:"contemplative, melancholic mood, slow-burn stillness, the calm of someone remembering something they lost"},
+    {label:"Action explosive", desc:"explosive action energy, motion blur, sweat and adrenaline, frame composed mid-chaos"},
+    {label:"Romance fatale", desc:"a doomed romantic tension, femme fatale undertone, charged silences"},
+    {label:"Thriller paranoïaque", desc:"paranoid thriller atmosphere, off-kilter framing, the sense of being watched"}
+  ];
+
+  function fillSelect(id, items){
+    const el = document.getElementById(id);
+    items.forEach((it, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = it.label;
+      el.appendChild(opt);
+    });
+  }
+  fillSelect('sel-acteur', ACTEURS);
+  fillSelect('sel-decennie', DECENNIES);
+  fillSelect('sel-lieu', LIEUX);
+  fillSelect('sel-ambiance', AMBIANCES);
+
+  document.getElementById('btn-build').addEventListener('click', () => {
+    const a = ACTEURS[document.getElementById('sel-acteur').value];
+    const d = DECENNIES[document.getElementById('sel-decennie').value];
+    const l = LIEUX[document.getElementById('sel-lieu').value];
+    const am = AMBIANCES[document.getElementById('sel-ambiance').value];
+
+    const prompt = `Cinematic still featuring ${a.desc}, positioned in ${l.desc}. ${am.desc}. ${d.desc}. Composition follows classic 35mm anamorphic framing, naturalistic lighting motivated by visible sources, true film grain, no digital smoothing. Analog imperfection is intentional.`;
+
+    const wrap = document.getElementById('output-builder-wrap');
+    const out = document.getElementById('output-builder');
+    out.textContent = prompt;
+    wrap.style.display = 'block';
+  });
+
+  // --- surprise mode ---
+  const VOLUMES = [
+    { name: "Vol.01 — Contemplative Auteur",
+      build: () => `A quiet, observational frame: ${pick(ACTEURS).desc}, caught in a moment of stillness inside ${pick(LIEUX).desc}. ${pick(["Long static take, minimal camera movement.","Negative space dominates the frame, the subject small within it.","A single source of light defines the entire mood."])} ${pick(DECENNIES).desc}. Analog imperfection is intentional.` },
+    { name: "Vol.02 — Neo-Noir",
+      build: () => `${pick(ACTEURS).desc}, lit in hard chiaroscuro inside ${pick(LIEUX).desc}. Venetian-blind shadows, cigarette smoke curling through a single shaft of light. ${pick(DECENNIES).desc}. Analog imperfection is intentional.` },
+    { name: "Vol.03 — VHS Aesthetic",
+      build: () => `Found-footage feel: ${pick(ACTEURS).desc} framed off-center inside ${pick(LIEUX).desc}, visible tape tracking lines at the edge of frame, slight chromatic bleed, timestamp ghosting in the corner. ${pick(DECENNIES).desc}. Analog imperfection is intentional.` },
+    { name: "Vol.04 — Major Directors 80s–90s",
+      build: () => `${pick(ACTEURS).desc} shot with bold, graphic studio-era composition inside ${pick(LIEUX).desc}, confident blocking, saturated production design. ${pick(DECENNIES).desc}. Analog imperfection is intentional.` },
+    { name: "Vol.05 — Vehicles",
+      build: () => `A muscle car idling at the edge of ${pick(LIEUX).desc}, chrome catching the last light, ${pick(ACTEURS).desc} leaning against the door. ${pick(DECENNIES).desc}. Analog imperfection is intentional.` },
+    { name: "Vol.06 — Femme Fatale",
+      build: () => `${pick(ACTEURS).desc}, composed and dangerous, framed in a doorway of ${pick(LIEUX).desc}, smoke or rain softening the edges of the shot. ${pick(DECENNIES).desc}. Analog imperfection is intentional.` },
+    { name: "Vol.07 — The Hero",
+      build: () => `A low-angle hero shot: ${pick(ACTEURS).desc}, framed against ${pick(LIEUX).desc}, backlit, the silhouette doing most of the storytelling. ${pick(DECENNIES).desc}. Analog imperfection is intentional.` }
+  ];
+
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  document.getElementById('btn-surprise').addEventListener('click', () => {
+    const vol = VOLUMES[Math.floor(Math.random()*VOLUMES.length)];
+    const wrap = document.getElementById('output-surprise-wrap');
+    const out = document.getElementById('output-surprise');
+    const label = document.getElementById('surprise-vol-label');
+    label.textContent = vol.name;
+    out.textContent = vol.build();
+    wrap.style.display = 'block';
+  });
+
+  // --- copy ---
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const text = document.getElementById(targetId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copié';
+        setTimeout(() => { btn.textContent = original; }, 1400);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
