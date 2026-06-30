@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vol. Bonus — Miami Vice Visual Grammar · Stampede Production</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--white:#e8e4dc;--dim:#6b6660;--accent:#1a7a8a;--accent2:#c8396a;--gold:#b8972a}
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:1000}
+    body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:999}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;background:linear-gradient(to bottom,rgba(8,8,8,.97),transparent)}
+    .nav-back{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .nav-back:hover{color:var(--white)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.3em;color:var(--white);text-decoration:none;opacity:.5}
+
+    /* HERO with Miami gradient */
+    .hero{min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 2rem 4rem;border-bottom:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,#08202a 0%,#0a1520 40%,#080808 70%);z-index:0}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(200,57,106,.06),transparent);z-index:0}
+    /* Miami sunset strip */
+    .hero-sunset{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--accent2),var(--accent),var(--accent2));opacity:.5;z-index:1}
+
+    .hero-inner{max-width:900px;margin:0 auto;width:100%;position:relative;z-index:2}
+    .vol-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.45em;color:var(--accent);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem}
+    .vol-eyebrow::after{content:'';height:1px;width:50px;background:var(--accent);opacity:.4}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,12vw,9rem);line-height:.85;letter-spacing:.03em;color:var(--white);margin-bottom:.5rem}
+    .hero-title .sub{display:block;font-size:clamp(1.5rem,4vw,3rem);color:var(--accent);letter-spacing:.08em}
+    .hero-tagline{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.12em;color:var(--dim);font-style:italic;margin-bottom:2.5rem}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:2rem}
+    .meta-item{display:flex;flex-direction:column;gap:.3rem}
+    .meta-key{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.35em;color:var(--dim);text-transform:uppercase}
+    .meta-val{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--white)}
+
+    .content{max-width:760px;margin:0 auto;padding:6rem 2rem 8rem}
+
+    .vol-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:5rem;padding:1.25rem 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+    .vol-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .vol-nav a:hover{color:var(--white)}
+
+    .section-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.4em;color:var(--accent);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+    .section-label::after{content:'';height:1px;flex:1;background:rgba(26,122,138,.25)}
+
+    .body-text{font-size:clamp(.95rem,2vw,1.1rem);line-height:1.95;color:rgba(232,228,220,.7);margin-bottom:4rem}
+    .body-text strong{color:var(--white);font-weight:400}
+
+    /* Color swatches */
+    .palette-strip{display:flex;gap:3px;margin-bottom:4rem}
+    .swatch{flex:1;height:32px;display:flex;align-items:center;justify-content:center}
+    .swatch span{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;color:rgba(0,0,0,.6);text-transform:uppercase}
+
+    /* Categories */
+    .cat-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--accent2);text-transform:uppercase;margin-bottom:.75rem;margin-top:1rem}
+
+    .prompts-block{margin-bottom:5rem}
+    .prompt-item{padding:1.5rem;border:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.015);margin-bottom:2px;position:relative;transition:border-color .2s}
+    .prompt-item:hover{border-color:rgba(26,122,138,.4)}
+    .prompt-num{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+    .prompt-text{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(232,228,220,.6);line-height:1.7;letter-spacing:.02em}
+    .prompt-text.blurred{filter:blur(4px);user-select:none;pointer-events:none}
+    .prompt-lock{position:absolute;top:50%;right:1.5rem;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+
+    .preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:5rem}
+    .preview-img{aspect-ratio:1/1;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem}
+    .preview-img-icon{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;color:rgba(255,255,255,.07)}
+    .preview-img-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.25em;color:rgba(107,102,96,.4);text-transform:uppercase;text-align:center;padding:0 1rem}
+
+    .tape-divider{display:flex;align-items:center;gap:1rem;margin:3rem 0}
+    .tape-line{height:1px;flex:1;background:rgba(255,255,255,.05)}
+    .tape-icon{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.2em}
+
+    .cta-block{border:1px solid rgba(26,122,138,.35);background:rgba(26,122,138,.06);padding:3rem;margin-bottom:2rem}
+    .cta-inner{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+    .cta-vol{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:.5rem}
+    .cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.03em;color:var(--white);line-height:1;margin-bottom:1rem}
+    .cta-desc{font-size:.82rem;color:rgba(232,228,220,.45);line-height:1.7;max-width:380px}
+    .cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+    .price-std{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.03em;color:var(--white);line-height:1}
+    .price-std .cur{font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:var(--dim);vertical-align:middle}
+    .price-note{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:var(--dim);margin-top:.3rem}
+    .btn-prem{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:.85rem 1.75rem;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-block}
+    .btn-prem:hover{opacity:.85}
+    .includes-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+    .include-item{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--dim);display:flex;align-items:center;gap:.75rem}
+    .include-item::before{content:'*';color:var(--accent);font-size:.7rem}
+
+    footer{padding:3rem 2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:var(--dim);margin-bottom:.75rem}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;margin-top:1rem;flex-wrap:wrap}
+    .footer-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .footer-nav a:hover{color:var(--white)}
+
+    @media(max-width:600px){.preview-grid{grid-template-columns:1fr}.cta-inner{flex-direction:column}.cta-right{align-items:flex-start}.vol-nav{flex-direction:column;gap:.75rem}.palette-strip{gap:1px}}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="prompts.html" class="nav-back">← Tous les volumes</a>
+    <a href="prompts.html" class="nav-logo">STAMPEDE</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-sunset"></div>
+    <div class="hero-inner">
+      <div class="vol-eyebrow">Vol. Bonus &nbsp;·&nbsp; Premium uniquement &nbsp;·&nbsp; Série TV 1984–1989</div>
+      <h1 class="hero-title">MIAMI<br/><span class="sub">VICE</span></h1>
+      <p class="hero-tagline">Visual Grammar — Pastel sur noir.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-key">Référence</span><span class="meta-val">Série TV — Michael Mann</span></div>
+        <div class="meta-item"><span class="meta-key">Époque</span><span class="meta-val">1984–1989</span></div>
+        <div class="meta-item"><span class="meta-key">Format</span><span class="meta-val">PDF téléchargeable</span></div>
+        <div class="meta-item"><span class="meta-key">Premium</span><span class="meta-val">34 €</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="vol-nav">
+      <a href="prompt-vol-special.html">← Vol. Spécial — Action 80s/90s</a>
+      <a href="prompts.html">Tous les volumes</a>
+      <a href="prompt-vol-01.html">Vol. 01 — Contemplative →</a>
+    </div>
+
+    <div class="section-label">La palette</div>
+
+    <div class="palette-strip">
+      <div class="swatch" style="background:#f5f0e8"><span>Crème</span></div>
+      <div class="swatch" style="background:#1a7a8a"><span>Sarcelle</span></div>
+      <div class="swatch" style="background:#c8a0b4"><span>Rose poudré</span></div>
+      <div class="swatch" style="background:#e8c060"><span>Or chaud</span></div>
+      <div class="swatch" style="background:#080808;border:1px solid rgba(255,255,255,.1)"><span style="color:rgba(255,255,255,.3)">Noir</span></div>
+    </div>
+
+    <div class="section-label">Le registre</div>
+    <p class="body-text">
+      En 1984, Michael Mann change les règles de la télévision américaine. Il interdit au département costumes le rouge, le marron, les tons terreux. Il impose des chemises sans cravate, des costumes en lin, des chaussures sans chaussettes. Il filme Miami comme un rêve qui a trop chaud.<br /><br />
+      <strong>Miami Vice</strong> n'est pas une série policière avec une belle esthétique. C'est une esthétique qui a besoin d'une série policière comme prétexte.<br /><br />
+      Ce volume decode cette grammaire visuelle prompt par prompt — les portraits de Crockett et Tubbs, la ville art déco, la Ferrari Testarossa, la baie au coucher du soleil, la pluie tropicale. <strong>4 catégories, 10 prompts Standard, 10 prompts Premium</strong> avec notes de construction détaillées.
+    </p>
+
+    <div class="section-label">Aperçu des prompts</div>
+
+    <div class="prompts-block">
+      <p class="cat-label">Portraits et personnages</p>
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt 01 — Crockett — le détective pastel</p>
+        <p class="prompt-text">Male figure in white linen suit, no tie, no socks, stubble, standing on dock at dusk, Miami Biscayne Bay behind, warm orange-pink sky reflected in water, the suit slightly too perfect for the setting, 1985 Miami Vice visual grammar, pastel meeting danger. Analog imperfection is intentional.</p>
+      </div>
+
+      <p class="cat-label">Miami — la ville</p>
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt 04 — Art déco à l'aube</p>
+        <p class="prompt-text">South Beach art deco hotel facade at dawn, cream and turquoise paint, long shadows from low sun, empty sidewalk, 1985 Miami color palette, the architecture as period costume, before the tourists arrive, 16mm film look pushed one stop. Analog imperfection is intentional.</p>
+      </div>
+
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt P01 — La palette Miami Vice — Accès Premium</p>
+        <p class="prompt-text blurred">Composition built entirely around the Miami Vice color grammar — cream, turquoise, pink, black — no other colors present, the palette itself as subject, architecture or fabric or water, the decade encoded in hue alone, 1984-1989. Analog imperfection is intentional.</p>
+        <span class="prompt-lock">🔒 Premium</span>
+      </div>
+    </div>
+
+    <div class="section-label">Exemples visuels</div>
+    <div class="preview-grid">
+      <div class="preview-img"><img src="miami-vice-exemple-02.png" alt="Crockett — le détective pastel, quai au coucher du soleil" style="width:100%;height:100%;object-fit:cover;" /></div>
+      <div class="preview-img"><img src="miami-vice-exemple-01.png" alt="Art déco à l'aube — Ocean Drive" style="width:100%;height:100%;object-fit:cover;" /></div>
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Ferrari Testarossa — marina</span></div>
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Coucher de soleil — image signature</span></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <p class="cta-vol">Vol. Bonus — Premium uniquement</p>
+          <h2 class="cta-title">Miami Vice<br/>Visual Grammar</h2>
+          <p class="cta-desc">PDF téléchargeable immédiatement. 20 prompts complets + notes de construction + guide de direction artistique GPT Image 2.</p>
+          <div class="includes-list">
+            <span class="include-item">10 prompts Standard — 4 catégories</span>
+            <span class="include-item">10 prompts Premium avec notes de construction</span>
+            <span class="include-item">Combinaisons Neo-Noir, The Hero, VHS Aesthetic</span>
+            <span class="include-item">Guide de direction artistique GPT Image 2</span>
+            <span class="include-item">Check-list avant génération</span>
+          </div>
+        </div>
+        <div class="cta-right">
+          <div>
+            <p class="price-std"><span class="cur">€</span>34</p>
+            <p class="price-note">Premium uniquement — pas de version Standard</p>
+          </div>
+          <a href="https://gumroad.com" class="btn-prem">★ &nbsp;Télécharger →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tape-divider"><div class="tape-line"></div><span class="tape-icon">— — —</span><div class="tape-line"></div></div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-align:center">
+      Collection complète &nbsp;→&nbsp; <a href="prompts.html#pack-complet" style="color:var(--accent);text-decoration:none">8 volumes + bonus — 169 €</a>
+    </p>
+
+  </div>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">SOMEDAY</a>
+      <a href="prompts.html">Prompt Packs</a>
+      <a href="boutique.html">Vidéo Club</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
