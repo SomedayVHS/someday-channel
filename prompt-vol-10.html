@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vol. 10 — La Bimbo · Iconographie Cinématographique · Stampede Production</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--white:#e8e4dc;--dim:#6b6660;--accent:#c83a6a;--blond:#c8b050;--gold:#b8972a}
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:1000}
+    body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:999}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;background:linear-gradient(to bottom,rgba(8,8,8,.97),transparent)}
+    .nav-back{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .nav-back:hover{color:var(--white)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.3em;color:var(--white);text-decoration:none;opacity:.5}
+
+    .hero{min-height:75vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 2rem 4rem;border-bottom:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 75%,rgba(200,58,106,.12) 0%,var(--black) 60%);z-index:0}
+    .hero::after{content:'';position:absolute;top:0;right:0;width:40%;height:100%;background:radial-gradient(ellipse at 80% 40%,rgba(200,176,80,.06) 0%,transparent 60%);z-index:0}
+    .hero-inner{max-width:900px;margin:0 auto;width:100%;position:relative;z-index:2}
+    .vol-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.45em;color:var(--accent);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem}
+    .vol-eyebrow::after{content:'';height:1px;width:50px;background:var(--accent);opacity:.4}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,13vw,10rem);line-height:.85;letter-spacing:.04em;color:var(--white);margin-bottom:.25rem}
+    .hero-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--blond);text-transform:uppercase;margin-bottom:.75rem}
+    .hero-tagline{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.12em;color:var(--dim);font-style:italic;margin-bottom:2.5rem}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:2rem}
+    .meta-item{display:flex;flex-direction:column;gap:.3rem}
+    .meta-key{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.35em;color:var(--dim);text-transform:uppercase}
+    .meta-val{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--white)}
+
+    .content{max-width:760px;margin:0 auto;padding:6rem 2rem 8rem}
+    .vol-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:5rem;padding:1.25rem 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+    .vol-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .vol-nav a:hover{color:var(--white)}
+
+    .section-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.4em;color:var(--accent);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+    .section-label::after{content:'';height:1px;flex:1;background:rgba(200,58,106,.2)}
+    .body-text{font-size:clamp(.95rem,2vw,1.1rem);line-height:1.95;color:rgba(232,228,220,.7);margin-bottom:4rem}
+    .body-text strong{color:var(--white);font-weight:400}
+
+    /* Refs row */
+    .refs-row{display:flex;gap:2px;margin-bottom:4rem}
+    .ref-item{flex:1;padding:.9rem 1rem;background:rgba(255,255,255,.02);border-top:2px solid rgba(200,58,106,.3);text-align:center}
+    .ref-title{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.05em;color:var(--blond);margin-bottom:.2rem}
+    .ref-year{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--dim);letter-spacing:.05em}
+
+    .cat-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--blond);text-transform:uppercase;margin-bottom:.75rem;margin-top:1.5rem}
+    .prompts-block{margin-bottom:5rem}
+    .prompt-item{padding:1.5rem;border:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.015);margin-bottom:2px;position:relative;transition:border-color .2s}
+    .prompt-item:hover{border-color:rgba(200,58,106,.4)}
+    .prompt-num{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+    .prompt-text{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(232,228,220,.6);line-height:1.7;letter-spacing:.02em}
+    .prompt-text.blurred{filter:blur(4px);user-select:none;pointer-events:none}
+    .prompt-lock{position:absolute;top:50%;right:1.5rem;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+
+    .preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:5rem}
+    .preview-img{aspect-ratio:1/1;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;overflow:hidden}
+    .preview-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .preview-img-icon{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;color:rgba(255,255,255,.07)}
+    .preview-img-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.25em;color:rgba(107,102,96,.4);text-transform:uppercase;text-align:center;padding:0 1rem}
+
+    .tape-divider{display:flex;align-items:center;gap:1rem;margin:3rem 0}
+    .tape-line{height:1px;flex:1;background:rgba(255,255,255,.05)}
+    .tape-icon{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.2em}
+
+    .cta-block{border:1px solid rgba(200,58,106,.3);background:rgba(200,58,106,.05);padding:3rem;margin-bottom:2rem}
+    .cta-inner{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+    .cta-vol{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:.5rem}
+    .cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:.03em;color:var(--white);line-height:1;margin-bottom:1rem}
+    .cta-desc{font-size:.82rem;color:rgba(232,228,220,.45);line-height:1.7;max-width:380px}
+    .cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+    .price-only{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--white);line-height:1}
+    .price-only .cur{font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:var(--dim);vertical-align:middle}
+    .price-note{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:var(--dim);margin-top:.3rem}
+    .btn-prem{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:.85rem 1.75rem;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-block}
+    .btn-prem:hover{opacity:.85}
+    .includes-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+    .include-item{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--dim);display:flex;align-items:center;gap:.75rem}
+    .include-item::before{content:'★';color:var(--accent)}
+
+    footer{padding:3rem 2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:var(--dim);margin-bottom:.75rem}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;margin-top:1rem;flex-wrap:wrap}
+    .footer-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .footer-nav a:hover{color:var(--white)}
+    @media(max-width:600px){.preview-grid{grid-template-columns:1fr}.refs-row{flex-direction:column}.cta-inner{flex-direction:column}.cta-right{align-items:flex-start}.vol-nav{flex-direction:column;gap:.75rem}}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="prompts.html" class="nav-back">← Tous les volumes</a>
+    <a href="prompts.html" class="nav-logo">STAMPEDE</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="vol-eyebrow">Vol. 10 &nbsp;·&nbsp; Premium Exclusif &nbsp;·&nbsp; Iconographie Cinématographique</div>
+      <h1 class="hero-title">LA<br/>BIMBO</h1>
+      <p class="hero-sub">De Marilyn à Legally Blonde — le stéréotype comme puissance</p>
+      <p class="hero-tagline">L'ironie est intentionnelle. Le rose est une déclaration.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-key">Époque</span><span class="meta-val">1950s–2000s</span></div>
+        <div class="meta-item"><span class="meta-key">Format</span><span class="meta-val">Premium uniquement</span></div>
+        <div class="meta-item"><span class="meta-key">Prix</span><span class="meta-val">34 €</span></div>
+        <div class="meta-item"><span class="meta-key">Prompts</span><span class="meta-val">20 complets + guide</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="vol-nav">
+      <a href="prompt-vol-09.html">← Vol. 09 — Summer Edition</a>
+      <a href="prompts.html">Tous les volumes</a>
+      <a href="prompt-vol-miami-vice.html">Vol. Bonus — Miami Vice →</a>
+    </div>
+
+    <div class="section-label">Les références</div>
+
+    <div class="refs-row">
+      <div class="ref-item"><p class="ref-title">Marilyn Monroe</p><p class="ref-year">1950s · Le modèle fondateur</p></div>
+      <div class="ref-item"><p class="ref-title">Clueless</p><p class="ref-year">1995 · Amy Heckerling</p></div>
+      <div class="ref-item"><p class="ref-title">Legally Blonde</p><p class="ref-year">2001 · Robert Luketic</p></div>
+      <div class="ref-item"><p class="ref-title">Barbie</p><p class="ref-year">2023 · Greta Gerwig</p></div>
+    </div>
+
+    <div class="section-label">Le registre</div>
+    <p class="body-text">
+      Ce volume encode la bimbo cinématographique non pas comme cliché mais comme <strong>registre visuel à part entière.</strong><br /><br />
+      De Marilyn Monroe aux années 2000 — en passant par Cher Horowitz et Elle Woods — le rose comme déclaration, l'excès comme outil, <strong>l'intelligence cachée derrière la surface parfaite.</strong><br /><br />
+      Le sujet contrôle toujours le cadre. L'ironie est intentionnelle. La puissance vient de l'excès, pas malgré lui. Ce volume est aussi une étude de genre : la bimbo comme figure de subversion autant que de spectacle.
+    </p>
+
+    <div class="section-label">Aperçu des prompts</div>
+
+    <div class="prompts-block">
+      <p class="cat-label">Portraits — La présence</p>
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt 01 — Le regard par-dessus les lunettes</p>
+        <p class="prompt-text">Female figure with oversized sunglasses pushed down nose, direct eye contact over the frames, the look that evaluates without being evaluated, pink or white outfit, 1990s-2000s comedy grammar, Legally Blonde visual language, the intelligence disguised as superficiality. Analog imperfection is intentional.</p>
+      </div>
+
+      <p class="cat-label">Espaces et mise en scène</p>
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt 07 — Le campus — décalage triomphant</p>
+        <p class="prompt-text">Figure in pink outfit on college campus, books or laptop, other students in neutral tones making her pop visually, Legally Blonde grammar, the color as declaration of intent, she is not incongruous — the campus is. Analog imperfection is intentional.</p>
+      </div>
+
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt P04 — La Barbie — le référentiel plastique — Accès Premium</p>
+        <p class="prompt-text blurred">Barbie grammar — figure in extremely coordinated pink environment, the doll aesthetic applied to human scale, the uncanny perfection of a world where everything matches, 2023 Barbie film visual language, saturated pink as dominant color, the artifice acknowledged as political choice. Analog imperfection is intentional.</p>
+        <span class="prompt-lock">🔒 Premium</span>
+      </div>
+    </div>
+
+    <div class="section-label">Exemples visuels</div>
+    <div class="preview-grid">
+      <div class="preview-img">
+        <span class="preview-img-icon">⬚</span>
+        <span class="preview-img-label">Portrait — regard par-dessus les lunettes</span>
+      </div>
+      <div class="preview-img">
+        <span class="preview-img-icon">⬚</span>
+        <span class="preview-img-label">Le campus — rose sur fond neutre</span>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <p class="cta-vol">Vol. 10 — Premium exclusif</p>
+          <h2 class="cta-title">La Bimbo</h2>
+          <p class="cta-desc">PDF téléchargeable immédiatement. 20 prompts complets + notes de construction + guide de direction artistique GPT Image 2.</p>
+          <div class="includes-list">
+            <span class="include-item">10 prompts Standard — portraits, espaces, accessoires</span>
+            <span class="include-item">10 prompts Premium — Marilyn, Clueless, Legally Blonde, Barbie</span>
+            <span class="include-item">Combinaisons Femme Fatale et Neo-Noir</span>
+            <span class="include-item">La subversion comme sujet — notes de construction détaillées</span>
+            <span class="include-item">Guide de direction artistique GPT Image 2</span>
+          </div>
+        </div>
+        <div class="cta-right">
+          <div>
+            <p class="price-only"><span class="cur">€</span>34</p>
+            <p class="price-note">Premium uniquement — pas de version Standard</p>
+          </div>
+          <a href="https://gumroad.com" class="btn-prem">★ &nbsp;Télécharger →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tape-divider"><div class="tape-line"></div><span class="tape-icon">— — —</span><div class="tape-line"></div></div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-align:center">
+      Collection complète &nbsp;→&nbsp; <a href="prompts.html#pack-complet" style="color:var(--accent);text-decoration:none">Tous les volumes — 169 €</a>
+    </p>
+  </div>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">SOMEDAY</a>
+      <a href="prompts.html">Prompt Packs</a>
+      <a href="boutique.html">Vidéo Club</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
