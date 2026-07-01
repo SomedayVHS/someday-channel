@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Packs Cinématographiques — Stampede Production</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --off-black: #0e0e0e;
+      --white: #e8e4dc;
+      --dim: #6b6660;
+      --accent: #c8392b;
+      --gold: #b8972a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.97), transparent);
+    }
+
+    .nav-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--white); }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.3em;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.5;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      position: relative;
+      background: radial-gradient(ellipse at center, #18080a 0%, var(--black) 70%);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 0.88;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      max-width: 520px;
+      line-height: 1.9;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--accent);
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      text-transform: uppercase;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    /* CONCEPT */
+    .concept {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .section-label::before, .section-label::after {
+      content: '';
+      height: 1px;
+      width: 40px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    .concept-text {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 1.9;
+      color: rgba(232,228,220,0.7);
+    }
+    .concept-text strong { color: var(--white); font-weight: 400; }
+
+    /* VOLUMES GRID */
+    .volumes-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 8rem;
+    }
+
+    .volumes-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .volumes-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
+    }
+
+    .volumes-count {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    .volumes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+    }
+
+    /* VOLUME CARD */
+    .vol-card {
+      background: var(--off-black);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      transition: background 0.2s;
+      border-left: 2px solid transparent;
+    }
+    .vol-card:hover {
+      background: #121010;
+      border-left-color: var(--accent);
+    }
+
+    .vol-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    .vol-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .vol-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .vol-desc {
+      font-size: 0.82rem;
+      color: rgba(232,228,220,0.5);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .vol-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    .vol-keyword {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 0.2rem 0.5rem;
+    }
+
+    .vol-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: auto;
+    }
+
+    .vol-price {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .vol-price-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .vol-price-main .currency {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--dim);
+      vertical-align: middle;
+      margin-right: 0.15rem;
+    }
+
+    .vol-price-premium {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+    }
+
+    .vol-price-premium span {
+      color: var(--gold);
+    }
+
+    .vol-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--accent);
+      padding: 0.55rem 1.1rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .vol-btn:hover { opacity: 0.85; }
+
+    /* PACK COMPLET */
+    .pack-complet {
+      max-width: 1100px;
+      margin: 0 auto 8rem;
+      padding: 0 2rem;
+    }
+
+    .pack-banner {
+      background: rgba(200,57,43,0.05);
+      border: 1px solid rgba(200,57,43,0.2);
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .pack-left {}
+
+    .pack-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .pack-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .pack-desc {
+      font-size: 0.85rem;
+      color: rgba(232,228,220,0.5);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .pack-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+
+    .pack-price {
+      text-align: right;
+    }
+
+    .pack-price-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .pack-price-main .currency {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      color: var(--dim);
+      vertical-align: middle;
+    }
+
+    .pack-price-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+    }
+
+    .pack-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--accent);
+      padding: 1rem 2rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .pack-btn:hover { opacity: 0.85; }
+
+    /* DIVIDER */
+    .tape-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0 2rem 4rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    /* FAQ */
+    .faq {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem 8rem;
+    }
+
+    .faq-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .faq-q {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-a {
+      font-size: 0.85rem;
+      color: rgba(232,228,220,0.55);
+      line-height: 1.75;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .volumes-grid { grid-template-columns: 1fr; }
+      .pack-banner { flex-direction: column; }
+      .pack-right { align-items: flex-start; }
+      .hero-cta-group { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← SOMEDAY</a>
+    <a href="index.html" class="nav-logo">STAMPEDE</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Stampede Production — Outils de création</p>
+    <h1 class="hero-title">CINEMATIC<br /><span>PROMPT</span><br />PACKS</h1>
+    <p class="hero-sub">
+      10 volumes + 1 volume spécial de prompts GPT Image 2 construits autour de l'esthétique cinématographique.<br />
+      Chaque volume est une grammaire visuelle complète — pas des formules, des outils de direction.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#volumes" class="btn-primary">Voir les volumes</a>
+      <a href="#pack-complet" class="btn-secondary">Pack complet →</a>
+    </div>
+    <span class="hero-scroll">↓ &nbsp; découvrir</span>
+  </section>
+
+  <!-- CONCEPT -->
+  <section class="concept">
+    <div class="section-label">La démarche</div>
+    <p class="concept-text">
+      Ces prompts ne sont pas des filtres.<br />
+      Ce sont des <strong>intentions de mise en scène</strong> traduites en langage GPT Image 2.<br /><br />
+      Chaque volume part d'un registre cinématographique précis —
+      un réalisateur, une époque, une texture — et le décompose
+      en paramètres réutilisables. <strong>Lumière, grain, cadrage, palette, époque.</strong><br /><br />
+      L'imperfection analogique est intentionnelle.<br />
+      La précision du résultat, elle, ne l'est pas par hasard.
+    </p>
+  </section>
+
+  <!-- VOLUMES -->
+  <section class="volumes-section" id="volumes">
+    <div class="volumes-header">
+      <h2 class="volumes-title">Les 11 volumes</h2>
+      <span class="volumes-count">27 € standard &nbsp;·&nbsp; 34 € premium</span>
+    </div>
+
+    <div class="volumes-grid">
+
+      <!-- VOL 01 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-01.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 01</span>
+        <h3 class="vol-title">Contemplative Auteur</h3>
+        <span class="vol-tag">Arthouse · Slow cinema</span>
+        <p class="vol-desc">Plans fixes, profondeur de champ totale, lumière naturelle non dirigée. L'image qui respire avant de parler. Inspiré de Tarkovski, Malick, Wenders.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Lumière naturelle</span>
+          <span class="vol-keyword">Plan fixe</span>
+          <span class="vol-keyword">Grain argentique</span>
+          <span class="vol-keyword">Palette froide</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-01.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL 02 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-02.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 02</span>
+        <h3 class="vol-title">Neo-Noir</h3>
+        <span class="vol-tag">Thriller · Nuit urbaine</span>
+        <p class="vol-desc">Contre-jour dur, ombres portées, néons sur asphalte mouillé. Le langage visuel du polar américain des années 80-2000 — tension sans explication.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Contre-jour</span>
+          <span class="vol-keyword">Néon</span>
+          <span class="vol-keyword">Nuit urbaine</span>
+          <span class="vol-keyword">Contraste élevé</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-02.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL 03 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-03.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 03</span>
+        <h3 class="vol-title">VHS Aesthetic</h3>
+        <span class="vol-tag">Analogique · Dégradé</span>
+        <p class="vol-desc">Grain vidéo, aberration chromatique, signal dégradé, saturation instable. L'image comme souvenir imparfait — une mémoire qui s'efface lentement.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Grain vidéo</span>
+          <span class="vol-keyword">Aberration RGB</span>
+          <span class="vol-keyword">Scan lines</span>
+          <span class="vol-keyword">Saturation basse</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-03.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL 04 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-04.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 04</span>
+        <h3 class="vol-title">Directors 80s–90s</h3>
+        <span class="vol-tag">Signatures · Époques</span>
+        <p class="vol-desc">Les signatures visuelles des grands réalisateurs de l'âge d'or — De Palma, Mann, Verhoeven, Scott, Cameron. Une grammaire par auteur, traduite en paramètres.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Signatures visuelles</span>
+          <span class="vol-keyword">Par réalisateur</span>
+          <span class="vol-keyword">1980–2000</span>
+          <span class="vol-keyword">Hollywood classique</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-04.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL 05 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-05.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 05</span>
+        <h3 class="vol-title">Vehicles</h3>
+        <span class="vol-tag">Machines · Mouvement</span>
+        <p class="vol-desc">Voitures, motos, camions, avions — filmés comme des personnages. Angles bas, vitesse suggérée, chrome sous la lumière. L'objet mécanique comme protagoniste.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Angle bas</span>
+          <span class="vol-keyword">Chrome</span>
+          <span class="vol-keyword">Mouvement flou</span>
+          <span class="vol-keyword">Lumière rasante</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-05.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL 06 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-06.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 06</span>
+        <h3 class="vol-title">Femme Fatale</h3>
+        <span class="vol-tag">Portrait · Ambiguïté</span>
+        <p class="vol-desc">Portraits de femme dans la tradition du film noir — lumière sculpturale, regard ambigu, ombre qui cache autant qu'elle révèle. Puissance sans explication.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Lumière sculpturale</span>
+          <span class="vol-keyword">Portrait serré</span>
+          <span class="vol-keyword">Ombre portée</span>
+          <span class="vol-keyword">Film noir</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-06.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL 07 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-07.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 07</span>
+        <h3 class="vol-title">The Hero</h3>
+        <span class="vol-tag">Action · Présence</span>
+        <p class="vol-desc">Le héros d'action américain des années 80-2000 — contre-plongée, silhouette dans la lumière, solitude avant le combat. L'iconographie du personnage solitaire.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Contre-plongée</span>
+          <span class="vol-keyword">Silhouette</span>
+          <span class="vol-keyword">Lumière dure</span>
+          <span class="vol-keyword">Solitude</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-07.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+    </div>
+
+      
+      <!-- VOL 08 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-08.html'" style="cursor:pointer">
+        <span class="vol-num">Vol. 08</span>
+        <h3 class="vol-title">21 Jump Street / Booker</h3>
+        <span class="vol-tag">Série TV · Fox 1987–1991 · Infiltration lycée</span>
+        <p class="vol-desc">L'esthétique TV Fox late-80s — couloirs de casiers, fluorescent, parkings au crépuscule. Les jeunes flics sous couverture qui ne savent plus qui ils sont. Et Booker, le spin-off plus sombre, plus seul, plus noir.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Grain vidéo TV 1987</span>
+          <span class="vol-keyword">Fluorescent & néon</span>
+          <span class="vol-keyword">Lycée comme territoire</span>
+          <span class="vol-keyword">Identité sous couverture</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-08.html" class="vol-btn">Découvrir →</a>
+        </div>
+      </div>
+
+      
+      <!-- VOL 09 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-09.html'" style="cursor:pointer">
+        <span class="vol-num" style="color:#1a6a7a;">Vol. 09 &nbsp;·&nbsp; Summer Edition</span>
+        <h3 class="vol-title">Summer Edition</h3>
+        <span class="vol-tag" style="color:#1a6a7a;">Acapulco · Miami Beach · Plage et Bikini · 1965–1990</span>
+        <p class="vol-desc">Corps, soleil, eau. D'Acapulco à Miami Beach — les falaises de La Quebrada, les piscines art déco d'Ocean Drive, le bikini en contre-jour. La chaleur comme atmosphère, le grain 35mm comme texture de l'été.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Contre-jour solaire</span>
+          <span class="vol-keyword">Grain 35mm — chaleur</span>
+          <span class="vol-keyword">Acapulco 1968</span>
+          <span class="vol-keyword">Miami Beach 1984</span>
+          <span class="vol-keyword">Corps et bikini</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span>€34</span> — 20 prompts + direction artistique</span>
+          </div>
+          <a href="prompt-vol-09.html" class="vol-btn" style="background:#1a6a7a;">Découvrir →</a>
+        </div>
+      </div>
+
+      
+      <!-- VOL 10 -->
+      <div class="vol-card" onclick="location.href='prompt-vol-10.html'" style="cursor:pointer;border-left:2px solid rgba(200,58,106,0.4);">
+        <span class="vol-num" style="color:#c83a6a;">Vol. 10 &nbsp;·&nbsp; Premium exclusif</span>
+        <h3 class="vol-title">La Bimbo</h3>
+        <span class="vol-tag" style="color:#c83a6a;">Iconographie · De Marilyn à Legally Blonde · 1950s–2000s</span>
+        <p class="vol-desc">Le stéréotype comme registre visuel à part entière. Rose, excès, intelligence cachée. De Marilyn Monroe à Cher Horowitz et Elle Woods — la bimbo qui sait qu'elle joue, et qui gagne.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Marilyn · Clueless · Legally Blonde</span>
+          <span class="vol-keyword">Rose comme déclaration</span>
+          <span class="vol-keyword">Ironie intentionnelle</span>
+          <span class="vol-keyword">Barbie 2023 grammar</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main" style="color:#e8e4dc;"><span class="currency">€</span>34</span>
+            <span class="vol-price-premium" style="color:#6b6660;">Premium uniquement — 20 prompts + notes + guide</span>
+          </div>
+          <a href="prompt-vol-10.html" class="vol-btn" style="background:#c83a6a;">Découvrir →</a>
+        </div>
+      </div>
+
+      <!-- VOL SPECIAL -->
+      <div class="volumes-grid" style="margin-top:2px;">
+      <div class="vol-card" onclick="location.href='prompt-vol-special.html'" style="cursor:pointer;border-left:2px solid rgba(200,106,26,0.5);grid-column:1/-1;">
+        <span class="vol-num" style="color:#c86a1a;">Vol. Spécial</span>
+        <h3 class="vol-title">Action Scenes 80s/90s</h3>
+        <span class="vol-tag" style="color:#c86a1a;">Scènes d'action · Hollywood classique · 1982–2000</span>
+        <p class="vol-desc">La grammaire visuelle de la scène d'action américaine avant le CGI — corps à corps, explosions, fusillades, cascades automobiles. Tournage physique, cascades réelles, lumière pratique. L'adrénaline avant le numérique.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Grain 35mm poussé</span>
+          <span class="vol-keyword">Cadrage large lisible</span>
+          <span class="vol-keyword">Lumière pratique — feu, phares</span>
+          <span class="vol-keyword">4 catégories de scènes</span>
+          <span class="vol-keyword">Corps humains — pas de CGI</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main" style="color:#e8e4dc;"><span class="currency">€</span>27</span>
+            <span class="vol-price-premium">Premium <span style="color:#b8972a;">€34</span> — 20 prompts + direction artistique + guide</span>
+          </div>
+          <a href="prompt-vol-special.html" class="vol-btn" style="background:#c86a1a;">Découvrir →</a>
+        </div>
+      </div>
+      
+      <!-- VOL MIAMI VICE -->
+      <div class="vol-card" onclick="location.href='prompt-vol-miami-vice.html'" style="cursor:pointer;border-left:2px solid rgba(26,122,138,0.5);grid-column:1/-1;">
+        <span class="vol-num" style="color:#1a7a8a;">Vol. Bonus &nbsp;·&nbsp; Premium uniquement</span>
+        <h3 class="vol-title">Miami Vice</h3>
+        <span class="vol-tag" style="color:#1a7a8a;">Visual Grammar · Série TV 1984–1989 · Michael Mann</span>
+        <p class="vol-desc">La grammaire visuelle de Miami Vice décodée prompt par prompt. Pastels sur noir, costumes sans cravate, Ferrari Testarossa, art déco, Biscayne Bay au coucher du soleil. L'esthétique qui a redéfini la décennie.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Pastel sur noir</span>
+          <span class="vol-keyword">Crème · Sarcelle · Rose</span>
+          <span class="vol-keyword">Art déco Miami</span>
+          <span class="vol-keyword">4 catégories de scènes</span>
+          <span class="vol-keyword">20 prompts + guide</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main" style="color:#e8e4dc;"><span class="currency">€</span>34</span>
+            <span class="vol-price-premium" style="color:#6b6660;">Premium uniquement — 20 prompts + notes de construction + guide</span>
+          </div>
+          <a href="prompt-vol-miami-vice.html" class="vol-btn" style="background:#1a7a8a;">Découvrir →</a>
+        </div>
+      </div>
+      
+      <!-- VOL FEMINITE -->
+      <div class="vol-card" onclick="location.href='prompt-vol-feminite.html'" style="cursor:pointer;border-left:2px solid rgba(138,26,58,0.5);grid-column:1/-1;">
+        <span class="vol-num" style="color:#c8b89a;">Vol. Bonus &nbsp;·&nbsp; Premium uniquement</span>
+        <h3 class="vol-title">Féminité &amp; Sensualité</h3>
+        <span class="vol-tag" style="color:#c8b89a;">Portrait de puissance · Sensualité 80s/90s · Body Heat · Basic Instinct</span>
+        <p class="vol-desc">Deux registres en un volume : la féminité comme puissance (portrait, regard, présence) et la sensualité cinématographique des années 80-90. Body Heat, Basic Instinct, Dressed to Kill, 9 Semaines ½. Le sujet contrôle toujours le cadre.</p>
+        <div class="vol-keywords">
+          <span class="vol-keyword">Lumière Rembrandt</span>
+          <span class="vol-keyword">Portrait de puissance</span>
+          <span class="vol-keyword">Chaleur & tension</span>
+          <span class="vol-keyword">Références classiques 80s/90s</span>
+          <span class="vol-keyword">20 prompts + guide</span>
+        </div>
+        <div class="vol-footer">
+          <div class="vol-price">
+            <span class="vol-price-main" style="color:#e8e4dc;"><span class="currency">€</span>34</span>
+            <span class="vol-price-premium" style="color:#6b6660;">Premium uniquement — 20 prompts + notes de construction + guide</span>
+          </div>
+          <a href="prompt-vol-feminite.html" class="vol-btn" style="background:#8a1a3a;">Découvrir →</a>
+        </div>
+      </div>
+      </div>
+
+  </section>
+
+  <!-- BANDEAU GÉNÉRATEUR -->
+  <div style="max-width:1100px;margin:0 auto;padding:0 2rem 2rem;">
+    <a href="prompt-generator.html" style="display:block;text-decoration:none;background:rgba(184,151,42,0.05);border:1px solid rgba(184,151,42,0.2);padding:1.5rem 2rem;transition:background .2s;" onmouseover="this.style.background='rgba(184,151,42,0.1)'" onmouseout="this.style.background='rgba(184,151,42,0.05)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:#b8972a;text-transform:uppercase;margin-bottom:.4rem;">Outil inclus</p>
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.05em;color:#e8e4dc;">Prompt Generator</p>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:#6b6660;margin-top:.3rem;">Sélectionne un volume · Ajuste les paramètres · Copie dans GPT Image 2</p>
+        </div>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#080808;background:#b8972a;padding:.75rem 1.5rem;white-space:nowrap;">Ouvrir le générateur →</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- PACK COMPLET -->
+  <div class="tape-divider">
+    <div class="tape-line"></div>
+    <span class="tape-icon">— — —</span>
+    <div class="tape-line"></div>
+  </div>
+
+  <section class="pack-complet" id="pack-complet">
+    <div class="pack-banner">
+      <div class="pack-left">
+        <p class="pack-eyebrow">Offre complète — 8 volumes</p>
+        <h2 class="pack-title">Collection<br />Intégrale</h2>
+        <p class="pack-desc">Les 7 volumes + le volume spécial Action 80s/90s réunis. Tous les registres, toutes les époques, toutes les signatures. La bibliothèque visuelle complète pour une direction artistique cinématographique avec GPT Image 2.</p>
+      </div>
+      <div class="pack-right">
+        <div class="pack-price">
+          <p class="pack-price-main"><span class="currency">€</span>169</p>
+          <p class="pack-price-sub">au lieu de 216 € — économie de 47 €</p>
+        </div>
+        <a href="https://gumroad.com" class="pack-btn">Obtenir la collection →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="section-label">Questions</div>
+
+    <div class="faq-item">
+      <p class="faq-q">Ces prompts fonctionnent avec quel outil ?</p>
+      <p class="faq-a">Conçus et testés spécifiquement pour GPT Image 2 (ChatGPT Plus). Le langage descriptif naturel est optimisé pour ce modèle. Partiellement compatibles avec Midjourney et Flux.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">C'est quoi la différence entre Standard et Premium ?</p>
+      <p class="faq-a">La version Standard contient les prompts de base par registre. La version Premium inclut des variantes avancées, des combinaisons de styles, et des notes de direction artistique pour chaque prompt.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Je reçois quoi exactement après l'achat ?</p>
+      <p class="faq-a">Un PDF téléchargeable immédiatement via Gumroad. Pas d'abonnement, pas de compte à créer. Le fichier est le vôtre définitivement.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Quelle différence concrète entre Standard et Premium ?</p>
+      <p class="faq-a">Le Standard contient 10 prompts complets avec une note de contexte cinématographique par prompt — utilisables tels quels dans GPT Image 2. Le Premium double le contenu (20 prompts), ajoute des combinaisons de styles entre volumes, des notes de direction artistique longues qui expliquent chaque choix visuel, et des variantes de la phrase de clôture selon l'usage. Le Standard est l'outil. Le Premium est l'outil avec la réflexion éditoriale derrière.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Quel rapport avec SOMEDAY ?</p>
+      <p class="faq-a">Ces outils sont nés de la même obsession que la série documentaire — l'esthétique du cinéma américain des années 80-2000. SOMEDAY raconte les films. Ces prompts permettent d'en recréer la grammaire visuelle.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">← SOMEDAY</a>
+      <a href="boutique.html">Vidéo Club</a>
+      <a href="mailto:contact@stampede-production.fr">Contact</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
