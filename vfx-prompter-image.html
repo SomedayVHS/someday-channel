@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMEDAY — VFX Prompter · Effets sur images existantes</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after{ box-sizing:border-box; margin:0; padding:0; }
+  :root{
+    --black:#080808; --tape:#1a1815; --white:#e8e4dc;
+    --dim:#6b6660; --accent:#c8392b; --var:#c8a06b;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif;
+  }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--black); color:var(--white); font-family:'Inter',sans-serif; font-weight:300; overflow-x:hidden; }
+  body::before{
+    content:''; position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity:.035; pointer-events:none; z-index:1000;
+  }
+  body::after{
+    content:''; position:fixed; inset:0;
+    background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);
+    pointer-events:none; z-index:999;
+  }
+
+  header{ border-bottom:1px solid rgba(255,255,255,.07); padding:3rem 2rem 2rem; max-width:1000px; margin:0 auto; position:relative; }
+  .rec{ display:flex; align-items:center; gap:.5rem; font-family:var(--mono); font-size:.6rem; letter-spacing:.35em; text-transform:uppercase; color:var(--accent); margin-bottom:1.2rem; }
+  .rec-dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); animation:blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.15; } }
+  h1{ font-family:var(--display); font-size:clamp(2rem,7vw,4rem); letter-spacing:.02em; line-height:.92; }
+  h1 em{ color:var(--accent); font-style:normal; }
+  header p.lede{ font-size:.9rem; line-height:1.7; color:rgba(232,228,220,.6); max-width:580px; margin-top:1rem; font-weight:300; }
+  .timecode{ position:absolute; top:3rem; right:2rem; font-family:var(--mono); font-size:.65rem; letter-spacing:.12em; color:var(--dim); }
+  @media(max-width:600px){ .timecode{ display:none; } }
+
+  main{ max-width:1000px; margin:0 auto; padding:2.5rem 2rem 6rem; }
+
+  /* WORKFLOW STEPS */
+  .steps{ display:flex; gap:.5rem; margin-bottom:2.5rem; flex-wrap:wrap; }
+  .step{
+    font-family:var(--mono); font-size:.58rem; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--dim); padding:.5rem .9rem; border:1px solid rgba(255,255,255,.08);
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .step-num{ color:var(--accent); }
+
+  /* MODE SWITCH — output engine */
+  .engine-switch{
+    display:flex; border:1px solid rgba(255,255,255,.1); margin-bottom:2rem;
+  }
+  .engine-switch button{
+    flex:1; background:transparent; border:none; color:var(--dim);
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.15em; text-transform:uppercase;
+    padding:1rem .5rem; cursor:pointer; border-right:1px solid rgba(255,255,255,.1);
+    transition:all .18s;
+  }
+  .engine-switch button:last-child{ border-right:none; }
+  .engine-switch button.active{ background:var(--white); color:var(--black); }
+  .engine-switch button small{ display:block; font-size:.5rem; letter-spacing:.08em; margin-top:.25rem; opacity:.6; text-transform:none; }
+
+  .studio-layout{ display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  @media(max-width:720px){ .studio-layout{ grid-template-columns:1fr; } }
+
+  .section-label{ font-family:var(--mono); font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem; }
+
+  /* IMAGE UPLOAD */
+  .upload-zone{
+    border:1px dashed rgba(255,255,255,.2);
+    background:var(--tape);
+    padding:1.6rem 1.2rem;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .2s, background .2s;
+    margin-bottom:1rem;
+    position:relative;
+  }
+  .upload-zone:hover, .upload-zone.dragover{
+    border-color:var(--accent);
+    background:rgba(200,57,43,.05);
+  }
+  .upload-zone input[type=file]{ display:none; }
+  .upload-icon{ font-size:1.4rem; margin-bottom:.5rem; opacity:.5; }
+  .upload-text{ font-family:var(--mono); font-size:.65rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+  .upload-text strong{ color:var(--accent); font-weight:700; }
+  .upload-hint{ font-size:.68rem; color:rgba(107,102,96,.7); margin-top:.4rem; font-weight:300; }
+
+  .preview-wrap{ display:none; position:relative; margin-bottom:1rem; }
+  .preview-wrap.visible{ display:block; }
+  .preview-img{
+    width:100%; display:block;
+    border:1px solid rgba(255,255,255,.12);
+    filter:contrast(1.02);
+  }
+  /* scanlines over preview — cohérence VHS */
+  .preview-wrap::after{
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,rgba(0,0,0,.1) 2px,rgba(0,0,0,.1) 4px);
+    pointer-events:none;
+  }
+  .preview-bar{
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--tape); border:1px solid rgba(255,255,255,.12); border-top:none;
+    padding:.5rem .8rem;
+    position:relative; z-index:2;
+  }
+  .preview-name{
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.08em;
+    color:var(--dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%;
+  }
+  .preview-remove{
+    background:transparent; border:1px solid rgba(255,255,255,.12);
+    color:var(--dim); font-family:var(--mono); font-size:.55rem;
+    letter-spacing:.1em; text-transform:uppercase; padding:.3rem .6rem; cursor:pointer;
+    transition:border-color .18s,color .18s;
+  }
+  .preview-remove:hover{ border-color:var(--accent); color:var(--accent); }
+  .preview-tag{
+    position:absolute; top:.6rem; left:.6rem; z-index:2;
+    font-family:var(--mono); font-size:.52rem; letter-spacing:.15em; text-transform:uppercase;
+    background:rgba(8,8,8,.75); color:var(--accent);
+    padding:.3rem .55rem; border:1px solid rgba(200,57,43,.4);
+  }
+
+  /* SOURCE IMAGE DESCRIPTION */
+  .source-box{
+    background:var(--tape); border:1px solid rgba(255,255,255,.1);
+    padding:1.2rem; margin-bottom:1.6rem;
+  }
+  .field{ margin-bottom:1rem; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin-bottom:.45rem; }
+  .field input, .field textarea, .field select{
+    width:100%; background:var(--black); border:1px solid rgba(255,255,255,.12);
+    color:var(--white); font-family:var(--mono); font-size:.8rem; padding:.65rem .75rem;
+    transition:border-color .18s;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{ outline:none; border-color:var(--accent); }
+  .field textarea{ resize:vertical; min-height:70px; }
+  .field select{
+    appearance:none; cursor:pointer;
+    background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);
+    background-position:calc(100% - 14px) center,calc(100% - 9px) center;
+    background-size:4px 4px,4px 4px; background-repeat:no-repeat;
+  }
+  ::placeholder{ color:rgba(107,102,96,.55); }
+
+  /* EFFECT CATEGORIES */
+  .fx-cats{ display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:1rem; }
+  .fx-cat{
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.12em; text-transform:uppercase;
+    padding:.5rem .8rem; border:1px solid rgba(255,255,255,.1);
+    background:transparent; color:var(--dim); cursor:pointer; transition:all .18s;
+  }
+  .fx-cat:hover{ border-color:rgba(255,255,255,.3); color:var(--white); }
+  .fx-cat.active{ background:var(--white); color:var(--black); border-color:var(--white); }
+
+  .fx-list{ display:flex; flex-direction:column; gap:.3rem; margin-bottom:1.4rem; max-height:320px; overflow-y:auto; padding-right:.3rem; }
+  .fx-list::-webkit-scrollbar{ width:4px; }
+  .fx-list::-webkit-scrollbar-track{ background:var(--tape); }
+  .fx-list::-webkit-scrollbar-thumb{ background:rgba(200,57,43,.4); }
+  .fx-btn{
+    background:var(--tape); border:1px solid rgba(255,255,255,.07);
+    padding:.65rem .85rem; text-align:left; cursor:pointer;
+    font-family:var(--mono); font-size:.72rem; color:rgba(232,228,220,.7);
+    transition:border-color .18s, color .18s; display:flex; align-items:baseline; gap:.55rem;
+  }
+  .fx-btn span.fx-num{ color:var(--accent); font-size:.58rem; min-width:2.2rem; }
+  .fx-btn:hover{ border-color:rgba(200,57,43,.4); color:var(--white); }
+  .fx-btn.selected{ border-color:var(--accent); color:var(--white); background:rgba(200,57,43,.08); }
+
+  /* INTENSITY */
+  .intensity-row{ margin-bottom:1.4rem; }
+  .intensity-opts{ display:flex; gap:.4rem; }
+  .int-btn{
+    flex:1; font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase;
+    padding:.6rem .4rem; border:1px solid rgba(255,255,255,.1); background:transparent;
+    color:var(--dim); cursor:pointer; transition:all .18s;
+  }
+  .int-btn:hover{ color:var(--white); border-color:rgba(255,255,255,.3); }
+  .int-btn.active{ background:var(--accent); color:var(--black); border-color:var(--accent); }
+
+  /* PRESERVE OPTIONS */
+  .preserve-box{ margin-bottom:1.4rem; }
+  .preserve-opts{ display:flex; flex-wrap:wrap; gap:.4rem; }
+  .pres-chip{
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.1em; text-transform:uppercase;
+    padding:.45rem .75rem; border:1px solid rgba(255,255,255,.1); background:transparent;
+    color:var(--dim); cursor:pointer; transition:all .18s;
+  }
+  .pres-chip:hover{ color:var(--white); border-color:rgba(255,255,255,.3); }
+  .pres-chip.active{ border-color:var(--var); color:var(--var); }
+
+  .generate-btn{
+    width:100%; font-family:var(--mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase;
+    padding:.95rem; border:1px solid var(--accent); background:transparent; color:var(--accent);
+    cursor:pointer; transition:background .18s,color .18s;
+  }
+  .generate-btn:hover{ background:var(--accent); color:var(--black); }
+
+  /* OUTPUT */
+  .output-box{ background:var(--tape); border:1px solid rgba(255,255,255,.1); padding:1.4rem; min-height:220px; position:sticky; top:1rem; }
+  .output-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:.9rem; gap:.6rem; }
+  .output-label{ font-family:var(--mono); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); }
+  .copy-btn{
+    background:transparent; border:1px solid rgba(255,255,255,.12);
+    color:var(--dim); font-family:var(--mono); font-size:.58rem;
+    letter-spacing:.12em; text-transform:uppercase; padding:.4rem .8rem; cursor:pointer;
+    transition:border-color .18s,color .18s; white-space:nowrap;
+  }
+  .copy-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  #output-text{ font-family:var(--mono); font-size:.82rem; line-height:1.75; color:var(--white); white-space:pre-wrap; min-height:110px; }
+  #output-text.empty{ color:var(--dim); font-style:italic; }
+  .engine-note{
+    margin-top:1rem; padding:.8rem .9rem;
+    border-left:2px solid var(--var); background:rgba(200,160,107,.05);
+    font-size:.75rem; line-height:1.6; color:rgba(232,228,220,.55);
+  }
+  .engine-note strong{ color:var(--var); font-weight:400; font-family:var(--mono); font-size:.7rem; }
+
+  footer{ padding:3rem 2rem; text-align:center; border-top:1px solid rgba(255,255,255,.05); }
+  .footer-logo{ font-family:var(--display); font-size:1.1rem; letter-spacing:.3em; color:var(--dim); margin-bottom:.75rem; }
+  .footer-sub{ font-family:var(--mono); font-size:.6rem; letter-spacing:.25em; color:rgba(107,102,96,.5); text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="rec"><span class="rec-dot"></span> STAMPEDE PRODUCTION · VFX PROMPTER</div>
+  <h1>VFX sur <em>Image</em><br>Existante</h1>
+  <p class="lede">Tu as déjà une image (Midjourney, photo, frame) et tu veux lui appliquer un effet spécial pratique 80s–2000s. Décris ton image, choisis l'effet, l'intensité, ce qu'il faut préserver — le prompt s'adapte au moteur cible.</p>
+  <div class="timecode" id="clock">00:00:00:00</div>
+</header>
+
+<main>
+
+  <div class="steps">
+    <div class="step"><span class="step-num">01</span> Moteur cible</div>
+    <div class="step"><span class="step-num">02</span> Décris ton image</div>
+    <div class="step"><span class="step-num">03</span> Choisis l'effet</div>
+    <div class="step"><span class="step-num">04</span> Intensité + préservation</div>
+    <div class="step"><span class="step-num">05</span> Génère</div>
+  </div>
+
+  <!-- ENGINE SWITCH -->
+  <div class="engine-switch" id="engine-switch">
+    <button class="active" data-engine="edit">Édition d'image<small>GPT Image 2 edit · Flux Kontext</small></button>
+    <button data-engine="video">Image → Vidéo<small>Kling · Runway Gen-3</small></button>
+  </div>
+
+  <div class="studio-layout">
+    <div class="form-col">
+
+      <!-- SOURCE -->
+      <div class="section-label">02 — Ton image source</div>
+
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" accept="image/*" />
+        <div class="upload-icon">▣</div>
+        <div class="upload-text"><strong>Glisse ton image ici</strong> ou clique pour parcourir</div>
+        <div class="upload-hint">Référence visuelle locale — l'image ne quitte pas ton navigateur. Tu l'uploaderas dans Kling / Runway / GPT Image avec le prompt généré.</div>
+      </div>
+
+      <div class="preview-wrap" id="preview-wrap">
+        <span class="preview-tag">● SOURCE</span>
+        <img class="preview-img" id="preview-img" alt="Image source" />
+        <div class="preview-bar">
+          <span class="preview-name" id="preview-name"></span>
+          <button class="preview-remove" id="preview-remove">Retirer</button>
+        </div>
+      </div>
+
+      <div class="source-box">
+        <div class="field">
+          <label>Décris ce qu'on voit (sujet principal + décor)</label>
+          <textarea id="src-desc" placeholder="ex: un homme en blouson de cuir debout sur un tarmac de nuit, avion en arrière-plan, éclairage sodium"></textarea>
+        </div>
+        <div class="field">
+          <label>Zone d'application de l'effet</label>
+          <select id="src-zone">
+            <option value="the entire frame">Toute l'image</option>
+            <option value="the background only, keeping the subject untouched">Arrière-plan uniquement</option>
+            <option value="the main subject only, keeping the background untouched">Sujet principal uniquement</option>
+            <option value="the upper third of the frame">Tiers supérieur</option>
+            <option value="the lower third of the frame">Tiers inférieur</option>
+            <option value="the edges of the frame, leaving the center clean">Bords du cadre</option>
+            <option value="a specific area (describe in the image description)">Zone spécifique (précisée dans la description)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- EFFECT -->
+      <div class="section-label">03 — L'effet à appliquer</div>
+      <div class="fx-cats" id="fx-cats"></div>
+      <div class="fx-list" id="fx-list"></div>
+
+      <!-- INTENSITY -->
+      <div class="section-label">04 — Intensité</div>
+      <div class="intensity-row">
+        <div class="intensity-opts">
+          <button class="int-btn" data-val="subtle, barely perceptible">Subtil</button>
+          <button class="int-btn active" data-val="clearly visible but integrated">Visible</button>
+          <button class="int-btn" data-val="dominant, transforming the whole mood">Dominant</button>
+          <button class="int-btn" data-val="extreme, pushed to stylization">Extrême</button>
+        </div>
+      </div>
+
+      <!-- PRESERVE -->
+      <div class="preserve-box">
+        <div class="section-label">À préserver absolument</div>
+        <div class="preserve-opts" id="preserve-opts">
+          <button class="pres-chip active" data-val="the subject's face and identity">Visage / identité</button>
+          <button class="pres-chip active" data-val="the original composition and framing">Composition</button>
+          <button class="pres-chip" data-val="the original color palette">Palette couleur</button>
+          <button class="pres-chip" data-val="the lighting direction">Direction lumière</button>
+          <button class="pres-chip" data-val="all text and signage">Textes / enseignes</button>
+          <button class="pres-chip" data-val="the background details">Détails arrière-plan</button>
+        </div>
+      </div>
+
+      <button class="generate-btn" id="generate-btn">Générer le prompt →</button>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="output-col">
+      <div class="output-box">
+        <div class="output-header">
+          <span class="output-label" id="output-label">Prompt</span>
+          <button class="copy-btn" id="copy-btn">Copier</button>
+        </div>
+        <div id="output-text" class="empty">Configure les étapes à gauche puis génère. Le prompt sera formulé pour le moteur choisi (édition d'image ou image-to-video).</div>
+      </div>
+      <div class="engine-note" id="engine-note">
+        <strong>Mode ÉDITION</strong> — le prompt est formulé comme une instruction de modification : l'image existe déjà, on décrit uniquement le changement. À utiliser avec GPT Image 2 (edit), Flux Kontext, ou tout moteur img2img.
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p class="footer-logo">STAMPEDE PRODUCTION</p>
+  <p class="footer-sub">VFX PROMPTER · ANALOG IMPERFECTION IS INTENTIONAL</p>
+</footer>
+
+<script>
+// ── EFFECTS DATA ──
+// Each effect has: edit formulation (static) + video formulation (animated)
+const FX_CATEGORIES = [
+  {
+    id:'DEGRADATION', label:'Dégradation Analogique',
+    effects:[
+      { num:'D01', title:'Grain pellicule 35mm',
+        edit:'add authentic 35mm film grain across [ZONE], organic silver-halide texture, more visible in shadows and midtones, no digital noise pattern',
+        video:'film grain flickering organically frame to frame across [ZONE], silver-halide texture alive, shadows breathing with grain' },
+      { num:'D02', title:'Tracking VHS',
+        edit:'add VHS tape tracking distortion to [ZONE]: horizontal displacement bands, chroma bleeding at edges, timestamp ghosting in corner',
+        video:'VHS tracking error rolling vertically through [ZONE], horizontal bands displacing the image, chroma tearing then re-stabilizing' },
+      { num:'D03', title:'Halation / bloom pellicule',
+        edit:'add film halation to [ZONE]: warm red-orange glow bleeding around bright light sources, highlights blooming softly into surrounding areas',
+        video:'halation pulsing gently as light sources shift, warm glow breathing around highlights in [ZONE]' },
+      { num:'D04', title:'Pellicule abîmée',
+        edit:'add damaged film artifacts to [ZONE]: vertical scratches, dust specks, occasional hair in gate, slight frame weave',
+        video:'film damage flickering through [ZONE]: scratches appearing and vanishing, dust popping frame to frame, gate weave subtly shifting the frame' },
+      { num:'D05', title:'Push photochimique',
+        edit:'regrade [ZONE] as pushed film stock: grain amplified, blacks crushed, highlights blooming, slight color shift toward green-cyan in shadows',
+        video:'the pushed-stock look intensifying gradually across [ZONE], grain thickening, blacks sinking deeper' },
+      { num:'D06', title:'Chroma bleed VHS',
+        edit:'add VHS chroma bleed to [ZONE]: reds and magentas bleeding beyond their edges, color resolution lower than luminance, soft smearing on saturated areas',
+        video:'chroma smearing trailing behind any movement in [ZONE], saturated colors dragging like wet paint' },
+    ]
+  },
+  {
+    id:'ATMOSPHERE', label:'Atmosphères',
+    effects:[
+      { num:'A01', title:'Pluie pratique',
+        edit:'add practical rain to [ZONE]: heavy rainfall streaks catching the existing light sources, wet sheen on all surfaces, drops splashing on the ground',
+        video:'heavy rain falling through [ZONE], drops streaking past the lens, surfaces glistening wetter as the shot holds, existing lights refracting through water' },
+      { num:'A02', title:'Brouillard de studio',
+        edit:'add dense low-lying studio fog to [ZONE]: mist hugging the ground, existing light sources creating god-rays through the haze, depth fading into white',
+        video:'fog drifting slowly through [ZONE], tendrils curling around the subject, god-rays shifting as the mist moves' },
+      { num:'A03', title:'Fumée de cigarette / ambiance',
+        edit:'add cigarette smoke atmosphere to [ZONE]: thin smoke layers hanging in the air, caught in existing light beams, slow curling wisps',
+        video:'smoke curling upward through [ZONE], drifting through light beams, dispersing slowly at the top of frame' },
+      { num:'A04', title:'Neige de studio',
+        edit:'add studio snowfall to [ZONE]: large soft flakes falling, light accumulation on surfaces and shoulders, breath-fog suggestion if a person is present',
+        video:'snow falling steadily through [ZONE], flakes drifting on air currents, accumulating gradually on surfaces' },
+      { num:'A05', title:'Poussière en suspension',
+        edit:'add suspended dust particles to [ZONE]: fine motes visible in existing light beams, atmosphere thickened, air made visible',
+        video:'dust motes drifting lazily through the light beams in [ZONE], stirred by invisible air movement' },
+      { num:'A06', title:'Chaleur / heat distortion',
+        edit:'add heat distortion to [ZONE]: air shimmering and warping above hot surfaces, background details rippling through the haze',
+        video:'heat waves rippling continuously through [ZONE], background undulating, the air itself boiling' },
+    ]
+  },
+  {
+    id:'LUMIERE', label:'Lumière & Optique',
+    effects:[
+      { num:'L01', title:'Lens flare anamorphique',
+        edit:'add anamorphic lens flare to [ZONE]: horizontal blue-orange streak crossing the frame from the brightest light source, optical artifact burned in, not overlaid',
+        video:'anamorphic flare sweeping across [ZONE] as the light source shifts, horizontal streak stretching and contracting' },
+      { num:'L02', title:'Néon pratique',
+        edit:'add practical neon lighting to [ZONE]: [COULEUR_NEON] neon glow washing over surfaces, colored reflections on skin and wet ground, hum implied',
+        video:'neon light flickering irregularly over [ZONE], [COULEUR_NEON] wash pulsing, occasionally stuttering like a dying tube' },
+      { num:'L03', title:'Contre-jour dramatique',
+        edit:'transform the lighting of [ZONE] into dramatic backlight: subject rimmed in light, face falling into shadow, atmosphere glowing behind',
+        video:'backlight intensifying through [ZONE], rim light growing sharper, silhouette deepening as the source brightens' },
+      { num:'L04', title:'Projecteur / searchlight',
+        edit:'add a practical searchlight beam sweeping into [ZONE]: hard-edged light cone cutting through atmosphere, harsh circle where it lands',
+        video:'searchlight beam sweeping slowly across [ZONE], the hard circle of light traveling over surfaces, atmosphere revealed inside the cone' },
+      { num:'L05', title:'Gyrophares',
+        edit:'add emergency light wash to [ZONE]: alternating red and blue reflections on surfaces, source off-frame, urgency implied by light alone',
+        video:'red and blue emergency lights strobing rhythmically across [ZONE], reflections chasing each other over wet surfaces' },
+      { num:'L06', title:'TV / écran qui clignote',
+        edit:'add flickering screen glow to [ZONE]: cold blue-white television light washing over the scene, slight color instability, source implied off-frame',
+        video:'TV light flickering erratically over [ZONE], brightness jumping with implied channel changes, cold glow pulsing on faces and walls' },
+    ]
+  },
+  {
+    id:'TIRS', label:'Tirs & Combat',
+    effects:[
+      { num:'T01', title:'Muzzle flash — départ de tir',
+        edit:'add a practical muzzle flash to the weapon in [ZONE]: bright star-shaped flash frozen at the barrel, one-frame burn illuminating the shooter\'s face and immediate surroundings, smoke wisp beginning',
+        video:'muzzle flashes strobing from the weapon in [ZONE], each shot a one-frame burst of light throwing hard shadows, smoke accumulating between shots, shell casings ejecting' },
+      { num:'T02', title:'Balles traçantes',
+        edit:'add tracer rounds streaking through [ZONE]: glowing trajectory lines cutting the darkness, light trails frozen mid-flight, origin and impact points implied',
+        video:'tracer fire streaking through [ZONE], glowing rounds crossing the frame in rapid succession, trajectories slightly diverging, impacts sparking in the distance' },
+      { num:'T03', title:'Ricochets & étincelles',
+        edit:'add ricochet sparks to [ZONE]: bullets striking metal and concrete, spark showers erupting at impact points, fragments spinning off',
+        video:'ricochets sparking across [ZONE] in sequence, each impact throwing a shower of sparks, whining trajectories implied by the strike pattern' },
+      { num:'T04', title:'Impacts squibs — surfaces',
+        edit:'add practical squib impacts to [ZONE]: puffs of dust and debris bursting from walls and ground, plaster fragments mid-air, impact craters fresh',
+        video:'squib hits stitching a line across [ZONE], dust and plaster bursting from each impact, debris raining, the line of fire walking toward the subject' },
+      { num:'T05', title:'Fusillade — ambiance globale',
+        edit:'transform [ZONE] into a mid-firefight scene: muzzle flashes from multiple positions, smoke haze accumulating, spent casings on the ground, dust suspended from recent impacts',
+        video:'full firefight erupting through [ZONE]: overlapping muzzle flashes from several positions, smoke thickening, debris falling, chaos escalating shot by shot' },
+      { num:'T06', title:'Fumée de poudre',
+        edit:'add gunsmoke atmosphere to [ZONE]: acrid white-grey smoke layers hanging after gunfire, drifting through existing light sources, sharp contrast with the dark',
+        video:'gunsmoke drifting slowly through [ZONE] after the shooting stops, layers curling in the light, settling into an uneasy stillness' },
+      { num:'T07', title:'Explosion de grenade',
+        edit:'add a practical grenade explosion to [ZONE]: compact violent blast, shrapnel dust radiating, flash overexposing the immediate area, shockwave dust ring',
+        video:'grenade detonating in [ZONE]: instant flash, shockwave dust ring expanding, debris thrown outward then raining down, smoke column rising' },
+      { num:'T08', title:'Départ de roquette / RPG',
+        edit:'add a rocket launch to [ZONE]: backblast smoke cone erupting behind the launcher, projectile smoke trail cutting across the frame toward its target',
+        video:'rocket streaking through [ZONE], smoke trail corkscrewing behind it, backblast cloud at the origin, impact explosion blooming at the far end' },
+    ]
+  },
+  {
+    id:'DESTRUCTION', label:'Destruction & Impact',
+    effects:[
+      { num:'X01', title:'Explosion arrière-plan',
+        edit:'add a practical explosion in the background of [ZONE]: fireball erupting, debris on ballistic trajectories, subject silhouetted against the blast, heat distortion at the top',
+        video:'explosion erupting in the background of [ZONE], fireball expanding then collapsing into black smoke, debris raining, shockwave shaking the frame' },
+      { num:'X02', title:'Explosion de véhicule',
+        edit:'add an exploding vehicle to [ZONE]: car or van erupting in a practical fireball, doors and panels blown outward on wire rigs, burning fuel spreading beneath',
+        video:'the vehicle in [ZONE] exploding: hood launching upward, fireball rolling out of the windows, panels cartwheeling, flames consuming the wreck' },
+      { num:'X03', title:'Verre brisé',
+        edit:'add shattering glass to [ZONE]: breakaway glass fragments frozen mid-air, light refracting through each shard, radial fracture pattern',
+        video:'glass shattering across [ZONE], fragments exploding outward in slow motion, each shard catching and refracting light as it tumbles' },
+      { num:'X04', title:'Traversée de mur / cloison',
+        edit:'add a body-through-wall breach to [ZONE]: breakaway wall section exploding into fragments, dust bursting, structural debris mid-flight around the point of impact',
+        video:'the wall in [ZONE] bursting apart as something crashes through, plaster and wood fragments flying, dust cloud blooming from the breach' },
+      { num:'X05', title:'Feu pratique',
+        edit:'add practical fire to [ZONE]: real flames consuming the scene elements, orange light flickering on surrounding surfaces, smoke rising',
+        video:'fire spreading through [ZONE], flames licking higher, orange light dancing on every surface, embers rising' },
+      { num:'X06', title:'Fumée noire / incendie',
+        edit:'add thick black smoke to [ZONE]: dense column rising, underlit by fire glow, blocking parts of the background',
+        video:'black smoke billowing through [ZONE], column churning upward, orange fire-glow pulsing inside the darkness' },
+      { num:'X07', title:'Effondrement de structure',
+        edit:'add structural collapse to [ZONE]: beams and sections falling mid-frame, dust avalanche rolling outward, the geometry of the building failing',
+        video:'the structure in [ZONE] collapsing in stages: first a beam, then a section, then the dust wave rolling toward the camera, debris bouncing' },
+      { num:'X08', title:'Débris / gravats — aftermath',
+        edit:'add destruction debris to [ZONE]: rubble scattered, dust settling, structural damage visible, aftermath atmosphere',
+        video:'debris still falling through [ZONE], dust clouds drifting and settling, small collapses continuing in the background' },
+    ]
+  },
+  {
+    id:'SURNATUREL', label:'Surnaturel & Optiques',
+    effects:[
+      { num:'S01', title:'Double exposition fantôme',
+        edit:'add a ghostly double-exposure figure to [ZONE]: semi-transparent [FIGURE_FANTOME] overlaid on the scene, in-camera double exposure aesthetic, edges soft',
+        video:'the ghost figure in [ZONE] fading in and out of visibility, semi-transparent form drifting slightly out of sync with the scene' },
+      { num:'S02', title:'Distorsion dimensionnelle',
+        edit:'add in-camera dimensional distortion to [ZONE]: image warping as through vaseline-edged anamorphic glass, reality bending at the borders',
+        video:'reality warping through [ZONE], the distortion breathing, straight lines bending then snapping back' },
+      { num:'S03', title:'Ombres impossibles',
+        edit:'alter the shadows in [ZONE]: shadows stretching in directions that contradict the light sources, subtly wrong, unsettling',
+        video:'shadows in [ZONE] moving independently of their sources, stretching slowly, creeping against the light' },
+      { num:'S04', title:'Silhouette dans la brume',
+        edit:'add a distant silhouette to [ZONE]: barely visible [FIGURE_FANTOME] standing in the atmospheric haze, features unreadable, presence undeniable',
+        video:'the silhouette in [ZONE] holding perfectly still while the mist moves around it, presence growing heavier the longer the shot holds' },
+      { num:'S05', title:'Lumière surnaturelle',
+        edit:'add an unexplained light source to [ZONE]: cold [COULEUR_NEON] glow emanating from off-frame or from an impossible origin, casting shadows that shouldn\'t exist',
+        video:'the unexplained light in [ZONE] pulsing slowly, intensifying, shadows shifting around a source that cannot be there' },
+    ]
+  },
+  {
+    id:'MOUVEMENT', label:'Mouvement (vidéo)',
+    videoOnly:true,
+    effects:[
+      { num:'V01', title:'Dolly avant lent',
+        edit:'—',
+        video:'slow dolly push-in through [ZONE], deliberate and steady, tension building as the camera approaches the subject, 24fps cinematic motion' },
+      { num:'V02', title:'Travelling latéral',
+        edit:'—',
+        video:'lateral tracking shot gliding across [ZONE], parallax separating foreground and background layers, smooth motion-controlled movement' },
+      { num:'V03', title:'Zoom crash 80s',
+        edit:'—',
+        video:'sudden crash zoom into the subject in [ZONE], aggressive 1980s snap-zoom, slight focus hunt at the end' },
+      { num:'V04', title:'Caméra portée nerveuse',
+        edit:'—',
+        video:'handheld camera energy through [ZONE], organic shake and drift, documentary urgency, operator breathing visible in the frame movement' },
+      { num:'V05', title:'Ralenti overcrank',
+        edit:'—',
+        video:'the action in [ZONE] unfolding in overcranked slow motion, 120fps stretched to dreamlike pace, every detail hanging in the air' },
+      { num:'V06', title:'Plan fixe — vie interne',
+        edit:'—',
+        video:'locked-off static frame on [ZONE], only internal elements moving: atmosphere drifting, light shifting, fabric stirring — the stillness itself alive' },
+    ]
+  },
+];
+
+// ── STATE ──
+let engine = 'edit';
+let currentFxCat = null;
+let currentFx = null;
+let intensity = 'clearly visible but integrated';
+
+const fxCats = document.getElementById('fx-cats');
+const fxList = document.getElementById('fx-list');
+const outputText = document.getElementById('output-text');
+const outputLabel = document.getElementById('output-label');
+const engineNote = document.getElementById('engine-note');
+
+// ── IMAGE UPLOAD (local preview only) ──
+const uploadZone = document.getElementById('upload-zone');
+const fileInput = document.getElementById('file-input');
+const previewWrap = document.getElementById('preview-wrap');
+const previewImg = document.getElementById('preview-img');
+const previewName = document.getElementById('preview-name');
+
+uploadZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadImage(fileInput.files[0]); });
+
+['dragover','dragenter'].forEach(ev => uploadZone.addEventListener(ev, e => {
+  e.preventDefault(); uploadZone.classList.add('dragover');
+}));
+['dragleave','dragend'].forEach(ev => uploadZone.addEventListener(ev, () => uploadZone.classList.remove('dragover')));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault(); uploadZone.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) loadImage(f);
+});
+
+function loadImage(file){
+  const reader = new FileReader();
+  reader.onload = e => {
+    previewImg.src = e.target.result;
+    previewName.textContent = file.name;
+    previewWrap.classList.add('visible');
+    uploadZone.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById('preview-remove').addEventListener('click', () => {
+  previewImg.src = '';
+  previewWrap.classList.remove('visible');
+  uploadZone.style.display = 'block';
+  fileInput.value = '';
+});
+
+function tick(){
+  const d=new Date(), f=n=>String(n).padStart(2,'0');
+  document.getElementById('clock').textContent=`${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}:${f(Math.floor(d.getMilliseconds()/10))}`;
+}
+setInterval(tick,40); tick();
+
+// Engine switch
+document.querySelectorAll('#engine-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    engine = btn.getAttribute('data-engine');
+    document.querySelectorAll('#engine-switch button').forEach(b => b.classList.toggle('active', b === btn));
+    engineNote.innerHTML = engine === 'edit'
+      ? '<strong>Mode ÉDITION</strong> — le prompt est formulé comme une instruction de modification : l\'image existe déjà, on décrit uniquement le changement. À utiliser avec GPT Image 2 (edit), Flux Kontext, ou tout moteur img2img.'
+      : '<strong>Mode IMAGE → VIDÉO</strong> — le prompt décrit le mouvement et l\'évolution de l\'effet dans le temps. À utiliser avec Kling ou Runway Gen-3 en donnant ton image comme frame de départ.';
+    buildCats();
+  });
+});
+
+function buildCats(){
+  fxCats.innerHTML = '';
+  const cats = FX_CATEGORIES.filter(c => engine === 'video' || !c.videoOnly);
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'fx-cat';
+    btn.textContent = cat.label;
+    btn.addEventListener('click', () => selectFxCat(cat, btn));
+    fxCats.appendChild(btn);
+  });
+  // Auto-select first
+  if (cats.length) selectFxCat(cats[0], fxCats.children[0]);
+}
+
+function selectFxCat(cat, btn){
+  currentFxCat = cat;
+  currentFx = null;
+  document.querySelectorAll('.fx-cat').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  fxList.innerHTML = '';
+  cat.effects.forEach(fx => {
+    const b = document.createElement('button');
+    b.className = 'fx-btn';
+    b.innerHTML = `<span class="fx-num">${fx.num}</span>${fx.title}`;
+    b.addEventListener('click', () => {
+      currentFx = fx;
+      document.querySelectorAll('.fx-btn').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+    });
+    fxList.appendChild(b);
+  });
+}
+
+// Intensity
+document.querySelectorAll('.int-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    intensity = btn.getAttribute('data-val');
+    document.querySelectorAll('.int-btn').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
+
+// Preserve chips (toggle)
+document.querySelectorAll('.pres-chip').forEach(chip => {
+  chip.addEventListener('click', () => chip.classList.toggle('active'));
+});
+
+// Generate
+document.getElementById('generate-btn').addEventListener('click', () => {
+  if (!currentFx) { alert('Sélectionne un effet.'); return; }
+  const srcDesc = document.getElementById('src-desc').value.trim();
+  const zone = document.getElementById('src-zone').value;
+
+  let fxText = engine === 'edit' ? currentFx.edit : currentFx.video;
+  if (fxText === '—') { alert('Cet effet est disponible uniquement en mode Image → Vidéo.'); return; }
+  fxText = fxText.replaceAll('[ZONE]', zone);
+
+  const preserve = [...document.querySelectorAll('.pres-chip.active')].map(c => c.getAttribute('data-val'));
+
+  let prompt = '';
+  if (engine === 'edit') {
+    prompt = `Edit this existing image`;
+    if (srcDesc) prompt += ` (${srcDesc})`;
+    prompt += `. ${capitalize(fxText)}. Effect intensity: ${intensity}.`;
+    if (preserve.length) prompt += ` Strictly preserve ${joinList(preserve)}.`;
+    prompt += ` The effect must look practical and in-camera, era-accurate 1980s–2000s technique, never digital or composited-looking. Analog imperfection is intentional.`;
+  } else {
+    prompt = `Starting from this image`;
+    if (srcDesc) prompt += ` (${srcDesc})`;
+    prompt += `, animate the following: ${fxText}. Effect intensity: ${intensity}.`;
+    if (preserve.length) prompt += ` Keep ${joinList(preserve)} stable throughout the shot.`;
+    prompt += ` Practical in-camera effect aesthetic, era-accurate 1980s–2000s, no digital-looking artifacts. 24fps cinematic motion. Analog imperfection is intentional.`;
+  }
+
+  outputText.className = '';
+  outputText.textContent = prompt;
+  outputLabel.textContent = `${currentFx.num} — ${currentFx.title} · ${engine === 'edit' ? 'ÉDITION' : 'IMG→VIDÉO'}`;
+});
+
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+function joinList(arr){
+  if (arr.length === 1) return arr[0];
+  return arr.slice(0,-1).join(', ') + ' and ' + arr[arr.length-1];
+}
+
+document.getElementById('copy-btn').addEventListener('click', () => {
+  const text = outputText.textContent;
+  if (!text || outputText.classList.contains('empty')) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    const o = btn.textContent;
+    btn.textContent = 'Copié ✓';
+    setTimeout(() => btn.textContent = o, 1400);
+  });
+});
+
+buildCats();
+</script>
+</body>
+</html>
