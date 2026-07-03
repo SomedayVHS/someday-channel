@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vol. 11 — Fashion Through Cinema · Stampede Production</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#080808;--white:#e8e4dc;--dim:#6b6660;--accent:#a8a090;--gold:#b8972a}
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:1000}
+    body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);pointer-events:none;z-index:999}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;background:linear-gradient(to bottom,rgba(8,8,8,.97),transparent)}
+    .nav-back{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .nav-back:hover{color:var(--white)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.3em;color:var(--white);text-decoration:none;opacity:.5}
+
+    .hero{min-height:75vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 2rem 4rem;border-bottom:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(150deg,#0a0a10 0%,#080808 50%,#100808 100%);z-index:0}
+    /* Fil argent */
+    .hero::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(168,160,144,.3),transparent);z-index:1}
+    .hero-inner{max-width:900px;margin:0 auto;width:100%;position:relative;z-index:2}
+    .vol-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.45em;color:var(--accent);text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem}
+    .vol-eyebrow::after{content:'';height:1px;width:50px;background:var(--accent);opacity:.4}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,7.5rem);line-height:.85;letter-spacing:.04em;color:var(--white);margin-bottom:.25rem}
+    .hero-title .sub{display:block;color:var(--accent);font-size:clamp(1.5rem,4vw,3rem);letter-spacing:.1em}
+    .hero-tagline{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.12em;color:var(--dim);font-style:italic;margin-bottom:2.5rem}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:2rem}
+    .meta-item{display:flex;flex-direction:column;gap:.3rem}
+    .meta-key{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.35em;color:var(--dim);text-transform:uppercase}
+    .meta-val{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--white)}
+
+    .content{max-width:760px;margin:0 auto;padding:6rem 2rem 8rem}
+    .vol-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:5rem;padding:1.25rem 0;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+    .vol-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .vol-nav a:hover{color:var(--white)}
+
+    .section-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.4em;color:var(--accent);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+    .section-label::after{content:'';height:1px;flex:1;background:rgba(168,160,144,.2)}
+    .body-text{font-size:clamp(.95rem,2vw,1.1rem);line-height:1.95;color:rgba(232,228,220,.7);margin-bottom:4rem}
+    .body-text strong{color:var(--white);font-weight:400}
+
+    /* Timeline films */
+    .films-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:4rem}
+    .film-item{padding:1rem;background:rgba(255,255,255,.02);border-top:1px solid rgba(168,160,144,.2)}
+    .film-decade{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:.3rem}
+    .film-title{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.04em;color:var(--white);margin-bottom:.2rem;line-height:1}
+    .film-sub{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--dim);line-height:1.5}
+
+    .cat-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem;margin-top:1.5rem}
+    .prompts-block{margin-bottom:5rem}
+    .prompt-item{padding:1.5rem;border:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.015);margin-bottom:2px;position:relative;transition:border-color .2s}
+    .prompt-item:hover{border-color:rgba(168,160,144,.4)}
+    .prompt-num{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:.6rem}
+    .prompt-text{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:rgba(232,228,220,.6);line-height:1.7;letter-spacing:.02em}
+    .prompt-text.blurred{filter:blur(4px);user-select:none;pointer-events:none}
+    .prompt-lock{position:absolute;top:50%;right:1.5rem;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+
+    .preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:5rem}
+    .preview-img{aspect-ratio:1/1;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;overflow:hidden}
+    .preview-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .preview-img-icon{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;color:rgba(255,255,255,.07)}
+    .preview-img-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.25em;color:rgba(107,102,96,.4);text-transform:uppercase;text-align:center;padding:0 1rem}
+
+    .tape-divider{display:flex;align-items:center;gap:1rem;margin:3rem 0}
+    .tape-line{height:1px;flex:1;background:rgba(255,255,255,.05)}
+    .tape-icon{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--dim);letter-spacing:.2em}
+
+    .cta-block{border:1px solid rgba(168,160,144,.25);background:rgba(168,160,144,.04);padding:3rem;margin-bottom:2rem}
+    .cta-inner{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+    .cta-vol{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:.5rem}
+    .cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.03em;color:var(--white);line-height:1;margin-bottom:1rem}
+    .cta-desc{font-size:.82rem;color:rgba(232,228,220,.45);line-height:1.7;max-width:380px}
+    .cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem}
+    .price-only{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--white);line-height:1}
+    .price-only .cur{font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:var(--dim);vertical-align:middle}
+    .price-note{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:var(--dim);margin-top:.3rem}
+    .btn-prem{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:.85rem 1.75rem;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-block}
+    .btn-prem:hover{opacity:.85}
+    .includes-list{margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+    .include-item{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--dim);display:flex;align-items:center;gap:.75rem}
+    .include-item::before{content:'★';color:var(--accent)}
+
+    footer{padding:3rem 2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+    .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:var(--dim)}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;margin-top:1rem;flex-wrap:wrap}
+    .footer-nav a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--dim);text-decoration:none;text-transform:uppercase;transition:color .2s}
+    .footer-nav a:hover{color:var(--white)}
+    @media(max-width:600px){.preview-grid,.films-grid{grid-template-columns:1fr}.cta-inner{flex-direction:column}.cta-right{align-items:flex-start}.vol-nav{flex-direction:column;gap:.75rem}}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="prompts.html" class="nav-back">← Tous les volumes</a>
+    <a href="index.html" class="nav-logo">STAMPEDE</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="vol-eyebrow">Vol. 11 &nbsp;·&nbsp; Premium exclusif &nbsp;·&nbsp; 1980–2000</div>
+      <h1 class="hero-title">FASHION<br/><span class="sub">THROUGH CINEMA</span></h1>
+      <p class="hero-tagline">Le vêtement comme signe narratif. Pas comme produit.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-key">Époque</span><span class="meta-val">1980–2000</span></div>
+        <div class="meta-item"><span class="meta-key">Références</span><span class="meta-val">Armani · Versace · Mugler · Donna Karan</span></div>
+        <div class="meta-item"><span class="meta-key">Format</span><span class="meta-val">Premium uniquement</span></div>
+        <div class="meta-item"><span class="meta-key">Prix</span><span class="meta-val">34 €</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="vol-nav">
+      <a href="prompt-vol-10.html">← Vol. 10 — La Bimbo</a>
+      <a href="prompts.html">Tous les volumes</a>
+      <a href="prompt-vol-miami-vice.html">Vol. Bonus — Miami Vice →</a>
+    </div>
+
+    <div class="section-label">Les films de référence</div>
+
+    <div class="films-grid">
+      <div class="film-item"><p class="film-decade">1980</p><p class="film-title">American Gigolo</p><p class="film-sub">Schrader · Armani · le costume comme identité</p></div>
+      <div class="film-item"><p class="film-decade">1983</p><p class="film-title">Scarface</p><p class="film-sub">De Palma · lin blanc · l'excès comme signature</p></div>
+      <div class="film-item"><p class="film-decade">1988</p><p class="film-title">Working Girl</p><p class="film-sub">Nichols · épaulettes · le pouvoir féminin</p></div>
+      <div class="film-item"><p class="film-decade">1990</p><p class="film-title">Pretty Woman</p><p class="film-sub">Marshall · robe rouge · la transformation</p></div>
+      <div class="film-item"><p class="film-decade">1992</p><p class="film-title">Basic Instinct</p><p class="film-sub">Verhoeven · blanc · la menace douce</p></div>
+      <div class="film-item"><p class="film-decade">1994</p><p class="film-title">Pulp Fiction</p><p class="film-sub">Tarantino · ordinaire · l'ordinaire mythifié</p></div>
+      <div class="film-item"><p class="film-decade">1999</p><p class="film-title">Eyes Wide Shut</p><p class="film-sub">Kubrick · manteau · le vêtement comme masque</p></div>
+      <div class="film-item"><p class="film-decade">1999</p><p class="film-title">The Matrix</p><p class="film-sub">Wachowski · cuir · le vêtement comme manifeste</p></div>
+      <div class="film-item"><p class="film-decade">2000</p><p class="film-title">American Psycho</p><p class="film-sub">Harron · Armani · le costume comme dissimulation</p></div>
+    </div>
+
+    <div class="section-label">Le registre</div>
+    <p class="body-text">
+      Ce volume encode la mode telle qu'elle apparaît dans le cinéma — <strong>pas comme produit, comme signe.</strong><br /><br />
+      Le vêtement qui révèle le personnage avant qu'il parle. La coupe qui encode une intention. La couleur qui est un argument. Le tissu qui dit quelque chose sur l'époque, sur la classe, sur l'ambition ou sa dissimulation.<br /><br />
+      De American Gigolo (1980) à American Psycho (2000) — <strong>vingt ans de cinéma où s'habiller était une déclaration.</strong> Armani, Versace, Mugler, Donna Karan — à travers la lumière des films, pas des studios de mode.
+    </p>
+
+    <div class="section-label">Aperçu des prompts</div>
+
+    <div class="prompts-block">
+      <p class="cat-label">Années 80 — Le costume comme identité</p>
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt 01 — American Gigolo 1980 — l'armure Armani</p>
+        <p class="prompt-text">Male figure in perfectly cut Armani suit, early 1980s, neutral grey or cream, open collar, the suit as psychological armor not status symbol, Richard Gere visual language, hotel room or urban exterior, Schrader grammar, the clothes thinking for the body. Analog imperfection is intentional.</p>
+      </div>
+
+      <p class="cat-label">Années 90 — Le minimalisme et la rupture</p>
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt 05 — Basic Instinct 1992 — le blanc comme menace</p>
+        <p class="prompt-text">White dress or suit in interrogation or confrontation setting, the lightness of the fabric against the weight of the scene, Verhoeven grammar, the color that should suggest innocence suggesting its opposite, the clothes complicit in the strategy. Analog imperfection is intentional.</p>
+      </div>
+
+      <div class="prompt-item">
+        <p class="prompt-num">Prompt P02 — American Psycho 2000 — la carte de visite — Accès Premium</p>
+        <p class="prompt-text blurred">Business card scene grammar — male figure in 1990s power suit, the exquisite precision of the fabric encoding the pathology beneath, Patrick Bateman visual language, the suit as camouflage for what cannot be named, the fashion as the only honest thing about the character. Analog imperfection is intentional.</p>
+        <span class="prompt-lock">🔒 Premium</span>
+      </div>
+    </div>
+
+    <div class="section-label">Exemples visuels</div>
+    <div class="preview-grid">
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Armani suit — lumière hôtel 1980</span></div>
+      <div class="preview-img"><span class="preview-img-icon">⬚</span><span class="preview-img-label">Robe rouge — intérieur désaturé</span></div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <p class="cta-vol">Vol. 11 — Premium exclusif</p>
+          <h2 class="cta-title">Fashion<br/>Through Cinema</h2>
+          <p class="cta-desc">PDF téléchargeable immédiatement. 20 prompts complets + notes de construction + guide de direction artistique GPT Image 2.</p>
+          <div class="includes-list">
+            <span class="include-item">10 prompts Standard — films et décennies</span>
+            <span class="include-item">10 prompts Premium — déconstruction par designer et par film</span>
+            <span class="include-item">Armani, Versace, Mugler, Donna Karan à travers le cinéma</span>
+            <span class="include-item">Combinaisons Femme Fatale, Neo-Noir, VHS</span>
+            <span class="include-item">Guide de direction artistique GPT Image 2</span>
+          </div>
+        </div>
+        <div class="cta-right">
+          <div>
+            <p class="price-only"><span class="cur">€</span>34</p>
+            <p class="price-note">Premium uniquement — pas de version Standard</p>
+          </div>
+          <a href="checkout.html?vol=vol11&version=premium" class="btn-prem">★ &nbsp;Télécharger →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tape-divider"><div class="tape-line"></div><span class="tape-icon">— — —</span><div class="tape-line"></div></div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--dim);text-align:center">
+      Collection complète &nbsp;→&nbsp; <a href="prompts.html#pack-complet" style="color:var(--accent);text-decoration:none">Tous les volumes</a>
+    </p>
+  </div>
+
+  <footer>
+    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <nav class="footer-nav">
+      <a href="index.html">SOMEDAY</a>
+      <a href="prompts.html">Prompt Packs</a>
+      <a href="boutique.html">Vidéo Club</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
