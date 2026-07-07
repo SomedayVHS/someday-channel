@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Stampede Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --panel: #141210;
+    --off-white: #f2ede2;
+    --grey: #837c6f;
+    --red: #c8342e;
+    --gold: #b8935a;
+    --line: rgba(242,237,226,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--off-white);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* film grain overlay */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+
+  /* scanline sweep */
+  body::after{
+    content:"";
+    position:fixed; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, rgba(200,52,46,0.5), transparent);
+    z-index:51; pointer-events:none;
+    animation: sweep 9s linear infinite;
+  }
+  @keyframes sweep{
+    0%{ top:-2px; }
+    100%{ top:100%; }
+  }
+
+  header{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px 6vw;
+    z-index:40;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--grey);
+    mix-blend-mode:difference;
+  }
+  header .rec{
+    display:flex; align-items:center; gap:8px;
+    color:var(--off-white);
+  }
+  header .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    animation:blink 1.4s ease-in-out infinite;
+    box-shadow:0 0 8px var(--red);
+  }
+  @keyframes blink{
+    0%,100%{opacity:1;} 50%{opacity:0.25;}
+  }
+
+  main{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:140px 6vw 80px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:32px; height:1px;
+    background:var(--gold);
+  }
+
+  h1{
+    font-family:'Bebas Neue', sans-serif;
+    font-weight:400;
+    font-size:clamp(3.2rem, 9vw, 8rem);
+    line-height:0.92;
+    letter-spacing:0.01em;
+    color:var(--off-white);
+    text-transform:uppercase;
+    max-width:14ch;
+  }
+  h1 span{
+    color:transparent;
+    -webkit-text-stroke:1.5px var(--off-white);
+  }
+
+  .lede{
+    margin-top:28px;
+    max-width:46ch;
+    font-size:1.05rem;
+    line-height:1.7;
+    color:var(--grey);
+  }
+  .lede strong{ color:var(--off-white); font-weight:600; }
+
+  .grid{
+    margin-top:80px;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:70px;
+    align-items:start;
+  }
+
+  /* ---- Left: channels ---- */
+  .channels{
+    display:flex; flex-direction:column; gap:0;
+    border-top:1px solid var(--line);
+  }
+  .channel{
+    display:grid;
+    grid-template-columns:70px 1fr auto;
+    align-items:center;
+    gap:18px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;
+    color:var(--off-white);
+    transition:padding-left .35s ease, background .35s ease;
+  }
+  .channel:hover{
+    padding-left:14px;
+    background:rgba(200,52,46,0.05);
+  }
+  .channel .freq{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--grey);
+    letter-spacing:0.05em;
+  }
+  .channel .name{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+  }
+  .channel .name small{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:400;
+    font-size:11px;
+    color:var(--grey);
+    margin-top:4px;
+    letter-spacing:0.02em;
+  }
+  .channel .arrow{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--red);
+    opacity:0;
+    transform:translateX(-6px);
+    transition:all .35s ease;
+  }
+  .channel:hover .arrow{ opacity:1; transform:translateX(0); }
+
+  .meta-block{
+    margin-top:48px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    line-height:2;
+    color:var(--grey);
+    letter-spacing:0.03em;
+  }
+  .meta-block b{ color:var(--off-white); font-weight:500; }
+
+  /* ---- Right: form ---- */
+  .terminal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:36px;
+    position:relative;
+  }
+  .terminal::before{
+    content:"NOUVELLE TRANSMISSION";
+    position:absolute;
+    top:-1px; left:-1px;
+    background:var(--red);
+    color:var(--black);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+    padding:6px 12px;
+    font-weight:600;
+  }
+  .terminal-inner{ margin-top:22px; }
+
+  .field{
+    margin-bottom:24px;
+  }
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
+    color:var(--off-white);
+    font-family:'Inter', sans-serif;
+    font-size:0.98rem;
+    padding:10px 2px;
+    transition:border-color .25s ease;
+  }
+  .field select{
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23837c6f'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 4px center;
+    cursor:pointer;
+  }
+  .field select option{ background:var(--panel); color:var(--off-white); }
+  .field textarea{ resize:vertical; min-height:90px; font-family:'Inter', sans-serif; }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none;
+    border-color:var(--red);
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:#514c43; }
+
+  .row-two{
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  }
+
+  button.send{
+    width:100%;
+    margin-top:8px;
+    background:var(--off-white);
+    color:var(--black);
+    border:none;
+    padding:16px 20px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:color .3s ease;
+  }
+  button.send::before{
+    content:"";
+    position:absolute; inset:0;
+    background:var(--red);
+    transform:translateX(-101%);
+    transition:transform .35s ease;
+    z-index:0;
+  }
+  button.send span{ position:relative; z-index:1; }
+  button.send:hover{ color:var(--off-white); }
+  button.send:hover::before{ transform:translateX(0); }
+
+  .timestamp{
+    margin-top:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    color:var(--grey);
+    letter-spacing:0.08em;
+    display:flex;
+    justify-content:space-between;
+  }
+
+  .success{
+    display:none;
+    text-align:center;
+    padding:40px 0;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .success.show{ display:block; }
+  .success .ok{
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:0.14em;
+    margin-bottom:14px;
+  }
+  .success p{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:2rem;
+    letter-spacing:0.02em;
+    color:var(--off-white);
+  }
+  .success small{
+    display:block;
+    margin-top:14px;
+    color:var(--grey);
+    font-size:11px;
+  }
+
+  footer{
+    padding:40px 6vw 50px;
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--grey);
+    letter-spacing:0.08em;
+    border-top:1px solid var(--line);
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  @media (max-width:860px){
+    .grid{ grid-template-columns:1fr; gap:56px; }
+    header{ padding:20px 6vw; }
+    main{ padding:110px 6vw 60px; }
+    footer{ flex-direction:column; gap:8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" style="color:inherit; text-decoration:none;">STAMPEDE PRODUCTION</a>
+  <nav style="display:flex; align-items:center; gap:32px;">
+    <a href="portfolio.html" style="color:inherit; text-decoration:none;">Portfolio</a>
+    <div class="rec"><span class="dot"></span> LIGNE OUVERTE</div>
+  </nav>
+</header>
+
+<main>
+  <div class="eyebrow">Studio visuel AI — Lyon</div>
+  <h1>Transmettre<br><span>un signal.</span></h1>
+  <p class="lede">
+    Direction créative et images générées par IA pour marques exigeantes.
+    <strong>Décrivez le projet</strong>, je reviens vers vous sous 48h avec une première proposition visuelle.
+  </p>
+
+  <div class="grid">
+    <div>
+      <div class="channels">
+        <a class="channel" href="portfolio.html">
+          <span class="freq">00</span>
+          <span class="name">Portfolio<small>Projets & réalisations</small></span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="channel" href="mailto:somedayvhs@outlook.fr">
+          <span class="freq">01</span>
+          <span class="name">Email<small>Réponse sous 48h</small></span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="meta-block">
+        <div><b>Zone :</b> Lyon & alentours — missions à distance possibles</div>
+        <div><b>Formats :</b> visuels de marque, campagnes, contenus vidéo IA</div>
+        <div><b>Délai moyen :</b> 3 à 10 jours selon le projet</div>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-inner">
+        <form id="contactForm" action="https://formsubmit.co/somedayvhs@outlook.fr" method="POST">
+          <input type="hidden" name="_subject" value="Nouvelle transmission — Stampede Production">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <div class="field">
+            <label>Nom</label>
+            <input type="text" name="Nom" placeholder="Votre nom" required>
+          </div>
+          <div class="row-two">
+            <div class="field">
+              <label>Email</label>
+              <input type="email" name="Email" placeholder="vous@marque.fr" required>
+            </div>
+            <div class="field">
+              <label>Marque</label>
+              <input type="text" name="Marque" placeholder="Nom de la marque">
+            </div>
+          </div>
+          <div class="field">
+            <label>Type de projet</label>
+            <select name="Type de projet" required>
+              <option value="" disabled selected>Sélectionner —</option>
+              <option>Identité visuelle de marque</option>
+              <option>Campagne / série d'images IA</option>
+              <option>Vidéo & motion</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Message</label>
+            <textarea name="Message" placeholder="Décrivez le projet, le contexte, les délais..." required></textarea>
+          </div>
+          <button type="submit" class="send"><span>Envoyer la transmission</span></button>
+          <div class="timestamp">
+            <span id="clock">05.07.2026 — 00:00:00</span>
+            <span>CH.01 SIGNAL STABLE</span>
+          </div>
+        </form>
+
+        <div class="success" id="successMsg">
+          <div class="ok">SIGNAL REÇU</div>
+          <p>Transmission enregistrée.</p>
+          <small>Réponse envoyée sous 48h — canal email.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>© STAMPEDE PRODUCTION — TOUS DROITS RÉSERVÉS</span>
+</footer>
+
+<script>
+  // live timestamp
+  const clock = document.getElementById('clock');
+  function updateClock(){
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const date = `${pad(now.getDate())}.${pad(now.getMonth()+1)}.${now.getFullYear()}`;
+    const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    clock.textContent = `${date} — ${time}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // form submit -> sends to somedayvhs@outlook.fr via FormSubmit, then shows confirmation
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('successMsg');
+  const sendBtn = form.querySelector('.send');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    sendBtn.disabled = true;
+    sendBtn.querySelector('span').textContent = 'Envoi en cours...';
+
+    const data = new FormData(form);
+
+    fetch('https://formsubmit.co/ajax/somedayvhs@outlook.fr', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    })
+    .then(res => res.json())
+    .then(() => {
+      form.style.display = 'none';
+      success.classList.add('show');
+    })
+    .catch(() => {
+      sendBtn.disabled = false;
+      sendBtn.querySelector('span').textContent = 'Réessayer l\'envoi';
+    });
+  });
+</script>
+
+</body>
+</html>

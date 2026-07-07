@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Stampede Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --panel: #141210;
+    --off-white: #f2ede2;
+    --grey: #837c6f;
+    --red: #c8342e;
+    --gold: #b8935a;
+    --line: rgba(242,237,226,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--off-white);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+  body::after{
+    content:"";
+    position:fixed; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, rgba(200,52,46,0.5), transparent);
+    z-index:51; pointer-events:none;
+    animation: sweep 9s linear infinite;
+  }
+  @keyframes sweep{ 0%{ top:-2px; } 100%{ top:100%; } }
+
+  header{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px 6vw;
+    z-index:40;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--grey);
+    mix-blend-mode:difference;
+  }
+  header nav{ display:flex; align-items:center; gap:32px; }
+  header a{ color:inherit; text-decoration:none; }
+  header .rec{ display:flex; align-items:center; gap:8px; color:var(--off-white); }
+  header .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    animation:blink 1.4s ease-in-out infinite;
+    box-shadow:0 0 8px var(--red);
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  main{ max-width:1180px; margin:0 auto; padding:150px 6vw 40px; }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{ content:""; width:32px; height:1px; background:var(--gold); }
+
+  h1{
+    font-family:'Bebas Neue', sans-serif;
+    font-weight:400;
+    font-size:clamp(3rem, 8.5vw, 7.2rem);
+    line-height:0.92;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    max-width:16ch;
+  }
+  h1 span{ color:transparent; -webkit-text-stroke:1.5px var(--off-white); }
+
+  .lede{
+    margin-top:26px;
+    max-width:52ch;
+    font-size:1.05rem;
+    line-height:1.7;
+    color:var(--grey);
+  }
+  .lede strong{ color:var(--off-white); font-weight:600; }
+
+  .counter{
+    margin-top:50px;
+    display:flex; gap:48px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--grey);
+    letter-spacing:0.08em;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:16px 0;
+  }
+  .counter b{ color:var(--off-white); font-family:'Bebas Neue', sans-serif; font-size:1.3rem; letter-spacing:0.02em; margin-right:8px; }
+
+  /* ---- Tape rack ---- */
+  .rack{ margin-top:70px; }
+
+  .tape{
+    display:grid;
+    grid-template-columns:90px 1fr auto;
+    align-items:center;
+    gap:28px;
+    padding:34px 0;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;
+    color:var(--off-white);
+    cursor:pointer;
+    position:relative;
+    transition:padding-left .4s ease;
+  }
+  .rack .tape:first-child{ border-top:1px solid var(--line); }
+  .tape:hover{ padding-left:16px; }
+  .tape::before{
+    content:"";
+    position:absolute; inset:0;
+    background:rgba(200,52,46,0.05);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .4s ease;
+    z-index:0;
+  }
+  .tape:hover::before{ transform:scaleX(1); }
+
+  .tape .index{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--grey);
+    letter-spacing:0.05em;
+    z-index:1;
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+  }
+
+  .tape .info{ z-index:1; }
+  .tape .cat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .tape .title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(1.8rem, 4vw, 2.8rem);
+    letter-spacing:0.01em;
+    line-height:1;
+    text-transform:uppercase;
+  }
+  .tape .desc{
+    margin-top:12px;
+    max-width:56ch;
+    font-size:0.95rem;
+    line-height:1.6;
+    color:var(--grey);
+  }
+  .tape .desc strong{ color:var(--off-white); font-weight:600; }
+  .tape .tags{
+    margin-top:14px;
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .tape .tags span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--grey);
+    border:1px solid var(--line);
+    padding:5px 10px;
+  }
+
+  .tape .arrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--red);
+    opacity:0;
+    transform:translateX(-8px);
+    transition:all .4s ease;
+    z-index:1;
+  }
+  .tape:hover .arrow{ opacity:1; transform:translateX(0); }
+
+  /* status flag */
+  .status{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border:1px solid currentColor;
+  }
+  .status.live{ color:var(--gold); }
+  .status.dev{ color:var(--grey); }
+
+  .cta-band{
+    margin-top:90px;
+    padding:60px 0 80px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:30px;
+  }
+  .cta-band h2{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(2rem, 5vw, 3.4rem);
+    max-width:14ch;
+    line-height:1;
+    text-transform:uppercase;
+  }
+  .cta-band a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--black);
+    background:var(--off-white);
+    padding:16px 30px;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:background .3s ease, color .3s ease;
+  }
+  .cta-band a:hover{ background:var(--red); color:var(--off-white); }
+
+  footer{
+    padding:40px 6vw 50px;
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--grey);
+    letter-spacing:0.08em;
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  @media (max-width:760px){
+    .tape{ grid-template-columns:1fr; gap:14px; }
+    .tape .index{ writing-mode:horizontal-tb; }
+    .counter{ flex-wrap:wrap; gap:26px; }
+    .cta-band{ flex-direction:column; align-items:flex-start; }
+    header{ padding:20px 6vw; }
+    main{ padding:120px 6vw 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">STAMPEDE PRODUCTION</a>
+  <nav>
+    <a href="contact.html">Contact</a>
+    <div class="rec"><span class="dot"></span> LIGNE OUVERTE</div>
+  </nav>
+</header>
+
+<main>
+  <div class="eyebrow">Catalogue — travaux sélectionnés</div>
+  <h1>Ce qu'on a<br><span>enregistré.</span></h1>
+  <p class="lede">
+    Direction visuelle, séries documentaires, identités de marque.
+    <strong>Cinq bandes, une seule signature</strong> — l'imperfection analogique comme choix, jamais comme accident.
+  </p>
+
+  <div class="counter">
+    <div><b>03</b>Projets actifs</div>
+    <div><b>Lyon</b>Studio & missions à distance</div>
+    <div><b>2026</b>Année de production</div>
+  </div>
+
+  <div class="rack">
+
+    <a class="tape" href="https://somedayvhs.github.io/someday-channel/">
+      <span class="index">TAPE 01</span>
+      <div class="info">
+        <div class="cat">Série documentaire · YouTube</div>
+        <div class="title">SOMEDAY</div>
+        <p class="desc">
+          <strong>Les films qu'on n'a jamais pris le temps de regarder.</strong>
+          Une exploration intime du cinéma américain 80–2000, portée par la mémoire d'un grand-père et la texture des cassettes jamais visionnées.
+        </p>
+        <div class="tags"><span>Documentaire</span><span>VHS / Analogique</span><span>Narration perso</span></div>
+      </div>
+      <span class="status live">En diffusion</span>
+    </a>
+
+    <a class="tape" href="https://somedayvhs.github.io/mode/maison-audace.html">
+      <span class="index">TAPE 02</span>
+      <div class="info">
+        <div class="cat">Identité de marque · Mode</div>
+        <div class="title">Maison Audace</div>
+        <p class="desc">
+          Vitrine de marque construite en HTML — carrousels vidéo au survol, direction artistique générée par IA, système de prompts dédié à l'identité de la maison.
+        </p>
+        <div class="tags"><span>GitHub Pages</span><span>Direction artistique</span><span>Fashion film</span></div>
+      </div>
+      <span class="status dev">En construction</span>
+    </a>
+
+    <a class="tape" href="cours.html">
+      <span class="index">TAPE 03</span>
+      <div class="info">
+        <div class="cat">Formation · Cours</div>
+        <div class="title">GPT Image 2 — Le Cours</div>
+        <p class="desc">
+          <strong>Structurer un prompt qui produit une image, pas un cliché.</strong>
+          Lumière, composition, références visuelles, glossaire complet et exercices pratiques — la méthode complète pour générer des images réalistes et intentionnelles.
+        </p>
+        <div class="tags"><span>GPT Image 2</span><span>Formation</span><span>Glossaire</span></div>
+      </div>
+      <span class="status live">Disponible</span>
+    </a>
+
+  </div>
+
+  <div class="cta-band">
+    <h2>Un projet en tête ?</h2>
+    <a href="mailto:somedayvhs@outlook.fr">Transmettre un signal →</a>
+  </div>
+</main>
+
+<footer>
+  <span>© STAMPEDE PRODUCTION — TOUS DROITS RÉSERVÉS</span>
+</footer>
+
+</body>
+</html>
