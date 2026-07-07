@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La démarche — SOMEDAY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --panel: #141210;
+    --off-white: #f2ede2;
+    --grey: #837c6f;
+    --red: #c8342e;
+    --gold: #b8935a;
+    --line: rgba(242,237,226,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--off-white);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:0.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+  body::after{
+    content:"";
+    position:fixed; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, rgba(200,52,46,0.5), transparent);
+    z-index:51; pointer-events:none;
+    animation:sweep 9s linear infinite;
+  }
+  @keyframes sweep{ 0%{top:-2px;} 100%{top:100%;} }
+
+  header{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px 6vw;
+    z-index:40;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--grey);
+    mix-blend-mode:difference;
+  }
+  header nav{ display:flex; align-items:center; gap:32px; }
+  header a{ color:inherit; text-decoration:none; transition:color .2s; }
+  header a:hover{ color:var(--off-white); }
+  header a.active{ color:var(--off-white); }
+  header .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    animation:blink 1.4s ease-in-out infinite;
+    box-shadow:0 0 8px var(--red);
+    display:inline-block;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  main{
+    max-width:860px;
+    margin:0 auto;
+    padding:160px 6vw 80px;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{ content:""; width:32px; height:1px; background:var(--gold); }
+
+  .page-title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(3rem, 8vw, 5.5rem);
+    line-height:0.93;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    margin-bottom:32px;
+  }
+
+  .intro{
+    font-size:1.1rem;
+    line-height:1.8;
+    color:var(--off-white);
+    max-width:58ch;
+    margin-bottom:60px;
+    border-left:2px solid var(--red);
+    padding-left:24px;
+  }
+
+  hr{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:52px 0;
+  }
+
+  /* Sections éditoriales */
+  .section{
+    margin-bottom:64px;
+  }
+
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .section h2{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:clamp(1.6rem, 3.5vw, 2.2rem);
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    color:var(--off-white);
+    margin-bottom:18px;
+    line-height:1.05;
+  }
+
+  .section p{
+    font-size:0.97rem;
+    line-height:1.82;
+    color:var(--grey);
+    max-width:62ch;
+    margin-bottom:14px;
+  }
+  .section p strong{ color:var(--off-white); font-weight:500; }
+  .section p em{ font-style:italic; color:var(--off-white); }
+
+  /* Outils liste */
+  .tools{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
+  }
+  .tool{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--gold);
+    border:1px solid rgba(184,147,90,0.3);
+    padding:6px 14px;
+  }
+
+  /* Citation */
+  .quote{
+    margin:40px 0;
+    padding:28px 32px;
+    background:var(--panel);
+    border-left:2px solid var(--gold);
+    position:relative;
+  }
+  .quote p{
+    font-size:1.05rem;
+    line-height:1.75;
+    color:var(--off-white);
+    font-style:italic;
+    max-width:none;
+    margin:0;
+  }
+
+  /* Stampede card */
+  .stampede-card{
+    margin-top:56px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .stampede-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:2px;
+    background:linear-gradient(90deg, var(--red), var(--gold), transparent);
+  }
+  .stampede-card-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--grey);
+    margin-bottom:16px;
+  }
+  .stampede-card h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:2rem;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    color:var(--off-white);
+    margin-bottom:12px;
+  }
+  .stampede-card p{
+    font-size:0.93rem;
+    line-height:1.75;
+    color:var(--grey);
+    max-width:52ch;
+    margin-bottom:28px;
+  }
+
+  .btn-primary{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--black);
+    background:var(--off-white);
+    padding:14px 28px;
+    text-decoration:none;
+    transition:background .3s ease, color .3s ease;
+  }
+  .btn-primary:hover{ background:var(--red); color:var(--off-white); }
+
+  .btn-secondary{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--off-white);
+    border:1px solid var(--line);
+    padding:14px 28px;
+    text-decoration:none;
+    margin-left:14px;
+    transition:border-color .3s ease, color .3s ease;
+  }
+  .btn-secondary:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* Packs grid */
+  .packs{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    gap:1px;
+    background:var(--line);
+    margin-top:24px;
+    border:1px solid var(--line);
+  }
+  .pack{
+    background:var(--black);
+    padding:20px;
+    transition:background .2s;
+  }
+  .pack:hover{ background:var(--panel); }
+  .pack-vol{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9px;
+    letter-spacing:0.15em;
+    color:var(--grey);
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .pack-title{
+    font-size:0.88rem;
+    font-weight:500;
+    color:var(--off-white);
+    line-height:1.4;
+  }
+
+  footer{
+    padding:40px 6vw 50px;
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--grey);
+    letter-spacing:0.08em;
+    max-width:860px;
+    margin:0 auto;
+    border-top:1px solid var(--line);
+  }
+
+  @media(max-width:600px){
+    header{ padding:20px 5vw; }
+    header nav{ gap:18px; }
+    main{ padding:120px 5vw 60px; }
+    .stampede-card{ padding:28px 20px; }
+    .btn-secondary{ margin-left:0; margin-top:10px; display:block; text-align:center; }
+    footer{ flex-direction:column; gap:8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">SOMEDAY</a>
+  <nav>
+    <a href="episodes.html">Épisodes</a>
+    <a href="demarche.html" class="active">La démarche</a>
+    <a href="contact.html">Contact</a>
+    <span class="dot"></span>
+  </nav>
+</header>
+
+<main>
+
+  <div class="eyebrow">Méthode & Studio</div>
+  <h1 class="page-title">Comment ces<br>images existent</h1>
+
+  <p class="intro">
+    SOMEDAY est un projet documentaire. Mais derrière chaque image de la série — 
+    chaque plan, chaque grain, chaque lumière — il y a une pratique cinématographique 
+    appliquée à des outils que la plupart des gens n'utilisent pas encore comme ça.
+  </p>
+
+  <hr>
+
+  <!-- SECTION 1 — Le regard d'abord -->
+  <div class="section">
+    <div class="section-label">01 — Le point de départ</div>
+    <h2>Un regard d'abord.<br>Les outils ensuite.</h2>
+    <p>
+      Les images de SOMEDAY ne sont pas générées au hasard. Elles naissent d'une intention 
+      filmique précise — un axe de caméra, une qualité de lumière, une référence à un réalisateur 
+      ou à un film stock — avant d'être confiées à un outil d'intelligence artificielle.
+    </p>
+    <p>
+      C'est cette séquence qui change tout. <strong>L'IA exécute. Le regard commande.</strong> 
+      Sans la formation cinématographique derrière, c'est du prompt engineering. 
+      Avec elle, c'est autre chose.
+    </p>
+  </div>
+
+  <!-- SECTION 2 — Les outils -->
+  <div class="section">
+    <div class="section-label">02 — Les outils</div>
+    <h2>Ce qui produit<br>ces images.</h2>
+    <p>
+      Les visuels de SOMEDAY sont produits avec des outils de génération IA — 
+      principalement <strong>GPT Image 2</strong> pour les images fixes, 
+      <strong>Kling AI</strong> et <strong>Runway</strong> pour les séquences animées. 
+      Chaque génération est précédée d'un prompt construit selon une grammaire 
+      cinématographique rigoureuse.
+    </p>
+    <p>
+      Ce n'est pas un workflow de production classique. C'est une pratique de réalisateur 
+      appliquée à des modèles génératifs — avec les mêmes exigences de lumière, 
+      de composition et d'intention dramatique.
+    </p>
+    <div class="tools">
+      <span class="tool">GPT Image 2</span>
+      <span class="tool">Kling AI</span>
+      <span class="tool">Runway</span>
+      <span class="tool">Midjourney</span>
+      <span class="tool">Flux</span>
+      <span class="tool">ElevenLabs</span>
+    </div>
+  </div>
+
+  <!-- SECTION 3 — Citation -->
+  <div class="quote">
+    <p>
+      "Ces images n'ont pas été créées. Elles ont été décrites — avec suffisamment 
+      de précision pour que le modèle comprenne exactement ce qu'un réalisateur 
+      aurait demandé à un directeur de la photographie."
+    </p>
+  </div>
+
+  <!-- SECTION 4 — La transmission -->
+  <div class="section">
+    <div class="section-label">03 — La transmission</div>
+    <h2>Ce qui peut<br>être partagé.</h2>
+    <p>
+      La grammaire visuelle utilisée dans SOMEDAY a été formalisée en packs de prompts — 
+      des outils concrets pour créateurs qui veulent produire des images cinématographiques 
+      avec GPT Image 2 plutôt que des visuels génériques.
+    </p>
+    <p>
+      Ces packs couvrent le cinéma d'auteur, le neo-noir, l'esthétique VHS des années 80-90, 
+      les signatures de dix grands réalisateurs, les véhicules, la mode, et d'autres territoires 
+      visuels — chacun construit sur les mêmes principes qui guident les images de SOMEDAY.
+    </p>
+    <p>
+      <strong>Ce n'est pas de la formation technique. C'est la transmission d'un regard.</strong>
+    </p>
+  </div>
+
+  <!-- STAMPEDE CARD -->
+  <div class="stampede-card">
+    <div class="stampede-card-label">Studio — Stampede Production</div>
+    <h3>Stampede Production</h3>
+    <p>
+      Le studio derrière SOMEDAY. Directeur visuel IA basé à Lyon — 
+      production cinématographique IA, packs de prompts, conseil visuel 
+      pour marques premium.
+    </p>
+    <a class="btn-primary" href="mailto:somedayvhs@outlook.fr">
+      Travailler ensemble
+    </a>
+  </div>
+
+  <!-- PACKS GRID -->
+  <div class="packs">
+    <div class="pack">
+      <div class="pack-vol">Vol. 01</div>
+      <div class="pack-title">30 Regards d'Auteur — Cinéma contemplatif</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 02</div>
+      <div class="pack-title">Neo-Noir & Thriller</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 03</div>
+      <div class="pack-title">Années 80–90 / L'ère VHS</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 04</div>
+      <div class="pack-title">10 Grands Réalisateurs</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 05</div>
+      <div class="pack-title">Véhicules — La machine comme personnage</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 06</div>
+      <div class="pack-title">La Femme Fatale — 10 décennies</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 07</div>
+      <div class="pack-title">Le Héros — 10 décennies</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 08</div>
+      <div class="pack-title">21 Jump Street & Booker</div>
+    </div>
+    <div class="pack">
+      <div class="pack-vol">Vol. 09</div>
+      <div class="pack-title">Mode — Shooting 1980–2000</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2026 SOMEDAY — Stampede Production</span>
+  <span>La démarche</span>
+</footer>
+
+</body>
+</html>
