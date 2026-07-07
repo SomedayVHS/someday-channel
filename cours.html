@@ -97,6 +97,27 @@
     text-transform:uppercase;
   }
 
+  .free-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:28px;
+    background:rgba(184,147,90,0.12);
+    border:1px solid var(--gold);
+    padding:10px 20px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .free-badge::before{
+    content:"";
+    width:8px; height:8px; border-radius:50%;
+    background:var(--gold);
+    flex-shrink:0;
+  }
+
   /* TOC */
   .toc{
     margin-top:56px;
@@ -132,7 +153,7 @@
 
   /* Article body */
   article{ margin-top:70px; }
-  article h1{ display:none; } /* title already rendered above */
+  article h1{ display:none; }
   article > h2:first-of-type{ margin-top:0; }
   article h2{
     font-family:'Bebas Neue', sans-serif;
@@ -241,124 +262,6 @@
   }
   .cta-band a:hover{ background:var(--red); color:var(--off-white); }
 
-  /* ---- Paywall ---- */
-  .locked{ filter:blur(6px); pointer-events:none; user-select:none; }
-
-  .gate{
-    margin-top:56px;
-    border:1px solid var(--line);
-    background:var(--panel);
-    padding:44px 40px;
-    position:relative;
-  }
-  .gate::before{
-    content:"ACCÈS VERROUILLÉ";
-    position:absolute;
-    top:-1px; left:-1px;
-    background:var(--red);
-    color:var(--black);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.14em;
-    padding:6px 12px;
-    font-weight:600;
-  }
-  .gate-inner{ margin-top:20px; display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between; }
-  .gate-text{ flex:1 1 320px; }
-  .gate-text h3{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:1.9rem;
-    letter-spacing:0.01em;
-    text-transform:uppercase;
-    color:var(--off-white);
-    margin-bottom:14px;
-  }
-  .gate-text p{
-    color:var(--grey);
-    font-size:0.95rem;
-    line-height:1.7;
-    max-width:46ch;
-  }
-  .gate-price{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:3rem;
-    color:var(--gold);
-    margin-top:18px;
-  }
-  .gate-price span{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--grey);
-    text-transform:uppercase;
-    letter-spacing:0.1em;
-    margin-left:8px;
-  }
-  .gate-action{ flex:1 1 260px; display:flex; flex-direction:column; gap:14px; }
-  .gate-buy{
-    display:block;
-    text-align:center;
-    background:var(--off-white);
-    color:var(--black);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    text-decoration:none;
-    padding:16px 20px;
-    transition:background .3s ease, color .3s ease;
-  }
-  .gate-buy:hover{ background:var(--red); color:var(--off-white); }
-  .gate-divider{
-    display:flex; align-items:center; gap:12px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    color:var(--grey);
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-  }
-  .gate-divider::before, .gate-divider::after{ content:""; flex:1; height:1px; background:var(--line); }
-  .gate-code{ display:flex; gap:10px; }
-  .gate-code input{
-    flex:1;
-    background:transparent;
-    border:1px solid var(--line);
-    color:var(--off-white);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.9rem;
-    padding:12px 14px;
-  }
-  .gate-code input::placeholder{ color:#514c43; }
-  .gate-code input:focus{ outline:none; border-color:var(--red); }
-  .gate-code button{
-    background:transparent;
-    border:1px solid var(--off-white);
-    color:var(--off-white);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    padding:0 18px;
-    cursor:pointer;
-    transition:background .25s ease, color .25s ease;
-  }
-  .gate-code button:hover{ background:var(--off-white); color:var(--black); }
-  .gate-error{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    color:var(--red);
-    letter-spacing:0.05em;
-    display:none;
-  }
-  .gate-error.show{ display:block; }
-  .gate-note{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:9.5px;
-    color:var(--grey);
-    letter-spacing:0.03em;
-    line-height:1.6;
-  }
-
   footer{
     padding:40px 6vw 50px;
     display:flex; justify-content:space-between;
@@ -383,7 +286,7 @@
 <body>
 
 <header>
-  <a href="index.html">STAMPEDE PRODUCTION</a>
+  <a href="contact.html">STAMPEDE PRODUCTION</a>
   <nav>
     <a href="portfolio.html">Portfolio</a>
     <a href="contact.html">Contact</a>
@@ -395,1228 +298,204 @@
   <div class="eyebrow">Formation — Direction visuelle IA</div>
   <h1 class="course-title">Créer une belle image réaliste avec GPT Image 2</h1>
   <div class="course-sub">Cours complet — débutants & intermédiaires — par Stampede Production</div>
+  <div class="free-badge">Accès libre &amp; gratuit — aucun compte requis</div>
 
-  <div class="gate" id="gate">
-    <div class="gate-inner">
-      <div class="gate-text">
-        <h3>Débloquer le cours</h3>
-        <p>Accès complet aux 9 parties, au glossaire et aux exercices pratiques. Paiement unique, accès permanent.</p>
-        <div class="gate-price">15€<span>accès unique</span></div>
-      </div>
-      <div class="gate-action">
-        <a class="gate-buy" href="https://www.paypal.com/paypalme/StampedeProduction/15" target="_blank" rel="noopener">Payer 15€ avec PayPal</a>
-        <div class="gate-divider">Déjà payé ?</div>
-        <div class="gate-code">
-          <input type="text" id="accessCode" placeholder="Code d'accès reçu par email">
-          <button id="unlockBtn">Déverrouiller</button>
-        </div>
-        <div class="gate-error" id="gateError">Code invalide — vérifie ton email de confirmation.</div>
-        <div class="gate-note">Le code d'accès est envoyé automatiquement après paiement à l'adresse renseignée sur PayPal.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="gatedContent" class="locked">
   <div class="toc">
     <div class="label">Sommaire</div>
     <ol>
       <li><a href="#introduction"><span class="n">00</span> Introduction</a></li>
-      <li><a href="#partie-1-comprendre-comment-gpt-image-2-pense"><span class="n">01</span> Comment le modèle pense</a></li>
-      <li><a href="#partie-2-la-structure-d-un-prompt-efficace"><span class="n">02</span> Structure d'un prompt efficace</a></li>
-      <li><a href="#partie-3-la-lumiere-le-facteur-numero-un"><span class="n">03</span> La lumière</a></li>
-      <li><a href="#partie-4-la-composition"><span class="n">04</span> La composition</a></li>
-      <li><a href="#partie-5-les-references-visuelles-qui-fonctionnent"><span class="n">05</span> Références visuelles</a></li>
-      <li><a href="#partie-6-les-erreurs-les-plus-communes"><span class="n">06</span> Erreurs communes</a></li>
-      <li><a href="#partie-7-exercices-pratiques"><span class="n">07</span> Exercices pratiques</a></li>
-      <li><a href="#partie-8-glossaire-des-termes-par-categorie"><span class="n">08</span> Glossaire complet</a></li>
-      <li><a href="#conclusion"><span class="n">09</span> Conclusion</a></li>
+      <li><a href="#partie-1"><span class="n">01</span> Comment le modèle pense</a></li>
+      <li><a href="#partie-2"><span class="n">02</span> Structure d'un prompt efficace</a></li>
+      <li><a href="#partie-3"><span class="n">03</span> La lumière</a></li>
+      <li><a href="#partie-4"><span class="n">04</span> La composition</a></li>
+      <li><a href="#partie-5"><span class="n">05</span> Références visuelles</a></li>
+      <li><a href="#partie-6"><span class="n">06</span> Erreurs communes</a></li>
+      <li><a href="#partie-7"><span class="n">07</span> Exercices pratiques</a></li>
+      <li><a href="#conclusion"><span class="n">08</span> Conclusion</a></li>
     </ol>
   </div>
 
   <article>
 <h1>Créer une belle image réaliste avec GPT Image 2</h1>
-<h2>Un cours complet pour débutants et intermédiaires</h2>
-<h3>Par Stampede Production</h3>
 <hr />
 <h2 id="introduction">Introduction</h2>
 <p>GPT Image 2 est l'outil de génération d'images intégré à ChatGPT. Il est accessible depuis n'importe quel abonnement Plus ou Pro. Contrairement à Midjourney ou Stable Diffusion, il comprend le langage naturel avec une précision remarquable — ce qui signifie que la qualité de votre résultat dépend directement de la qualité de votre instruction.</p>
 <p>Ce cours vous apprend à construire des prompts qui produisent des images réalistes, précises et intentionnelles — pas des images génériques, mais des images qui ont un point de vue.</p>
-<p><strong>Ce dont vous avez besoin :</strong>
-- Un abonnement ChatGPT Plus ou Pro
-- GPT Image 2 activé dans les paramètres
-- De la curiosité — aucune compétence technique requise</p>
+<p><strong>Ce dont vous avez besoin :</strong></p>
+<ul>
+  <li>Un abonnement ChatGPT Plus ou Pro</li>
+  <li>GPT Image 2 activé dans les paramètres</li>
+  <li>De la curiosité — aucune compétence technique requise</li>
+</ul>
 <hr />
-<h2 id="partie-1-comprendre-comment-gpt-image-2-pense">PARTIE 1 — Comprendre comment GPT Image 2 pense</h2>
+<h2 id="partie-1">PARTIE 1 — Comment GPT Image 2 pense</h2>
 <h3>Le modèle ne voit pas. Il interprète.</h3>
 <p>GPT Image 2 n'a pas d'yeux. Il a été entraîné sur des milliards d'images et leurs descriptions textuelles. Quand vous lui donnez un prompt, il cherche dans cet entraînement les correspondances les plus probables.</p>
-<p>Ce qui signifie deux choses importantes :</p>
-<p><strong>1. Les mots précis comptent plus que les mots généraux.</strong>
-"Une femme dans une rue" produit une image générique.
+<p><strong>1. Les mots précis comptent plus que les mots généraux.</strong><br>
+"Une femme dans une rue" produit une image générique.<br>
 "Une femme traversant une rue mouillée sous la pluie, vue de dos, manteau sombre, néons roses reflétés dans l'asphalte" produit quelque chose de précis.</p>
-<p><strong>2. Le modèle connaît les références culturelles.</strong>
+<p><strong>2. Le modèle connaît les références culturelles.</strong><br>
 Si vous mentionnez "dans le style de Hopper" ou "lumière Rembrandt" ou "grain Kodachrome", le modèle comprend. Ces références activent des patterns visuels précis issus de son entraînement.</p>
 <h3>La règle fondamentale</h3>
-<p>Un bon prompt répond à quatre questions :
-- <strong>Quoi</strong> — quel est le sujet ?
-- <strong>Comment</strong> — comment est-il cadré, éclairé, rendu ?
-- <strong>Pourquoi</strong> — quelle est l'intention émotionnelle de l'image ?
-- <strong>Référence</strong> — à quoi ça ressemble dans la culture visuelle existante ?</p>
+<p>Un bon prompt répond à quatre questions :</p>
+<ul>
+  <li><strong>Quoi</strong> — quel est le sujet ?</li>
+  <li><strong>Comment</strong> — comment est-il cadré, éclairé, rendu ?</li>
+  <li><strong>Pourquoi</strong> — quelle est l'intention émotionnelle de l'image ?</li>
+  <li><strong>Référence</strong> — à quoi ça ressemble dans la culture visuelle existante ?</li>
+</ul>
 <hr />
-<h2 id="partie-2-la-structure-d-un-prompt-efficace">PARTIE 2 — La structure d'un prompt efficace</h2>
-<p>Un prompt réaliste de qualité se construit en couches. Voici la structure à suivre.</p>
+<h2 id="partie-2">PARTIE 2 — La structure d'un prompt efficace</h2>
+<p>Un prompt réaliste de qualité se construit en six couches successives.</p>
 <h3>Couche 1 : Le sujet principal</h3>
-<p>Décrivez ce qui est au centre de l'image, simplement.</p>
-<blockquote>
-<p><em>"A middle-aged man sitting alone at a café table"</em></p>
-</blockquote>
+<blockquote><p><em>"A middle-aged man sitting alone at a café table"</em></p></blockquote>
 <h3>Couche 2 : L'environnement</h3>
-<p>Décrivez le contexte — lieu, époque, ambiance générale.</p>
-<blockquote>
-<p><em>"in a nearly empty Parisian café, late evening, rain visible through the window"</em></p>
-</blockquote>
+<blockquote><p><em>"in a nearly empty Parisian café, late evening, rain visible through the window"</em></p></blockquote>
 <h3>Couche 3 : La lumière</h3>
-<p>C'est la couche la plus importante pour le réalisme. Soyez précis.</p>
-<blockquote>
-<p><em>"lit by a single overhead pendant lamp casting warm amber light, deep shadows on one side of his face"</em></p>
-</blockquote>
+<blockquote><p><em>"lit by a single overhead pendant lamp casting warm amber light, deep shadows on one side of his face"</em></p></blockquote>
 <h3>Couche 4 : La technique photographique</h3>
-<p>Objectif, distance, profondeur de champ, grain.</p>
-<blockquote>
-<p><em>"50mm lens, shallow depth of field, slight film grain, the background softly out of focus"</em></p>
-</blockquote>
+<blockquote><p><em>"50mm lens, shallow depth of field, slight film grain, the background softly out of focus"</em></p></blockquote>
 <h3>Couche 5 : L'intention émotionnelle</h3>
-<p>Ce que l'image doit ressentir — pas décrire, ressentir.</p>
-<blockquote>
-<p><em>"the image should feel like the pause between two thoughts, neither sad nor peaceful, simply present"</em></p>
-</blockquote>
+<blockquote><p><em>"the image should feel like the pause between two thoughts, neither sad nor peaceful, simply present"</em></p></blockquote>
 <h3>Couche 6 : La référence</h3>
-<p>Un réalisateur, un photographe, un film, un style.</p>
-<blockquote>
-<p><em>"inspired by Edward Hopper's treatment of solitude in public spaces"</em></p>
-</blockquote>
+<blockquote><p><em>"inspired by Edward Hopper's treatment of solitude in public spaces"</em></p></blockquote>
 <hr />
 <p><strong>Le prompt complet assemblé :</strong></p>
 <blockquote>
 <p>A middle-aged man sitting alone at a café table, in a nearly empty Parisian café, late evening, rain visible through the window. Lit by a single overhead pendant lamp casting warm amber light, deep shadows on one side of his face. 50mm lens, shallow depth of field, slight film grain, the background softly out of focus. The image should feel like the pause between two thoughts, neither sad nor peaceful, simply present. Inspired by Edward Hopper's treatment of solitude in public spaces.</p>
 </blockquote>
 <hr />
-<h2 id="partie-3-la-lumiere-le-facteur-numero-un">PARTIE 3 — La lumière : le facteur numéro un</h2>
+<h2 id="partie-3">PARTIE 3 — La lumière : le facteur numéro un</h2>
 <p>Si vous ne retenez qu'une chose de ce cours : <strong>la lumière est plus importante que le sujet.</strong></p>
-<p>Une image mal éclairée d'un sujet magnifique sera toujours moins forte qu'une image bien éclairée d'un sujet ordinaire. GPT Image 2 génère de la lumière avec une précision remarquable — à condition que vous la lui décriviez précisément.</p>
+<p>Une image mal éclairée d'un sujet magnifique sera toujours moins forte qu'une image bien éclairée d'un sujet ordinaire.</p>
 <h3>Les types de lumière à connaître</h3>
-<p><strong>Lumière naturelle directionnelle</strong>
-La lumière du soleil en fin d'après-midi, venant d'une fenêtre sur le côté. C'est la lumière la plus flatteuse et la plus cinématographique.</p>
-<p>Comment la décrire :</p>
-<blockquote>
-<p><em>"late afternoon sunlight coming from a window on the left, creating long warm shadows"</em></p>
-</blockquote>
-<p><strong>Lumière dorée (golden hour)</strong>
-Les 30 minutes après le lever ou avant le coucher du soleil. Lumière chaude, horizontale, douce.</p>
-<blockquote>
-<p><em>"golden hour light, warm orange-amber, the light almost horizontal, casting long shadows"</em></p>
-</blockquote>
-<p><strong>Lumière diffuse (overcast)</strong>
-Ciel couvert — lumière douce, sans ombre dure. Idéale pour les portraits.</p>
-<blockquote>
-<p><em>"overcast natural light, soft and even, no harsh shadows, slightly cool temperature"</em></p>
-</blockquote>
-<p><strong>Lumière unique (single source)</strong>
-Une lampe, une bougie, un écran. Crée le contraste le plus dramatique.</p>
-<blockquote>
-<p><em>"single practical lamp as the only light source, warm tungsten, deep shadow on the opposite side"</em></p>
-</blockquote>
-<p><strong>Lumière néon (urban night)</strong>
-Enseignes colorées dans une rue nocturne. Palettes vives, reflets dans les surfaces mouillées.</p>
-<blockquote>
-<p><em>"neon signs in pink and cyan as the only light sources, reflected in wet pavement, night"</em></p>
-</blockquote>
-<p><strong>Contre-jour (backlight)</strong>
-La source de lumière est derrière le sujet — crée des silhouettes ou des halos.</p>
-<blockquote>
-<p><em>"strong backlight from a window behind the subject, creating a slight halo effect, face in shadow"</em></p>
-</blockquote>
+<p><strong>Lumière naturelle directionnelle</strong></p>
+<blockquote><p><em>"late afternoon sunlight coming from a window on the left, creating long warm shadows"</em></p></blockquote>
+<p><strong>Lumière dorée (golden hour)</strong></p>
+<blockquote><p><em>"golden hour light, warm orange-amber, the light almost horizontal, casting long shadows"</em></p></blockquote>
+<p><strong>Lumière diffuse (overcast)</strong></p>
+<blockquote><p><em>"overcast natural light, soft and even, no harsh shadows, slightly cool temperature"</em></p></blockquote>
+<p><strong>Lumière unique (single source)</strong></p>
+<blockquote><p><em>"single practical lamp as the only light source, warm tungsten, deep shadow on the opposite side"</em></p></blockquote>
+<p><strong>Lumière néon (urban night)</strong></p>
+<blockquote><p><em>"neon signs in pink and cyan as the only light sources, reflected in wet pavement, night"</em></p></blockquote>
+<p><strong>Contre-jour (backlight)</strong></p>
+<blockquote><p><em>"strong backlight from a window behind the subject, creating a slight halo effect, face in shadow"</em></p></blockquote>
 <h3>Les températures de couleur</h3>
-<p>La lumière a une couleur. Précisez-la.</p>
 <table>
-<thead>
-<tr>
-<th>Source</th>
-<th>Température</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bougie</td>
-<td>Très chaude</td>
-<td>Ambre profond, orangé</td>
-</tr>
-<tr>
-<td>Ampoule tungstène</td>
-<td>Chaude</td>
-<td>Jaune orangé</td>
-</tr>
-<tr>
-<td>Lumière du jour</td>
-<td>Neutre</td>
-<td>Blanc légèrement chaud</td>
-</tr>
-<tr>
-<td>Ciel couvert</td>
-<td>Froide</td>
-<td>Blanc bleuté</td>
-</tr>
-<tr>
-<td>Néon fluorescent</td>
-<td>Très froide</td>
-<td>Vert bleuté</td>
-</tr>
-</tbody>
+<tr><th>Source</th><th>Couleur</th></tr>
+<tr><td>Bougie</td><td>Ambre profond, orangé</td></tr>
+<tr><td>Tungstène</td><td>Jaune orangé</td></tr>
+<tr><td>Lumière du jour</td><td>Blanc légèrement chaud</td></tr>
+<tr><td>Ciel couvert</td><td>Blanc bleuté</td></tr>
+<tr><td>Néon fluorescent</td><td>Vert bleuté</td></tr>
 </table>
-<blockquote>
-<p><em>"warm tungsten light, 2700K, amber cast on skin tones"</em>
-<em>"cold fluorescent overhead, slightly green, institutional quality"</em></p>
-</blockquote>
 <hr />
-<h2 id="partie-4-la-composition">PARTIE 4 — La composition</h2>
-<p>La composition est la façon dont les éléments sont organisés dans le cadre.</p>
+<h2 id="partie-4">PARTIE 4 — La composition</h2>
 <h3>La règle des tiers</h3>
 <p>Divisez mentalement votre image en 9 cases égales (3×3). Placez les éléments importants sur les intersections, pas au centre.</p>
-<blockquote>
-<p><em>"the subject positioned on the left third of the frame, significant empty space to the right"</em></p>
-</blockquote>
+<blockquote><p><em>"the subject positioned on the left third of the frame, significant empty space to the right"</em></p></blockquote>
 <h3>L'espace négatif</h3>
 <p>Le vide dans une image n'est pas un manque — c'est un élément. Un sujet entouré d'espace vide crée de la solitude, de la contemplation, du poids.</p>
-<blockquote>
-<p><em>"the figure occupies only the lower right portion of the frame, vast empty sky above"</em></p>
-</blockquote>
+<blockquote><p><em>"the figure occupies only the lower right portion of the frame, vast empty sky above"</em></p></blockquote>
 <h3>La profondeur</h3>
-<p>Trois plans dans une image la rendent immédiatement plus réaliste : avant-plan (légèrement flou), sujet (net), arrière-plan (flou).</p>
-<blockquote>
-<p><em>"shallow depth of field, a blurred element in the foreground, the subject sharp, background softly out of focus"</em></p>
-</blockquote>
+<p>Trois plans dans une image la rendent immédiatement plus réaliste : avant-plan flou, sujet net, arrière-plan flou.</p>
+<blockquote><p><em>"shallow depth of field, a blurred element in the foreground, the subject sharp, background softly out of focus"</em></p></blockquote>
 <h3>La ligne directrice</h3>
-<p>Les lignes dans une image guident l'œil. Une route, un couloir, des rails — tout ce qui converge vers un point crée de la perspective et de la profondeur.</p>
-<blockquote>
-<p><em>"the road stretches ahead to a vanishing point in the center, perspective lines guiding the eye forward"</em></p>
-</blockquote>
+<p>Les lignes dans une image guident l'œil. Une route, un couloir — tout ce qui converge vers un point crée perspective et profondeur.</p>
+<blockquote><p><em>"the road stretches ahead to a vanishing point in the center, perspective lines guiding the eye forward"</em></p></blockquote>
 <hr />
-<h2 id="partie-5-les-references-visuelles-qui-fonctionnent">PARTIE 5 — Les références visuelles qui fonctionnent</h2>
+<h2 id="partie-5">PARTIE 5 — Les références visuelles qui fonctionnent</h2>
 <p>GPT Image 2 reconnaît ces références avec précision. Ajoutez-en une à la fin de votre prompt.</p>
 <h3>Réalisateurs</h3>
 <table>
-<thead>
-<tr>
-<th>Référence</th>
-<th>Ce qu'elle active</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>"Béla Tarr visual grammar"</em></td>
-<td>Plans longs, lumière oblique, noir et blanc</td>
-</tr>
-<tr>
-<td><em>"Wong Kar-wai color palette"</em></td>
-<td>Couleurs chaudes saturées, flou poétique</td>
-</tr>
-<tr>
-<td><em>"Michael Mann night photography"</em></td>
-<td>Néons urbains, précision froide</td>
-</tr>
-<tr>
-<td><em>"Stanley Kubrick symmetry"</em></td>
-<td>Composition parfaitement centrée</td>
-</tr>
-<tr>
-<td><em>"Wim Wenders road aesthetic"</em></td>
-<td>Paysages vastes, mélancolie douce</td>
-</tr>
-<tr>
-<td><em>"Edward Hopper composition"</em></td>
-<td>Solitude urbaine, lumière de fenêtre</td>
-</tr>
-<tr>
-<td><em>"David Fincher cold precision"</em></td>
-<td>Palette désaturée, contrôle total</td>
-</tr>
-</tbody>
-</table>
-<h3>Photographes</h3>
-<table>
-<thead>
-<tr>
-<th>Référence</th>
-<th>Ce qu'elle active</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>"William Eggleston color"</em></td>
-<td>Kodachrome saturé, sujets ordinaires élevés</td>
-</tr>
-<tr>
-<td><em>"Henri Cartier-Bresson"</em></td>
-<td>Instant décisif, composition géométrique</td>
-</tr>
-<tr>
-<td><em>"Gregory Crewdson staging"</em></td>
-<td>Mise en scène nocturne, cinématographique</td>
-</tr>
-<tr>
-<td><em>"Saul Leiter street photography"</em></td>
-<td>Couleurs douces, cadrage travers vitres</td>
-</tr>
-</tbody>
+<tr><th>Référence</th><th>Ce qu'elle active</th></tr>
+<tr><td><code>Béla Tarr visual grammar</code></td><td>Plans longs, lumière oblique, noir et blanc</td></tr>
+<tr><td><code>Wong Kar-wai color palette</code></td><td>Couleurs chaudes saturées, flou poétique</td></tr>
+<tr><td><code>Michael Mann night photography</code></td><td>Néons urbains, précision froide</td></tr>
+<tr><td><code>Stanley Kubrick symmetry</code></td><td>Composition parfaitement centrée</td></tr>
+<tr><td><code>Wim Wenders road aesthetic</code></td><td>Paysages vastes, mélancolie douce</td></tr>
+<tr><td><code>Edward Hopper composition</code></td><td>Solitude urbaine, lumière de fenêtre</td></tr>
+<tr><td><code>David Fincher cold precision</code></td><td>Palette désaturée, contrôle total</td></tr>
 </table>
 <h3>Films stocks</h3>
 <table>
-<thead>
-<tr>
-<th>Référence</th>
-<th>Ce qu'elle active</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>"Kodachrome 64 film stock"</em></td>
-<td>Couleurs chaudes, légèrement saturées</td>
-</tr>
-<tr>
-<td><em>"Kodak 5219 35mm grain"</em></td>
-<td>Grain de cinéma, contrastes riches</td>
-</tr>
-<tr>
-<td><em>"Super 8 warmth and grain"</em></td>
-<td>Chaleur vintage, grain grossier</td>
-</tr>
-<tr>
-<td><em>"expired film color shift"</em></td>
-<td>Dérives vers le magenta/vert, nostalgie</td>
-</tr>
-</tbody>
+<tr><th>Référence</th><th>Ce qu'elle active</th></tr>
+<tr><td><code>Kodachrome 64 film stock</code></td><td>Couleurs chaudes, légèrement saturées</td></tr>
+<tr><td><code>Kodak 5219 35mm grain</code></td><td>Grain de cinéma, contrastes riches</td></tr>
+<tr><td><code>Super 8 warmth and grain</code></td><td>Chaleur vintage, grain grossier</td></tr>
+<tr><td><code>expired film color shift</code></td><td>Dérives vers magenta/vert, nostalgie</td></tr>
+<tr><td><code>VHS quality</code></td><td>Doux, saturé, artefacts de bande</td></tr>
 </table>
 <hr />
-<h2 id="partie-6-les-erreurs-les-plus-communes">PARTIE 6 — Les erreurs les plus communes</h2>
-<h3>Erreur 1 : Le prompt trop court</h3>
-<blockquote>
-<p>❌ <em>"A woman in the rain"</em>
-✅ <em>"A woman standing in heavy rain on an empty street at night, her face partially lit by a distant streetlight, water running down the window behind her, 50mm lens, film grain, muted blue palette"</em></p>
-</blockquote>
-<h3>Erreur 2 : Le prompt trop vague sur la lumière</h3>
-<blockquote>
-<p>❌ <em>"Nice lighting"</em>
-✅ <em>"Single warm amber lamp on the left, casting deep shadow on the right side of the face, no fill light"</em></p>
-</blockquote>
-<h3>Erreur 3 : Décrire l'émotion sans décrire la cause visuelle</h3>
-<blockquote>
-<p>❌ <em>"A sad image"</em>
-✅ <em>"An empty chair at a kitchen table, a half-drunk cup of coffee still warm, morning light — the sadness comes from the absence, not from any explicit sign of grief"</em></p>
-</blockquote>
-<h3>Erreur 4 : Trop d'éléments simultanés</h3>
+<h2 id="partie-6">PARTIE 6 — Les erreurs les plus communes</h2>
+<h3>Erreur 1 — Le prompt trop court</h3>
+<p>❌ <code>"A woman in the rain"</code></p>
+<p>✓ <code>"A woman standing in heavy rain on an empty street at night, her face partially lit by a distant streetlight, water running down the window behind her, 50mm lens, film grain, muted blue palette"</code></p>
+<h3>Erreur 2 — La lumière trop vague</h3>
+<p>❌ <code>"Nice lighting"</code></p>
+<p>✓ <code>"Single warm amber lamp on the left, casting deep shadow on the right side of the face, no fill light"</code></p>
+<h3>Erreur 3 — L'émotion sans cause visuelle</h3>
+<p>❌ <code>"A sad image"</code></p>
+<p>✓ <code>"An empty chair at a kitchen table, a half-drunk cup of coffee still warm, morning light — the sadness comes from the absence, not from any explicit sign of grief"</code></p>
+<h3>Erreur 4 — Trop d'éléments simultanés</h3>
 <p>Un prompt qui décrit 8 choses différentes produit une image confuse. Choisissez un sujet principal, un éclairage, une ambiance.</p>
-<h3>Erreur 5 : Oublier le format</h3>
-<p>GPT Image 2 génère en carré par défaut. Précisez.</p>
-<blockquote>
-<p><em>"16:9 cinematic aspect ratio"</em> — pour YouTube/vidéo
-<em>"4:5 vertical format"</em> — pour Instagram portrait
-<em>"1:1 square"</em> — pour profil ou thumbnail carré</p>
-</blockquote>
+<h3>Erreur 5 — Oublier le format</h3>
+<p>GPT Image 2 génère en carré par défaut. Précisez :</p>
+<ul>
+  <li><code>"16:9 cinematic aspect ratio"</code> — pour YouTube/vidéo</li>
+  <li><code>"4:5 vertical format"</code> — pour Instagram portrait</li>
+  <li><code>"1:1 square"</code> — pour profil ou thumbnail carré</li>
+</ul>
 <hr />
-<h2 id="partie-7-exercices-pratiques">PARTIE 7 — Exercices pratiques</h2>
-<hr />
+<h2 id="partie-7">PARTIE 7 — Exercices pratiques</h2>
+
 <h3>Exercice 1 — Le portrait simple</h3>
-<p><strong>Consigne :</strong>
-Générez un portrait d'une personne inconnue avec ces contraintes :
-- Lumière de fenêtre unique, côté gauche
-- Expression neutre
-- 85mm, fond légèrement flou
-- Grain film 35mm</p>
-<p><strong>Prompt suggéré :</strong></p>
+<p><strong>Consigne :</strong> Générez un portrait d'une personne inconnue avec : lumière de fenêtre unique côté gauche, expression neutre, 85mm fond légèrement flou, grain film 35mm.</p>
 <blockquote>
 <p>An unknown person, gender unspecified, seated near a window. Single natural light source from the left — morning light, slightly cool. The face is lit on the left side, shadow on the right. Expression completely neutral — not sad, not happy, simply present. 85mm lens, shallow depth of field, the background out of focus. 35mm film grain visible. No makeup, no styling. Shot in the tradition of August Sander's portrait photography.</p>
 </blockquote>
-<p><strong>Ce que vous apprenez avec cet exercice :</strong></p>
-<p>La lumière de fenêtre unique est le test fondamental du portrait cinématographique. Elle force le modèle à créer du volume sur le visage — sans elle, GPT Image 2 tend vers un éclairage frontal plat qui efface toute dimension.</p>
-<p>L'expression neutre est plus difficile à obtenir qu'il n'y paraît. Le modèle a une tendance naturelle à sourire légèrement ou à dramatiser l'expression. Si le résultat sourit, ajoutez : <em>"no smile, completely still expression, the face at rest"</em>.</p>
-<p>Le grain 35mm est ce qui sépare l'image photographique de l'image numérique froide. Sans lui, le portrait ressemble à une photo de stock. Avec lui, il ressemble à quelque chose de vécu.</p>
-<p><strong>Ce qu'il faut observer dans votre résultat :</strong>
-- La lumière crée-t-elle un vrai rapport ombre/lumière sur le visage ?
-- Le fond est-il réellement flou, ou reste-t-il trop net ?
-- L'expression est-elle lisible sans être performée ?
-- Le grain est-il présent sans être excessif ?</p>
-<p><strong>Variante à tester :</strong> Refaites le même prompt en remplaçant "morning light, slightly cool" par "late afternoon light, warm amber". Observez comment la température de couleur change entièrement l'atmosphère émotionnelle du portrait — même sujet, même cadrage, autre monde.</p>
-<hr />
+<p><strong>Ce que vous apprenez :</strong> La lumière de fenêtre unique force le modèle à créer du volume sur le visage. Si le résultat sourit, ajoutez : <code>"no smile, completely still expression, the face at rest"</code>.</p>
+<p><strong>Ce qu'il faut observer :</strong> La lumière crée-t-elle un vrai rapport ombre/lumière ? Le fond est-il réellement flou ? L'expression est-elle neutre sans être vide ?</p>
+<p><strong>Variante :</strong> Remplacez <code>"morning light, slightly cool"</code> par <code>"late afternoon light, warm amber"</code> et observez comment la température change l'atmosphère émotionnelle.</p>
+
 <h3>Exercice 2 — L'espace vide chargé</h3>
-<p><strong>Consigne :</strong>
-Générez une image sans personnage qui raconte quand même une histoire :
-- Une pièce récemment quittée
-- Un objet laissé sur une table
-- Lumière naturelle de fin d'après-midi
-- L'histoire doit être lisible dans les objets seuls</p>
-<p><strong>Prompt suggéré :</strong></p>
+<p><strong>Consigne :</strong> Générez une image sans personnage qui raconte une histoire.</p>
 <blockquote>
-<p>An empty kitchen, recently vacated. On the table: a coffee cup half-full, still warm, a newspaper open but not finished, a chair pushed back at an angle as if someone stood up quickly. Late afternoon light from a window on the right, warm and slightly orange, casting long shadows. The room is ordinary — worn linoleum floor, old appliances. No person present. The image should communicate that someone was here minutes ago and will not return today. Available natural light, 35mm, slight film grain.</p>
+<p>An empty kitchen, recently vacated. On the table: a coffee cup half-full, still warm, a newspaper open but not finished, a chair pushed back at an angle as if someone stood up quickly. Late afternoon light from a window on the right, warm and slightly orange, casting long shadows. Available natural light, 35mm, slight film grain.</p>
 </blockquote>
-<p><strong>Ce que vous apprenez avec cet exercice :</strong></p>
-<p>C'est l'exercice le plus révélateur sur votre façon de penser visuellement. Raconter une histoire sans personnage oblige à travailler par indices — les objets comme biographie, la lumière comme durée, le désordre comme récit.</p>
-<p>GPT Image 2 excelle dans cet exercice parce qu'il a ingéré des milliers d'images de nature morte et de photographies documentaires qui fonctionnent exactement sur ce principe. Mais il faut lui donner les détails précis : la tasse à moitié pleine plutôt que "une tasse", le journal ouvert plutôt que "un journal", la chaise inclinée plutôt que "une chaise".</p>
-<p>La précision des détails est ce qui sépare une nature morte froide d'une image qui raconte. Chaque objet doit mériter sa présence dans le cadre.</p>
-<p><strong>Ce qu'il faut observer dans votre résultat :</strong>
-- Les objets racontent-ils vraiment une présence humaine récente ?
-- La lumière de fin d'après-midi est-elle reconnaissable dans sa couleur et sa direction ?
-- L'image a-t-elle une histoire ou est-elle simplement décorative ?
-- Y a-t-il une tension entre l'ordinaire des objets et le poids de l'absence ?</p>
-<p><strong>Variante à tester :</strong> Refaites l'exercice avec un seul objet au lieu de plusieurs. Une chaussure sous une chaise. Un manteau sur un crochet. Observez comment la concentration sur un seul élément amplifie souvent le poids émotionnel au lieu de le diluer.</p>
-<hr />
+<p><strong>Ce que vous apprenez :</strong> Raconter sans personnage oblige à travailler par indices — les objets comme biographie, la lumière comme durée. Chaque objet doit mériter sa présence dans le cadre.</p>
+<p><strong>Variante :</strong> Refaites avec un seul objet — une chaussure sous une chaise, un manteau sur un crochet. La concentration amplifie souvent le poids émotionnel.</p>
+
 <h3>Exercice 3 — La nuit urbaine</h3>
-<p><strong>Consigne :</strong>
-Générez une scène nocturne urbaine :
-- Rue mouillée
-- Une seule source de lumière colorée (néon)
-- Un personnage de dos, à distance
-- Palette limitée à deux couleurs dominantes</p>
-<p><strong>Prompt suggéré :</strong></p>
+<p><strong>Consigne :</strong> Rue mouillée, une seule source néon, personnage de dos, palette limitée à deux couleurs.</p>
 <blockquote>
-<p>A wet city street at 2am, completely empty except for one figure far in the distance, back to camera, walking slowly away. The only light source: a single pink-magenta neon sign on the left, its reflection stretching across the wet asphalt. The palette is limited to deep violet-black and hot pink — nothing else. Shot from street level, slightly low angle, 35mm wide angle. The figure is small, the empty street enormous around them. Film grain, long exposure quality. No cars, no other people.</p>
+<p>A wet city street at 2am, completely empty except for one figure far in the distance, back to camera, walking slowly away. The only light source: a single pink-magenta neon sign on the left, its reflection stretching across the wet asphalt. The palette is limited to deep violet-black and hot pink — nothing else. Shot from street level, slightly low angle, 35mm wide angle. Film grain.</p>
 </blockquote>
-<p><strong>Ce que vous apprenez avec cet exercice :</strong></p>
-<p>La contrainte des deux couleurs dominantes est la plus formatrice de cet exercice. Elle force une décision esthétique fondamentale — choisir une palette, c'est choisir une émotion. Le violet et le rose produisent une mélancolie électrique très différente du vert et de l'ambre (plus anxiogène), du bleu et du blanc (plus froid, plus menaçant).</p>
-<p>Le personnage de dos à distance est une des compositions les plus puissantes du cinéma contemplatif. Il crée simultanément identification (on suit son point de vue) et distance (on ne connaît pas son visage). Il est présent mais inaccessible — ce qui est la définition exacte de la solitude urbaine.</p>
-<p>La règle "une seule source de lumière" est une discipline qui améliore immédiatement la cohérence de l'image. Plusieurs sources de lumière concurrentes créent de la confusion visuelle. Une source unique crée de la clarté dramatique.</p>
-<p><strong>Ce qu'il faut observer dans votre résultat :</strong>
-- La palette est-elle vraiment limitée à deux couleurs ou le modèle a-t-il introduit d'autres teintes ?
-- Le reflet dans l'asphalte mouillé est-il présent et convaincant ?
-- Le personnage est-il suffisamment petit pour que la rue soit le vrai sujet ?
-- L'image a-t-elle un sentiment de vide habité — pas d'abandon, mais de solitude choisie ?</p>
-<p><strong>Variante à tester :</strong> Changez la couleur du néon — remplacez le rose-magenta par du vert froid ou de l'ambre. Observez comment la même composition avec une autre couleur dominante change radicalement l'émotion produite. C'est la démonstration la plus directe du pouvoir de la palette.</p>
-<hr />
+<p><strong>Ce que vous apprenez :</strong> Choisir une palette, c'est choisir une émotion. La règle "une seule source" crée la clarté dramatique. Le personnage de dos crée simultanément identification et distance.</p>
+<p><strong>Variante :</strong> Changez le néon rose-magenta par du vert froid ou de l'ambre. Observez comment la même composition change radicalement d'émotion.</p>
+
 <h3>Exercice 4 — La référence</h3>
-<p><strong>Consigne :</strong>
-Prenez n'importe quelle image que vous admirez — un film, une photo, une peinture. Décrivez-la en 5 phrases. Générez à partir de cette description. Comparez avec l'original.</p>
-<p><strong>Comment procéder :</strong></p>
-<p>Choisissez une image source. Pas une image simple — une image qui vous touche, que vous trouvez forte. Puis décrivez-la par écrit sans regarder à nouveau l'original. Cinq phrases maximum. Ensuite seulement, générez.</p>
-<p><strong>Exemple — Nighthawks d'Edward Hopper (1942) :</strong></p>
+<p><strong>Consigne :</strong> Prenez une image que vous admirez. Décrivez-la en 5 phrases. Générez. Comparez avec l'original.</p>
 <blockquote>
-<p>A late-night diner seen from outside through a large curved glass window. Three customers and one server inside, the fluorescent interior light spilling onto the dark empty street outside. The street is completely empty — no cars, no people. The interior is warm yellow-white, the exterior deep blue-black. The customers are close together physically but completely isolated emotionally — each in their own world.</p>
+<p>Exemple — Nighthawks de Hopper (1942) : A late-night diner seen from outside through a large curved glass window. Three customers and one server inside, the fluorescent interior light spilling onto the dark empty street outside. The street is completely empty. The interior is warm yellow-white, the exterior deep blue-black. The customers are close together physically but completely isolated emotionally.</p>
 </blockquote>
-<p><strong>Ce que vous apprenez avec cet exercice :</strong></p>
-<p>C'est l'exercice le plus difficile et le plus révélateur. Il teste deux compétences simultanément : votre capacité à voir une image (à en extraire les éléments essentiels) et votre capacité à la traduire en langage (à trouver les mots qui activent ces éléments dans le modèle).</p>
-<p>La comparaison entre votre résultat et l'original est instructive à double titre. Si votre résultat est proche : votre description était précise, vos mots étaient justes. Si votre résultat est loin : relisez votre description et cherchez ce que vous avez omis — c'est souvent la lumière, la composition, ou l'atmosphère émotionnelle.</p>
-<p>L'écart entre l'original et le généré vous montre exactement ce que votre prompt ne disait pas. C'est votre meilleur professeur.</p>
-<p><strong>Ce qu'il faut observer dans votre résultat :</strong>
-- Quels éléments le modèle a-t-il bien capturés ?
-- Quels éléments manquent ou sont déformés ?
-- Qu'est-ce que vous n'aviez pas décrit et qui manque dans le résultat ?
-- Qu'est-ce que le modèle a ajouté de lui-même que vous n'aviez pas demandé ?</p>
-<p><strong>L'enseignement central de cet exercice :</strong> Ce que vous oubliez de décrire, le modèle l'invente. Et ce qu'il invente est toujours plus générique que ce que vous auriez choisi. La précision n'est pas un luxe — c'est le seul contrôle que vous avez sur le résultat.</p>
-<hr />
-<h2 id="partie-8-glossaire-des-termes-par-categorie">PARTIE 8 — Glossaire des termes par catégorie</h2>
-<p>Un lexique de référence à consulter lors de la construction de vos prompts. Tous ces termes sont reconnus et interprétés avec précision par GPT Image 2.</p>
-<hr />
-<h3>OBJECTIFS &amp; DISTANCES FOCALES</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>12mm / 14mm</code></td>
-<td>Grand angle extrême — distorsion forte aux bords, espace dilaté</td>
-</tr>
-<tr>
-<td><code>21mm</code></td>
-<td>Grand angle — espace légèrement dilaté, idéal pour les paysages urbains</td>
-</tr>
-<tr>
-<td><code>24mm</code></td>
-<td>Grand angle doux — préféré pour les intérieurs et les scènes larges</td>
-</tr>
-<tr>
-<td><code>35mm</code></td>
-<td>Légèrement large — proche de la vision humaine, polyvalent</td>
-</tr>
-<tr>
-<td><code>50mm</code></td>
-<td>Standard — perspective naturelle, pas de distorsion</td>
-</tr>
-<tr>
-<td><code>85mm</code></td>
-<td>Portrait — légère compression, fond agréablement flou</td>
-</tr>
-<tr>
-<td><code>100mm macro</code></td>
-<td>Macro — détails extrêmes, profondeur de champ très faible</td>
-</tr>
-<tr>
-<td><code>135mm</code></td>
-<td>Télé portrait — forte compression, sépare le sujet du fond</td>
-</tr>
-<tr>
-<td><code>200mm+</code></td>
-<td>Téléobjectif — compression maximale, distance narrative</td>
-</tr>
-<tr>
-<td><code>anamorphic lens</code></td>
-<td>Format cinéma — flare horizontal, bokeh ovale caractéristique</td>
-</tr>
-<tr>
-<td><code>tilt-shift</code></td>
-<td>Miniaturisation — mise au point sélective, effet maquette</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>PROFONDEUR DE CHAMP</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>shallow depth of field</code></td>
-<td>Sujet net, tout le reste flou — isole le sujet</td>
-</tr>
-<tr>
-<td><code>deep focus</code></td>
-<td>Tout net du premier au dernier plan — style Welles/Kubrick</td>
-</tr>
-<tr>
-<td><code>f/1.4</code></td>
-<td>Ouverture maximale — fond très flou, lumière abondante</td>
-</tr>
-<tr>
-<td><code>f/2.8</code></td>
-<td>Grand ouverture — fond flou, usage courant en portrait</td>
-</tr>
-<tr>
-<td><code>f/8</code></td>
-<td>Ouverture moyenne — profondeur correcte pour paysages</td>
-</tr>
-<tr>
-<td><code>f/16</code></td>
-<td>Petite ouverture — tout net, style documentaire</td>
-</tr>
-<tr>
-<td><code>bokeh</code></td>
-<td>Zones hors-focus — ronds lumineux en arrière-plan</td>
-</tr>
-<tr>
-<td><code>lens blur foreground</code></td>
-<td>Élément flou en avant-plan — crée de la profondeur</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>LUMIÈRE — QUALITÉ</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>hard light</code></td>
-<td>Lumière dure — ombres nettes, fort contraste</td>
-</tr>
-<tr>
-<td><code>soft light</code></td>
-<td>Lumière douce — transitions progressives, pas d'ombre dure</td>
-</tr>
-<tr>
-<td><code>diffused light</code></td>
-<td>Lumière diffuse — ciel couvert, sans direction marquée</td>
-</tr>
-<tr>
-<td><code>directional light</code></td>
-<td>Lumière directionnelle — source unique et identifiable</td>
-</tr>
-<tr>
-<td><code>available light</code></td>
-<td>Lumière ambiante — aucune source artificielle ajoutée</td>
-</tr>
-<tr>
-<td><code>natural light only</code></td>
-<td>Lumière naturelle exclusive — soleil, ciel, reflets</td>
-</tr>
-<tr>
-<td><code>practical light</code></td>
-<td>Source présente dans le cadre — lampe, bougie, écran</td>
-</tr>
-<tr>
-<td><code>motivated light</code></td>
-<td>Lumière justifiée par une source visible dans l'image</td>
-</tr>
-<tr>
-<td><code>Rembrandt lighting</code></td>
-<td>Triangle de lumière sous l'œil — portrait classique</td>
-</tr>
-<tr>
-<td><code>split lighting</code></td>
-<td>Moitié du visage éclairée, moitié dans l'ombre</td>
-</tr>
-<tr>
-<td><code>rim light</code></td>
-<td>Lumière sur le contour — sépare le sujet du fond</td>
-</tr>
-<tr>
-<td><code>fill light</code></td>
-<td>Lumière de remplissage — réduit les ombres dures</td>
-</tr>
-<tr>
-<td><code>backlight</code></td>
-<td>Contre-jour — halo autour du sujet, fond plus lumineux</td>
-</tr>
-<tr>
-<td><code>silhouette</code></td>
-<td>Contre-jour total — sujet en ombre complète</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>LUMIÈRE — HEURE &amp; MOMENT</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>golden hour</code></td>
-<td>30 min après lever / avant coucher — lumière dorée horizontale</td>
-</tr>
-<tr>
-<td><code>magic hour</code></td>
-<td>Synonyme de golden hour — terme cinématographique</td>
-</tr>
-<tr>
-<td><code>blue hour</code></td>
-<td>20 min après coucher — ciel bleu profond, lumières allumées</td>
-</tr>
-<tr>
-<td><code>overcast light</code></td>
-<td>Ciel couvert — lumière douce, froide, sans ombre</td>
-</tr>
-<tr>
-<td><code>noon harsh light</code></td>
-<td>Soleil zénithal — ombres dures sous le nez et le menton</td>
-</tr>
-<tr>
-<td><code>dawn light</code></td>
-<td>Aube — lumière froide, ciel encore sombre à l'horizon</td>
-</tr>
-<tr>
-<td><code>dusk</code></td>
-<td>Crépuscule — transition jour/nuit, couleurs saturées</td>
-</tr>
-<tr>
-<td><code>night</code></td>
-<td>Nuit — sources artificielles dominantes</td>
-</tr>
-<tr>
-<td><code>late afternoon light</code></td>
-<td>Fin d'après-midi — lumière chaude oblique, longues ombres</td>
-</tr>
-<tr>
-<td><code>early morning light</code></td>
-<td>Matin — lumière froide, qualité de silence</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>LUMIÈRE — COULEUR &amp; TEMPÉRATURE</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>warm light</code></td>
-<td>Lumière chaude — jaune/orangé, tungstène, bougie</td>
-</tr>
-<tr>
-<td><code>cool light</code></td>
-<td>Lumière froide — bleuté, fluorescent, ciel couvert</td>
-</tr>
-<tr>
-<td><code>neutral light</code></td>
-<td>Lumière neutre — blanc équilibré, lumière du jour</td>
-</tr>
-<tr>
-<td><code>tungsten light</code></td>
-<td>Ampoule classique — très chaude, ambre profond</td>
-</tr>
-<tr>
-<td><code>fluorescent light</code></td>
-<td>Néon tube — froid, légèrement vert, institutionnel</td>
-</tr>
-<tr>
-<td><code>sodium vapor</code></td>
-<td>Lampadaire orange — très chaud, monochrome quasi</td>
-</tr>
-<tr>
-<td><code>neon light</code></td>
-<td>Enseigne néon — couleur vive et saturée</td>
-</tr>
-<tr>
-<td><code>candlelight</code></td>
-<td>Bougie — très chaud, tremblant, ombres mobiles</td>
-</tr>
-<tr>
-<td><code>LED cold</code></td>
-<td>LED blanc froid — moderne, clinique</td>
-</tr>
-<tr>
-<td><code>2700K</code></td>
-<td>Température précise — tungstène chaud</td>
-</tr>
-<tr>
-<td><code>5600K</code></td>
-<td>Température précise — lumière du jour neutre</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>TEXTURE &amp; GRAIN</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>35mm film grain</code></td>
-<td>Grain argentique — texture organique, profondeur</td>
-</tr>
-<tr>
-<td><code>16mm grain</code></td>
-<td>Grain plus grossier — style documentaire, rugeux</td>
-</tr>
-<tr>
-<td><code>Super 8 grain</code></td>
-<td>Grain très grossier — nostalgie, texture chaude</td>
-</tr>
-<tr>
-<td><code>Kodak 5219</code></td>
-<td>Film stock cinéma — grain fin, contrastes riches</td>
-</tr>
-<tr>
-<td><code>Kodak Portra 400</code></td>
-<td>Film photo — couleurs douces, grain fin, portraits</td>
-</tr>
-<tr>
-<td><code>Kodachrome 64</code></td>
-<td>Film inversible — couleurs saturées chaudes, nettes</td>
-</tr>
-<tr>
-<td><code>Fuji Velvia</code></td>
-<td>Film inversible — ultra-saturé, verts intenses</td>
-</tr>
-<tr>
-<td><code>expired film</code></td>
-<td>Film périmé — dérives colorées, grain irrégulier</td>
-</tr>
-<tr>
-<td><code>VHS quality</code></td>
-<td>Qualité vidéo — doux, saturé, artefacts de bande</td>
-</tr>
-<tr>
-<td><code>analog texture</code></td>
-<td>Texture analogique générique — imperfection voulue</td>
-</tr>
-<tr>
-<td><code>noise</code></td>
-<td>Bruit numérique — grain froid, moins organique que film</td>
-</tr>
-<tr>
-<td><code>crisp</code></td>
-<td>Net, sans grain — image numérique propre</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>COMPOSITION</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>rule of thirds</code></td>
-<td>Sujet sur les intersections de la grille 3×3</td>
-</tr>
-<tr>
-<td><code>centered composition</code></td>
-<td>Sujet au centre — symétrie, style Kubrick</td>
-</tr>
-<tr>
-<td><code>off-center</code></td>
-<td>Sujet décentré — dynamisme, tension</td>
-</tr>
-<tr>
-<td><code>negative space</code></td>
-<td>Espace vide intentionnel autour du sujet</td>
-</tr>
-<tr>
-<td><code>foreground element</code></td>
-<td>Élément en avant-plan — profondeur, cadre naturel</td>
-</tr>
-<tr>
-<td><code>leading lines</code></td>
-<td>Lignes qui guident l'œil vers le sujet</td>
-</tr>
-<tr>
-<td><code>symmetry</code></td>
-<td>Composition symétrique — ordre, monumentalité</td>
-</tr>
-<tr>
-<td><code>asymmetry</code></td>
-<td>Composition asymétrique — naturel, dynamique</td>
-</tr>
-<tr>
-<td><code>low angle</code></td>
-<td>Caméra basse — sujet dominant, monumentalité</td>
-</tr>
-<tr>
-<td><code>high angle</code></td>
-<td>Caméra haute — sujet diminué, vulnérabilité</td>
-</tr>
-<tr>
-<td><code>bird's eye view</code></td>
-<td>Vue aérienne zénithale — abstraction, cartographie</td>
-</tr>
-<tr>
-<td><code>eye level</code></td>
-<td>Hauteur des yeux — neutralité, égalité</td>
-</tr>
-<tr>
-<td><code>Dutch angle</code></td>
-<td>Cadre incliné — désorientation, danger</td>
-</tr>
-<tr>
-<td><code>wide shot</code></td>
-<td>Plan large — personnage dans son environnement</td>
-</tr>
-<tr>
-<td><code>medium shot</code></td>
-<td>Plan américain — taille/poitrine, usage courant</td>
-</tr>
-<tr>
-<td><code>close-up</code></td>
-<td>Gros plan — visage, détail, émotion</td>
-</tr>
-<tr>
-<td><code>extreme close-up</code></td>
-<td>Très gros plan — détail extrême, partie du visage</td>
-</tr>
-<tr>
-<td><code>establishing shot</code></td>
-<td>Plan d'ensemble — présente le lieu</td>
-</tr>
-<tr>
-<td><code>two-shot</code></td>
-<td>Deux personnages dans le cadre</td>
-</tr>
-<tr>
-<td><code>POV shot</code></td>
-<td>Point de vue subjectif — ce que le personnage voit</td>
-</tr>
-<tr>
-<td><code>over the shoulder</code></td>
-<td>Par-dessus l'épaule — conversation, intimité</td>
-</tr>
-<tr>
-<td><code>2.39:1</code></td>
-<td>Format cinémascope — très large, cinéma</td>
-</tr>
-<tr>
-<td><code>16:9</code></td>
-<td>Format vidéo standard — YouTube, télévision</td>
-</tr>
-<tr>
-<td><code>4:5</code></td>
-<td>Format portrait — Instagram, vertical</td>
-</tr>
-<tr>
-<td><code>1:1</code></td>
-<td>Format carré — profil, thumbnail</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>MOUVEMENT &amp; TEMPS</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>motion blur</code></td>
-<td>Flou de mouvement — vitesse, action</td>
-</tr>
-<tr>
-<td><code>long exposure</code></td>
-<td>Longue exposition — flou de mouvement, lumière accumulée</td>
-</tr>
-<tr>
-<td><code>frozen motion</code></td>
-<td>Mouvement gelé — instant arrêté, dynamisme figé</td>
-</tr>
-<tr>
-<td><code>slow motion</code></td>
-<td>Ralenti — poids émotionnel, détail de l'action</td>
-</tr>
-<tr>
-<td><code>camera shake</code></td>
-<td>Tremblement — urgence, style documentaire</td>
-</tr>
-<tr>
-<td><code>handheld</code></td>
-<td>Caméra portée — naturel, reportage, énergie</td>
-</tr>
-<tr>
-<td><code>tracking shot</code></td>
-<td>Travelling d'accompagnement — suit le sujet</td>
-</tr>
-<tr>
-<td><code>static camera</code></td>
-<td>Caméra fixe — stabilité, contemplation</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>COULEUR &amp; TRAITEMENT</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>desaturated</code></td>
-<td>Couleurs atténuées — sobriété, contemporain</td>
-</tr>
-<tr>
-<td><code>oversaturated</code></td>
-<td>Couleurs excessives — vintage, expressif</td>
-</tr>
-<tr>
-<td><code>muted palette</code></td>
-<td>Palette douce — élégance, naturel</td>
-</tr>
-<tr>
-<td><code>monochrome</code></td>
-<td>Une seule couleur dominante — unité visuelle</td>
-</tr>
-<tr>
-<td><code>black and white</code></td>
-<td>Noir et blanc — intemporel, contrasté</td>
-</tr>
-<tr>
-<td><code>high contrast</code></td>
-<td>Contraste fort — noir profond, blancs lumineux</td>
-</tr>
-<tr>
-<td><code>low contrast</code></td>
-<td>Contraste faible — douceur, brume, nostalgie</td>
-</tr>
-<tr>
-<td><code>color grading</code></td>
-<td>Traitement colorimétrique — cohérence visuelle</td>
-</tr>
-<tr>
-<td><code>teal and orange</code></td>
-<td>Palette populaire — complémentaires, cinéma contemporain</td>
-</tr>
-<tr>
-<td><code>warm tones</code></td>
-<td>Tons chauds — ambre, orange, rouge</td>
-</tr>
-<tr>
-<td><code>cool tones</code></td>
-<td>Tons froids — bleu, cyan, vert</td>
-</tr>
-<tr>
-<td><code>split toning</code></td>
-<td>Ombres et lumières en couleurs différentes</td>
-</tr>
-<tr>
-<td><code>cross processing</code></td>
-<td>Traitement croisé — dérives de couleurs contrastées</td>
-</tr>
-<tr>
-<td><code>bleach bypass</code></td>
-<td>Bypass argentique — désaturation, contraste fort</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>STYLE &amp; ESTHÉTIQUE</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>photorealistic</code></td>
-<td>Rendu photographique — réalisme maximum</td>
-</tr>
-<tr>
-<td><code>cinematic</code></td>
-<td>Style cinéma — éclairage travaillé, format large</td>
-</tr>
-<tr>
-<td><code>documentary style</code></td>
-<td>Style documentaire — honnête, non construit</td>
-</tr>
-<tr>
-<td><code>editorial</code></td>
-<td>Style magazine — composition soignée, mode/portrait</td>
-</tr>
-<tr>
-<td><code>fine art photography</code></td>
-<td>Photographie d'art — intention artistique affirmée</td>
-</tr>
-<tr>
-<td><code>street photography</code></td>
-<td>Photographie de rue — vie réelle, instant décisif</td>
-</tr>
-<tr>
-<td><code>reportage</code></td>
-<td>Reportage — sans mise en scène, témoignage</td>
-</tr>
-<tr>
-<td><code>noir</code></td>
-<td>Film noir — ombres dures, contraste, mystère</td>
-</tr>
-<tr>
-<td><code>neo-noir</code></td>
-<td>Noir contemporain — nuit urbaine, néons, ambiguïté</td>
-</tr>
-<tr>
-<td><code>expressionist</code></td>
-<td>Expressionnisme — ombres déformées, émotion amplifiée</td>
-</tr>
-<tr>
-<td><code>minimalist</code></td>
-<td>Minimaliste — peu d'éléments, espace vide dominant</td>
-</tr>
-<tr>
-<td><code>maximalist</code></td>
-<td>Maximaliste — beaucoup d'éléments, densité visuelle</td>
-</tr>
-<tr>
-<td><code>vintage</code></td>
-<td>Vintage générique — patine ancienne</td>
-</tr>
-<tr>
-<td><code>retro</code></td>
-<td>Rétro — références esthétiques à une époque passée</td>
-</tr>
-<tr>
-<td><code>lo-fi</code></td>
-<td>Basse fidélité — imperfection voulue, grain, dégradation</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>ATMOSPHÈRE &amp; MÉTÉO</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>fog</code></td>
-<td>Brouillard — mystère, profondeur réduite</td>
-</tr>
-<tr>
-<td><code>mist</code></td>
-<td>Brume légère — douceur, romantisme</td>
-</tr>
-<tr>
-<td><code>rain</code></td>
-<td>Pluie — réflexions, mélancolie, néons doublés</td>
-</tr>
-<tr>
-<td><code>wet pavement</code></td>
-<td>Asphalte mouillé — reflets, urbanité nocturne</td>
-</tr>
-<tr>
-<td><code>steam</code></td>
-<td>Vapeur — atmosphère, densité de l'air</td>
-</tr>
-<tr>
-<td><code>smoke</code></td>
-<td>Fumée — mystère, profondeur atmosphérique</td>
-</tr>
-<tr>
-<td><code>haze</code></td>
-<td>Voile atmosphérique — chaleur, distance</td>
-</tr>
-<tr>
-<td><code>snow</code></td>
-<td>Neige — silence, blancheur, isolement</td>
-</tr>
-<tr>
-<td><code>overcast sky</code></td>
-<td>Ciel couvert — lumière plate, neutre</td>
-</tr>
-<tr>
-<td><code>dramatic sky</code></td>
-<td>Ciel dramatique — nuages contrastés</td>
-</tr>
-<tr>
-<td><code>clear sky</code></td>
-<td>Ciel dégagé — lumière directe, nette</td>
-</tr>
-<tr>
-<td><code>storm light</code></td>
-<td>Lumière d'orage — jaune-vert avant la pluie</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3>ENVIRONNEMENTS SPÉCIFIQUES</h3>
-<table>
-<thead>
-<tr>
-<th>Terme</th>
-<th>Effet visuel</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>urban</code></td>
-<td>Urbain — ville, béton, signalétique</td>
-</tr>
-<tr>
-<td><code>suburban</code></td>
-<td>Banlieue pavillonnaire — maisons, pelouses, voitures</td>
-</tr>
-<tr>
-<td><code>industrial</code></td>
-<td>Industriel — usines, entrepôts, métal</td>
-</tr>
-<tr>
-<td><code>rural</code></td>
-<td>Rural — campagne, nature, isolement</td>
-</tr>
-<tr>
-<td><code>interior</code></td>
-<td>Intérieur — dedans, espace clos</td>
-</tr>
-<tr>
-<td><code>exterior</code></td>
-<td>Extérieur — dehors, espace ouvert</td>
-</tr>
-<tr>
-<td><code>abandoned</code></td>
-<td>Abandonné — délabrement, temps arrêté</td>
-</tr>
-<tr>
-<td><code>institutional</code></td>
-<td>Institutionnel — école, hôpital, administration</td>
-</tr>
-<tr>
-<td><code>domestic</code></td>
-<td>Domestique — maison, quotidien, intime</td>
-</tr>
-<tr>
-<td><code>liminal space</code></td>
-<td>Espace de transition — couloir, parking, escalier vide</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><em>Ce glossaire couvre l'essentiel du vocabulaire technique utile pour GPT Image 2. La maîtrise de ces termes, combinée à une intention visuelle claire, est la différence entre une image générée et une image conçue.</em></p>
+<p><strong>Ce que vous apprenez :</strong> Ce que vous oubliez de décrire, le modèle l'invente. Et ce qu'il invente est toujours plus générique que ce que vous auriez choisi. L'écart entre l'original et le généré est votre meilleur professeur.</p>
 <hr />
 <h2 id="conclusion">Conclusion</h2>
 <p>Créer une belle image réaliste avec GPT Image 2 n'est pas une question de chance ou de magie. C'est une question de précision dans la description, de connaissance de la lumière, et d'intention visuelle claire.</p>
 <p>Le modèle ne crée pas — il exécute ce que vous lui demandez d'exécuter. Plus votre commande est précise, plus le résultat est juste.</p>
-<p>La compétence clé n'est pas technique. C'est de savoir ce que vous voulez voir avant de l'écrire.</p>
+<p><strong>La compétence clé n'est pas de savoir faire générer une image. C'est de savoir ce que vous voulez voir avant de l'écrire.</strong></p>
 <hr />
-<p><em>Cours rédigé par Stampede Production — Directeur Visuel IA</em></p>  </article>
+<p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--grey);letter-spacing:0.08em;">Stampede Production — Directeur Visuel IA</p>
+  </article>
 
-  <div class="cta-band">
-    <h2>Une question sur vos prompts ?</h2>
-    <a href="mailto:somedayvhs@outlook.fr">Transmettre un signal →</a>
-  </div>
-  </div>
 
-  <script>
-    const gate = document.getElementById('gate');
-    const content = document.getElementById('gatedContent');
-    const unlockBtn = document.getElementById('unlockBtn');
-    const codeInput = document.getElementById('accessCode');
-    const gateError = document.getElementById('gateError');
-
-    // Replace with the real code you send after payment confirmation
-    const VALID_CODE = 'SOMEDAY15';
-
-    function unlock(){
-      content.classList.remove('locked');
-      gate.style.display = 'none';
-    }
-
-    async function checkStoredAccess(){
-      try{
-        const result = await window.storage.get('course_unlocked');
-        if(result && result.value === 'true'){ unlock(); }
-      }catch(e){
-        // no stored access yet — stays locked
-      }
-    }
-    checkStoredAccess();
-
-    unlockBtn.addEventListener('click', async () => {
-      const entered = codeInput.value.trim().toUpperCase();
-      if(entered === VALID_CODE){
-        gateError.classList.remove('show');
-        try{ await window.storage.set('course_unlocked', 'true'); }catch(e){}
-        unlock();
-      }else{
-        gateError.classList.add('show');
-      }
-    });
-
-    codeInput.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter') unlockBtn.click();
-    });
-  </script>
 </main>
 
 <footer>
-  <span>© STAMPEDE PRODUCTION — TOUS DROITS RÉSERVÉS</span>
+  <span>© 2026 Stampede Production</span>
+  <span>Formation — Direction visuelle IA</span>
 </footer>
 
 </body>
