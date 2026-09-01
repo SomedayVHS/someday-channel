@@ -51,7 +51,6 @@
       z-index: 999;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -83,7 +82,6 @@
       opacity: 0.5;
     }
 
-    /* HERO */
     .hero {
       padding: 10rem 2rem 5rem;
       text-align: center;
@@ -119,7 +117,6 @@
       line-height: 1.8;
     }
 
-    /* FILTRES */
     .filters {
       max-width: 1100px;
       margin: 4rem auto 0;
@@ -141,11 +138,7 @@
       text-transform: uppercase;
     }
 
-    .filter-tags {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
+    .filter-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
     .filter-tag {
       font-family: 'IBM Plex Mono', monospace;
@@ -161,10 +154,7 @@
     }
 
     .filter-tag:hover,
-    .filter-tag.active {
-      border-color: var(--accent);
-      color: var(--white);
-    }
+    .filter-tag.active { border-color: var(--accent); color: var(--white); }
 
     .stock-count {
       font-family: 'IBM Plex Mono', monospace;
@@ -173,7 +163,6 @@
       color: var(--dim);
     }
 
-    /* GRILLE */
     .catalogue {
       max-width: 1100px;
       margin: 0 auto;
@@ -183,7 +172,6 @@
       gap: 2px;
     }
 
-    /* CARTE VHS */
     .vhs-card {
       background: var(--off-black);
       position: relative;
@@ -194,7 +182,6 @@
 
     .vhs-card:hover { background: #141210; }
 
-    /* Zone image */
     .vhs-img {
       width: 100%;
       aspect-ratio: 3/4;
@@ -214,7 +201,6 @@
 
     .vhs-card:hover .vhs-img img { transform: scale(1.03); }
 
-    /* Placeholder image */
     .vhs-img-placeholder {
       width: 100%;
       height: 100%;
@@ -240,7 +226,6 @@
       text-transform: uppercase;
     }
 
-    /* Badge statut */
     .vhs-badge {
       position: absolute;
       top: 0.75rem;
@@ -254,17 +239,9 @@
       color: var(--black);
     }
 
-    .vhs-badge.vendu {
-      background: rgba(107,102,96,0.3);
-      color: var(--dim);
-    }
+    .vhs-badge.vendu { background: rgba(107,102,96,0.3); color: var(--dim); }
+    .vhs-badge.reserve { background: rgba(200,160,43,0.8); color: var(--black); }
 
-    .vhs-badge.reserve {
-      background: rgba(200,160,43,0.8);
-      color: var(--black);
-    }
-
-    /* Infos carte */
     .vhs-info {
       padding: 1.25rem 1.25rem 1.5rem;
       display: flex;
@@ -339,14 +316,8 @@
       transition: opacity 0.2s;
     }
     .vhs-cta:hover { opacity: 0.85; }
+    .vhs-cta.indispo { background: rgba(107,102,96,0.2); color: var(--dim); cursor: default; }
 
-    .vhs-cta.indispo {
-      background: rgba(107,102,96,0.2);
-      color: var(--dim);
-      cursor: default;
-    }
-
-    /* CONTACT BLOCK */
     .contact-block {
       max-width: 720px;
       margin: 0 auto;
@@ -354,19 +325,9 @@
       text-align: center;
     }
 
-    .tape-divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 0 0 4rem;
-    }
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 0 0 4rem; }
     .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
-    .tape-icon {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--dim);
-      letter-spacing: 0.2em;
-    }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
 
     .contact-title {
       font-family: 'Bebas Neue', sans-serif;
@@ -404,7 +365,6 @@
       font-style: italic;
     }
 
-    /* FOOTER */
     footer {
       padding: 3rem 2rem;
       text-align: center;
@@ -419,12 +379,7 @@
       margin-bottom: 0.75rem;
     }
 
-    .footer-nav {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1rem;
-    }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
 
     .footer-nav a {
       font-family: 'IBM Plex Mono', monospace;
@@ -455,7 +410,6 @@
     <a href="index.html" class="nav-logo">SOMEDAY</a>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <p class="hero-eyebrow">Objets chinés — VHS d'époque</p>
     <h1 class="hero-title">VIDÉO<br/>CLUB</h1>
@@ -465,7 +419,6 @@
     </p>
   </section>
 
-  <!-- FILTRES -->
   <div class="filters">
     <span class="filter-label">Filtrer</span>
     <div class="filter-tags">
@@ -478,12 +431,10 @@
     <span class="stock-count">6 cassettes en stock</span>
   </div>
 
-  <!-- CATALOGUE -->
   <div class="catalogue">
 
     <div class="vhs-card" data-genre="action">
       <div class="vhs-img">
-        <!-- <img src="images/vhs-harley.jpg" alt="Harley Davidson et l'homme aux santiags VHS" /> -->
         <div> <img src="VHS_Harley.jpg">
           <span class="vhs-img-placeholder-icon">▶</span>
           <span class="vhs-img-placeholder-label"></span>
@@ -502,7 +453,6 @@
       </div>
     </div>
 
-    <!-- VHS 02 -->
     <div class="vhs-card" data-genre="action thriller">
       <div class="vhs-img">
         <div> <img src="Visuelboutique.jpg">
@@ -523,7 +473,6 @@
       </div>
     </div>
 
-    <!-- VHS 03 — placeholder -->
     <div class="vhs-card" data-genre="neo-noir">
       <div class="vhs-img">
         <div class="vhs-img-placeholder">
@@ -544,7 +493,6 @@
       </div>
     </div>
 
-    <!-- VHS 04 — placeholder -->
     <div class="vhs-card" data-genre="serie-b">
       <div class="vhs-img">
         <div class="vhs-img-placeholder">
@@ -565,8 +513,7 @@
       </div>
     </div>
 
-    <!-- VHS 05 — VENDUE exemple -->
-      <div class="vhs-card" data-genre="action">
+    <div class="vhs-card" data-genre="action">
       <div class="vhs-img">
         <div> <img src="SILT.jpg">
           <span class="vhs-img-placeholder-icon">▶</span>
@@ -576,17 +523,16 @@
       </div>
       <div class="vhs-info">
         <span class="vhs-genre">Action</span>
-        <p class="vhs-title">Shodown in little Tokyo</p>
+        <p class="vhs-title">Showdown in Little Tokyo</p>
         <p class="vhs-meta">1991 — VHS &nbsp;·&nbsp; État : Très bon</p>
         <p class="vhs-desc">Boîtier intact. Jaquette d'origine sans accroc. Cassette en parfait état de lecture.</p>
         <div class="vhs-footer">
           <p class="vhs-price"><span class="currency">€</span>7</p>
-          <a href="mailto:somedayvhs@outlook.fr?subject=VHS%20—%20Joshua%20Tree" class="vhs-cta">Contacter →</a>
+          <a href="mailto:somedayvhs@outlook.fr?subject=VHS%20—%20Showdown%20in%20Little%20Tokyo" class="vhs-cta">Contacter →</a>
         </div>
       </div>
     </div>
 
-    <!-- VHS 06 — placeholder -->
     <div class="vhs-card" data-genre="thriller">
       <div class="vhs-img">
         <div class="vhs-img-placeholder">
@@ -609,7 +555,6 @@
 
   </div>
 
-  <!-- CONTACT -->
   <div class="contact-block">
     <div class="tape-divider">
       <div class="tape-line"></div>
@@ -627,7 +572,7 @@
   </div>
 
   <footer>
-    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <p class="footer-logo">SOMEDAY PRODUCTION</p>
     <nav class="footer-nav">
       <a href="index.html">← Accueil</a>
       <a href="index.html#episodes">Les épisodes</a>
