@@ -27,7 +27,6 @@
       overflow-x: hidden;
     }
 
-    /* VHS grain overlay */
     body::before {
       content: '';
       position: fixed;
@@ -38,7 +37,6 @@
       z-index: 1000;
     }
 
-    /* Scanlines */
     body::after {
       content: '';
       position: fixed;
@@ -54,7 +52,6 @@
       z-index: 999;
     }
 
-    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -86,7 +83,6 @@
       position: relative;
     }
 
-    /* VHS glitch on title */
     .hero-title::before {
       content: 'SOMEDAY';
       position: absolute;
@@ -115,10 +111,7 @@
       font-style: italic;
     }
 
-    .hero-tagline span {
-      color: var(--white);
-      opacity: 0.6;
-    }
+    .hero-tagline span { color: var(--white); opacity: 0.6; }
 
     .hero-scroll {
       position: absolute;
@@ -133,7 +126,6 @@
 
     @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
 
-    /* ── CONCEPT ── */
     .concept {
       padding: 8rem 2rem;
       max-width: 780px;
@@ -170,12 +162,8 @@
       font-weight: 300;
     }
 
-    .concept-text strong {
-      color: var(--white);
-      font-weight: 400;
-    }
+    .concept-text strong { color: var(--white); font-weight: 400; }
 
-    /* ── EPISODES ── */
     .episodes {
       padding: 6rem 2rem 8rem;
       max-width: 960px;
@@ -208,11 +196,7 @@
       text-transform: uppercase;
     }
 
-    .episode-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
+    .episode-list { display: flex; flex-direction: column; gap: 0; }
 
     .episode {
       display: grid;
@@ -225,31 +209,13 @@
       transition: background 0.2s;
     }
 
-    .episode:first-child {
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
+    .episode:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+    .episode.pilot { background: rgba(200, 57, 43, 0.04); }
+    .episode:hover { background: rgba(255,255,255,0.025); }
 
-    .episode.pilot {
-      background: rgba(200, 57, 43, 0.04);
-    }
-
-    .episode:hover {
-      background: rgba(255,255,255,0.025);
-    }
-
-    a.episode {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    a.episode:hover {
-      background: rgba(200, 57, 43, 0.06);
-    }
-
-    a.episode:hover .ep-title {
-      color: var(--accent);
-    }
+    a.episode { text-decoration: none; color: inherit; cursor: pointer; }
+    a.episode:hover { background: rgba(200, 57, 43, 0.06); }
+    a.episode:hover .ep-title { color: var(--accent); }
 
     .ep-num {
       font-family: 'IBM Plex Mono', monospace;
@@ -257,8 +223,6 @@
       color: var(--white);
       letter-spacing: 0.1em;
     }
-
-    .ep-info {}
 
     .ep-title {
       font-family: 'IBM Plex Mono', monospace;
@@ -275,11 +239,7 @@
       font-style: italic;
     }
 
-    .ep-meta {
-      font-size: 0.7rem;
-      color: var(--dim);
-      letter-spacing: 0.05em;
-    }
+    .ep-meta { font-size: 0.7rem; color: var(--dim); letter-spacing: 0.05em; }
 
     .ep-badge {
       font-family: 'IBM Plex Mono', monospace;
@@ -292,12 +252,8 @@
       white-space: nowrap;
     }
 
-    .ep-badge.soon {
-      border-color: rgba(255,255,255,0.1);
-      color: var(--dim);
-    }
+    .ep-badge.soon { border-color: rgba(255,255,255,0.1); color: var(--dim); }
 
-    /* VHS tape decoration */
     .tape-divider {
       display: flex;
       align-items: center;
@@ -313,18 +269,9 @@
       background: linear-gradient(to right, transparent, rgba(255,255,255,0.08));
     }
 
-    .tape-line.right {
-      background: linear-gradient(to left, transparent, rgba(255,255,255,0.08));
-    }
+    .tape-line.right { background: linear-gradient(to left, transparent, rgba(255,255,255,0.08)); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
 
-    .tape-icon {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--dim);
-      letter-spacing: 0.2em;
-    }
-
-    /* ── BANDEAU BOUTIQUE ── */
     .boutique-banner {
       display: block;
       text-decoration: none;
@@ -335,9 +282,7 @@
       transition: background 0.2s;
     }
 
-    .boutique-banner:hover {
-      background: rgba(200, 57, 43, 0.12);
-    }
+    .boutique-banner:hover { background: rgba(200, 57, 43, 0.12); }
 
     .boutique-banner-inner {
       max-width: 960px;
@@ -348,11 +293,7 @@
       gap: 1rem;
     }
 
-    .boutique-banner-left {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
+    .boutique-banner-left { display: flex; flex-direction: column; gap: 0.3rem; }
 
     .boutique-banner-label {
       font-family: 'Bebas Neue', sans-serif;
@@ -381,12 +322,8 @@
       transition: background 0.2s, color 0.2s;
     }
 
-    .boutique-banner:hover .boutique-banner-cta {
-      background: var(--white);
-      color: var(--black);
-    }
+    .boutique-banner:hover .boutique-banner-cta { background: var(--white); color: var(--black); }
 
-    /* ── FOOTER ── */
     footer {
       padding: 3rem 2rem;
       text-align: center;
@@ -409,11 +346,8 @@
       text-transform: uppercase;
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
-      .episode {
-        grid-template-columns: 2.5rem 1fr;
-      }
+      .episode { grid-template-columns: 2.5rem 1fr; }
       .ep-badge { display: none; }
       .episodes-header { flex-direction: column; gap: 0.5rem; }
     }
@@ -421,7 +355,6 @@
 </head>
 <body>
 
-  <!-- HERO -->
   <section class="hero">
     <p class="hero-eyebrow">Stampede Production — Chaîne YouTube</p>
     <h1 class="hero-title">SOMEDAY</h1>
@@ -429,7 +362,6 @@
     <p class="hero-scroll">↓ &nbsp; défiler</p>
   </section>
 
-  <!-- CONCEPT -->
   <section class="concept">
     <div class="section-label">Le concept</div>
     <p class="concept-text">
@@ -449,8 +381,7 @@
     <div class="tape-line right"></div>
   </div>
 
-  <!-- EPISODES -->
-  <section class="episodes">
+  <section class="episodes" id="episodes">
     <div class="episodes-header">
       <h2 class="episodes-title">Saison 1</h2>
       <span class="episodes-season">12 épisodes — 2026</span>
@@ -485,14 +416,14 @@
         <span class="ep-badge">Lire →</span>
       </a>
 
-      <div class="episode">
+      <a href="ep04-rapid-fire.html" class="episode">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Rapid Fire</p>
-          <p class="ep-meta">1992 — Brandon Lee &nbsp;·&nbsp; Action</p>
+          <p class="ep-title">Rapid Fire</p>
+          <p class="ep-meta">1992 — Dwight H. Little &nbsp;·&nbsp; Brandon Lee</p>
         </div>
-        <span class="ep-badge soon">Bientôt</span>
-      </div>
+        <span class="ep-badge">Lire →</span>
+      </a>
 
       <div class="episode">
         <span class="ep-num">EP. 05</span>
@@ -569,51 +500,46 @@
     </div>
   </section>
 
-  <!-- BANDEAU PROMPTS -->
   <a href="prompts.html" class="boutique-banner" style="background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.08);" onmouseover="this.style.background='rgba(200,57,43,0.06)';this.style.borderColor='rgba(200,57,43,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='rgba(255,255,255,0.08)'">
     <div class="boutique-banner-inner">
       <div class="boutique-banner-left">
         <span class="boutique-banner-label">Cinematic Prompt Packs</span>
         <span class="boutique-banner-sub">15 volumes · 1 vol. spécial · 2 bonus — GPT Image 2 — Stampede Production</span>
       </div>
-      <span class="boutique-banner-cta" id="prompts-cta" style="transition:background 0.2s,color 0.2s;">Voir les packs →</span>
+      <span class="boutique-banner-cta">Voir les packs →</span>
     </div>
   </a>
 
-  <!-- BANDEAU GENERATEUR -->
   <a href="prompt-generator.html" class="boutique-banner" style="background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.08);" onmouseover="this.style.background='rgba(200,57,43,0.06)';this.style.borderColor='rgba(200,57,43,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='rgba(255,255,255,0.08)'">
     <div class="boutique-banner-inner">
       <div class="boutique-banner-left">
         <span class="boutique-banner-label">Générateur de Prompts</span>
         <span class="boutique-banner-sub">Builder + tirage aléatoire — outil interactif</span>
       </div>
-      <span class="boutique-banner-cta" style="background:transparent;border:1px solid var(--accent);color:var(--accent);transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--accent)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--accent)'">Essayer →</span>
+      <span class="boutique-banner-cta" style="background:transparent;border:1px solid var(--accent);color:var(--accent);">Essayer →</span>
     </div>
   </a>
 
-  <!-- BANDEAU VFX PROMPTER -->
   <a href="vfx-prompter-image.html" class="boutique-banner" style="background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.08);" onmouseover="this.style.background='rgba(200,57,43,0.06)';this.style.borderColor='rgba(200,57,43,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='rgba(255,255,255,0.08)'">
     <div class="boutique-banner-inner">
       <div class="boutique-banner-left">
         <span class="boutique-banner-label">VFX Prompter — Image Existante</span>
         <span class="boutique-banner-sub">Explosions, tirs, atmosphères sur tes images — édition &amp; img→vidéo</span>
       </div>
-      <span class="boutique-banner-cta" style="background:transparent;border:1px solid var(--accent);color:var(--accent);transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--accent)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--accent)'">Essayer →</span>
+      <span class="boutique-banner-cta" style="background:transparent;border:1px solid var(--accent);color:var(--accent);">Essayer →</span>
     </div>
   </a>
 
-  <!-- BANDEAU VFX PROMPTER VIDÉO -->
   <a href="vfx-prompter-video.html" class="boutique-banner" style="background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.08);" onmouseover="this.style.background='rgba(200,57,43,0.06)';this.style.borderColor='rgba(200,57,43,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='rgba(255,255,255,0.08)'">
     <div class="boutique-banner-inner">
       <div class="boutique-banner-left">
         <span class="boutique-banner-label">VFX Prompter — Vidéo Existante</span>
         <span class="boutique-banner-sub">Effets sur tes clips — Runway Aleph, Kling V2V, Motion Brush</span>
       </div>
-      <span class="boutique-banner-cta" style="background:transparent;border:1px solid var(--accent);color:var(--accent);transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--accent)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--accent)'">Essayer →</span>
+      <span class="boutique-banner-cta" style="background:transparent;border:1px solid var(--accent);color:var(--accent);">Essayer →</span>
     </div>
   </a>
 
-  <!-- BANDEAU BOUTIQUE -->
   <a href="boutique.html" class="boutique-banner">
     <div class="boutique-banner-inner">
       <div class="boutique-banner-left">
@@ -624,7 +550,6 @@
     </div>
   </a>
 
-  <!-- FOOTER -->
   <footer>
     <p class="footer-logo">STAMPEDE PRODUCTION</p>
     <nav class="footer-nav" style="display:flex;justify-content:center;gap:2rem;margin-top:1rem;">
