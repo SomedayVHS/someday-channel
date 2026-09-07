@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EP.05 — Espion Junior · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0810 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Épisode 05 &nbsp;·&nbsp; Saison 1 &nbsp;·&nbsp; Ce que Hollywood n'a pas su voir</div>
+      <h1 class="hero-title">Espion Junior</h1>
+      <p class="hero-subtitle">(If Looks Could Kill) — Richard Grieco, 1991</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1991</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">William Dear</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Richard Grieco</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="ep04-rapid-fire.html">← EP. 04 — Rapid Fire</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="#">EP. 06 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        J'avais sept ans.<br /><br />
+        C'était 1990. Et Denis Booker était tout ce que je voulais devenir.<br /><br />
+        Pas un acteur. Pas un personnage de fiction. Un modèle. La façon de se tenir, de parler, d'occuper l'espace. Richard Grieco incarnait quelque chose que je n'aurais pas su nommer à cet âge — une certaine idée de ce qu'on pouvait être.<br /><br />
+        Trente-cinq ans plus tard, j'attends toujours le coffret Blu-ray de Booker. Prévu pour 2027.<br /><br />
+        Certaines fidélités ne s'expliquent pas.<br /><br />
+        En 1991, Hollywood a décidé de faire de Richard Grieco une star de cinéma.<br /><br />
+        Ce soir, on regarde comment ça s'est passé.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">If Looks Could Kill — affiche originale 1991</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        If Looks Could Kill.<br /><br />
+        1991. Réalisé par William Dear. Avec Richard Grieco.<br /><br />
+        Un film produit par Warner Bros, sorti en salles avec une ambition claire — transformer la star de Booker et 21 Jump Street en tête d'affiche du cinéma d'action américain.<br /><br />
+        La jaquette promettait de l'espionnage, de l'humour, de l'action. James Bond pour une nouvelle génération. Un lycéen américain propulsé par accident au cœur d'une mission de la CIA en Europe.<br /><br />
+        Ce qu'on trouve à l'intérieur est plus intéressant que le résultat commercial ne le laisse entendre. Un film conscient de ce qu'il est — léger, rythmé, porté par un acteur qui avait tout pour réussir.<br /><br />
+        Tout. Sauf le moment.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1991.<br /><br />
+        Richard Grieco est au sommet de sa visibilité. 21 Jump Street l'a installé comme visage de la nouvelle génération d'acteurs américains. Booker lui a donné son propre territoire — plus sombre, plus adulte, plus personnel. Les magazines le couvrent. Les teenagers le connaissent. Hollywood pense tenir sa prochaine star d'action.<br /><br />
+        Warner Bros fait le pari. If Looks Could Kill est une production correcte, avec un budget honnête, une distribution européenne ambitieuse — tournage en France, en Angleterre — et Richard Grieco en haut de l'affiche seul pour la première fois au cinéma.<br /><br />
+        Le concept est solide. Un lycéen américain en voyage scolaire à Paris se retrouve par accident embarqué dans une mission d'espionnage de la CIA. Gadgets, cascades, humour, Europe comme terrain de jeu. La formule fonctionne sur le papier.<br /><br />
+        Mais 1991 est une mauvaise année pour ce type de film. Le public action cherche autre chose — plus grand, plus violent, plus spectaculaire. La légèreté de If Looks Could Kill, son ton de comédie d'espionnage assumée, arrive au mauvais moment dans le mauvais contexte.<br /><br />
+        Et Grieco paie l'addition.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Richard Grieco — If Looks Could Kill 1991</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Michael Corben est un lycéen américain moyen.<br /><br />
+        Mauvais élève, charmeur, pas vraiment le profil d'un agent secret. Pourtant, lors d'un voyage scolaire en France, il est confondu par la CIA avec un agent expérimenté qui porte le même nom.<br /><br />
+        Le voilà propulsé au cœur d'une mission d'espionnage en Europe — gadgets high-tech, vilains caricaturaux, complots internationaux — sans avoir demandé quoi que ce soit.<br /><br />
+        Le film joue la carte de la comédie d'action assumée. Pas de prétention, pas de gravité inutile. Un jeune homme ordinaire qui improvise dans un monde qui le dépasse, avec le charme comme seule arme réelle.<br /><br />
+        C'est léger. C'est rythmé. Et Grieco porte l'ensemble avec une aisance naturelle qui rappelle exactement pourquoi Warner Bros avait misé sur lui.<br /><br />
+        L'Europe des années 90 comme décor — châteaux, rues pavées, trains de nuit. Une carte postale d'époque.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film n'est pas une erreur.<br /><br />
+        C'est une démonstration.<br /><br />
+        Richard Grieco y prouve tout ce que Booker avait déjà laissé entrevoir — le charme, le rythme comique, la présence physique, une façon naturelle d'habiter l'écran sans forcer. Il n'est pas là pour impressionner. Il est là pour séduire. Et ça fonctionne.<br /><br />
+        Le problème n'est pas l'acteur. Le problème n'est pas le film.<br /><br />
+        Le problème c'est que Hollywood avait mal lu ce qu'il incarnait.<br /><br />
+        Grieco n'était pas une star d'action. Il était une star de charme — un registre plus subtil, plus difficile à vendre sur une affiche, plus difficile à transformer en franchise. Les studios voulaient leur Van Damme, leur Seagal, leur colosse invincible. Grieco leur offrait autre chose — quelque chose de plus proche de Cary Grant que de Schwarzenegger.<br /><br />
+        En 1991, personne ne savait quoi faire de ça.<br /><br />
+        If Looks Could Kill est le film qui montre exactement ce que Grieco aurait pu devenir si Hollywood avait eu l'intelligence de comprendre ce qu'il avait entre les mains.<br /><br />
+        Il ne l'a pas compris.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">If Looks Could Kill — scène</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        If Looks Could Kill a raté son public pour une raison simple.<br /><br />
+        Il était trop léger pour le public action de 1991 et trop action pour le public comédie. Un film entre deux chaises, entre deux publics, entre deux époques.<br /><br />
+        Warner Bros avait misé sur la notoriété télévisuelle de Grieco comme levier de transition vers le cinéma. Ça n'a pas suffi. La notoriété télévisuelle de 1991 ne se convertissait pas automatiquement en billets de cinéma — les spectateurs qui aimaient Booker et 21 Jump Street n'étaient pas forcément le public des salles obscures du vendredi soir.<br /><br />
+        Le film sort, fait des entrées décevantes, et disparaît rapidement.<br /><br />
+        Et avec lui, la carrière cinéma de Richard Grieco.<br /><br />
+        Ce qui est particulièrement cruel c'est que le film n'a pas raté parce qu'il était mauvais. Il a raté parce que personne n'a su le vendre correctement, à la bonne audience, au bon moment.<br /><br />
+        C'est une catégorie d'oubli à part — pas le film raté, pas le film médiocre. Le film victime d'une stratégie commerciale qui n'a pas tenu ses promesses.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que Richard Grieco mérite mieux qu'une parenthèse.<br /><br />
+        Dans la mémoire collective, il est devenu une anecdote des années 90 — le beau gosse de 21 Jump Street qui n'a pas percé au cinéma. Une case vide dans l'histoire du star system américain.<br /><br />
+        Ce que If Looks Could Kill documente, c'est autre chose.<br /><br />
+        Un acteur au sommet de sa forme, dans un film qui lui va parfaitement, prouvant avec une évidence désarmante qu'il avait tout ce qu'il fallait. Le charme, le timing comique, la présence. Pas la carrière de Van Damme. Pas celle de Seagal. Quelque chose de plus rare et de plus fragile — une légèreté naturelle que le cinéma d'action américain ne savait pas valoriser en 1991.<br /><br />
+        J'avais sept ans quand j'ai découvert Denis Booker. Trente-cinq ans plus tard je comprends mieux ce que je voyais — un acteur qui aurait pu redéfinir un genre si on lui en avait donné l'occasion.<br /><br />
+        On ne lui en a pas donné l'occasion.<br /><br />
+        SOMEDAY est aussi là pour dire que certaines carrières méritaient un autre destin.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        If Looks Could Kill n'a pas changé le cours du cinéma américain.<br /><br />
+        Il n'en avait pas l'ambition.<br /><br />
+        Il voulait juste lancer une carrière. Celle d'un acteur qui avait tout pour réussir — le charme, le talent, le moment. Et qui s'est retrouvé du mauvais côté d'une décision commerciale qu'il n'avait pas prise.<br /><br />
+        J'attends toujours le coffret Blu-ray de Booker. 2027.<br /><br />
+        Richard Grieco n'a peut-être jamais eu la carrière cinéma qu'il méritait. Mais il a eu quelque chose que beaucoup de stars n'ont pas — la fidélité de ceux qui l'ont vu et qui n'ont pas oublié.<br /><br />
+        Ce film en est la preuve.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">If Looks Could Kill</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Titre français</p>
+        <p class="val">Espion Junior</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Comédie d'espionnage</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Warner Bros</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">88 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Linda Hunt · Roger Rees</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Carrières avortées — Saison 1</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — EP. 05</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#episodes">Tous les épisodes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
