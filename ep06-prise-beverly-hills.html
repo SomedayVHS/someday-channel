@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EP.06 — La Prise de Beverly Hills · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0810 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Épisode 06 &nbsp;·&nbsp; Saison 1 &nbsp;·&nbsp; Ce que la série B peut faire de mieux</div>
+      <h1 class="hero-title">La Prise de Beverly Hills</h1>
+      <p class="hero-subtitle">The Taking of Beverly Hills — Ken Wahl, 1991</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1991</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Sidney J. Furie</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Ken Wahl · Robert Davi</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="ep05-if-looks-could-kill.html">← EP. 05 — If Looks Could Kill</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="#">EP. 07 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        1992. Mon grand-père avait enregistré ça sur Canal+.<br /><br />
+        Une cassette parmi d'autres dans sa collection maison. Pas de jaquette découpée cette fois — juste son écriture sur l'étiquette, une date, un titre.<br /><br />
+        J'avais neuf ans.<br /><br />
+        Je ne savais pas encore ce que voulait dire série B, budget limité, direct-to-video. Je savais juste qu'à un moment dans ce film, il y avait un tank.<br /><br />
+        Un vrai tank.<br /><br />
+        Dans les rues de Beverly Hills.<br /><br />
+        J'ai su immédiatement que ce film était fait pour moi.<br /><br />
+        Ce soir, on rembobine la cassette.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">La Prise de Beverly Hills — affiche originale 1991</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        La Prise de Beverly Hills.<br /><br />
+        1991. Réalisé par Sidney J. Furie. Avec Ken Wahl, Matt Frewer, Harley Jane Kozak et Robert Davi.<br /><br />
+        Un film produit par Nelson Entertainment, distribué par Columbia Pictures après une sortie en salles confidentielle. Budget entre 15 et 25 millions de dollars. Box-office américain : 939 000 dollars.<br /><br />
+        Les chiffres ne racontent pas tout.<br /><br />
+        Ce qu'on trouve à l'intérieur surprend. Un film qui connaît ses limites et qui les transforme en force — rythmé, efficace, avec un sens de l'escalade qui ferait rougir des productions au budget dix fois supérieur.<br /><br />
+        Un Die Hard de série B.<br /><br />
+        Mais un Die Hard qui fonctionne.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1991.<br /><br />
+        Le marché du direct-to-video est en pleine ébullition. Dans le sillage de Die Hard — sorti en 1988 et devenu immédiatement le modèle de tout un sous-genre — des dizaines de productions tentent de reproduire la formule. Un homme seul, un lieu fermé, une menace extérieure, une escalade progressive.<br /><br />
+        La plupart échouent. Trop cheap, trop prévisibles, trop conscientes de leurs limitations pour les dépasser.<br /><br />
+        La Prise de Beverly Hills fait partie des exceptions.<br /><br />
+        Sidney J. Furie n'est pas un inconnu. Lady Sings the Blues, Iron Eagle. Un réalisateur qui sait construire une séquence, gérer un budget, tirer le maximum de ce qu'il a.<br /><br />
+        Et ce qu'il a, c'est Ken Wahl — révélé par la série Wiseguy (Un flic dans la mafia), l'un des polars télévisés les plus respectés de la fin des années 80. Un acteur crédible, ancré dans le réel, avec une présence naturelle que le cinéma n'a jamais vraiment su exploiter.<br /><br />
+        Le film est une tentative de transition vers le grand écran. Elle aurait dû fonctionner.<br /><br />
+        Et dans un coin du tournage, une certaine Pamela Anderson fait sa toute première apparition au cinéma — en cheerleader, non créditée. 1991 avait encore des surprises.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Ken Wahl — La Prise de Beverly Hills 1991</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Boomer Hayes est une star du football américain.<br /><br />
+        Un homme qui n'a rien à faire dans cette histoire — sauf qu'il se retrouve au mauvais endroit au mauvais moment. Le soir où un groupe d'anciens policiers corrompus utilise un faux déversement de produits chimiques pour vider Beverly Hills de ses habitants et piller la ville la plus riche d'Amérique.<br /><br />
+        Tout le monde évacue. Boomer reste.<br /><br />
+        Ce qui s'ensuit est exactement ce qu'on espère — et un peu plus. Des cascades, des explosions, des poursuites en voiture, un duo improbable entre un quarterback et un flic repenti.<br /><br />
+        Et à un moment, un tank.<br /><br />
+        Un vrai tank dans les rues de Beverly Hills.<br /><br />
+        Le film joue avec son décor — ses manoirs, ses rues impeccables, ses habitants déconnectés de toute réalité — et tire de ce contraste une énergie qui allège sans jamais trahir l'action.<br /><br />
+        C'est exactement ce que ça promettait. Et c'est déjà beaucoup.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film sait exactement ce qu'il est.<br /><br />
+        C'est sa force principale — et c'est ce qui le distingue de la plupart des productions qui ont tenté de reproduire la formule Die Hard à la même époque.<br /><br />
+        La Prise de Beverly Hills ne cherche pas à être plus grand qu'il n'est. Il ne prétend pas à une profondeur qu'il n'a pas. Il prend son prémisse — Beverly Hills vide, un homme seul, des millions à voler — et il l'exploite jusqu'au bout. Chaque séquence d'action est construite, rythmée, résolue. Pas de remplissage, pas de temps mort inutile.<br /><br />
+        Sidney J. Furie connaît son affaire. Il filme l'action comme quelqu'un qui a passé des années à comprendre comment une séquence fonctionne — où placer la caméra, comment découper, comment créer de la tension avec peu de moyens.<br /><br />
+        Et Ken Wahl y est pour beaucoup.<br /><br />
+        Il apporte quelque chose que le genre réclamait sans le savoir — une normalité. Pas un surhomme, pas une machine de guerre. Un type crédible, physique, avec de l'humour et une vraie présence à l'écran. Dans un genre saturé de colosses invincibles, Wahl ressemble à quelqu'un qu'on pourrait croiser dans la rue.<br /><br />
+        C'est précisément ce qui rend chaque scène plus tendue.<br /><br />
+        Le genre aurait eu besoin de plus de films comme celui-là.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">La Prise de Beverly Hills — séquence tank</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        La Prise de Beverly Hills a raté son rendez-vous avec le public pour des raisons qui n'ont rien à voir avec sa qualité.<br /><br />
+        Orion Pictures, le distributeur original, est en faillite en 1991. Columbia Pictures récupère le film et lui offre une sortie en salles limitée à l'automne — sans marketing, sans promotion, sans ambition commerciale réelle. Le film disparaît des salles en quelques semaines avec moins d'un million de dollars de recettes.<br /><br />
+        Puis la VHS le rattrape. Et là, quelque chose se passe.<br /><br />
+        Le film trouve son public — celui des vidéoclubs, des enregistrements Canal+, des samedis soir en famille. Un public qui n'était pas dans les salles parce que personne ne lui avait dit que le film existait.<br /><br />
+        Mais ce public-là ne fait pas les titres. Il ne crée pas de buzz. Il regarde, il apprécie, et il passe à autre chose.<br /><br />
+        Ken Wahl disparaît lui aussi — une blessure grave l'éloigne définitivement des plateaux peu après. Sa carrière cinéma s'arrête avant d'avoir vraiment commencé.<br /><br />
+        Et le film s'endort dans les bacs, entre deux jaquettes génériques, sans que personne ne pense à le réveiller.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que l'honnêteté mérite d'être récompensée.<br /><br />
+        Dans un genre où les films surestiment systématiquement leurs ambitions, La Prise de Beverly Hills fait le chemin inverse — il se fixe un objectif précis et l'atteint complètement. C'est plus difficile qu'il n'y paraît.<br /><br />
+        Il y a dans ce film une énergie de fin des années 80 qui a complètement disparu du cinéma d'action contemporain. Des cascades réelles, des décors physiques, une action lisible et construite qui ne doit rien aux effets numériques. Chaque explosion, chaque poursuite, chaque impact a une texture que les écrans d'aujourd'hui ne reproduisent plus.<br /><br />
+        Et Ken Wahl — dont la carrière s'est arrêtée net sur une blessure — mérite d'être vu dans ce rôle. Il avait quelque chose. Une façon d'habiter l'écran sans effort apparent qui fait de lui exactement le type d'acteur qu'on cherche quand on rouvre les bacs des vidéoclubs.<br /><br />
+        J'avais neuf ans quand mon grand-père a enregistré ce film sur Canal+.<br /><br />
+        Je me souviens du tank.<br /><br />
+        Trente ans plus tard, le tank tient toujours.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        La Prise de Beverly Hills ne prétend pas changer le cinéma.<br /><br />
+        Il prétend vous divertir pendant 95 minutes.<br /><br />
+        Et il y parvient — complètement, sans tricher, sans vous demander d'indulgence particulière.<br /><br />
+        C'est le genre de film que mon grand-père savait reconnaître. Pas un chef-d'œuvre. Pas une révélation. Quelque chose d'honnête, bien fait, qui mérite qu'on lui consacre une soirée.<br /><br />
+        Il l'avait enregistré. Il savait.<br /><br />
+        Dans les rayons perdus des vidéoclubs, il y en a des centaines comme lui. C'est pour eux qu'existe SOMEDAY.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">The Taking of Beverly Hills</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Thriller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">95 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Nelson Entertainment / Columbia Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Matt Frewer · Harley Jane Kozak · Robert Davi</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Anecdote</p>
+        <p class="val">Première apparition de Pamela Anderson au cinéma</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Série B efficace — Saison 1</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — EP. 06</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#episodes">Tous les épisodes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
