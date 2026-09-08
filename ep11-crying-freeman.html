@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EP.11 — Crying Freeman · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0810 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Épisode 11 &nbsp;·&nbsp; Saison 1 &nbsp;·&nbsp; Gans avait raison avant tout le monde</div>
+      <h1 class="hero-title">Crying Freeman</h1>
+      <p class="hero-subtitle">Christophe Gans · Mark Dacascos, 1995</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1995</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Christophe Gans</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Mark Dacascos · Julie Condra</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="ep10-3000-miles-to-graceland.html">← EP. 10 — 3000 Miles to Graceland</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="#">EP. 12 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        J'avais douze ans. Je pratiquais le karaté.<br /><br />
+        Et dans mon panthéon personnel, il y avait deux noms au-dessus de tous les autres — Jean-Claude Van Damme et Mark Dacascos.<br /><br />
+        Pas seulement des acteurs. Des modèles. Des hommes qui montraient ce que les arts martiaux pouvaient être à l'écran — précis, fluides, réels.<br /><br />
+        J'avais découvert Dacascos un an plus tôt avec Only the Strong sur M6. La capoeira, Miami, un film qui reste encore aujourd'hui l'un de mes films de chevet.<br /><br />
+        Quand Crying Freeman est sorti, mon grand-père l'a enregistré sur Canal+. Je connaissais déjà l'histoire par la presse spécialisée — le manga de Kazuo Koike, l'assassin qui pleure ses victimes, l'univers sombre et poétique.<br /><br />
+        Le visage de Dacascos sur l'écran. J'ai su que j'allais aimer ce film avant même qu'il ne commence. Ce n'était plus un hasard. C'était une évidence.<br /><br />
+        Ce soir, on le remet.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="crying-freeman-affiche.jpg" alt="Crying Freeman — affiche originale 1995" />
+      <p class="img-caption">Crying Freeman — Christophe Gans, 1995</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Crying Freeman.<br /><br />
+        1995. Réalisé par Christophe Gans. Avec Mark Dacascos et Julie Condra.<br /><br />
+        Une co-production franco-canadienne tournée en anglais, distribuée aux États-Unis par Trimark Pictures. Sorti discrètement, sans sortie en salles significative en France, passé directement en vidéo dans la plupart des marchés européens.<br /><br />
+        Adapté du manga culte de Kazuo Koike et Ryoichi Ikegami — l'histoire de Yo Hinomura, céramiste devenu assassin malgré lui pour le compte d'une organisation criminelle chinoise, condamné à pleurer chaque victime qu'il tue.<br /><br />
+        La jaquette promettait de l'action, des arts martiaux, une esthétique manga transposée à l'écran.<br /><br />
+        Ce qu'on trouve à l'intérieur dépasse largement la promesse.<br /><br />
+        Un film visuellement ambitieux, narrativement fidèle à son source material, porté par un acteur au sommet de sa présence physique.<br /><br />
+        Christophe Gans avait quelque chose à prouver. Il l'a prouvé.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1995.<br /><br />
+        Christophe Gans est un cinéphile français obsessionnel — passionné de cinéma de genre asiatique, de manga, de John Woo, de tout ce que le cinéma populaire français ignorait superbement à l'époque. Il a cofondé le magazine Starfix, il connaît ses références sur le bout des doigts. Crying Freeman est son premier long métrage.<br /><br />
+        Et il met tout dedans.<br /><br />
+        Le manga de Kazuo Koike était considéré comme inadaptable en occident. Trop stylisé, trop japonais dans son esthétique, trop ambigu moralement pour le marché américain. Gans refuse cette logique. Il adapte fidèlement — la violence, la sensualité, la poésie visuelle de l'œuvre originale — sans chercher à l'édulcorer pour le marché.<br /><br />
+        Mark Dacascos est le choix évident pour Yo Hinomura. Pas uniquement pour ses capacités martiales — pour quelque chose de plus rare. Une présence à l'écran qui mêle puissance physique et fragilité émotionnelle. Exactement ce que le personnage demande — un tueur qui pleure.<br /><br />
+        Le film est tourné au Canada avec un budget limité. Gans compense avec une direction artistique irréprochable et une maîtrise de l'image qui annonce déjà Brotherhood of the Wolf, six ans plus tard.<br /><br />
+        Crying Freeman est un laboratoire. Et ce qui en sort est bien plus que la somme de ses contraintes.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="crying-freeman-larmes.jpg" alt="Mark Dacascos — Crying Freeman, les larmes" />
+      <p class="img-caption">Les larmes du Freeman — Crying Freeman, 1995</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Yo Hinomura était céramiste.<br /><br />
+        Un artiste, pas un guerrier. Jusqu'au jour où il est enlevé par l'organisation criminelle des 108 Dragons et transformé en assassin parfait — conditionné, entraîné, irrésistible.<br /><br />
+        Avec un détail qui le rend unique parmi tous les tueurs du cinéma d'action : il pleure chaque victime qu'il tue. Pas de remords simulé, pas de crise de conscience dramatique. Des larmes involontaires, physiques, qui coulent sur son visage pendant chaque exécution.<br /><br />
+        C'est cette contradiction qui fait le personnage — la perfection technique du tueur et l'humanité irréductible de l'homme.<br /><br />
+        Le film suit sa rencontre avec une femme qui l'a vu tuer et qui aurait dû mourir pour ça. Ce qu'il se passe entre eux — et ce que ça change à tout le reste — c'est le cœur du film.<br /><br />
+        Crying Freeman n'est pas un film d'action au sens classique. C'est un film de genre au sens noble — avec une vraie vision esthétique, une vraie tension narrative, et un acteur qui comprend exactement ce que son personnage demande.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film aurait pu être un désastre.<br /><br />
+        Adapter Crying Freeman en occident en 1995 — sans budget hollywoodien, sans star internationale, avec un réalisateur à son premier long métrage — c'était un pari insensé.<br /><br />
+        Christophe Gans l'a gagné.<br /><br />
+        Ce qu'il réussit dans ce film tient à une chose fondamentale — il respecte son source material sans le fossiliser. Le manga de Koike est présent dans chaque cadre, dans chaque choix de lumière, dans chaque mouvement de caméra. Mais le film existe aussi pleinement pour lui-même, avec sa propre logique visuelle, sa propre temporalité, sa propre façon de faire coexister la violence et la beauté.<br /><br />
+        Et Mark Dacascos.<br /><br />
+        C'est le rôle de sa carrière. Pas seulement parce qu'il est physiquement parfait pour Yo Hinomura — mais parce qu'il comprend la complexité du personnage. Dacascos ne joue pas un tueur qui se trouve avoir des émotions. Il joue un homme entier, avec sa tendresse, sa mélancolie, sa violence — toutes ces choses simultanément.<br /><br />
+        Les larmes de Crying Freeman ne sont pas un gimmick. Dans les mains de Dacascos, elles deviennent quelque chose de rare au cinéma d'action — une humanité irréductible que rien ne peut effacer.<br /><br />
+        J'avais douze ans et je pratiquais le karaté.<br /><br />
+        Je regardais cet homme à l'écran et je comprenais que les arts martiaux pouvaient être autre chose que de la force.<br /><br />
+        Ils pouvaient être de la grâce.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="crying-freeman-dacascos.jpg" alt="Mark Dacascos — Crying Freeman, 1995" />
+      <p class="img-caption">Mark Dacascos — Crying Freeman, 1995</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Crying Freeman n'avait pas les armes pour exister commercialement.<br /><br />
+        Pas de studio américain derrière lui. Pas de star bankable au sens hollywoodien du terme. Pas de sortie en salles organisée dans les marchés francophones. Une distribution fragmentée, pays par pays, sans cohérence ni ambition marketing.<br /><br />
+        En France, le film passe directement en vidéo — capté par Canal+ qui le diffuse discrètement, enregistré par quelques passionnés qui avaient suivi l'adaptation du manga dans la presse spécialisée.<br /><br />
+        Le public général ne l'a jamais vu.<br /><br />
+        Et les amateurs de manga — ceux qui auraient dû en être le public naturel — ne regardaient pas encore les films d'action occidentaux avec les mêmes yeux qu'ils regardaient les animés. La passerelle entre la culture manga et le cinéma live action n'existait pas encore vraiment en 1995.<br /><br />
+        Crying Freeman est arrivé trop tôt.<br /><br />
+        Gans avait compris quelque chose que le marché n'était pas prêt à accepter — que le manga pouvait devenir du grand cinéma d'action occidental sans perdre son âme.<br /><br />
+        Brotherhood of the Wolf en 2001 lui donnera partiellement raison. Mais Crying Freeman, lui, est resté dans l'ombre.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que Christophe Gans avait raison avant tout le monde.<br /><br />
+        En 2026, les adaptations de manga en film live action sont partout. Hollywood y investit des centaines de millions. Les studios japonais coproduisent avec les américains. Le marché existe, il est massif, il est respectable.<br /><br />
+        En 1995, Gans faisait ça avec un budget limité, au Canada, avec un acteur que personne ne connaissait vraiment encore.<br /><br />
+        Et il le faisait bien.<br /><br />
+        Crying Freeman mérite d'être vu comme ce qu'il est — un film précurseur, réalisé par quelqu'un qui avait compris avant tout le monde ce que pouvait être une adaptation de manga réussie. Pas une trahison du matériau original, pas une américanisation forcée. Une transposition respectueuse, visuellement ambitieuse, portée par un acteur exceptionnel.<br /><br />
+        Et Mark Dacascos mérite d'être vu dans ce rôle. C'est son Crow — le film qui montre ce qu'il était capable de faire quand on lui donnait le bon rôle.<br /><br />
+        J'avais douze ans. Je pratiquais le karaté. Je regardais Dacascos à l'écran et je voulais être aussi précis, aussi fluide, aussi présent que lui.<br /><br />
+        Trente ans plus tard, ce film me fait encore le même effet.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Crying Freeman n'est pas un film oublié au sens ordinaire du terme.<br /><br />
+        Il n'a jamais eu la chance d'être vu assez largement pour être oublié.<br /><br />
+        Il a existé dans les marges — dans les bacs vidéo, dans les enregistrements Canal+, dans les conversations entre passionnés de manga et de cinéma d'action asiatique. Un film de niche qui méritait infiniment mieux que la niche.<br /><br />
+        Mon grand-père l'avait enregistré sans savoir ce que c'était.<br /><br />
+        Moi, je savais. Et ce film a confirmé tout ce que je pensais déjà — que Mark Dacascos était une légende, que les arts martiaux pouvaient être de la grâce, et que le cinéma pouvait faire exister un univers manga avec la même force que la page dessinée.<br /><br />
+        Certains films vous accompagnent toute une vie.<br /><br />
+        Celui-là en fait partie.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Crying Freeman</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">France · Canada</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Adaptation manga</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">102 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Source</p>
+        <p class="val">Manga de Kazuo Koike & Ryoichi Ikegami</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Distributeur US</p>
+        <p class="val">Trimark Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Dacascos I — Saison 1</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Écho</p>
+        <p class="val">Only the Strong (S2) — Dacascos II</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — EP. 11</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#episodes">Tous les épisodes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
