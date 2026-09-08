@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EP.09 — BlackJack · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0810 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Épisode 09 &nbsp;·&nbsp; Saison 1 &nbsp;·&nbsp; John Woo dans une cage dorée</div>
+      <h1 class="hero-title">BlackJack</h1>
+      <p class="hero-subtitle">John Woo · Dolph Lundgren, 1998</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1998</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">John Woo</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Dolph Lundgren</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="ep08-the-substitute.html">← EP. 08 — The Substitute</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="#">EP. 10 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        J'avais quinze ans.<br /><br />
+        C'était sur M6. Une bande annonce entre deux émissions — et le nom de John Woo en grande lettre sur l'écran.<br /><br />
+        John Woo. The Killer. À toute épreuve. Des noms qui résonnaient déjà fort à quinze ans.<br /><br />
+        Je voulais voir ce film.<br /><br />
+        Et puis la vie a fait autrement. Des années ont passé. D'autres films, d'autres cassettes, d'autres soirées.<br /><br />
+        Quand je l'ai finalement vu, j'étais devenu quelqu'un d'autre.<br /><br />
+        Est-ce que le film aurait changé si je l'avais vu à quinze ans ? Peut-être. Est-ce que mon regard aurait été différent ? Sûrement.<br /><br />
+        Ce soir, je lui donne une autre chance.<br /><br />
+        Et peut-être à moi aussi.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="blackjack-action.jpg" alt="Dolph Lundgren — BlackJack, John Woo 1998" />
+      <p class="img-caption">Dolph Lundgren — BlackJack, John Woo 1998</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        BlackJack.<br /><br />
+        1998. Réalisé par John Woo. Avec Dolph Lundgren.<br /><br />
+        Un téléfilm produit pour la chaîne américaine USA Network. Pas une sortie en salles — un film de télévision, avec un budget de télévision, mais derrière la caméra un réalisateur qui venait de signer Face/Off avec John Travolta et Nicolas Cage.<br /><br />
+        La jaquette promettait du John Woo. Des ralentis, de la violence chorégraphiée, deux pistolets en même temps.<br /><br />
+        Ce qu'on trouve à l'intérieur est plus modeste que la promesse — mais plus intéressant que ce que le format laissait espérer.<br /><br />
+        Un garde du corps. Une mission. Et la patte reconnaissable d'un cinéaste qui ne sait pas faire les choses à moitié, même contraint par un budget de télévision.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1998.<br /><br />
+        John Woo est au sommet de Hollywood. The Killer et À toute épreuve ont fait de lui une légende du cinéma d'action mondial. Broken Arrow avec John Travolta en 1996, Face/Off en 1997 — deux succès commerciaux massifs. Mission Impossible 2 est en préparation. Woo est bankable, respecté, attendu.<br /><br />
+        Alors pourquoi BlackJack ?<br /><br />
+        La réponse est contractuelle. Woo avait un engagement envers USA Network pour un projet télévisé. BlackJack est ce projet — réalisé entre deux blockbusters, dans une fenêtre réduite, avec des moyens sans commune mesure avec ce qu'il venait de faire.<br /><br />
+        Dolph Lundgren est le choix logique pour ce format. Star du marché direct-to-video, habitué des productions contraintes, capable de porter un film avec peu de ressources autour de lui.<br /><br />
+        Ce qui rend BlackJack fascinant ce n'est pas ce qu'il est — c'est l'écart entre ce qu'il aurait pu être et ce que le format lui a permis d'être.<br /><br />
+        John Woo dans une cage dorée de la télévision américaine.<br /><br />
+        Le résultat est imparfait. Mais il porte une signature.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="blackjack-scene.jpg" alt="BlackJack — Dolph Lundgren, 1998" />
+      <p class="img-caption">BlackJack — John Woo, 1998</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Jack Devlin est garde du corps.<br /><br />
+        Un professionnel froid, efficace, sans attaches. Jusqu'au jour où il développe une phobie inattendue — la couleur blanche. Séquelle d'un traumatisme, déclencheur involontaire d'une paralysie qui le rend vulnérable au pire moment possible.<br /><br />
+        Sa nouvelle mission : protéger une jeune mannequin menacée par un tueur professionnel.<br /><br />
+        Le film joue sur cette tension entre la compétence affichée du personnage et sa fragilité cachée. Devlin sait ce qu'il fait — mais il sait aussi que quelque chose en lui peut se briser à tout moment.<br /><br />
+        C'est un dispositif narratif plus subtil qu'il n'y paraît. Pas un héros invincible. Un homme qui doit gérer sa propre défaillance en même temps que la menace extérieure.<br /><br />
+        Et derrière la caméra — même contraint, même limité — John Woo construit ses séquences avec une précision qui trahit immédiatement sa main.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film est une étude de contraintes.<br /><br />
+        Pas les contraintes comme excuse — les contraintes comme révélateur. Ce qu'un cinéaste fait quand on lui retire ses moyens habituels dit souvent plus sur lui que ses plus grands succès.<br /><br />
+        John Woo ne peut pas faire du John Woo avec un budget de télévision. Pas de ralentis à grand spectacle, pas de chorégraphies sur plusieurs millions de dollars, pas de destruction massive. Il doit travailler autrement — avec le cadrage, le découpage, la tension psychologique entre les personnages.<br /><br />
+        Et c'est là que BlackJack devient intéressant.<br /><br />
+        On voit un réalisateur adapter son langage à un format qui le contraint. Certaines séquences portent une fluidité, une précision dans la construction du danger, qui ne doivent rien au budget. Elles doivent tout à vingt ans de métier.<br /><br />
+        Et Lundgren y est pour quelque chose.<br /><br />
+        Il joue ici un personnage plus complexe que ce qu'on lui propose habituellement — un homme solide en surface, cassé en dessous. La phobie du blanc comme métaphore d'une vulnérabilité qu'il ne peut pas contrôler. C'est subtil. Et Lundgren le joue avec une sobriété qui fonctionne.<br /><br />
+        BlackJack n'est pas le film que la bande annonce promettait à quinze ans.<br /><br />
+        Mais c'est peut-être un film plus honnête que prévu.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="blackjack-affiche.jpg" alt="BlackJack — affiche 1998" />
+      <p class="img-caption">BlackJack — affiche, 1998</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        BlackJack n'a pas été oublié. Il n'a jamais vraiment existé.<br /><br />
+        Un téléfilm diffusé une fois sur USA Network, sans sortie en salles, sans distribution internationale digne de ce nom. En dehors des États-Unis, le film circule en VHS dans quelques marchés, capté par des chaînes câblées comme M6 qui en diffusent la bande annonce entre deux émissions — et c'est tout.<br /><br />
+        Pas de critique. Pas de débat. Pas d'existence dans la conversation cinéma de 1998.<br /><br />
+        Le nom de John Woo sur l'affiche aurait dû suffire à lui donner une vie. Il n'a pas suffi — parce que le format télévisé créait une hiérarchie implicite dans l'esprit du public. Un téléfilm de Woo n'était pas un film de Woo. C'était un à-côté, une obligation contractuelle, quelque chose qu'on regarde distraitement un soir de semaine.<br /><br />
+        Et Lundgren — malgré sa présence croissante dans le marché vidéo — ne tirait pas encore assez de poids commercial pour compenser l'absence de sortie en salles.<br /><br />
+        Le film est tombé dans un angle mort précis — trop grand pour être ignoré, trop petit pour être vu.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que John Woo sous contrainte est plus intéressant que la plupart des réalisateurs en pleine liberté.<br /><br />
+        BlackJack n'est pas un grand Woo. Mais c'est un Woo authentique — on reconnaît la main, le regard, la façon de construire une séquence même quand les moyens manquent. Pour quelqu'un qui aime le cinéma de Woo, c'est un document précieux. Un film de transition, coincé entre deux blockbusters, qui montre comment un artiste s'adapte sans se renier complètement.<br /><br />
+        Et Lundgren mérite d'être vu dans ce rôle. Pas le colosse invincible, pas la machine de guerre — un homme avec une faille, un personnage qui doit composer avec sa propre défaillance. C'est différent de ce qu'on lui demandait habituellement. Et il s'en sort mieux qu'on ne l'attendait.<br /><br />
+        Je n'ai pas vu ce film à quinze ans devant M6. Je l'ai vu des années plus tard, avec des yeux différents, dans un état d'esprit différent.<br /><br />
+        Peut-être que ce film mérite un troisième regard.<br /><br />
+        Celui qu'on lui doit depuis le début.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        BlackJack n'est pas le film que j'attendais à quinze ans.<br /><br />
+        Il ne pouvait pas l'être. J'avais construit quelque chose dans ma tête à partir d'une bande annonce sur M6 — une promesse que le film réel ne pouvait qu'honorer imparfaitement.<br /><br />
+        C'est le problème de tous les rendez-vous manqués. Quand on les rattrape, on ne sait plus vraiment si on juge le film ou l'attente.<br /><br />
+        SOMEDAY est aussi là pour ça. Redonner aux films le regard qu'ils méritent — pas celui qu'on avait à quinze ans, pas celui qu'on a forgé dans l'attente. Celui qu'on peut avoir maintenant, avec le recul, avec la patience.<br /><br />
+        BlackJack mérite ce regard.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">BlackJack</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Thriller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Format</p>
+        <p class="val">Téléfilm — USA Network</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">111 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Lundgren II — Saison 1</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Entre</p>
+        <p class="val">Face/Off (1997) et Mission Impossible 2 (2000)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Écho</p>
+        <p class="val">Portrait Dolph Lundgren (EP. 12)</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — EP. 09</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#episodes">Tous les épisodes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
