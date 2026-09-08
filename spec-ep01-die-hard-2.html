@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPÉCIAL EP.01 — Die Hard 2 · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0d08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison Spéciale — Les Suites · Épisode 01 &nbsp;·&nbsp; La suite sage — même héros, terrain différent</div>
+      <h1 class="hero-title">Die Hard 2</h1>
+      <p class="hero-subtitle">Bruce Willis · Renny Harlin · Washington D.C., 1990</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1990</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Renny Harlin</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Bruce Willis · Bonnie Bedelia</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="index.html#episodes">← Saison 1</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="spec-ep02-rambo-3.html">Spécial EP. 02 — Rambo 3 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        J'avais dix ans.<br /><br />
+        Je connaissais déjà John McClane. La tour Nakatomi, le maillot de corps, "Yippee-ki-yay". Ce film-là, je l'avais usé.<br /><br />
+        Alors quand j'ai glissé cette deuxième cassette dans le magnétoscope, je pensais savoir exactement ce que j'allais retrouver.<br /><br />
+        Un homme seul. Un bâtiment. Des terroristes.<br /><br />
+        Ce que j'ai trouvé, c'est un aéroport sous la neige, un homme qui court plus qu'il ne grimpe, et la première fois où j'ai compris qu'une suite pouvait tout changer sans jamais l'annoncer.<br /><br />
+        Ce soir, on remet les pieds dans l'aéroport de Dulles.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Die Hard 2 — affiche originale 1990</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Die Hard 2.<br /><br />
+        1990. Réalisé par Renny Harlin. Bruce Willis reprend le rôle de John McClane, deux ans après le premier film.<br /><br />
+        Adapté très librement du roman 58 Minutes de Walter Wager — un texte qui n'a presque rien à voir avec Die Hard, recyclé pour l'occasion.<br /><br />
+        Un succès commercial immédiat. Un accueil critique plus tiède — la comparaison avec l'original est inévitable, et elle ne joue pas en sa faveur.<br /><br />
+        Ce qu'on trouve à l'intérieur mérite pourtant qu'on s'y arrête. Pas un chef-d'œuvre. Mais la première tentative sérieuse de répondre à une question qui va hanter tout Hollywood pendant les trente années suivantes : comment refaire sans refaire ?
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1990.<br /><br />
+        Die Hard a rapporté beaucoup d'argent en 1988. Hollywood veut sa suite, vite.<br /><br />
+        John McTiernan, le réalisateur du premier film, ne revient pas — il tourne À la poursuite d'Octobre Rouge la même année. La Fox se tourne vers Renny Harlin, un Finlandais remarqué pour Le Cauchemar de Freddy 4, qui vient de livrer un thriller efficace, Ligne de Feu.<br /><br />
+        Harlin n'a pas la précision géométrique de McTiernan. Il a autre chose — de l'énergie brute, un sens du spectacle plus frontal, moins de patience pour les silences.<br /><br />
+        Bruce Willis revient, mais sa position a changé. En 1988, il était encore une star de télévision qui tentait le cinéma. En 1990, il est devenu la garantie commerciale de toute une franchise. Le film doit livrer plus — plus d'action, plus d'ampleur, plus de spectacle.<br /><br />
+        Le budget triple. Le décor change d'échelle.<br /><br />
+        C'est exactement ce que la suite demandait — et exactement ce qui allait poser problème.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Bruce Willis — Die Hard 2, 1990</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        John McClane attend sa femme à l'aéroport de Dulles, la veille de Noël.<br /><br />
+        Deux ans après Nakatomi, il est toujours flic de Los Angeles, toujours marié à Holly, et toujours au mauvais endroit au mauvais moment.<br /><br />
+        Un commando armé prend le contrôle des systèmes de l'aéroport. Leur objectif : faire atterrir un général déchu recherché pour trafic de drogue, en bloquant tous les autres vols en approche — avec les passagers à bord, dont Holly.<br /><br />
+        McClane comprend avant tout le monde. Et comme toujours, personne ne le croit.<br /><br />
+        Le film ne cherche plus la tension confinée du premier. Il installe un terrain immense, ouvert, traversé par des avions qui tournent dans le ciel en attendant de pouvoir se poser — ou de s'écraser.<br /><br />
+        Ce n'est plus un homme piégé dans un immeuble. C'est un homme qui court après un problème plus grand que lui, dans un espace qui ne s'arrête jamais.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film aurait pu être un simple copier-coller.<br /><br />
+        Il ne l'est pas tout à fait — et c'est ce qui le rend intéressant.<br /><br />
+        Ce qui distingue Die Hard 2, c'est son refus assumé de refaire la tour Nakatomi. Le premier film était une question de géométrie — un homme qui monte, étage par étage, dans un espace qu'on apprend à connaître par cœur. Le deuxième renverse tout : un aéroport, c'est horizontal, ouvert, traversé. McClane ne conquiert plus un territoire, il court après un danger qui se déplace sans cesse.<br /><br />
+        Ce choix change la nature de la tension. Moins de suspense de proximité, plus de surenchère d'échelle. On perd en clarté spatiale ce qu'on gagne en spectacle pur.<br /><br />
+        Ce qui reste intact, en revanche, c'est McClane lui-même. Le flic seul, cynique, non cru par une autorité qui préfère croire les hommes en costume. Bruce Willis n'a rien perdu de cette alchimie-là.<br /><br />
+        Ce qui devient formule, c'est l'antagoniste. Le colonel Stuart n'a ni l'esprit ni la présence de Hans Gruber. Il commande, il menace, il exécute — mais il n'existe jamais vraiment en dehors de sa fonction. La suite garde le héros et perd le vilain, et c'est peut-être la perte la plus significative de tout le film.<br /><br />
+        Renny Harlin filme l'énergie plutôt que l'espace. Plus de mouvement de caméra, plus de bruit, moins de géométrie lisible. Le symptôme classique du technicien qui remplace l'auteur — on le sent avant même de savoir le nommer.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Die Hard 2 — aéroport de Dulles sous la neige</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI SOUS-ESTIMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi sous-estimé</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Die Hard 2 n'a jamais eu la carrière critique qu'il méritait, et c'est en grande partie sa faute.<br /><br />
+        Il existe dans l'ombre écrasante d'un premier film considéré, à raison, comme un des meilleurs films d'action jamais tournés. Toute comparaison est perdue d'avance.<br /><br />
+        La critique de 1990 lui reproche exactement ce qu'il assume : plus gros, plus bruyant, moins subtil. Le reproche n'est pas faux. Mais il occulte ce que le film fait bien — l'énergie, le rythme, la capacité de Willis à porter une franchise entière sur ses épaules dès le deuxième épisode.<br /><br />
+        Et puis il y a l'effet d'usure. Une suite sortie deux ans après un classique instantané n'a droit à aucune indulgence. Le public la regarde en cherchant ce qu'elle n'a pas, plutôt que ce qu'elle propose.<br /><br />
+        Résultat : un film commercialement énorme, mais réduit dans la mémoire collective à "la suite moins bien que le premier" — une étiquette qui ne raconte qu'une partie de l'histoire.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que c'est la première fois qu'Hollywood tente honnêtement de répondre à la question qui va définir trois décennies de franchises : comment prolonger une histoire sans la trahir ?<br /><br />
+        Die Hard 2 ne triche pas. Il ne refait pas la tour. Il assume le changement d'échelle, quitte à perdre un peu de ce qui rendait le premier film si serré, si tendu, si parfait dans sa contrainte.<br /><br />
+        Et Bruce Willis y est déjà la star de franchise qu'il allait devenir pour les vingt années suivantes — plus sûr de lui, plus physique, plus généreux avec le spectacle.<br /><br />
+        En 2026, la plupart des suites d'action ne prennent même plus la peine de changer de décor. Elles répètent la formule à l'identique jusqu'à l'épuisement. Die Hard 2, avec ses défauts, a au moins eu le courage de bouger.<br /><br />
+        J'avais dix ans. Je pensais qu'une suite, c'était juste le même film en plus gros.<br /><br />
+        Ce film m'a appris que c'était déjà, en soi, une décision.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Die Hard 2 n'est pas Die Hard.<br /><br />
+        Il ne cherche pas à l'être.<br /><br />
+        Il cherche à prouver qu'on peut prolonger une histoire en changeant tout son terrain de jeu — au risque de perdre un peu de ce qui la rendait unique.<br /><br />
+        J'avais dix ans. Je connaissais McClane de la tour Nakatomi. Je pensais savoir ce que j'allais revoir.<br /><br />
+        Je ne savais pas.<br /><br />
+        Ce film m'a appris quelque chose que beaucoup de suites, depuis, ont oublié — qu'on ne prolonge pas un succès en le répétant, mais en le déplaçant.<br /><br />
+        La saison spéciale suites commence ici.<br /><br />
+        Dans la neige de Dulles, dans le bruit des avions qui tournent en attendant de se poser.<br /><br />
+        La cassette est dans le lecteur. On rembobine — direction Rambo 3.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Die Hard 2: Die Harder</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">124 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Source</p>
+        <p class="val">Roman 58 Minutes de Walter Wager (adaptation libre)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Bonnie Bedelia · William Atherton · Reginald VelJohnson</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Ouverture Saison Spéciale — Les Suites</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Écho</p>
+        <p class="val">Die Hard (1988) — référence directe</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — SPÉCIAL EP. 01</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison-speciale-suites">Saison Spéciale</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
