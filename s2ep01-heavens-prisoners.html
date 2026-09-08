@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.01 — Vengeance Froide · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0d08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 01 &nbsp;·&nbsp; Dans le bayou — lenteur comme force</div>
+      <h1 class="hero-title">Vengeance Froide</h1>
+      <p class="hero-subtitle">Alec Baldwin · Eric Roberts · Louisiane, 1996</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1996</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Phil Joanou</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Alec Baldwin · Eric Roberts</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="ep12-portrait-dolph-lundgren.html">← S1 EP. 12 — Portrait Lundgren</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="s2ep02-the-edge.html">S2 EP. 02 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        J'avais onze ans.<br /><br />
+        Je connaissais déjà Alec Baldwin — celui de Guet-Apens, le braqueur élégant en fuite dans le désert américain.<br /><br />
+        Et je connaissais Teri Hatcher — Lois Lane dans Lois et Clark, les nouvelles aventures de Superman. Une présence que la télévision avait installée dans mon salon depuis des années.<br /><br />
+        Quand j'ai mis cette cassette, je pensais retrouver des visages familiers dans un thriller ordinaire.<br /><br />
+        Ce que j'ai trouvé, c'est autre chose.<br /><br />
+        Une chaleur épaisse. Un bayou qui respire. Une Louisiane nocturne qui colle à la peau. Et un Alec Baldwin différent — plus lourd, plus abîmé, plus réel que tout ce que j'avais vu de lui avant.<br /><br />
+        Et puis Eric Roberts.<br /><br />
+        Ce soir, on descend dans le bayou.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Vengeance Froide — affiche originale 1996</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Vengeance Froide.<br /><br />
+        1996. Réalisé par Phil Joanou. Avec Alec Baldwin, Kelly Lynch, Mary Stuart Masterson et Eric Roberts.<br /><br />
+        Adapté du roman de James Lee Burke — le premier volet de la série Dave Robicheaux, polar louisianais qui mêle enquête criminelle, trauma de guerre et alcoolisme. Une série littéraire culte aux États-Unis, quasi inconnue en France à l'époque.<br /><br />
+        Un film sorti en salles avec une distribution correcte, reçu froidement par la critique, disparu rapidement des cinémas.<br /><br />
+        Ce qu'on trouve à l'intérieur mérite infiniment mieux que ce sort.<br /><br />
+        Un néo-noir atmosphérique, ancré dans une Louisiane poisseuse et magnifique, porté par un Baldwin qu'on n'avait jamais vu aussi vulnérable — et un Eric Roberts qui vole chaque scène où il apparaît.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1996.<br /><br />
+        James Lee Burke est l'un des romanciers américains les plus respectés de sa génération. Ses romans mettent en scène Dave Robicheaux — ancien flic de la Nouvelle-Orléans, vétéran du Vietnam, alcoolique en rémission, retraité dans le bayou d'Iberia Parish. Des livres denses, atmosphériques, qui font de la Louisiane un personnage à part entière.<br /><br />
+        Hollywood s'y intéresse depuis des années. Vengeance Froide est la première tentative sérieuse d'adaptation.<br /><br />
+        Phil Joanou prend les commandes. Un réalisateur discret — State of Grace avec Sean Penn en 1990, quelques clips pour U2. Pas un auteur au sens strict, mais quelqu'un qui sait créer une atmosphère et diriger des acteurs.<br /><br />
+        Alec Baldwin est Dave Robicheaux. C'est un choix audacieux — Baldwin en 1996 cherche encore sa place dans le paysage hollywoodien. Ni star d'action pure ni acteur de composition au sens classique. Robicheaux lui offre quelque chose de rare — un personnage complexe, brisé, humain dans ses contradictions.<br /><br />
+        Et Eric Roberts campe le villain avec une intensité froide et fascinante. Roberts est l'un des acteurs les plus sous-estimés de sa génération — une carrière fragmentée, des choix erratiques, mais une présence magnétique que peu de ses contemporains possédaient.<br /><br />
+        La Louisiane comme décor. Le bayou comme état d'âme.<br /><br />
+        C'est exactement ce que le roman demandait.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Alec Baldwin — Vengeance Froide 1996</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Dave Robicheaux est un ancien flic.<br /><br />
+        Retraité dans le bayou louisianais avec sa femme Annie, il tient un magasin d'appâts et essaie de rester sobre. Une vie simple, fragile, construite sur la volonté de ne pas replonger — ni dans l'alcool, ni dans la violence.<br /><br />
+        Puis un avion s'écrase dans le bayou devant lui.<br /><br />
+        Il sauve une petite fille. Seule survivante. Et en cherchant à comprendre qui elle est et d'où elle vient, il tire un fil qui remonte jusqu'aux trafiquants de drogue qui contrôlent la région.<br /><br />
+        Ce qui devait rester à distance s'invite chez lui.<br /><br />
+        Le film ne se précipite pas. Il prend le temps d'installer son atmosphère — la moiteur du bayou, la lumière dorée et lourde de la Louisiane, la tension sourde d'une communauté qui vit avec ses secrets. Dave Robicheaux n'est pas un héros qui cherche l'action. C'est un homme qui voulait la paix et qui ne peut pas s'empêcher de faire ce qui est juste.<br /><br />
+        Et Eric Roberts — en trafiquant local aussi séduisant que dangereux — incarne exactement le type de menace que ce décor demandait.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film aurait pu être un polar ordinaire.<br /><br />
+        Il ne l'est pas.<br /><br />
+        Ce qui le distingue c'est son refus de l'efficacité narrative au sens hollywoodien. Vengeance Froide ne cherche pas à enchaîner les rebondissements. Il cherche à installer un état — celui d'un homme qui a trouvé la paix et qui sent qu'elle lui échappe à nouveau, lentement, inexorablement.<br /><br />
+        Baldwin porte ça avec une sobriété qu'on ne lui connaissait pas. Pas le Baldwin élégant et maîtrisé de Guet-Apens. Quelqu'un de plus lourd, de plus fatigué, de plus proche de la défaillance. Dave Robicheaux est un homme qui se bat contre lui-même autant que contre ses ennemis. Cette intériorité — rare dans le genre — transforme chaque scène en quelque chose de plus chargé.<br /><br />
+        Et la Louisiane elle-même est une performance.<br /><br />
+        Phil Joanou filme le bayou comme peu de cinéastes américains ont osé le faire — pas comme un décor pittoresque, mais comme un organisme vivant, oppressant, qui pèse sur chaque personnage. La chaleur se ressent à l'écran. La moiteur aussi. C'est un cinéma physique, sensoriel, qui fait du territoire une métaphore de l'état intérieur du protagoniste.<br /><br />
+        Eric Roberts complète le tableau. Son villain n'est pas un méchant de cinéma standard — il a du charme, de l'humour, une présence qui rend la menace d'autant plus réelle qu'elle ne se cache pas derrière une caricature.<br /><br />
+        Vengeance Froide est un film lent. C'est sa force. Et c'est exactement ce qui a tué son box-office.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Vengeance Froide — bayou louisianais</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Vengeance Froide n'avait pas le profil commercial de son époque.<br /><br />
+        1996 c'est l'année où le thriller américain cherche la vitesse, le twist, l'efficacité narrative. Seven vient de redéfinir le genre un an plus tôt. Le public attend de la tension construite sur le rythme, pas sur l'atmosphère. Vengeance Froide arrive avec exactement l'inverse — un film lent, contemplatif, qui prend son temps pour installer ses personnages et son décor.<br /><br />
+        La critique n'a pas su quoi en faire. Trop lent pour un thriller, trop violent pour un drame. Le même angle mort que beaucoup de films de cette programmation — un objet qui ne rentre dans aucune case préétablie.<br /><br />
+        Baldwin en 1996 n'était plus une garantie commerciale. Et James Lee Burke — dont l'œuvre aurait dû porter le film — était inconnu du public français.<br /><br />
+        La Louisiane comme décor n'aidait pas non plus. Exotique pour un marché qui préférait les thrillers urbains de New York ou Los Angeles. Trop particulière, trop ancrée dans une réalité géographique et culturelle que le public européen ne reconnaissait pas immédiatement.<br /><br />
+        Le film sort. Déçoit. Passe en VHS.<br /><br />
+        Et là — comme toujours — il trouve les quelques personnes qui savaient regarder ailleurs.<br /><br />
+        Un gamin de onze ans avec une cassette dans l'armoire de son grand-père. C'était suffisant.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que la lenteur est une qualité.<br /><br />
+        En 2026, le cinéma de genre a presque entièrement abandonné l'atmosphère au profit de l'efficacité. Les thrillers sont devenus des machines à rebondissements — calibrés, testés, optimisés pour maintenir l'attention d'un spectateur qui n'a plus l'habitude d'attendre.<br /><br />
+        Vengeance Froide fait exactement le contraire. Il demande de la patience. Il installe avant d'agir. Il construit une relation avec son décor avant de construire son intrigue.<br /><br />
+        Et pour ceux qui acceptent ce contrat — c'est une expérience rare.<br /><br />
+        Baldwin y est meilleur qu'il ne l'a jamais été dans ce registre. Dave Robicheaux est peut-être son personnage le plus humain, le plus vulnérable, le plus éloigné de l'image qu'Hollywood avait construite autour de lui.<br /><br />
+        Eric Roberts mérite d'être réévalué — pas seulement dans ce film, mais dans l'ensemble de sa carrière fragmentée et sous-estimée. Vengeance Froide est l'un de ses meilleurs rôles.<br /><br />
+        Et la Louisiane de 1996 — cette chaleur, cette lumière, ce bayou — n'existe plus au cinéma. C'est un document autant qu'un film.<br /><br />
+        J'avais onze ans. Je ne savais pas encore que j'aimais les films lents.<br /><br />
+        Ce film m'a appris que j'en étais capable.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Vengeance Froide n'est pas un film facile.<br /><br />
+        Il ne cherche pas à l'être.<br /><br />
+        Il cherche à vous emmener quelque part — dans cette chaleur, dans ce bayou, dans la tête d'un homme qui voulait juste vivre en paix et qui n'y arrive pas.<br /><br />
+        J'avais onze ans. Je connaissais Baldwin de Guet-Apens, Teri Hatcher de Lois et Clark. Je pensais savoir ce que j'allais voir.<br /><br />
+        Je ne savais pas.<br /><br />
+        Ce film m'a appris quelque chose que peu de thrillers de l'époque m'ont appris — que la tension n'a pas besoin de vitesse pour exister. Qu'une atmosphère peut être aussi oppressante qu'une course-poursuite. Que la Louisiane peut être aussi dangereuse que n'importe quelle ville américaine.<br /><br />
+        La saison 2 de SOMEDAY commence ici.<br /><br />
+        Dans le bayou. Dans la chaleur. Dans la moiteur d'un film que personne n'a assez vu.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Vengeance Froide</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Néo-noir / Thriller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">132 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Source</p>
+        <p class="val">Roman de James Lee Burke</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Kelly Lynch · Mary Stuart Masterson · Teri Hatcher</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Pilote Saison 2</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Écho</p>
+        <p class="val">Guet-Apens (S1) — Alec Baldwin</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 01</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
