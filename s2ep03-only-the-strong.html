@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.03 — Only the Strong · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0a08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 03 &nbsp;·&nbsp; Dacascos II — La beauté comme résistance</div>
+      <h1 class="hero-title">Only the Strong</h1>
+      <p class="hero-subtitle">Mark Dacascos · Capoeira · Miami, 1993</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1993</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Sheldon Lettich</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Mark Dacascos</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep02-the-edge.html">← S2 EP. 02 — À couteaux tirés</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 04 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Le lundi soir, M6 diffusait des films.<br /><br />
+        Pas n'importe lesquels. Van Damme, Seagal, Lundgren, des séries B d'action qui n'avaient souvent jamais vu une salle de cinéma. Une programmation qui n'existait nulle part ailleurs à l'époque — un rendez-vous hebdomadaire pour ceux qui savaient où regarder.<br /><br />
+        C'est comme ça que j'ai découvert Only the Strong.<br /><br />
+        J'avais besoin de ce film sans le savoir. La capoeira dans un lycée de Miami, un prof qui reprend le contrôle là où le système a abandonné — quelque chose entre The Substitute et mon propre rapport aux arts martiaux.<br /><br />
+        Mark Dacascos à l'écran.<br /><br />
+        Et moi devant la télé, qui comprenait pour la première fois que la danse pouvait être un combat.<br /><br />
+        Ce soir, on rembobine le lundi soir.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="only-strong-confrontation.jpg" alt="Mark Dacascos — Only the Strong, 1993" />
+      <p class="img-caption">Mark Dacascos — Only the Strong, Miami 1993</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Only the Strong.<br /><br />
+        1993. Réalisé par Sheldon Lettich. Avec Mark Dacascos.<br /><br />
+        Un film produit par la Fox, sorti en salles aux États-Unis en août 1993. Budget modeste, distribution limitée, entrées décevantes. Disparu rapidement des cinémas américains.<br /><br />
+        En France, c'est M6 qui lui donne une seconde vie — diffusé en prime time le lundi soir, dans une programmation qui avait compris avant tout le monde que ce public-là existait et qu'il regardait.<br /><br />
+        La jaquette promettait de la capoeira, Miami, un lycée difficile.<br /><br />
+        Ce qu'on trouve à l'intérieur est plus cohérent et plus sincère que la plupart des films du genre.<br /><br />
+        Un film d'arts martiaux qui croit en ce qu'il montre. Une discipline — la capoeira — que le cinéma occidental n'avait jamais mise en valeur à ce niveau. Et Mark Dacascos dans un rôle qui lui va comme un gant — précis, fluide, habité.<br /><br />
+        Sheldon Lettich connaissait son affaire. Il avait déjà travaillé avec Van Damme sur Lionheart et Double Impact.<br /><br />
+        Avec Dacascos, il trouve quelque chose de différent.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1993.<br /><br />
+        Le film d'arts martiaux américain est en pleine effervescence. Van Damme a explosé avec Bloodsport en 1988. Seagal s'est imposé avec Nico en 1988 également. Le marché direct-to-video et les chaînes câblées consomment des dizaines de productions par an. Le public est là, fidèle, en demande.<br /><br />
+        Sheldon Lettich connaît ce territoire. Scénariste de Bloodsport, réalisateur de Lionheart et Double Impact avec Van Damme — il a contribué à construire l'esthétique du film d'arts martiaux américain des années 90.<br /><br />
+        Avec Only the Strong, il prend un pari différent.<br /><br />
+        Pas un tournoi clandestin. Pas une vengeance personnelle. Un lycée de Miami en déshérence, des élèves perdus, et un ancien militaire qui revient avec une arme inattendue — la capoeira, art martial brésilien qui mêle combat, danse et musique.<br /><br />
+        Mark Dacascos est le choix évident — et le bon. Il pratique les arts martiaux depuis l'enfance, possède une fluidité et une précision physique que peu d'acteurs de sa génération peuvent revendiquer. Et il apporte quelque chose que le genre réclamait — une légèreté naturelle, une présence qui n'a pas besoin de forcer pour convaincre.<br /><br />
+        La capoeira comme angle éditorial est un coup de génie.<br /><br />
+        Une discipline visuellement spectaculaire, musicalement riche, culturellement ancrée — exactement ce qu'il fallait pour distinguer ce film de la masse de productions similaires qui sortaient à la même époque.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="only-strong-affiche.jpg" alt="Only the Strong — affiche 1993" />
+      <p class="img-caption">Only the Strong — 20th Century Fox, 1993</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Louis Stevens est un ancien béret vert.<br /><br />
+        De retour à Miami après ses années de service, il retrouve son ancien lycée — celui où il a grandi, où il a appris ce que c'était de survivre dans un quartier difficile. L'établissement est méconnaissable. Les gangs font la loi, les professeurs ont renoncé, les élèves n'ont plus aucune perspective.<br /><br />
+        Son ancien prof lui propose un marché — prendre en charge un groupe d'élèves en échec, les derniers avant l'expulsion, et tenter quelque chose.<br /><br />
+        Louis leur enseigne la capoeira.<br /><br />
+        Pas comme sport. Comme philosophie. Comme façon de se tenir dans le monde — d'occuper l'espace avec dignité, de transformer la violence en quelque chose de plus complexe.<br /><br />
+        Le film suit cette transformation. Pas de manière naïve — les gangs sont réels, la menace est concrète, et Louis va devoir affronter bien plus qu'un simple problème de discipline scolaire.<br /><br />
+        Mais c'est la capoeira qui structure tout. Ses rythmes, ses cercles, sa musique — le berimbau comme fil conducteur d'un film qui croit vraiment en ce qu'il montre.<br /><br />
+        Et Dacascos qui se bat comme quelqu'un pour qui ce n'est pas du cinéma.<br /><br />
+        Parce que ce n'en est pas.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film aurait pu être une variation de plus sur la formule du professeur sauveur.<br /><br />
+        Il ne l'est pas.<br /><br />
+        Ce qui distingue Only the Strong de tous les films qui ont exploité le même territoire — de The Substitute à Dangerous Minds — c'est la capoeira elle-même. Pas comme décor, pas comme gimmick marketing. Comme système de pensée.<br /><br />
+        La capoeira est une discipline née de la résistance. Inventée par des esclaves africains au Brésil qui avaient besoin de dissimuler leur entraînement au combat dans quelque chose qui ressemblait à de la danse. Elle porte en elle une histoire de survie, d'intelligence face à l'oppression, de force qui se cache derrière la grâce.<br /><br />
+        Sheldon Lettich a compris ça. Et le film ne l'utilise pas comme prétexte à des chorégraphies spectaculaires — même si elles le sont — mais comme métaphore de ce que Louis Stevens essaie de transmettre à ses élèves. Apprendre à se battre autrement. Apprendre à occuper l'espace sans avoir à détruire ce qui est autour.<br /><br />
+        Et Dacascos incarne ça avec une évidence désarmante.<br /><br />
+        Il n'y a pas de séparation entre l'acteur et la discipline chez lui. Quand il se bat, quand il danse, quand il enseigne — c'est le même homme. Cette unité entre le corps et le personnage est ce qui rend chaque scène crédible au-delà de ce qu'un budget limité aurait normalement permis.<br /><br />
+        J'avais besoin de voir ça à l'époque.<br /><br />
+        Un homme qui transforme quelque chose de difficile en quelque chose de beau.<br /><br />
+        C'est plus rare qu'il n'y paraît.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="only-strong-capoeira.jpg" alt="Only the Strong — capoeira, 1993" />
+      <p class="img-caption">Only the Strong — capoeira, Miami 1993</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Only the Strong a raté son rendez-vous avec le public américain pour des raisons simples.<br /><br />
+        1993, le marché du film d'arts martiaux est saturé. Chaque semaine une nouvelle production, chaque mois un nouveau challenger à Van Damme ou Seagal. Le public action américain avait ses habitudes, ses références, ses acteurs fétiche. Mark Dacascos n'était pas encore un nom. La capoeira n'était pas un argument commercial reconnu.<br /><br />
+        Le film sort en salles, fait des entrées modestes, disparaît rapidement.<br /><br />
+        En France, c'est une autre histoire.<br /><br />
+        M6 et sa programmation du lundi soir créent quelque chose d'unique à cette époque — un public qui découvre ces films sans les hiérarchies du marché américain, sans les préjugés des distributeurs, sans le filtre de la critique. Un public qui regarde et qui décide par lui-même.<br /><br />
+        Only the Strong trouve ce public. Il devient un film de télévision au sens noble du terme — vu, aimé, revu. Pas au cinéma. Dans les salons, sur des écrans cathodiques, avec des familles qui n'avaient pas prévu de regarder un film sur la capoeira ce soir-là.<br /><br />
+        Mais aux États-Unis, il est oublié.<br /><br />
+        Et avec lui, une partie de ce que Mark Dacascos aurait pu devenir si Hollywood avait su lire ce qu'il avait sous les yeux.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que la capoeira mérite mieux qu'une curiosité de 1993.<br /><br />
+        En 2026, les arts martiaux au cinéma ont évolué — les chorégraphies sont plus complexes, les budgets plus importants, les réalisateurs plus conscients de ce qu'ils filment. Mais quelque chose s'est perdu dans cette sophistication. La sincérité. Le sentiment que ce qu'on voit à l'écran vient de quelque part de réel, de pratiqué, de vécu.<br /><br />
+        Only the Strong a cette sincérité. Chaque séquence de capoeira est filmée avec un respect qui vient de la compréhension — pas de la mise en scène spectaculaire mais de la transmission. On voit une discipline, pas un effet spécial.<br /><br />
+        Et Dacascos mérite d'être vu dans ce rôle. C'est celui qui le définit le mieux — avant Crying Freeman, avant la reconnaissance critique, quand il était simplement un acteur qui croyait en ce qu'il faisait et qui le montrait sans retenue.<br /><br />
+        Le lycée de Miami de Only the Strong fait écho à The Substitute — le même territoire, la même question, une réponse différente. Pas la violence comme dernier recours. La beauté comme résistance.<br /><br />
+        J'avais besoin de ce film à l'époque. De voir que quelqu'un pouvait transformer un quartier difficile en quelque chose qui ressemble à de l'espoir sans que ça sonne faux.<br /><br />
+        Trente ans plus tard, ce film me fait encore vibrer.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Only the Strong n'a pas changé le cinéma d'arts martiaux.<br /><br />
+        Il n'en avait pas l'ambition.<br /><br />
+        Il voulait juste montrer quelque chose de vrai — une discipline, un quartier, un homme qui croit que la beauté peut être une arme.<br /><br />
+        Le lundi soir sur M6. J'avais besoin de films comme celui-là sans savoir exactement pourquoi. Les arts martiaux comme refuge, comme modèle, comme façon de comprendre qu'on peut être fort autrement.<br /><br />
+        Dacascos m'a montré ça.<br /><br />
+        Pas en faisant semblant. En le faisant vraiment.<br /><br />
+        Trente ans plus tard, le berimbau résonne encore. La roda tourne encore. Et ce film — discret, sincère, oublié trop vite — mérite d'être remis dans le lecteur.<br /><br />
+        On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Only the Strong</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Arts martiaux</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">99 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">20th Century Fox</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Discipline</p>
+        <p class="val">Capoeira</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Dacascos II — Saison 2</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Écho</p>
+        <p class="val">Crying Freeman (S1) · The Substitute (S1)</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 03</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
