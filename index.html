@@ -343,6 +343,34 @@
       .ep-badge { display: none; }
       .episodes-header { flex-direction: column; gap: 0.5rem; }
     }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(8,8,8,0.85);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1rem;
+      text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.2s, background 0.2s;
+      z-index: 200;
+      backdrop-filter: blur(4px);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .back-to-top:hover { border-color: var(--accent); background: rgba(200,57,43,0.12); }
+    @media (max-width: 600px) {
+      .back-to-top { bottom: 1.25rem; right: 1.25rem; width: 2.6rem; height: 2.6rem; }
+    }
   </style>
 </head>
 <body>
@@ -598,22 +626,22 @@
         <span class="ep-badge">Lire →</span>
       </a>
 
-      <a href="bientot.html" class="episode">
+      <a href="s2ep04-adventures-in-babysitting.html" class="episode">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Adventures in Babysitting</p>
-          <p class="ep-meta">1987 — Elisabeth Shue &nbsp;·&nbsp; Hors-piste</p>
+          <p class="ep-title">Adventures in Babysitting</p>
+          <p class="ep-meta">1987 — Chris Columbus &nbsp;·&nbsp; Elisabeth Shue</p>
         </div>
-        <span class="ep-badge soon">Bientôt</span>
+        <span class="ep-badge">Lire →</span>
       </a>
 
-      <a href="bientot.html" class="episode">
+      <a href="s2ep05-breakdown.html" class="episode">
         <span class="ep-num">EP. 05</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Breakdown</p>
-          <p class="ep-meta">1997 — Kurt Russell &nbsp;·&nbsp; Thriller routier</p>
+          <p class="ep-title">Breakdown</p>
+          <p class="ep-meta">1997 — Jonathan Mostow &nbsp;·&nbsp; Kurt Russell</p>
         </div>
-        <span class="ep-badge soon">Bientôt</span>
+        <span class="ep-badge">Lire →</span>
       </a>
 
       <a href="bientot.html" class="episode">
@@ -696,6 +724,23 @@
     <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
     <p class="footer-sub">© 2026 — Tous droits réservés</p>
   </footer>
+
+  <a href="#top" class="back-to-top" id="backToTop" aria-label="Remonter en haut de page">▲</a>
+
+  <script>
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.04 — Adventures in Babysitting · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0d0a10 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 04 &nbsp;·&nbsp; Elisabeth Shue — une nuit à Chicago</div>
+      <h1 class="hero-title">Adventures in Babysitting</h1>
+      <p class="hero-subtitle">Elisabeth Shue · Chris Columbus · Chicago, 1987</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1987</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Chris Columbus</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Elisabeth Shue</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep03-only-the-strong.html">← S2 EP. 03 — Only the Strong</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="s2ep05-breakdown.html">S2 EP. 05 — Breakdown →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Je l'ai découvert récemment.<br /><br />
+        Pas dans l'armoire de mon grand-père. Pas sur M6 un lundi soir. Plus tard, par curiosité — parce qu'Elisabeth Shue était à l'affiche, et qu'Elisabeth Shue est une bonne raison de regarder un film.<br /><br />
+        Je connaissais Karate Kid. Leaving Las Vegas. Cocktail.<br /><br />
+        Je ne connaissais pas ça.<br /><br />
+        Adventures in Babysitting. 1987. Chris Columbus à la réalisation, avant Home Alone, avant Harry Potter. Un film qui ne ressemble à rien d'autre — pas tout à fait une comédie, pas tout à fait un film d'aventure, pas tout à fait un film d'action. Un objet hybride qui assume chaque contradiction avec une légèreté désarmante.<br /><br />
+        Et Elisabeth Shue au centre de tout — précise, drôle, crédible, irrésistible.<br /><br />
+        Ce soir, on sort la cassette.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Adventures in Babysitting — affiche 1987</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Adventures in Babysitting.<br /><br />
+        1987. Réalisé par Chris Columbus. Avec Elisabeth Shue, Maia Brewton et Anthony Rapp.<br /><br />
+        Le premier long métrage de Chris Columbus — avant Home Alone, avant Mrs. Doubtfire, avant la saga Harry Potter. Un réalisateur débutant avec un script solide, une actrice principale au sommet de sa présence, et une nuit à Chicago comme terrain de jeu.<br /><br />
+        Produit par Touchstone Pictures, sorti en salles en juillet 1987. Succès modeste aux États-Unis, bien reçu par la critique, presque invisible en France.<br /><br />
+        Ce qu'on trouve à l'intérieur dépasse largement ce que le titre laisse entendre.<br /><br />
+        Pas un film pour enfants. Pas une comédie familiale au sens ordinaire. Une aventure nocturne débridée, rythmée, drôle et tendue à la fois — avec une héroïne qui tient le film sur ses épaules sans jamais avoir l'air d'y faire effort.<br /><br />
+        Adventures in Babysitting est le film que vous n'attendiez pas.<br /><br />
+        C'est précisément pour ça qu'il fonctionne.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1987.<br /><br />
+        Hollywood est en pleine période de comédie d'aventure adolescente. Ferris Bueller's Day Off a redéfini le genre un an plus tôt. The Breakfast Club, Sixteen Candles, Pretty in Pink — John Hughes domine le paysage du teen movie américain. Tout le monde cherche la prochaine formule.<br /><br />
+        Chris Columbus arrive avec quelque chose de légèrement différent.<br /><br />
+        Columbus n'est pas encore réalisateur — il est scénariste. Gremlins, The Goonies. Il connaît la mécanique du film d'aventure familial de l'intérieur. Quand il passe derrière la caméra pour la première fois, il applique ce qu'il a appris — la tension, le rythme, l'escalade progressive des situations.<br /><br />
+        Adventures in Babysitting prend une prémisse simple — une baby-sitter qui emmène les enfants dont elle a la charge dans une aventure nocturne à Chicago — et l'étire jusqu'aux limites du raisonnable avec une inventivité constante.<br /><br />
+        Elisabeth Shue est le choix parfait. Révélée par The Karate Kid en 1984, elle cherche à s'imposer dans un registre plus large. Chris Taylor lui offre exactement ça — un personnage qui doit tout porter, qui improvise en permanence, qui ne perd jamais le fil même quand tout s'effondre autour d'elle.<br /><br />
+        Chicago comme décor — ses rues, ses clubs de blues, ses parkings, ses gangs. Une ville de nuit qui fonctionne comme un labyrinthe dont il faut s'échapper avant l'aube.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Elisabeth Shue — Adventures in Babysitting 1987</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Chris Parker a un plan pour ce soir.<br /><br />
+        Un rendez-vous romantique. Une soirée tranquille. Rien de compliqué.<br /><br />
+        Le plan tombe à l'eau. Et à la place, elle se retrouve à garder trois enfants pour la nuit — un garçon de huit ans, sa grande sœur adolescente, et le meilleur ami de la sœur qui est secrètement amoureux de Chris.<br /><br />
+        Puis un appel téléphonique change tout.<br /><br />
+        Une amie bloquée à Chicago, seule dans une gare routière, qui a besoin d'aide. Chris décide d'aller la chercher. Avec les trois enfants. Dans la voiture familiale. La nuit.<br /><br />
+        Ce qui s'ensuit est une série d'incidents qui s'enchaînent avec une logique implacable — chaque solution crée un nouveau problème, chaque détour mène vers quelque chose de plus inattendu que le précédent.<br /><br />
+        Des voleurs de voiture. Un club de blues. Des membres de gang. Un architecte en crise. Des faussaires.<br /><br />
+        Le film ne se répète jamais. Il escalade. Et au centre de tout — Chris Parker qui improvise, qui gère, qui ne lâche rien.<br /><br />
+        Elisabeth Shue qui prouve en une nuit ce qu'elle est capable de faire.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce film aurait pu être une comédie anodine sur une baby-sitter maladroite.<br /><br />
+        Il ne l'est pas.<br /><br />
+        Ce qui distingue Adventures in Babysitting c'est sa construction — une mécanique d'horlogerie qui emprunte autant au film d'aventure qu'à la comédie de situation. Chaque scène est un engrenage. Chaque incident appelle le suivant avec une précision qui trahit la formation de scénariste de Columbus.<br /><br />
+        Il y a dans ce film quelque chose qu'on ne sait plus vraiment faire aujourd'hui — une légèreté qui n'exclut pas la tension. Les enfants sont en danger réel, les situations sont genuinement tendues, et pourtant le film ne perd jamais son énergie, son humour, son plaisir de raconter.<br /><br />
+        Et Elisabeth Shue est la raison pour laquelle tout ça fonctionne.<br /><br />
+        Chris Parker n'est pas une héroïne au sens classique. Elle ne sait pas se battre, elle n'a pas de plan, elle n'a pas de ressources particulières. Elle a juste la présence d'esprit de ne jamais céder à la panique — et une façon d'occuper chaque scène qui rend tout crédible même quand la situation devient absurde.<br /><br />
+        C'est un registre difficile. La légèreté sans la frivolité. L'humour sans la désinvolture. Elisabeth Shue le maîtrise avec une aisance qui explique pourquoi Hollywood allait lui confier des rôles de plus en plus exigeants dans les années suivantes.<br /><br />
+        Adventures in Babysitting est un film parfaitement calibré.<br /><br />
+        Et ça, c'est plus rare qu'il n'y paraît.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Adventures in Babysitting — Chicago by night</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Adventures in Babysitting n'a pas raté son public.<br /><br />
+        Il a juste été éclipsé.<br /><br />
+        1987 est une année chargée pour le teen movie américain. Ferris Bueller est encore dans toutes les têtes. La Fièvre du Samedi Soir Bis, Dirty Dancing, Three Men and a Baby — le marché de la comédie familiale est saturé. Adventures in Babysitting arrive, fait des entrées correctes, reçoit de bonnes critiques, et disparaît dans le bruit ambiant.<br /><br />
+        Le titre n'aide pas. Adventures in Babysitting sonne comme un film pour enfants en bas âge — quelque chose qu'on met dans le lecteur VHS pour occuper les petits un mercredi après-midi. La jaquette ne corrige pas cette impression. Le public potentiel passe à côté.<br /><br />
+        En France, le film n'a pratiquement pas existé. Pas de sortie en salles significative, pas de présence télévisuelle marquante, pas de titre français mémorable.<br /><br />
+        Et Chris Columbus — qui n'était pas encore une signature commerciale en 1987 — ne pouvait pas porter le film sur son nom.<br /><br />
+        C'est une catégorie d'oubli particulière. Pas le film qui a échoué. Le film qui a réussi modestement et qu'on n'a jamais pensé à aller chercher parce que rien ne signalait qu'il valait le détour.<br /><br />
+        Il valait le détour.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce qu'Elisabeth Shue mérite d'être vue dans ce rôle.<br /><br />
+        Dans la mémoire collective, on retient Leaving Las Vegas — la performance qui lui a valu une nomination aux Oscars en 1996. On retient Karate Kid. On retient Cocktail.<br /><br />
+        Adventures in Babysitting est rarement dans la conversation.<br /><br />
+        C'est une erreur. Parce que ce film montre quelque chose que les autres ne montrent pas — Elisabeth Shue dans un registre purement comique et physique, portant un film entier sur ses épaules avec une aisance qui n'a pas l'air d'un effort.<br /><br />
+        Et parce que le film lui-même a une qualité qu'on ne produit plus vraiment — cette capacité à être plusieurs choses à la fois sans trahir aucune d'entre elles. Drôle et tendu. Léger et rythmé. Pour les enfants et pour les adultes. Sans jamais forcer, sans jamais expliquer, sans jamais se prendre au sérieux.<br /><br />
+        En 2026, ce type de film est devenu presque introuvable. Le cinéma familial s'est segmenté, calibré, optimisé. Adventures in Babysitting appartient à une époque où on faisait encore confiance au public pour suivre un film qui ne rentrait dans aucune case.<br /><br />
+        Je l'ai découvert récemment. Par curiosité, pour Elisabeth Shue.<br /><br />
+        Je suis resté pour le film.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Adventures in Babysitting n'est pas un film oublié au sens dramatique du terme.<br /><br />
+        Il est juste passé entre les mailles.<br /><br />
+        Un film de 1987 qui n'avait pas le bon titre, pas la bonne jaquette, pas la bonne visibilité en France — et qui pourtant contient quelque chose de précieux. Une nuit à Chicago, une héroïne qui improvise, une mécanique de comédie d'aventure parfaitement huilée.<br /><br />
+        Et Elisabeth Shue — avant Leaving Las Vegas, avant les grandes reconnaissances — qui prouve ici qu'elle avait tout depuis le début.<br /><br />
+        Je l'ai découvert récemment. Sans attente particulière. En cherchant autre chose.<br /><br />
+        C'est souvent comme ça que les meilleurs films arrivent.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Adventures in Babysitting</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Comédie / Aventure</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">102 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Touchstone Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Maia Brewton · Anthony Rapp</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Hors-piste — Saison 2</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Premier film de Chris Columbus</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 04</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
