@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.06 — The Punisher · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0a0c 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 06 &nbsp;·&nbsp; Dolph Lundgren III — l'adaptation Marvel qui renie sa source</div>
+      <h1 class="hero-title">The Punisher</h1>
+      <p class="hero-subtitle">Dolph Lundgren · Mark Goldblatt · Sydney (Australie), 1989</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1989</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Mark Goldblatt</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Dolph Lundgren · Louis Gossett Jr.</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep05-breakdown.html">← S2 EP. 05 — Breakdown</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 07 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là, je l'ai connu bien avant de le voir.<br /><br />
+        La jaquette traînait quelque part — un vidéoclub, une étagère chez quelqu'un, je ne sais plus exactement où — mais elle m'avait marqué. Ce nom, Punisher, qui sonnait plus sombre que tout ce que je regardais à l'époque.<br /><br />
+        Je ne l'ai jamais loué. Jamais vu. Il est resté cette cassette qu'on regarde sans y toucher, qu'on devine plus qu'on ne connaît.<br /><br />
+        Il aura fallu attendre l'âge adulte pour enfin la glisser dans le lecteur — et découvrir que l'ambiance collait exactement à ce que cette jaquette promettait. Un film sombre, sale, sans aucune trace de l'humour qu'on associe d'habitude à ce genre de production.<br /><br />
+        Ce soir, on rattrape le temps perdu.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="punisher-poster.jpg" alt="The Punisher — affiche française, 1989" />
+      <p class="img-caption">The Punisher — affiche française, 1989</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        The Punisher.<br /><br />
+        1989. Réalisé par Mark Goldblatt. Avec Dolph Lundgren, Louis Gossett Jr. et Jeroen Krabbé.<br /><br />
+        Produit par New World Pictures, sur un budget modeste, avec une ambition assumée : adapter le justicier Marvel sans les codes du comics — pas de costume, pas de crâne, pas de super-héros. Juste un homme brisé qui a choisi la vengeance comme mode de vie.<br /><br />
+        Sorti en salles dans une grande partie du monde — Europe, Australie, Amérique latine — le film n'a jamais eu de sortie cinéma aux États-Unis. Là-bas, il atterrit directement en vidéo, presque invisible dans son propre pays d'origine.<br /><br />
+        Dolph Lundgren y trouve un rôle à sa mesure — pas un héros lumineux, mais un homme rongé de l'intérieur, qui vit dans les égouts et ne sourit jamais.<br /><br />
+        The Punisher ne ressemble à aucune autre adaptation de comics de son époque.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1989.<br /><br />
+        Marvel n'est encore rien au cinéma. Pas de studio dédié, pas de stratégie à long terme — juste des droits vendus ici et là, souvent à des petites structures indépendantes. New World Pictures, en pleines difficultés financières, récupère ceux du Punisher et lance une adaptation à budget serré.<br /><br />
+        Le réalisateur, Mark Goldblatt, vient du montage — il a notamment travaillé sur Terminator et RoboCop — et signe ici l'une de ses rares réalisations. Le scénario, écrit par Boaz Yakin, prend une liberté radicale avec le matériau d'origine : pas de costume, pas de crâne sur la poitrine, aucun des codes visuels du comics. Frank Castle devient un vigilante brut, presque habillé en civil, qui vit littéralement sous terre.<br /><br />
+        Le tournage se déroule à Sydney, en Australie, qui double une ville américaine anonyme — une astuce de production courante à l'époque pour réduire les coûts.<br /><br />
+        Dolph Lundgren arrive sur ce projet juste après Red Scorpion, avant d'enchaîner sur Universal Soldier trois ans plus tard. Face à lui, Louis Gossett Jr., alors habitué des productions d'action après la saga Iron Eagle, et Jeroen Krabbé en antagoniste mafieux.<br /><br />
+        Le film ne cache jamais son budget limité. Mais il en fait une force — moins de spectacle, plus de noirceur brute.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="punisher-lundgren.jpg" alt="Dolph Lundgren — The Punisher, 1989" />
+      <p class="img-caption">Dolph Lundgren — The Punisher, 1989</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Cinq ans après le massacre de sa femme et de ses trois enfants par la mafia, Frank Castle a disparu.<br /><br />
+        Officiellement mort, il vit désormais dans les égouts de la ville, sous une nouvelle identité — celle du Punisher. Depuis cinq ans, il traque et élimine méthodiquement les criminels responsables de la mort de sa famille, un par un, sans relâche.<br /><br />
+        Son ancien coéquipier, l'inspecteur Jake Berkowitz, sait qu'il est toujours en vie mais garde le silence, tiraillé entre le devoir et une loyauté qu'il ne parvient pas à effacer.<br /><br />
+        Quand une guerre de gangs éclate entre la mafia traditionnelle et le crime organisé yakuza, les enfants des chefs mafieux sont enlevés. Castle se retrouve alors face à un choix impossible — continuer sa croisade solitaire contre les hommes qu'il traque depuis des années, ou intervenir pour sauver des enfants innocents, ceux d'hommes qu'il exècre.<br /><br />
+        Ce n'est plus seulement une histoire de vengeance.<br /><br />
+        C'est la question de ce qu'il reste d'humain chez un homme qui a fait de la mort sa seule raison de vivre.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        The Punisher assume une noirceur rare pour une adaptation de comics de 1989.<br /><br />
+        Le choix le plus radical du film, c'est justement ce qu'il retire. Pas de costume flamboyant, pas de gadget, pas de ton mi-figue mi-raisin. Frank Castle est filmé comme un homme rongé, presque monastique dans son austérité — il vit dans l'obscurité, mange à peine, ne parle presque pas. Le film traite la vengeance non pas comme une puissance de fantasme, mais comme une maladie lente qui a tout dévoré chez lui.<br /><br />
+        Dolph Lundgren joue ce rôle à contre-courant de ce qu'on attend de lui. Peu de répliques, un visage fermé, un regard vide plus que rageur. Ce n'est pas de la performance nuancée au sens où l'entend la critique traditionnelle — mais c'est une présence physique qui installe un malaise réel, loin de l'énergie habituelle de ses rôles d'action pure.<br /><br />
+        Le dilemme moral au cœur du film — sauver les enfants de ceux qu'il veut voir morts — évite au récit de sombrer dans le pur exercice de vengeance mécanique. Il y a une tentative, même maladroite, de poser une vraie question éthique au centre d'un film de série B.<br /><br />
+        Visuellement, le film mise sur des décors sombres, des égouts, des entrepôts — une esthétique urbaine crasseuse qui tranche avec l'imagerie plus lisse du comics.<br /><br />
+        The Punisher ne cherche jamais à être fidèle à la page. Il cherche à être fidèle à une idée — celle d'un homme qui a cessé d'être un homme.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="punisher-action.jpg" alt="Frank Castle en confrontation, The Punisher" />
+      <p class="img-caption">Frank Castle, prêt à en découdre</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        The Punisher souffre d'un handicap structurel avant même sa sortie — il n'en a pas vraiment.<br /><br />
+        Sans distribution en salles aux États-Unis, le film part avec un désavantage que peu de productions surmontent. Pas de campagne de presse américaine, pas de critiques dans les grands journaux, pas de bouche-à-oreille de sortie cinéma. Il existe d'abord ailleurs dans le monde, puis atterrit directement dans les rayons vidéo chez lui — une inversion complète du parcours habituel.<br /><br />
+        S'ajoute à ça un problème d'identité plus profond. Les fans de comics, au moment de sa sortie, attendent une fidélité visuelle au personnage — le crâne, le costume, l'imagerie reconnaissable. Le film choisit délibérément de s'en détourner, ce qui déçoit une partie du public qui venait chercher autre chose.<br /><br />
+        Et puis il y a la comparaison inévitable avec l'adaptation de 2004, plus fidèle au matériau d'origine, qui a fini par s'imposer dans la mémoire collective comme LA version du Punisher au cinéma — reléguant celle de 1989 au rang de curiosité pour connaisseurs.<br /><br />
+        Un film sorti au mauvais endroit, dans le mauvais ordre, pour le mauvais public.<br /><br />
+        Ça laisse des traces.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que c'est une des adaptations de comics les plus radicales de son époque — celle qui a osé retirer tous les codes visuels du genre pour ne garder que l'os.<br /><br />
+        Parce que Dolph Lundgren y trouve un registre différent de ce qu'on lui connaît ailleurs cette saison. Pas de one-liner, pas de sourire en coin. Un homme vidé, presque muet, qui porte le film sur sa seule présence physique.<br /><br />
+        Et parce qu'avant que Marvel ne devienne le géant qu'on connaît aujourd'hui, ce genre de tentative — modeste, imparfaite, mais sincère dans son intention — existait déjà. The Punisher appartient à cette préhistoire des adaptations de comics, avant que le genre ne trouve sa formule.<br /><br />
+        C'est un film qui ne ressemble à rien d'autre dans cette programmation.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a cette image qui reste, longtemps après le générique — Frank Castle seul dans l'obscurité de son sous-sol, entouré des tatouages qu'il grave sur son propre corps à chaque exécution. Pas un mot. Juste ce geste, répété, comme un compte qu'on ne finit jamais de faire.<br /><br />
+        Troisième apparition de Dolph Lundgren cette saison, et probablement la plus âpre des trois. Après le direct-to-video pur de Joshua Tree et le téléfilm signé Woo, place à cette tentative sombre et sans concession de dire quelque chose sur ce qu'il reste d'un homme quand la vengeance est devenue sa seule identité.<br /><br />
+        Est-ce qu'on peut sauver quelqu'un tout en restant définitivement perdu soi-même ?<br /><br />
+        Le film ne répond pas vraiment. Il se contente de filmer un homme qui essaie.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">The Punisher</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis / Australie</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">89 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">New World Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Louis Gossett Jr. · Jeroen Krabbé</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Dolph Lundgren — Saison 1 (3/3)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Jamais sorti en salles aux États-Unis</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 06</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
