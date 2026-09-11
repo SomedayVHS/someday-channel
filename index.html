@@ -47,9 +47,63 @@
     nav.site-nav a:hover, nav.site-nav a.active { color: var(--white); }
     nav.site-nav a.nav-boutique { color: var(--accent); }
     nav.site-nav a.nav-boutique:hover { opacity: 0.8; color: var(--accent); }
+    nav.site-nav .nav-links { display: contents; }
+    nav.site-nav .nav-logo-mobile { display: none; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      padding: 0.4rem;
+      cursor: pointer;
+      z-index: 160;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      margin: 5px 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     @media (max-width: 700px) {
-      nav.site-nav { gap: 1rem; padding: 0.85rem 1rem; overflow-x: auto; justify-content: flex-start; }
-      nav.site-nav a { font-size: 0.58rem; }
+      nav.site-nav {
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+      }
+      nav.site-nav .nav-logo-mobile {
+        display: block;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.3em;
+        color: var(--white);
+        opacity: 0.7;
+      }
+      .nav-toggle { display: block; }
+      nav.site-nav .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(78vw, 320px);
+        background: rgba(8,8,8,0.98);
+        backdrop-filter: blur(8px);
+        border-left: 1px solid rgba(255,255,255,0.08);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      nav.site-nav .nav-links.open { transform: translateX(0); display: flex; }
+      nav.site-nav .nav-links a { font-size: 0.75rem; }
     }
 
     body {
@@ -409,11 +463,17 @@
 <body>
 
   <nav class="site-nav">
-    <a href="#episodes">Saison 1</a>
-    <a href="#saison-speciale-suites">Saison Spéciale</a>
-    <a href="#saison2">Saison 2</a>
-    <a href="#saison3">Saison 3</a>
-    <a href="boutique.html" class="nav-boutique">Boutique</a>
+    <span class="nav-logo-mobile">SOMEDAY</span>
+    <div class="nav-links" id="navLinks">
+      <a href="#episodes">Saison 1</a>
+      <a href="#saison-speciale-suites">Saison Spéciale</a>
+      <a href="#saison2">Saison 2</a>
+      <a href="#saison3">Saison 3</a>
+      <a href="boutique.html" class="nav-boutique">Boutique</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <section class="hero">
@@ -905,6 +965,21 @@
     backToTop.addEventListener('click', (e) => {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
     });
   </script>
 
