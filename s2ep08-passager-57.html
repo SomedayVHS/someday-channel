@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.08 — Passager 57 · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0c10 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 08 &nbsp;·&nbsp; Panique à bord I — Wesley Snipes avant Blade</div>
+      <h1 class="hero-title">Passager 57</h1>
+      <p class="hero-subtitle">Wesley Snipes · Kevin Hooks · À bord, 1992</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1992</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Kevin Hooks</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Wesley Snipes · Bruce Payne</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep07-the-hot-spot.html">← S2 EP. 07 — The Hot Spot</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 09 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là vient de l'armoire de mon grand-père.<br /><br />
+        Une cassette enregistrée sur Canal+, sans jaquette, juste ce titre griffonné dessus. Je ne savais rien du film avant de la glisser dans le lecteur.<br /><br />
+        Et dès la première scène, j'étais scotché. Une simulation de prise d'otage dans un avion — un exercice d'entraînement qui vire au chaos — et au milieu de tout ça, Wesley Snipes. Sa présence, son sang-froid, cette manière de dominer l'écran alors qu'il ne fait "que" jouer un exercice.<br /><br />
+        Je me souviens m'être dit que ce type-là était clairement badass, bien avant de savoir qu'il deviendrait Blade quelques années plus tard.<br /><br />
+        Ce soir, retour dans l'armoire.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="passager57-poster.jpg" alt="Passager 57 — affiche, 1992" />
+      <p class="img-caption">Passager 57 — affiche, 1992</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Passager 57.<br /><br />
+        1992. Réalisé par Kevin Hooks. Avec Wesley Snipes, Bruce Payne et Tom Sizemore.<br /><br />
+        Produit par Warner Bros, sur un format resserré — 84 minutes à peine — le film s'inscrit dans la vague des "Die Hard-like" qui déferle sur Hollywood au début des années 90 : un lieu clos, un héros solitaire, un antagoniste retors.<br /><br />
+        Ici, le lieu clos, c'est un avion. Et le héros, c'est John Cutter, ancien officier de police devenu expert en sécurité aérienne, qui se retrouve malgré lui à bord d'un vol détourné par un terroriste international.<br /><br />
+        Wesley Snipes y tient son premier grand rôle de héros d'action solo — un tournant dans sa carrière, deux ans avant Demolition Man et cinq ans avant Blade.<br /><br />
+        Passager 57 ne réinvente rien du concept Die Hard.<br /><br />
+        Il l'embarque simplement à 10 000 mètres d'altitude.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1992.<br /><br />
+        Après le succès de Die Hard en 1988, Hollywood cherche à décliner la formule dans tous les décors possibles. Under Siege embarque le concept sur un porte-avions, Speed le posera bientôt dans un bus — et Passager 57 choisit l'avion, terrain encore relativement vierge pour ce type de thriller.<br /><br />
+        Kevin Hooks, réalisateur venu de la télévision, prend en main un scénario signé David Loughery et retravaillé par plusieurs mains — une production Warner Bros au budget resserré, pensée pour tourner vite et efficace plutôt que viser le spectacle démesuré.<br /><br />
+        Pour Wesley Snipes, le film arrive à un moment charnière. Il sort tout juste de New Jack City, qui l'a révélé comme acteur capable de porter un film, et tourne cette même année White Men Can't Jump. Passager 57 lui offre quelque chose de différent — le costume du héros d'action pur, sérieux, quasi impassible, loin du charisme plus bavard de ses autres rôles de l'époque.<br /><br />
+        Face à lui, Bruce Payne compose un antagoniste international élégant et cruel, tandis qu'un jeune Tom Sizemore apparaît dans un second rôle, quelques années avant de devenir un habitué du cinéma de guerre et d'action des années 90.<br /><br />
+        Le tournage mélange scènes en studio et prises de vue réelles, avec un avion de ligne reconstitué en intérieur pour permettre à l'équipe de tourner les séquences d'action dans un espace aussi exigu que crédible.<br /><br />
+        Sorti à l'été 1992, le film devient un succès commercial solide pour un budget aussi modeste.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="passager57-snipes.jpg" alt="Wesley Snipes — Passager 57, 1992" />
+      <p class="img-caption">Wesley Snipes — Passager 57, 1992</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        John Cutter est un ancien policier devenu consultant en sécurité aérienne, hanté par la mort de sa femme lors d'un braquage qu'il n'a pas pu empêcher.<br /><br />
+        Alors qu'il embarque sur un vol pour donner une formation de sécurité, un événement imprévu bouleverse ses plans : Charles Rane, un terroriste international recherché, se trouve escorté à bord du même avion pour être extradé.<br /><br />
+        Rane parvient à s'échapper avec l'aide de plusieurs complices déjà présents à bord, transformant un vol de routine en prise d'otages à haute altitude.<br /><br />
+        Cutter, seul à bord à posséder les compétences pour intervenir, se retrouve traqué à travers l'avion — devant déjouer les hommes de Rane tout en protégeant les passagers innocents pris au piège avec lui.<br /><br />
+        Ce qui devait être un simple trajet devient une confrontation à mort dans un espace dont personne ne peut s'échapper.<br /><br />
+        Sauf en sautant.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Passager 57 tire toute sa force d'une contrainte spatiale simple — un avion, ça ne s'arrête pas, et personne ne peut vraiment s'en échapper.<br /><br />
+        Cette contrainte structure chaque scène d'action du film. Pas de fuite possible, pas de renfort qui arrive de l'extérieur — juste un espace confiné où chaque couloir, chaque compartiment à bagages, chaque cabine devient un terrain d'affrontement resserré. Kevin Hooks exploite cette géométrie avec efficacité, transformant la banalité d'un vol commercial en un huis clos sous tension permanente.<br /><br />
+        Wesley Snipes porte le film sur une présence physique remarquable. Contrairement à d'autres héros d'action de l'époque qui misent sur les répliques ou la carrure imposante, Snipes joue sur la vitesse, la précision, une forme d'élégance dans le mouvement qui annonce déjà certains réflexes qu'on retrouvera plus tard chez Blade. John Cutter n'est jamais invincible — il est simplement plus rapide et plus déterminé que ses adversaires.<br /><br />
+        Bruce Payne, en antagoniste, évite le cliché du méchant purement brutal. Charles Rane cultive un raffinement presque théâtral, une élégance froide qui contraste avec la tension physique du reste du film — un choix qui donne au duel Cutter/Rane une dimension presque chevaleresque, malgré le cadre parfaitement trivial d'un vol commercial.<br /><br />
+        Le film assume pleinement son statut de série B efficace. Il ne cherche jamais la profondeur psychologique, mais il tient sa mécanique de bout en bout, sans temps mort.<br /><br />
+        Passager 57 est un exercice de style contraint, et c'est précisément cette contrainte qui le rend redoutablement efficace.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="passager57-confrontation.jpg" alt="Bruce Payne, Passager 57" />
+      <p class="img-caption">Charles Rane (Bruce Payne), à bord</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Passager 57 souffre d'un paradoxe assez cruel — il a trop bien réussi ce qu'il faisait pour qu'on s'en souvienne comme d'un film à part entière.<br /><br />
+        Le concept "Die Hard dans un avion" a connu un tel succès commercial en 1992 qu'il a immédiatement inspiré une vague d'imitateurs et de variations sur le même principe — Sous surveillance, Turbulence, et bien d'autres déclinaisons du sous-genre "action en huis clos" qui vont se multiplier tout au long de la décennie. Passager 57, qui a pourtant contribué à populariser la formule, se retrouve noyé dans cette masse de films qui lui ressemblent.<br /><br />
+        Il y a aussi la trajectoire de Wesley Snipes lui-même. Sa carrière prend un tournant si marquant avec Blade en 1998 que tout ce qui précède se retrouve rétrospectivement éclipsé — dans la mémoire collective, Snipes "avant Blade" devient une période qu'on survole plutôt qu'on explore vraiment.<br /><br />
+        Le film souffre enfin de la comparaison directe avec Die Hard lui-même, dont il assume ouvertement l'héritage sans jamais chercher à s'en démarquer. Un hommage assumé finit parfois par être perçu comme une simple copie, même quand l'exécution est solide.<br /><br />
+        Un film qui a fait exactement ce qu'on attendait de lui.<br /><br />
+        Et qui s'est fait oublier pour cette raison même.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que c'est l'un des tout premiers rôles où Wesley Snipes porte seul un film d'action américain grand public — avant que New Jack City ne le confirme comme acteur dramatique, avant que Blade ne le transforme en icône. Ici, il construit patiemment ce qui deviendra sa signature physique à l'écran.<br /><br />
+        Parce que le film exécute parfaitement son concept resserré sans jamais chercher à le complexifier artificiellement — une leçon d'efficacité narrative qui tranche avec les blockbusters actuels qui multiplient les enjeux pour gonfler leur durée.<br /><br />
+        Et parce que Bruce Payne, dans le rôle de Charles Rane, mérite d'être redécouvert pour cette élégance froide qui évite tous les clichés du méchant d'action pur et dur de l'époque.<br /><br />
+        Premier épisode du mini-fil "Panique à bord" de cette saison — celui qui pose les bases avant que le concept ne se décline ailleurs, autrement, avec d'autres tons.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a ce moment, tout au début du film, où Cutter participe à cet exercice de simulation — cette prise d'otage fictive qui tourne mal à sa manière. On ne sait pas encore qui est vraiment ce personnage. Et pourtant, dès les premières minutes, on comprend déjà tout ce qu'il faut savoir sur lui.<br /><br />
+        Wesley Snipes n'avait pas encore de cape ni de sabre. Juste un costume de sécurité aérienne, et cette présence tranquille qui allait, quelques années plus tard, porter des franchises entières.<br /><br />
+        Premier vol du mini-fil "Panique à bord" de cette saison. D'autres avions suivront, avec d'autres tons, d'autres enjeux.<br /><br />
+        Celui-ci reste le plus sobre des trois.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Passenger 57</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">84 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Warner Bros</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Bruce Payne · Tom Sizemore</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Panique à bord (1/3) · Wesley Snipes avant Blade (1/2)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Premier grand rôle d'action solo pour Wesley Snipes</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 08</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
