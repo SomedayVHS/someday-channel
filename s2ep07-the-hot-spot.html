@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.07 — The Hot Spot · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #140c08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 07 &nbsp;·&nbsp; Don Johnson II — post Miami Vice</div>
+      <h1 class="hero-title">The Hot Spot</h1>
+      <p class="hero-subtitle">Don Johnson · Dennis Hopper · Texas, 1990</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1990</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Dennis Hopper</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Don Johnson · Virginia Madsen</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep06-the-punisher.html">← S2 EP. 06 — The Punisher</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 08 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là, je l'ai cherché.<br /><br />
+        Après Harley Davidson et l'homme aux santiags, Don Johnson était devenu un nom que je gardais en tête — cette manière qu'il avait de porter un film crépusculaire sans jamais forcer le trait. Alors j'ai fait ce que je fais depuis le début de cette série : j'ai creusé sa filmographie, pour voir ce qu'il avait fait d'autre dans cette période de reconversion post-Miami Vice.<br /><br />
+        The Hot Spot est apparu assez vite. Un néo-noir, réalisé par Dennis Hopper en personne, avec Don Johnson en tête d'affiche.<br /><br />
+        Je n'en attendais rien de précis. Juste la curiosité de le revoir dans un registre différent de celui qui m'avait accroché la première fois.<br /><br />
+        Ce soir, deuxième halte du fil Don Johnson.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">The Hot Spot — affiche 1990</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        The Hot Spot.<br /><br />
+        1990. Réalisé par Dennis Hopper. Avec Don Johnson, Virginia Madsen et Jennifer Connelly.<br /><br />
+        Adapté du roman noir de Charles Williams, "Hell Hath No Fury", le film s'inscrit dans la tradition du néo-noir texan — chaleur étouffante, désir trouble, et une petite ville où tout le monde cache quelque chose.<br /><br />
+        Produit de façon indépendante, sorti confidentiellement en salles aux États-Unis.<br /><br />
+        Don Johnson y incarne un étranger de passage qui débarque dans une bourgade texane, décroche un emploi de vendeur de voitures, et se retrouve rapidement pris entre deux femmes, une combine de casse de banque, et une ville qui ne pardonne jamais rien.<br /><br />
+        Dennis Hopper filme la chaleur comme une pression constante, presque palpable.<br /><br />
+        The Hot Spot est de ces films qui prennent leur temps pour mieux vous piéger.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1990.<br /><br />
+        Dennis Hopper vient de retrouver une légitimité de cinéaste après des années de traversée du désert — Blue Velvet en 1986 l'a remis sur le devant de la scène comme acteur, et Colors, qu'il réalise en 1988, confirme son retour derrière la caméra. The Hot Spot est son projet suivant, plus personnel, plus proche du film noir classique qu'il admire depuis toujours.<br /><br />
+        Le scénario adapte "Hell Hath No Fury", un roman de Charles Williams qui traînait dans les tiroirs hollywoodiens depuis des décennies — Robert Mitchum avait un temps envisagé de le porter à l'écran dans les années 60. Hopper reprend le projet et l'ancre dans un Texas suffocant de chaleur, presque un personnage à part entière.<br /><br />
+        Pour Don Johnson, le film arrive au moment charnière de sa carrière. Miami Vice vient de s'achever après cinq saisons, et l'acteur cherche activement à se détacher de l'image du flic élégant qui l'a rendu célèbre. Comme dans Harley Davidson et l'homme aux santiags, il choisit un rôle trouble, ambigu, loin de tout héroïsme facile.<br /><br />
+        Face à lui, Virginia Madsen et une toute jeune Jennifer Connelly, encore au tout début de sa carrière adulte.<br /><br />
+        Particularité notable : la musique du film est composée par Miles Davis et John Lee Hooker — une bande-son blues et jazz qui infuse chaque scène d'une tension moite, presque charnelle.<br /><br />
+        Production indépendante, budget modeste, sortie confidentielle par Orion Pictures.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Don Johnson — The Hot Spot, 1990</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Harry Madox débarque dans une petite ville du Texas sans passé qu'on lui connaisse, et sans intention d'y rester longtemps.<br /><br />
+        Il décroche rapidement un emploi de vendeur dans une concession automobile locale, où il rencontre deux femmes qui vont bouleverser ses plans discrets. Gloria Harper, la comptable timide et secrète de l'entreprise, semble porter un lourd fardeau. Dolly Harshaw, elle, mariée au patron de la concession, ne cache ni son désir ni ses intentions.<br /><br />
+        Pendant qu'il se retrouve pris entre les deux, Harry observe une chose qui allume en lui une idée dangereuse — l'agence bancaire de la ville, mal protégée, presque une invitation au vol.<br /><br />
+        Ce qui commence comme une opportunité facile devient rapidement un engrenage bien plus complexe. Chantage, secrets de famille, jalousie — la ville entière semble receler bien plus de noirceur que sa façade tranquille ne le laisse deviner.<br /><br />
+        Harry pensait pouvoir entrer, prendre ce qu'il voulait, et repartir sans laisser de trace.<br /><br />
+        Le Texas, et ses habitants, ont d'autres projets pour lui.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        The Hot Spot est un film qui respire la chaleur avant même de raconter quoi que ce soit.<br /><br />
+        Dennis Hopper construit chaque plan autour de cette sensation physique — l'air qui tremble, les corps qui transpirent, une lumière blanche et écrasante qui ne laisse aucun répit. Cette chaleur devient une métaphore directe du désir qui traverse le film : tout est trouble, moite, jamais tout à fait sous contrôle.<br /><br />
+        Don Johnson y trouve un rôle radicalement différent de son image post-Miami Vice. Harry Madox n'a rien d'un héros — c'est un homme opportuniste, moralement ambigu, qui se laisse porter par ses pulsions autant que par ses calculs. Johnson joue cette ambiguïté avec une économie de gestes qui rappelle son travail dans Harley Davidson — peu de mots, beaucoup de regards, une présence qui en dit plus que le dialogue.<br /><br />
+        Le film assume pleinement les codes du néo-noir le plus classique — la femme fatale, l'étranger sans passé, la petite ville qui cache ses secrets — mais les pousse vers un érotisme plus frontal que ce que le genre autorisait habituellement à cette époque. Virginia Madsen incarne cette tension sans retenue.<br /><br />
+        La bande-son de Miles Davis et John Lee Hooker n'est pas un simple habillage. Elle infuse littéralement chaque scène d'une pulsation blues qui colle à la peau des personnages.<br /><br />
+        The Hot Spot ne cherche jamais la rédemption de ses personnages. Il les regarde simplement se consumer, sans juger.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">The Hot Spot — Texas, chaleur écrasante</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        The Hot Spot sort en 1990 dans une indifférence quasi totale, et plusieurs facteurs s'accumulent pour l'expliquer.<br /><br />
+        D'abord la distribution. Orion Pictures, qui traverse déjà des difficultés financières sérieuses à cette période, sort le film de façon extrêmement confidentielle — peu de salles, peu de promotion, une sortie presque discrète pour un film porté par un nom aussi reconnaissable que Don Johnson.<br /><br />
+        Ensuite, le contenu lui-même. Le film assume un érotisme frontal et une ambiguïté morale qui ne correspondent pas aux attentes du grand public de l'époque envers Don Johnson, encore largement associé à l'image plus lisse de Miami Vice. Ceux qui viennent chercher le charme sophistiqué du flic de Floride se retrouvent face à un vendeur de voitures manipulateur dans un Texas suffocant — un vrai décalage d'attentes.<br /><br />
+        Le néo-noir, en tant que genre, connaît aussi un creux de popularité au tournant des années 90, coincé entre l'âge d'or du genre dans les années 40-50 et sa redécouverte critique bien plus tardive.<br /><br />
+        Et Dennis Hopper, malgré son retour en grâce avec Blue Velvet et Colors, reste un réalisateur au parcours trop irrégulier pour garantir l'attention du public sur chacun de ses projets.<br /><br />
+        Un film sorti dans l'angle mort de plusieurs attentes à la fois.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que c'est un des rôles les plus intéressants de Don Johnson dans sa période de reconversion post-Miami Vice — celui où il abandonne complètement le charme lisse pour incarner une ambiguïté morale beaucoup plus trouble.<br /><br />
+        Parce que Dennis Hopper y démontre un vrai savoir-faire de metteur en scène, loin de l'image d'acteur excentrique qui lui colle souvent à la peau — la chaleur, la tension, l'atmosphère du film sont d'une maîtrise formelle qu'on associe rarement à ses projets les plus connus.<br /><br />
+        Et parce que la bande-son signée Miles Davis et John Lee Hooker mérite d'être redécouverte pour elle-même — une pièce de musique qui existe presque indépendamment du film qui la porte.<br /><br />
+        Le fil Don Johnson, entamé avec Harley Davidson et l'homme aux santiags, trouve ici son deuxième écho — un acteur qui, entre deux rôles, cherchait clairement à se réinventer.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a ce plan qui revient à plusieurs reprises dans le film — Harry Madox, seul au volant, la vitre baissée, cette chaleur texane qui semble entrer directement dans l'habitacle. Aucun dialogue. Juste cette sensation d'étouffement qu'on porte avec lui jusqu'au générique.<br /><br />
+        Deuxième étape du fil Don Johnson de cette saison, et un contraste frappant avec l'icône crépusculaire de Harley Davidson et l'homme aux santiags — ici, plus d'ambiguïté encore, plus de désir mal placé, moins de retenue.<br /><br />
+        Miles Davis et John Lee Hooker continuent de jouer, quelque part, sur cette route texane qui n'a jamais vraiment de destination.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">The Hot Spot</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Néo-noir</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">130 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Orion Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Virginia Madsen · Jennifer Connelly</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Don Johnson — Saison 2 (2/2)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Musique originale signée Miles Davis et John Lee Hooker</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 07</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
