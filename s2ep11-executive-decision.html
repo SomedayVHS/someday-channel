@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.11 — Executive Decision · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0c10 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 11 &nbsp;·&nbsp; Kurt Russell III — Panique à bord II</div>
+      <h1 class="hero-title">Executive Decision</h1>
+      <p class="hero-subtitle">Kurt Russell · Steven Seagal · Stuart Baird, 1996</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1996</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Stuart Baird</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Kurt Russell · Steven Seagal · Halle Berry</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep10-nowhere-to-run.html">← S2 EP. 10 — Cavale sans issue</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 12 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là, je pensais savoir ce que j'allais regarder.<br /><br />
+        La jaquette annonçait Steven Seagal. Je m'attendais au Seagal habituel — flegmatique, invincible, réglant tout en deux mouvements secs. J'ai lancé la cassette avec cette idée bien installée dans la tête.<br /><br />
+        Et puis Seagal meurt. Dans les toutes premières minutes du film.<br /><br />
+        Je me souviens de ma surprise, presque de l'incompréhension — comment un film pouvait-il tuer sa tête d'affiche annoncée aussi vite ? Et c'est là que Kurt Russell prend le relais, sans prévenir, pour porter tout le reste du récit.<br /><br />
+        J'étais venu pour un acteur, j'en ai eu un autre. Et contre toute attente, j'ai été agréablement surpris.<br /><br />
+        Ce soir, dernière étape du fil Kurt Russell de cette saison.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="execdecision-poster.jpg" alt="Executive Decision — affiche, 1996" />
+      <p class="img-caption">Executive Decision — affiche, 1996</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Executive Decision.<br /><br />
+        1996. Réalisé par Stuart Baird. Avec Kurt Russell, Steven Seagal et Halle Berry.<br /><br />
+        Produit par Warner Bros, le film s'inscrit dans la lignée des thrillers d'action en huis clos aérien popularisés par Passager 57 quatre ans plus tôt — mais avec une ambition nettement supérieure : un Boeing 747 détourné par des terroristes, une bombe chimique à bord, et une opération militaire secrète pour reprendre le contrôle de l'appareil en plein vol.<br /><br />
+        Le casting annonce Steven Seagal en tête d'affiche. Le film en décide autrement dès les premières minutes, laissant Kurt Russell porter seul l'essentiel du récit face à la menace.<br /><br />
+        Halle Berry, alors en pleine ascension, incarne une hôtesse de l'air prise dans l'engrenage.<br /><br />
+        Executive Decision ne se contente pas de reproduire la formule Die Hard-dans-un-avion.<br /><br />
+        Il la complexifie, l'étire, et prend le temps de faire durer la tension.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1996.<br /><br />
+        Quatre ans après Passager 57, le sous-genre du thriller aérien a fait ses preuves commerciales, et Warner Bros voit dans Executive Decision l'occasion de proposer une version plus ambitieuse, plus longue, plus techniquement sophistiquée du concept. Le scénario, signé Jim Thomas et John Thomas — déjà auteurs de Predator — mise sur une menace terroriste crédible et un dispositif militaire élaboré plutôt que sur le pur spectacle d'action.<br /><br />
+        Stuart Baird, monteur reconnu ayant travaillé sur plusieurs films de la saga James Bond et Lethal Weapon avant de passer à la réalisation, apporte un sens du rythme particulier, construit sur la tension et l'attente plutôt que sur l'accumulation de scènes spectaculaires.<br /><br />
+        Le choix de casting s'avère le plus commenté du film. Steven Seagal, alors star reconnue du genre, est engagé en tête d'affiche — une décision marketing qui explique la place de son nom sur l'affiche. Mais le scénario prévoit dès l'origine la mort précoce de son personnage, un twist rare pour l'époque qui bouleverse les attentes du public en pleine projection.<br /><br />
+        Kurt Russell, qui vient de tourner Breakdown la même année, se retrouve à porter l'essentiel du film — un rôle d'analyste militaire plus posé que ses personnages d'action habituels, où l'intelligence tactique prime sur la confrontation physique directe.<br /><br />
+        Halle Berry, dont la carrière est alors en plein essor après Boomerang et Jungle Fever, apporte une présence marquante dans un rôle qui dépasse le simple archétype de l'hôtesse de l'air en détresse.<br /><br />
+        Le tournage nécessite la construction d'un intérieur d'avion grandeur nature, permettant à l'équipe de filmer les séquences d'infiltration et de combat dans un espace aussi exigu que crédible.<br /><br />
+        Sorti à l'hiver 1996, le film s'impose comme un succès commercial solide, porté notamment par le bouche-à-oreille autour de son twist initial.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="execdecision-russell.jpg" alt="Kurt Russell et Halle Berry, Executive Decision" />
+      <p class="img-caption">Kurt Russell et Halle Berry — Executive Decision, 1996</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Un vol commercial reliant l'Europe aux États-Unis est détourné par un groupe terroriste, qui prend le contrôle du Boeing 747 avec l'intention de l'utiliser comme vecteur d'une attaque chimique dévastatrice contre le sol américain.<br /><br />
+        Alertée de la menace, une équipe militaire d'élite, accompagnée d'un analyste du renseignement, échafaude un plan aussi audacieux que risqué : s'arrimer en plein vol à l'avion détourné à l'aide d'un appareil expérimental, pour infiltrer discrètement la soute sans que les terroristes ne s'en aperçoivent.<br /><br />
+        L'opération, censée être menée par des spécialistes aguerris, tourne rapidement au chaos dès les premières minutes — forçant l'équipe restante à improviser dans des conditions bien plus périlleuses que prévu.<br /><br />
+        À l'intérieur de l'avion, coincés parmi les passagers, les militaires infiltrés doivent progresser sans éveiller les soupçons, localiser la bombe, neutraliser les terroristes un par un, et empêcher l'avion d'atteindre sa destination fatale.<br /><br />
+        Le tout, avec un temps qui s'écoule inexorablement, et aucune marge d'erreur possible.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Executive Decision se distingue par un choix narratif rare pour un blockbuster d'action des années 90 — désamorcer délibérément les attentes du public dès l'ouverture.<br /><br />
+        La mort précoce du personnage de Steven Seagal ne relève pas du simple twist marketing. Elle repositionne immédiatement le film : ici, aucun héros solitaire invincible ne va sauver la situation à coups de répliques assassines. La survie dépend d'un travail d'équipe fragile, de décisions tactiques risquées, et d'un analyste qui n'a jamais été formé pour le combat direct.<br /><br />
+        Kurt Russell incarne cette bascule avec une justesse particulière. David Grant n'est ni un soldat surentraîné ni un héros providentiel — c'est un homme intelligent, méthodique, qui doit apprendre à improviser dans un contexte qui dépasse largement son domaine d'expertise habituel. Cette vulnérabilité, déjà explorée dans Breakdown la même année, trouve ici un écho différent mais complémentaire.<br /><br />
+        Le film construit sa tension sur la durée plutôt que sur l'accumulation d'explosions. L'infiltration en plein vol, la progression silencieuse dans la soute, chaque interaction avec les passagers potentiellement dangereuse — Stuart Baird prend le temps de faire exister cette menace de manière presque chirurgicale.<br /><br />
+        Halle Berry apporte une dimension supplémentaire au récit, son personnage n'étant jamais réduit au simple statut de victime passive malgré la situation.<br /><br />
+        Executive Decision assume une durée plus longue que la moyenne du genre, un choix qui pourrait sembler risqué mais qui sert directement son ambition — celle de construire une tension qui s'installe progressivement plutôt que d'exploser immédiatement.<br /><br />
+        Un thriller aérien qui refuse la facilité du héros solitaire, pour mieux explorer la fragilité du collectif.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="execdecision-infiltration.jpg" alt="Executive Decision — infiltration à bord" />
+      <p class="img-caption">L'équipe d'infiltration, à bord</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Executive Decision souffre d'abord d'un malentendu marketing qui a fini par se retourner contre sa mémoire collective.<br /><br />
+        Vendu et affiché comme un film Steven Seagal, le film déçoit une partie du public venu spécifiquement pour lui, dès les premières minutes qui neutralisent brutalement cette promesse. Ce twist, aussi audacieux soit-il narrativement, a créé une forme de confusion durable dans la perception du film — beaucoup se souviennent davantage de "la mort de Seagal" que du film lui-même dans son intégralité.<br /><br />
+        Le film souffre également de la comparaison directe et permanente avec Die Hard, dont il reprend ouvertement certains codes structurels, sans jamais atteindre la même reconnaissance culturelle. Sa durée plus longue que la moyenne du genre, pourtant justifiée narrativement, a pu également jouer contre lui auprès d'un public habitué à des formats plus resserrés.<br /><br />
+        Kurt Russell lui-même, malgré une performance solide, reste ici dans un registre plus discret, moins immédiatement identifiable que ses rôles les plus emblématiques — ce qui n'aide pas le film à s'ancrer durablement dans la mémoire collective autour de son nom.<br /><br />
+        Et le film se retrouve également éclipsé par sa propre suite thématique au sein de cette programmation — Turbulence, sorti l'année suivante, clôturera le mini-fil "Panique à bord" avec un ton radicalement différent qui capte davantage l'attention nostalgique.<br /><br />
+        Un film solide, piégé par sa propre stratégie marketing.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que la mort précoce de Steven Seagal reste, encore aujourd'hui, l'un des twists les plus audacieux jamais imposés à un public venu spécifiquement pour sa star annoncée — un pari scénaristique rare qui mérite d'être redécouvert pour son culot seul.<br /><br />
+        Parce que Kurt Russell y livre une performance différente de tout ce qu'on a vu de lui ailleurs cette saison — ni le contre-emploi criminel de Graceland, ni la vulnérabilité pure de Breakdown, mais quelque chose entre les deux, plus posé, plus cérébral.<br /><br />
+        Et parce que le film assume une ambition de mise en scène rare pour le genre — construire une tension longue, méthodique, presque procédurale, plutôt que de miser sur l'accumulation de scènes spectaculaires isolées.<br /><br />
+        Troisième et dernière étape du fil Kurt Russell de cette saison, et deuxième volet du mini-fil "Panique à bord" — celui qui prend le plus de risques narratifs des trois.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Executive Decision n'est pas le film Steven Seagal que l'affiche promettait. C'est un film Kurt Russell qui n'osait pas encore le dire.<br /><br />
+        Trois films cette saison — le braqueur imprévisible de Graceland, l'homme ordinaire du désert dans Breakdown, et maintenant cet analyste qui improvise à 10 000 mètres d'altitude. Trois visages différents d'un même acteur, qu'on croyait connaître.<br /><br />
+        Un dernier avion nous attend encore, avec un ton radicalement différent.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Executive Decision</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Thriller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">132 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Warner Bros</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Steven Seagal · Halle Berry</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Kurt Russell (3/3) · Panique à bord (2/3)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Steven Seagal, tête d'affiche annoncée, meurt dans les premières minutes</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 11</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
