@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.09 — Drop Zone · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0e12 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 09 &nbsp;·&nbsp; Wesley Snipes avant Blade (2/2)</div>
+      <h1 class="hero-title">Drop Zone</h1>
+      <p class="hero-subtitle">Wesley Snipes · John Badham · Chute libre, 1994</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1994</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">John Badham</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Wesley Snipes · Gary Busey</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep08-passager-57.html">← S2 EP. 08 — Passager 57</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 10 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là partage la même origine que Passager 57.<br /><br />
+        Mon grand-père avait acheté les deux cassettes ensemble — Drop Zone et Terminal Velocity, un autre film de parachutisme qu'on gardera pour plus tard. Deux histoires de chute libre, découvertes le même après-midi, dans la même armoire.<br /><br />
+        Wesley Snipes, encore lui, mais cette fois dans les airs plutôt que dans un avion cloué au sol. Après l'avoir vu gérer une prise d'otages à 10 000 mètres, le revoir sauter d'un avion en marche avait quelque chose d'une suite logique — comme si le grand-père avait, sans le savoir, construit une petite double programmation Snipes.<br /><br />
+        Ce soir, deuxième chute de la soirée.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="dropzone-poster.jpg" alt="Drop Zone — affiche, 1994" />
+      <p class="img-caption">Drop Zone — affiche, 1994</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Drop Zone.<br /><br />
+        1994. Réalisé par John Badham. Avec Wesley Snipes, Gary Busey et Yancy Butler.<br /><br />
+        Produit par Paramount Pictures, le film mise sur un concept encore peu exploité au cinéma à l'époque — le parachutisme comme terrain d'action à part entière, avec de véritables séquences de chute libre filmées en conditions réelles plutôt qu'en studio.<br /><br />
+        Wesley Snipes y incarne un agent fédéral qui infiltre le milieu du parachutisme sportif pour démasquer un réseau de criminels ayant développé une méthode d'évasion aussi spectaculaire qu'inédite — s'échapper d'un avion en plein vol, en parachute.<br /><br />
+        John Badham, déjà réalisateur de WarGames et Stakeout, apporte un savoir-faire solide dans la mise en scène d'action grand public.<br /><br />
+        Drop Zone est un film qui prend littéralement de la hauteur pour raconter son histoire.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1994.<br /><br />
+        Le cinéma d'action du début des années 90 cherche constamment de nouveaux terrains pour renouveler ses cascades. Après l'avion immobilisé au sol dans Passager 57, Hollywood explore cette fois le ciel lui-même — Drop Zone mise tout sur l'authenticité des séquences de parachutisme, avec une équipe de cascadeurs parachutistes professionnels et des prises de vues aériennes qui deviendront la marque de fabrique du film.<br /><br />
+        John Badham, réalisateur chevronné habitué du grand spectacle depuis Saturday Night Fever et WarGames, s'entoure d'une équipe technique spécialisée pour capturer ces scènes en conditions réelles — une prouesse technique rare pour l'époque, bien avant que les effets numériques ne permettent de simuler ce genre de séquences.<br /><br />
+        Pour Wesley Snipes, le film s'inscrit dans une période extrêmement dense de sa carrière — entre Passager 57 en 1992, Demolition Man la même année que Drop Zone, et Sugar Hill peu après. L'acteur enchaîne les rôles d'action avec une régularité qui le positionne déjà comme une valeur sûre du genre, plusieurs années avant Blade.<br /><br />
+        Face à lui, Gary Busey compose un antagoniste habité, dans un registre plus excentrique que la moyenne des méchants d'action de l'époque, tandis que Yancy Butler incarne une parachutiste professionnelle qui devient alliée de circonstance.<br /><br />
+        Le tournage nécessite des centaines de sauts réels, coordonnés avec une précision chorégraphique, pour obtenir des prises exploitables au montage.<br /><br />
+        Produit par Paramount, le film sort à l'hiver 1994, porté par cette promesse d'authenticité aérienne rarement vue jusque-là.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="dropzone-snipes.jpg" alt="Wesley Snipes et Yancy Butler, Drop Zone" />
+      <p class="img-caption">Wesley Snipes et Yancy Butler, en pleine chute</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Pete Nessip est un agent fédéral traumatisé par un événement récent : lors d'un transfert de prisonnier en avion, une évasion spectaculaire lui a coûté la vie de son propre frère, également agent, tué dans l'opération.<br /><br />
+        Les responsables se sont littéralement volatilisés — sautant en parachute depuis l'avion en plein vol, dans un plan d'une audace inédite.<br /><br />
+        Déterminé à comprendre comment une telle évasion a pu être orchestrée, Pete infiltre le milieu très fermé du parachutisme sportif de compétition, où se croisent les meilleurs spécialistes de la discipline aux États-Unis.<br /><br />
+        Il y rencontre Jessie Crossman, parachutiste professionnelle méfiante, qui détient peut-être des réponses sur le réseau à l'origine de l'évasion — un groupe qui prépare déjà son prochain coup, plus ambitieux encore que le premier.<br /><br />
+        Pete va devoir apprendre à sauter avant de pouvoir espérer les arrêter.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Drop Zone repose sur une prémisse qui aurait pu sembler absurde sur le papier — s'évader d'un avion en parachute — mais que le film rend crédible par son engagement total envers l'authenticité physique de la discipline.<br /><br />
+        Contrairement à beaucoup de films d'action de l'époque qui privilégient les effets visuels ou les cascades filmées en studio, Drop Zone assume un choix de mise en scène presque documentaire pour ses séquences aériennes. La caméra suit littéralement les sauts, capturant la vitesse, le vertige, la précision technique du parachutisme de compétition. Cette approche donne au film une texture différente de ses contemporains, presque physique dans sa sensation de chute.<br /><br />
+        Wesley Snipes y trouve un registre légèrement différent de celui de Passager 57. Pete Nessip porte un poids émotionnel plus marqué — la culpabilité, le deuil, l'obligation d'apprendre une discipline qu'il ne maîtrise pas pour venger son frère. Snipes joue cette vulnérabilité sans jamais sacrifier la présence physique qui définit déjà sa marque de fabrique à l'écran.<br /><br />
+        John Badham construit son film comme une ascension progressive — littéralement et symboliquement. Chaque saut rapproche Pete un peu plus de la vérité, et le film culmine logiquement dans une séquence aérienne d'anthologie qui synthétise tout ce que le récit a mis en place.<br /><br />
+        Gary Busey, en antagoniste, apporte une intensité presque imprévisible qui tranche avec le classicisme du reste du casting — un choix qui donne au film une tension supplémentaire à chaque apparition du personnage.<br /><br />
+        Drop Zone ne réinvente pas la formule du thriller d'action des années 90.<br /><br />
+        Il trouve simplement un terrain que personne d'autre n'avait encore vraiment exploré à cette échelle.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="dropzone-busey.jpg" alt="Gary Busey, Drop Zone" />
+      <p class="img-caption">Gary Busey, l'antagoniste du film</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Drop Zone sort en 1994 dans une année particulièrement encombrée pour le cinéma d'action américain, et cette concurrence explique en grande partie son sort.<br /><br />
+        Speed, sorti la même année, redéfinit instantanément les codes du thriller d'action contenu et devient une référence immédiate du genre — écrasant au passage l'attention disponible pour des films au concept pourtant tout aussi original comme Drop Zone. True Lies, également sorti en 1994, capte une bonne partie du public friand de grand spectacle.<br /><br />
+        Le concept lui-même, aussi spectaculaire soit-il visuellement, reste relativement niche — le parachutisme de compétition n'est pas un univers immédiatement familier pour le grand public, contrairement à un avion ou un bus, décors instantanément reconnaissables par tous.<br /><br />
+        Wesley Snipes, encore une fois, voit sa filmographie de cette période progressivement recouverte par l'ombre immense que projettera Blade quelques années plus tard. Drop Zone devient l'un de ces films "d'avant", qu'on mentionne en passant plutôt qu'on explore vraiment.<br /><br />
+        Et malgré des séquences aériennes saluées à l'époque pour leur authenticité, le film n'a jamais bénéficié d'une réputation culte comparable à d'autres productions d'action de la décennie.<br /><br />
+        Une année de sortie trop chargée, un concept trop spécifique.<br /><br />
+        Ça suffit largement à expliquer l'oubli.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que les séquences de parachutisme, filmées en conditions quasi réelles, restent impressionnantes même des décennies plus tard — une authenticité physique que le tout-numérique actuel a largement abandonnée, et qui donne au film une texture rare.<br /><br />
+        Parce que Wesley Snipes y explore un registre plus vulnérable, plus habité par le deuil, qui complète utilement le portrait qu'on peut se faire de lui juste avant Blade — pas seulement l'action pure, mais une vraie palette émotionnelle.<br /><br />
+        Et parce que Drop Zone appartient à cette catégorie de films d'action qui ont eu l'audace de chercher un concept réellement original plutôt que de recycler une formule déjà éprouvée — un pari qui méritait mieux que l'ombre dans laquelle Speed et True Lies l'ont relégué la même année.<br /><br />
+        Deuxième chute du duo Snipes de cette soirée VHS, et deuxième étape du fil "avant Blade" de cette saison.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a cette image, vers la fin du film, où Pete saute enfin seul, sans instructeur à ses côtés — la caméra reste fixe sur son visage pendant la chute, avant que le cadre ne s'élargisse sur le vide entier autour de lui.<br /><br />
+        Deux cassettes achetées le même jour par mon grand-père, deux histoires de Wesley Snipes suspendu entre le ciel et le sol — Passager 57 coincé dans un avion qui ne peut pas atterrir, Drop Zone qui saute volontairement dans le vide pour avancer.<br /><br />
+        Terminal Velocity attendra une autre saison pour compléter ce trio de chutes libres.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Drop Zone</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">101 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Paramount Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Gary Busey · Yancy Butler</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Wesley Snipes avant Blade (2/2)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Séquences de chute libre tournées en conditions réelles</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 09</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
