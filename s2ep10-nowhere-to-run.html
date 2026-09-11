@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.10 — Cavale sans issue · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #100e08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .cta-block { padding: 2.5rem; border: 1px solid rgba(200,57,43,0.25); background: rgba(200,57,43,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-text .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .cta-text .title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); }
+    .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.85; }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .cta-block { flex-direction: column; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 10 &nbsp;·&nbsp; Jean-Claude Van Damme — le western contemporain</div>
+      <h1 class="hero-title">Cavale sans issue</h1>
+      <p class="hero-subtitle">Nowhere to Run · Jean-Claude Van Damme · Robert Harmon, 1993</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1993</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Robert Harmon</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Jean-Claude Van Damme · Rosanna Arquette</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep09-drop-zone.html">← S2 EP. 09 — Drop Zone</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">S2 EP. 11 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là, je l'ai regardé à 13 ans, et il n'était pas seul dans l'histoire.<br /><br />
+        Quelques temps avant, chez des amis de mes parents, j'étais tombé sur Chasse à l'homme — Hard Target. Van Damme dans le rôle d'un chasseur de primes, en pleine Nouvelle-Orléans. Je n'avais jamais rien vu de tel, et j'étais reparti avec une seule idée en tête : en voir plus.<br /><br />
+        Il se trouve que mon grand-père avait, sans le savoir, la réponse toute prête dans son armoire — une cassette enregistrée, Cavale sans issue (Nowhere to Run), avec le même Van Damme.<br /><br />
+        Je l'ai glissée dans le lecteur avec l'excitation de celui qui pense retrouver la même sensation.<br /><br />
+        Ce soir, retour à ces 13 ans-là.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Cavale sans issue — affiche 1993</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Cavale sans issue (Nowhere to Run).<br /><br />
+        1993. Réalisé par Robert Harmon. Avec Jean-Claude Van Damme, Rosanna Arquette et Kieran Culkin.<br /><br />
+        Produit par Columbia Pictures, sur un scénario coécrit par Joe Eszterhas — l'un des scénaristes les mieux payés d'Hollywood à cette époque — et Leslie Bohem. Un western contemporain davantage centré sur les personnages que sur l'action pure, ce qui en fait une proposition atypique dans la filmographie de son acteur principal.<br /><br />
+        Van Damme y incarne Sam Gillen, un évadé de prison qui trouve refuge dans une ferme isolée tenue par une veuve et ses deux enfants, menacés par un promoteur immobilier sans scrupules.<br /><br />
+        Face à lui, Rosanna Arquette compose cette mère seule, et un très jeune Kieran Culkin — quelques années avant Maman, j'ai raté l'avion 2 — apparaît dans l'un de ses tout premiers rôles.<br /><br />
+        Cavale sans issue ralentit volontairement le rythme pour laisser respirer ses personnages.<br /><br />
+        Un choix rare pour du Van Damme.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1993.<br /><br />
+        Jean-Claude Van Damme, au sommet de sa popularité après Universal Soldier et juste avant Hard Target, cherche à diversifier son image au-delà du pur film d'arts martiaux. Cavale sans issue s'inscrit dans cette volonté — un projet porté par un scénario de prestige, signé Joe Eszterhas, alors l'un des scénaristes les plus recherchés et les mieux rémunérés d'Hollywood après Basic Instinct.<br /><br />
+        Le script, coécrit avec Leslie Bohem, s'inspire ouvertement de Shane, le classique western de 1953 — l'étranger solitaire qui protège une famille menacée par des intérêts fonciers puissants. Robert Harmon, réalisateur du très remarqué The Hitcher en 1986, apporte une sensibilité visuelle soignée, plus proche du drame western contemporain que du film d'action pur.<br /><br />
+        Van Damme retrouve ici Craig Baumgarten, producteur avec qui il venait de collaborer sur Universal Soldier — une deuxième association qui témoigne d'une confiance mutuelle installée.<br /><br />
+        Face à lui, Rosanna Arquette, actrice reconnue depuis Desperately Seeking Susan, apporte une légitimité dramatique au projet, tandis que le jeune Kieran Culkin, frère de Macaulay Culkin alors au sommet de sa gloire avec Maman, j'ai raté l'avion, fait l'une de ses toutes premières apparitions à l'écran.<br /><br />
+        Le tournage se déroule dans des décors ruraux évoquant l'Amérique profonde, loin des habituels environnements urbains du cinéma d'action de Van Damme à cette époque.<br /><br />
+        Sorti en janvier 1993, quelques mois avant Hard Target qui allait définitivement ancrer Van Damme dans l'action pure, Cavale sans issue reste une tentative singulière de l'installer ailleurs.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Jean-Claude Van Damme — Cavale sans issue, 1993</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Sam Gillen, condamné à tort et évadé de prison, cherche à récupérer l'argent d'un ancien coup planqué dans une ferme isolée.<br /><br />
+        Il trouve refuge auprès de Clydie Anderson, veuve élevant seule ses deux enfants, Mookie et Bree, sur leurs terres. Sam s'installe temporairement chez eux, dans un premier temps par nécessité plutôt que par choix.<br /><br />
+        La ferme des Anderson est convoitée par Franklin Hale, un promoteur immobilier sans scrupules qui cherche à racheter toutes les terres de la région pour un projet de développement. Face au refus de Clydie de vendre, les méthodes d'intimidation de Hale et de ses hommes de main se font de plus en plus violentes.<br /><br />
+        Sam, d'abord simple témoin de cette situation, se retrouve progressivement impliqué dans le conflit — tiraillé entre son besoin de rester discret pour échapper à la justice, et son attachement grandissant pour cette famille qui l'a accueilli sans poser de questions.<br /><br />
+        L'étranger de passage devient malgré lui le seul rempart entre les Anderson et ceux qui veulent tout leur prendre.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Cavale sans issue emprunte ouvertement la structure du western classique — l'étranger errant qui s'arrête, protège, puis repart — mais la transpose dans une Amérique contemporaine sans jamais renier ses origines.<br /><br />
+        Le film prend son temps, ce qui constitue à la fois sa singularité et son risque le plus assumé. Robert Harmon privilégie les silences, les regards, la construction progressive d'une confiance entre Sam et la famille Anderson, plutôt que d'enchaîner les scènes d'action. Cette approche rappelle directement Shane, dont l'influence irrigue chaque scène — l'homme de l'ombre qui trouve une forme de rédemption au contact d'une famille qui n'attend rien de lui.<br /><br />
+        Van Damme livre ici une performance plus retenue que d'habitude. Sam Gillen parle peu, agit encore moins par réflexe, et le film mise sur sa présence physique silencieuse plutôt que sur des dialogues qui auraient pu sonner artificiels dans sa bouche. C'est un pari qui fonctionne différemment selon les scènes — parfois touchant dans sa sobriété, parfois limité par les contraintes évidentes de l'acteur dans un registre aussi dramatique.<br /><br />
+        Rosanna Arquette apporte une vraie profondeur émotionnelle à Clydie, ancrant le film dans une réalité sociale — la précarité économique, la vulnérabilité face aux puissants — qui dépasse largement le simple prétexte à l'action.<br /><br />
+        Le versant action, quand il arrive, reste maîtrisé et fonctionnel sans jamais devenir le centre de gravité du récit — un choix qui distingue clairement Cavale sans issue du reste de la filmographie de son acteur principal à cette période.<br /><br />
+        Un Van Damme qui essaie sincèrement autre chose, avec des résultats inégaux mais une intention qui mérite d'être reconnue.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <div class="img-placeholder">
+        <span class="img-placeholder-icon">⬚</span>
+        <span class="img-placeholder-label">Cavale sans issue — la ferme des Anderson</span>
+      </div>
+      <p class="img-caption"></p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Cavale sans issue souffre d'abord d'un problème de timing dans la carrière de son acteur principal.<br /><br />
+        Sorti en janvier 1993, le film précède de quelques mois seulement Hard Target, qui va définitivement ancrer l'image de Van Damme dans l'action pure et spectaculaire. Le public qui découvre ou redécouvre l'acteur à travers ce diptyque garde presque exclusivement en mémoire le second, plus conforme à ce qu'on attend de lui — reléguant Cavale sans issue au rang de curiosité oubliée entre deux films plus marquants.<br /><br />
+        Le choix éditorial du film lui-même joue également contre sa postérité. En ralentissant délibérément le rythme, en misant sur le drame plutôt que sur l'action, Cavale sans issue déçoit une partie du public venu chercher le Van Damme habituel — sans pour autant convaincre pleinement la critique traditionnelle, qui reste sceptique face à un acteur associé aux arts martiaux dans un registre aussi dramatique.<br /><br />
+        Le film se retrouve ainsi coincé entre deux publics, sans jamais vraiment trouver le sien.<br /><br />
+        S'ajoute à cela la comparaison implicite mais inévitable avec Shane, dont l'ombre plane sur tout le récit — une référence trop écrasante pour qu'une variante d'action des années 90 puisse rivaliser dans la mémoire collective.<br /><br />
+        Un film sincère, pris entre deux feux.<br /><br />
+        Et progressivement oublié pour cette raison précise.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que c'est l'une des rares tentatives sincères de Van Damme d'explorer un registre purement dramatique, dans une période où sa carrière aurait facilement pu se contenter de la formule qui fonctionnait déjà.<br /><br />
+        Parce que Robert Harmon, avec son sens du rythme hérité de The Hitcher, construit une tension différente de celle qu'on associe habituellement aux films d'action de cette décennie — plus contemplative, plus attentive aux silences qu'aux explosions.<br /><br />
+        Et parce que voir Kieran Culkin à l'aube de sa carrière, dans un tout premier rôle, ajoute une note particulière pour quiconque connaît sa filmographie ultérieure.<br /><br />
+        Cavale sans issue reste ce Van Damme différent, celui qu'on oublie facilement entre deux films plus spectaculaires — mais qui mérite d'être regardé pour ce qu'il essaie sincèrement de faire, plutôt que jugé pour ce qu'il n'est pas.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a ce dernier plan, Sam assis à l'arrière d'une voiture de police, arrêté après tout ce qu'il vient de faire pour cette famille. Il regarde par la vitre Clydie et les enfants qui le regardent partir — pas de fuite, pas de rédemption facile. Juste la loi qui reprend ses droits, et cette famille qui l'aime malgré tout ce qu'il est.<br /><br />
+        On devine qu'il reviendra, un jour, sa peine purgée. Le film ne le dit jamais. Il laisse juste ce regard suffire.<br /><br />
+        À 13 ans, j'avais espéré retrouver Hard Target dans cette cassette. J'ai trouvé autre chose — plus lent, plus silencieux, presque à contre-courant de ce que je venais de découvrir chez Van Damme quelques semaines plus tôt.<br /><br />
+        Il m'a fallu des années pour comprendre que c'était précisément ça, l'intérêt du film.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Nowhere to Run</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Western contemporain / Drame</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">94 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">Columbia Pictures</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Rosanna Arquette · Kieran Culkin</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Jean-Claude Van Damme (hors trilogie Saison 3)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Scénario coécrit par Joe Eszterhas, inspiré de Shane (1953)</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <p class="label">Regarder l'épisode</p>
+        <p class="title">SOMEDAY — S2 EP. 10</p>
+      </div>
+      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
