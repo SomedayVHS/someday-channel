@@ -68,6 +68,27 @@
     .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
     .cta-btn:hover { opacity: 0.85; }
 
+    .video-block { margin: 3rem 0 5rem; }
+    .video-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .video-label::after { content: ''; height: 1px; flex: 1; background: var(--accent); opacity: 0.3; }
+    .video-player {
+      width: 100%;
+      display: block;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 16/9;
+    }
+
     footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
     .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.3em; color: var(--dim); margin-bottom: 0.75rem; }
     .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
@@ -145,12 +166,8 @@
 
     <!-- IMAGE 1 -->
     <div class="img-zone">
-      <!-- <img src="images/showdown-01.jpg" alt="Showdown in Little Tokyo — visuel d'ouverture" /> -->
-      <div> <img src="SILT.jpg">
-        <span class="img-placeholder-icon">⬚</span>
-        <span class="img-placeholder-label"></span>
-      </div>
-      <p class="img-caption"></p>
+      <img src="SILT.jpg" alt="Showdown in Little Tokyo — visuel d'ouverture" />
+      <p class="img-caption">Jaquette VHS originale, parasites analogiques</p>
     </div>
 
     <div class="tape-divider">
@@ -196,12 +213,8 @@
 
     <!-- IMAGE 2 -->
     <div class="img-zone">
-      <!-- <img src="images/showdown-02.jpg" alt="Lundgren et Brandon Lee — contexte 1991" /> -->
-     <div> <img src="BrendonDolph.jpg">
-        <span class="img-placeholder-icon">⬚</span>
-        <span class="img-placeholder-label"></span>
-      </div>
-      <p class="img-caption"></p>
+      <img src="BrendonDolph.jpg" alt="Lundgren et Brandon Lee — contexte 1991" />
+      <p class="img-caption">Archives, photos Lundgren & Brandon Lee, affiches de l'époque</p>
     </div>
 
     <!-- 04 RÉSUMÉ -->
@@ -248,12 +261,8 @@
 
     <!-- IMAGE 3 -->
     <div class="img-zone">
-      <!-- <img src="images/showdown-03.jpg" alt="Showdown in Little Tokyo — scène restaurant" /> -->
-      <div> <img src="OHOH.jpg">
-        <span class="img-placeholder-icon">⬚</span>
-        <span class="img-placeholder-label"></span>
-      </div>
-      <p class="img-caption"></p>
+      <img src="OHOH.jpg" alt="Showdown in Little Tokyo — scène restaurant" />
+      <p class="img-caption">Capture cinématique, scène restaurant, visuel AI généré</p>
     </div>
 
     <!-- 06 POURQUOI OUBLIÉ -->
@@ -349,18 +358,19 @@
       <span class="total-val">~ 9 MIN 30</span>
     </div>
 
-    <div class="cta-block">
-      <div class="cta-text">
-        <p class="label">Regarder l'épisode</p>
-        <p class="title">SOMEDAY — EP. 03</p>
-      </div>
-      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    <!-- VIDÉO -->
+    <div class="video-block">
+      <p class="video-label">SOMEDAY — EP. 03</p>
+      <video class="video-player" controls preload="metadata">
+        <source src="ep03-showdown-little-tokyo.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
     </div>
 
   </div>
 
   <footer>
-    <p class="footer-logo">STAMPEDE PRODUCTION</p>
+    <p class="footer-logo">SOMEDAY PRODUCTION</p>
     <nav class="footer-nav">
       <a href="index.html">← Accueil</a>
       <a href="index.html#episodes">Tous les épisodes</a>
