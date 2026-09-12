@@ -343,6 +343,27 @@
     }
     .cta-btn:hover { opacity: 0.85; }
 
+    .video-block { margin: 3rem 0 5rem; }
+    .video-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .video-label::after { content: ''; height: 1px; flex: 1; background: var(--accent); opacity: 0.3; }
+    .video-player {
+      width: 100%;
+      display: block;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 16/9;
+    }
+
     /* FOOTER */
     footer {
       padding: 3rem 2rem;
@@ -616,13 +637,13 @@
       <span class="total-val">~ 9 MIN</span>
     </div>
 
-    <!-- CTA -->
-    <div class="cta-block">
-      <div class="cta-text">
-        <p class="label">Regarder l'épisode</p>
-        <p class="title">SOMEDAY — EP. 01</p>
-      </div>
-      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    <!-- VIDÉO -->
+    <div class="video-block">
+      <p class="video-label">SOMEDAY — EP. 01</p>
+      <video class="video-player" controls preload="metadata">
+        <source src="ep01-harley-davidson.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
     </div>
 
   </div>
