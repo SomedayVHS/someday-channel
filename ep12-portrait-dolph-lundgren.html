@@ -78,6 +78,27 @@
     .cta-btn { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--accent); border: none; padding: 0.85rem 1.75rem; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
     .cta-btn:hover { opacity: 0.85; }
 
+    .video-block { margin: 3rem 0 5rem; }
+    .video-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .video-label::after { content: ''; height: 1px; flex: 1; background: var(--accent); opacity: 0.3; }
+    .video-player {
+      width: 100%;
+      display: block;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 16/9;
+    }
+
     footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
     .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
     .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
@@ -301,7 +322,7 @@
     <div class="saison-fin">
       <div class="saison-fin-label">Fin de saison</div>
       <div class="saison-fin-title">SOMEDAY — SAISON 1</div>
-      <div class="saison-fin-sub">12 épisodes · 1987–2001 · Stampede Production</div>
+      <div class="saison-fin-sub">12 épisodes · 1987–2001 · Someday Production</div>
     </div>
 
     <div class="total-bar">
@@ -309,12 +330,13 @@
       <span class="total-val">~ 14 MIN</span>
     </div>
 
-    <div class="cta-block">
-      <div class="cta-text">
-        <p class="label">Regarder l'épisode</p>
-        <p class="title">SOMEDAY — EP. 12</p>
-      </div>
-      <a href="#" class="cta-btn">▶ &nbsp; Voir sur YouTube</a>
+    <!-- VIDÉO -->
+    <div class="video-block">
+      <p class="video-label">SOMEDAY — EP. 12</p>
+      <video class="video-player" controls preload="metadata">
+        <source src="ep12-portrait-dolph-lundgren.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
     </div>
 
   </div>
