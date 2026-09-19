@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Séries EP.01 — Mission: Impossible · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0a10 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .video-block { margin: 3rem 0 5rem; }
+    .video-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .video-label::after { content: ''; height: 1px; flex: 1; background: var(--accent); opacity: 0.3; }
+    .video-player {
+      width: 100%;
+      display: block;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 16/9;
+    }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="series-tv-cultes.html" class="nav-back">← Séries TV cultes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Séries TV cultes · Épisode 01 &nbsp;·&nbsp; Peter Graves — l'autorité tranquille</div>
+      <h1 class="hero-title">Mission: Impossible</h1>
+      <p class="hero-subtitle">Peter Graves · Bruce Geller · CBS, 1966</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1966</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Créateur</span>
+          <span class="meta-val">Bruce Geller</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Peter Graves · Steven Hill</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="series-tv-cultes.html">← Séries TV cultes</a>
+      <a href="index.html">Tous les épisodes</a>
+      <a href="bientot.html">EP. 02 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        C'est mon père qui m'a mis dedans.<br /><br />
+        La version qu'il m'a fait découvrir, c'était celle des années 80 — la série revival. Mais sa propre série d'ado, celle qu'il avait connue enfant, c'était l'originale de 1966.<br /><br />
+        Ce n'est que des années plus tard que j'ai remonté le fil jusqu'à cette version-là. Deux générations, une même musique.<br /><br />
+        Le thème de Lalo Schifrin, je l'aurais reconnu les yeux fermés avant même de connaître son nom. Les masques en latex qui trompaient tout le monde à l'écran, ces enregistrements qui s'autodétruisaient après lecture, cette mécanique d'espionnage précise comme une horlogerie.<br /><br />
+        Mais ce qui m'a le plus marqué, c'est un homme. Peter Graves. Jim Phelps.<br /><br />
+        Une autorité tranquille, un charisme qui n'avait jamais besoin d'élever la voix pour convaincre qu'il contrôlait tout.<br /><br />
+        Ce soir, on remonte jusque dans les années 60'.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="mi-titre.jpg" alt="Mission: Impossible — générique, 1966" />
+      <p class="img-caption">Mission: Impossible — générique, 1966</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Mission: Impossible.<br /><br />
+        1966. Créée par Bruce Geller pour CBS. Sept saisons, jusqu'en 1973.<br /><br />
+        Une équipe d'agents secrets — l'Impossible Missions Force — reçoit chaque semaine une mission via une bande magnétique qui s'autodétruit après lecture. La cible : dictateurs, criminels, gouvernements hostiles. La méthode : jamais la force brute. Toujours la ruse, l'infiltration, le déguisement.<br /><br />
+        Steven Hill incarne Dan Briggs, le premier chef d'équipe, pendant la saison 1. Dès la saison 2, c'est Peter Graves qui prend la tête de l'IMF dans le rôle de Jim Phelps — celui qui restera associé à la série pour le grand public.<br /><br />
+        Autour de lui, une équipe de spécialistes récurrents : Rollin Hand, maître du déguisement, Cinnamon Carter, l'atout charme et intelligence, Barney Collier, le génie de la technique, Willy Armitage, la force tranquille.<br /><br />
+        Le thème musical de Lalo Schifrin, en 5/4, devient instantanément culte.<br /><br />
+        Mission: Impossible n'est pas un show d'action au sens où on l'entend aujourd'hui.<br /><br />
+        C'est un thriller de précision, où chaque mission est une mécanique d'horlogerie.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1966.<br /><br />
+        La télévision américaine cherche son James Bond du petit écran. Depuis 1962 et Dr. No, l'espionnage est devenu un genre grand public, et chaque network veut sa propre déclinaison télévisée du phénomène — The Man from U.N.C.L.E. a ouvert la voie deux ans plus tôt.<br /><br />
+        Bruce Geller propose autre chose. Pas un espion charismatique solitaire à la Bond, mais une équipe. Pas de gadgets tape-à-l'œil, mais de la ruse pure — déguisements, manipulation psychologique, infiltration méthodique.<br /><br />
+        CBS achète le concept. Le pilote est tourné avec Steven Hill dans le rôle principal, Dan Briggs. Mais Hill, pratiquant orthodoxe du judaïsme, refuse de tourner le vendredi soir après le coucher du soleil — un conflit permanent avec les plannings de tournage qui pousse la production à le remplacer dès la saison 2.<br /><br />
+        Peter Graves arrive alors. Déjà connu pour Fury et quelques rôles au cinéma, frère cadet de James Arness — la star de Gunsmoke. Graves apporte à Jim Phelps quelque chose que Briggs n'avait pas : une autorité paternelle, chaleureuse mais ferme, qui va définir l'image du personnage pour les décennies suivantes.<br /><br />
+        La série innove aussi sur le plan technique. Les fameuses bandes magnétiques qui s'autodétruisent deviennent un running-gag structurel — "Bonne chance, Jim" — répété chaque épisode, devenu un tic culturel que même ceux qui n'ont jamais vu la série reconnaissent.<br /><br />
+        Lalo Schifrin compose le thème en mesure à 5 temps — une signature rythmique inhabituelle qui contribue à l'identité sonore immédiatement reconnaissable de la série.<br /><br />
+        Mission: Impossible ne ressemble à rien d'autre sur les écrans américains de 1966.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="mi-graves.jpg" alt="Peter Graves — Jim Phelps, Mission: Impossible" />
+      <p class="img-caption">Peter Graves — Jim Phelps, Mission: Impossible</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Chaque épisode suit la même mécanique, et c'est précisément ce qui en fait la force.<br /><br />
+        Jim Phelps reçoit sa mission via un enregistrement audio, souvent caché dans un lieu incongru — une cabine téléphonique, un juke-box, un magasin de disques. La bande lui expose la situation : un dictateur à déstabiliser, un criminel à piéger, un gouvernement hostile à manipuler de l'intérieur. Puis vient la formule rituelle — s'il est capturé ou tué, le gouvernement niera toute connaissance de ses actions. Et l'enregistrement s'autodétruit.<br /><br />
+        Phelps choisit alors son équipe parmi un éventail de spécialistes, en étalant leurs photos sur une table.<br /><br />
+        Le reste de l'épisode est une mécanique de précision. L'équipe construit une fausse réalité autour de sa cible — de faux décors, de fausses identités, de faux événements — pour la manipuler sans qu'elle se doute jamais qu'elle a été piégée. Rollin Hand se glisse dans la peau d'un autre grâce à ses masques. Cinnamon Carter séduit et distrait. Barney Collier pirate, câble, désamorce. Willy porte, soulève, protège.<br /><br />
+        Aucune fusillade spectaculaire, aucune course-poursuite systématique.<br /><br />
+        Juste l'intelligence collective d'une équipe qui a toujours un coup d'avance.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Ce qui distingue Mission: Impossible de tout ce qui l'entoure en 1966, c'est son refus absolu du surhomme.<br /><br />
+        James Bond agit seul, séduit, tue, improvise avec panache. Mission: Impossible fait l'inverse total — c'est une série sur la préparation méticuleuse, sur l'intelligence collective, sur des professionnels qui ne laissent jamais rien au hasard. Le suspense ne vient pas de l'incertitude sur l'issue — l'IMF gagne toujours — mais du plaisir presque mathématique de voir le plan se dérouler avec précision.<br /><br />
+        Peter Graves incarne exactement cette philosophie. Jim Phelps ne lève jamais la voix, ne panique jamais, ne doute jamais visiblement. Son autorité tient entièrement dans le calme — une confiance tranquille qui rassure autant les autres personnages que le spectateur. C'est un leadership par la maîtrise plutôt que par la force, et Graves lui donne une chaleur paternelle qui manquait au Dan Briggs plus froid de la saison 1.<br /><br />
+        Les masques en latex, aujourd'hui un peu datés visuellement, restent un dispositif narratif brillant. Ils permettent à la série de jouer constamment avec l'identité, la manipulation, la question de qui est réellement qui — bien avant que ce genre de twist ne devienne un poncif du thriller moderne.<br /><br />
+        Et cette bande qui s'autodétruit, ce rituel répété à l'identique chaque semaine, fonctionne comme une porte d'entrée immédiatement reconnaissable — le spectateur sait qu'il entre dans un monde où rien n'est laissé au hasard, où même l'oubli est planifié.<br /><br />
+        Mission: Impossible a posé les bases d'un genre entier — le thriller d'équipe, la mission impossible rendue possible par l'intelligence plutôt que la force.<br /><br />
+        Tout ce qui a suivi, y compris la franchise cinéma des années 90 et au-delà, lui doit quelque chose.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="mi-equipe.jpg" alt="Mission: Impossible — l'équipe IMF, 1966" />
+      <p class="img-caption">L'équipe IMF au complet — Mission: Impossible, 1966</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oubliée</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Mission: Impossible version 1966 n'a pas disparu du jour au lendemain. Elle a été progressivement recouverte par sa propre descendance.<br /><br />
+        Le premier signe est venu de l'intérieur. En 1988, une nouvelle série revival reprend le concept avec de nouveaux acteurs — celle que j'ai découverte enfant grâce à mon père. Elle rend hommage à l'originale, mais introduit malgré elle une confusion générationnelle : pour beaucoup, "Mission: Impossible", c'est déjà cette version des années 80, pas celle de 1966.<br /><br />
+        Puis 1996 arrive, et Tom Cruise change définitivement la donne. Le film de Brian De Palma reprend le nom, le thème musical de Schifrin, quelques clins d'œil au concept original — et transforme la franchise en blockbuster d'action pure, centrée sur un héros solitaire plutôt que sur une équipe. La franchise cinéma explose commercialement au point d'effacer presque entièrement la mémoire collective de ce qui existait avant.<br /><br />
+        Aujourd'hui, dire "Mission: Impossible" évoque immédiatement Tom Cruise suspendu à une paroi rocheuse ou accroché à un avion en plein décollage. Peter Graves, Jim Phelps, les bandes qui s'autodétruisent — tout ça est devenu l'affaire d'une poignée de connaisseurs et de fans de télévision vintage.<br /><br />
+        La série originale n'a pourtant jamais cessé d'exister. Elle tourne encore sur certaines chaînes câblées américaines, elle a son public fidèle de nostalgiques.<br /><br />
+        Mais dans la conversation culturelle dominante, elle s'est fait absorber par ce qu'elle a elle-même engendré.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi la redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce qu'avant l'action spectaculaire, il y avait l'intelligence pure — et ce genre de thriller a presque disparu du paysage actuel.<br /><br />
+        La série originale offre quelque chose que la franchise cinéma moderne a largement abandonné : le plaisir de regarder un plan se construire, pièce par pièce, sans qu'aucune explosion ne vienne masquer la mécanique. C'est un cinéma de la patience, de l'observation, où chaque détail compte.<br /><br />
+        Peter Graves mérite d'être redécouvert pour ce qu'il apportait précisément — un charisme qui ne reposait sur aucune démonstration de force physique. Une autorité qui tenait entièrement dans la voix, le regard, la certitude tranquille que tout était sous contrôle. C'est un registre d'acteur qu'on voit rarement aujourd'hui, où le charisme se mesure encore trop souvent à l'action plutôt qu'à la présence.<br /><br />
+        Et il y a cette dimension d'équipe, structurante, qui a presque disparu du genre espionnage moderne — chaque spécialiste apportant une compétence irremplaçable, aucun individu ne portant seul le poids de la mission.<br /><br />
+        Revoir Mission: Impossible version 1966 aujourd'hui, c'est redécouvrir la source d'un nom devenu synonyme d'autre chose.<br /><br />
+        Et comprendre que la version originale avait peut-être une élégance que ses héritiers ont fini par sacrifier.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a ce geste, répété chaque semaine, identique à lui-même — la bande qui grésille, qui s'enflamme, qui disparaît en fumée dans un cendrier ou une corbeille.<br /><br />
+        Aucune mission ne laisse de trace. Aucun agent n'existe officiellement. Tout doit pouvoir être nié.<br /><br />
+        C'est peut-être ça, la vraie signature de la série — cette discrétion absolue, ce refus de tout héroïsme visible, cette équipe qui accomplit l'impossible sans jamais chercher à ce qu'on s'en souvienne.<br /><br />
+        Enfant, mon père avait grandi avec ce Jim Phelps-là. Des années plus tard, c'est une autre version qu'il m'a transmise. Celle-ci a traversé le temps sans prendre une ride.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Mission: Impossible</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Espionnage / Thriller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Diffusion</p>
+        <p class="val">CBS, 1966–1973 (7 saisons)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Créateur</p>
+        <p class="val">Bruce Geller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Steven Hill · Martin Landau · Barbara Bain</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Musique</p>
+        <p class="val">Lalo Schifrin</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Séries TV cultes — EP. 01</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <!-- VIDÉO -->
+    <div class="video-block">
+      <p class="video-label">SOMEDAY — SÉRIES EP. 01</p>
+      <video class="video-player" controls preload="metadata">
+        <source src="series-ep01-mission-impossible.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="series-tv-cultes.html">Séries TV cultes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
