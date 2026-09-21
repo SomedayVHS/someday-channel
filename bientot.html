@@ -4,17 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prochainement · SOMEDAY</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #8a857d; --accent: #c8392b; --accent-text: #e2564a; --accent-strong: #a82e22; }
     html { scroll-behavior: smooth; }
     body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
 
     body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
     body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
 
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    /* Ciblé sur .site-nav : l'ancien sélecteur "nav" collait aussi le <nav> du footer en haut de l'écran */
+    nav.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
     .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--white); }
     .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
@@ -38,7 +42,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.4em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 1.5rem;
     }
@@ -72,8 +76,8 @@
       font-size: 0.65rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--black);
-      background: var(--accent);
+      color: var(--white);
+      background: var(--accent-strong);
       padding: 0.85rem 1.75rem;
       text-decoration: none;
       display: inline-block;
@@ -82,29 +86,38 @@
     .cta:hover { opacity: 0.85; }
 
     footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.3em; color: var(--dim); text-decoration: none; display: inline-block; margin-bottom: 0.75rem; transition: color 0.2s; }
+    .footer-logo:hover { color: var(--white); }
+    .footer-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1rem; }
     .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
     .footer-nav a:hover { color: var(--white); }
+
+    a:focus-visible { outline: 1px solid var(--accent-text); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .cassette { animation: none; opacity: 0.1; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
-  <nav>
+  <nav class="site-nav">
     <a href="index.html" class="nav-back">← Tous les épisodes</a>
     <a href="index.html" class="nav-logo">SOMEDAY</a>
   </nav>
 
   <main class="main">
-    <div class="cassette">▶</div>
+    <div class="cassette" aria-hidden="true">▶</div>
     <p class="label">Épisode en préparation</p>
     <h1 class="title">Prochainement</h1>
     <p class="subtitle">
       La cassette est en cours d'enregistrement.<br />
       Cet épisode sera disponible prochainement<br />
-      sur la chaîne SOMEDAY.
+      sur SOMEDAY.
     </p>
 
-    <div class="tape-divider">
+    <div class="tape-divider" aria-hidden="true">
       <div class="tape-line"></div>
       <span class="tape-icon">— — —</span>
       <div class="tape-line"></div>
@@ -114,10 +127,11 @@
   </main>
 
   <footer>
-    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
-    <nav class="footer-nav">
+    <a class="footer-logo" href="https://somedayvhs.github.io/someday-production/index.html">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav" aria-label="Pied de page">
       <a href="index.html">← Accueil</a>
       <a href="index.html#episodes">Tous les épisodes</a>
+      <a href="mentions-legales.html">Mentions légales</a>
     </nav>
   </footer>
 
