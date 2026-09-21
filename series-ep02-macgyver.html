@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Séries EP.02 — MacGyver · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0d08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .video-block { margin: 3rem 0 5rem; }
+    .video-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .video-label::after { content: ''; height: 1px; flex: 1; background: var(--accent); opacity: 0.3; }
+    .video-player {
+      width: 100%;
+      display: block;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 16/9;
+    }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="series-tv-cultes.html" class="nav-back">← Séries TV cultes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Séries TV cultes · Épisode 02 &nbsp;·&nbsp; L'intelligence plutôt que la force</div>
+      <h1 class="hero-title">MacGyver</h1>
+      <p class="hero-subtitle">Richard Dean Anderson · Lee David Zlotoff · ABC, 1985</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1985</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Créateur</span>
+          <span class="meta-val">Lee David Zlotoff</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Richard Dean Anderson</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="series-ep01-mission-impossible.html">← Séries EP. 01 — Mission: Impossible</a>
+      <a href="series-tv-cultes.html">Séries TV cultes</a>
+      <a href="bientot.html">EP. 03 →</a>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        J'avais neuf ans.<br /><br />
+        MacGyver me faisait rêver. Cet homme qui se sortait toujours des pires situations sans jamais tirer un coup de feu — juste avec ce qu'il avait sous la main, un peu de scotch, un trombone, une intelligence qui transformait n'importe quel objet du quotidien en solution.<br /><br />
+        Mais ce n'était pas seulement le bricolage qui me marquait. C'était ce pour quoi il le faisait. Toujours au service des autres. Sauver la veuve et l'orphelin, lutter contre l'injustice, faire le bien autour de lui sans jamais chercher la gloire.<br /><br />
+        Pour mes dix ans, mes parents m'ont offert le même couteau suisse que le sien.<br /><br />
+        Je l'ai toujours. En parfait état de marche.<br /><br />
+        Ce soir, on ressort le couteau.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="macgyver-duo.jpg" alt="MacGyver, en pleine mission" />
+      <p class="img-caption">MacGyver, en pleine mission</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        MacGyver.<br /><br />
+        1985. Créée par Lee David Zlotoff pour ABC. Sept saisons, jusqu'en 1992.<br /><br />
+        Angus MacGyver, agent secret travaillant pour la fondation Phoenix, résout chaque mission sans jamais recourir à une arme à feu. Sa méthode : la science, l'improvisation, et une capacité quasi magique à transformer n'importe quel objet du quotidien en outil de survie.<br /><br />
+        Richard Dean Anderson incarne le personnage pendant toute la durée de la série — un héros atypique pour l'époque, plus proche du scientifique débrouillard que du soldat musclé qui dominait alors le petit écran américain.<br /><br />
+        Autour de lui, Pete Thornton, son supérieur et ami à la fondation Phoenix, apparaît régulièrement pour l'envoyer en mission ou l'aider dans ses enquêtes.<br /><br />
+        MacGyver n'est pas une série d'action au sens explosif du terme.<br /><br />
+        C'est une série sur l'intelligence pratique, où chaque épisode culmine dans une improvisation technique devenue culte — au point que le nom du personnage est entré dans le langage courant pour désigner une solution ingénieuse bricolée avec les moyens du bord.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1985.<br /><br />
+        La télévision américaine des années 80 est saturée de héros musclés — Rambo, les productions Cannon Films, une vague de virilité armée qui domine le petit comme le grand écran. Lee David Zlotoff veut proposer l'inverse complet.<br /><br />
+        Son idée : un héros qui refuse catégoriquement de porter une arme à feu, et qui résout ses problèmes par l'intelligence plutôt que par la force. Un pari risqué pour ABC, dans un paysage télévisuel qui privilégie l'action spectaculaire.<br /><br />
+        Le choix de Richard Dean Anderson s'avère décisif. Acteur encore peu connu, il apporte à MacGyver un charme décontracté, une aisance naturelle qui rend crédible ce personnage censé résoudre des situations impossibles avec une pince coupante et du ruban adhésif.<br /><br />
+        La série s'entoure de véritables consultants scientifiques pour authentifier les improvisations de MacGyver — la plupart des solutions bricolées à l'écran reposent sur des principes de physique et de chimie réellement applicables, ce qui deviendra une marque de fabrique revendiquée par la production.<br /><br />
+        Diffusée le lundi soir sur ABC, la série trouve rapidement son public — familial, fidèle, conquis par cette proposition différente du héros d'action traditionnel.<br /><br />
+        MacGyver ne ressemble à rien d'autre dans le paysage télévisuel américain du milieu des années 80.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="macgyver-portrait.jpg" alt="Richard Dean Anderson — MacGyver" />
+      <p class="img-caption">Richard Dean Anderson — MacGyver</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Angus MacGyver travaille pour la fondation Phoenix, une organisation qui l'envoie résoudre des situations que personne d'autre ne peut gérer.<br /><br />
+        Chaque épisode le place face à un problème différent — sauver des otages, désamorcer une menace, protéger des innocents pris dans un engrenage dont ils ne sont pas responsables. La méthode ne varie jamais : jamais d'arme à feu, toujours l'intelligence et l'improvisation.<br /><br />
+        Ce qui distingue MacGyver de tout ce qui l'entoure à la télévision de l'époque, c'est la nature de ses solutions. Coincé dans une pièce fermée, entouré d'objets a priori inutiles, il transforme systématiquement son environnement immédiat en boîte à outils improvisée. Un trombone devient un crochet. Du bicarbonate et du vinaigre deviennent une réaction chimique salvatrice. Rien n'est jamais vraiment un obstacle définitif.<br /><br />
+        Et derrière chaque mission, une même conviction tranquille — protéger les plus vulnérables, réparer une injustice, agir sans jamais chercher la reconnaissance.<br /><br />
+        MacGyver ne se bat pas contre des ennemis au sens classique du terme.<br /><br />
+        Il se bat contre des situations, avec les moyens du bord, et une confiance inébranlable dans sa propre ingéniosité.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        MacGyver a réussi quelque chose de rare pour une série télévisée des années 80 — imposer un nouveau modèle de héros dans un paysage entièrement dominé par la force physique.<br /><br />
+        À une époque où l'action télévisée et cinématographique se résume trop souvent à des muscles et des armes, MacGyver propose l'inverse total. La véritable force du personnage réside dans sa tête, pas dans ses poings. Cette proposition aurait pu sembler faible dramaturgiquement — un héros sans arme, sans confrontation physique directe. Elle devient au contraire le moteur principal de la tension de chaque épisode.<br /><br />
+        Richard Dean Anderson porte cette idée avec une justesse remarquable. Il ne joue jamais MacGyver comme un surhomme infaillible. Il y a toujours une tension réelle dans ses improvisations — l'incertitude que la solution fonctionne vraiment, le temps qui presse, l'objet du quotidien qui doit soudain devenir vital. Cette fragilité apparente rend chaque réussite plus satisfaisante encore.<br /><br />
+        La série construit aussi une éthique cohérente et jamais démentie. MacGyver refuse la violence non par faiblesse, mais par conviction. Ce refus devient une force narrative en soi — il oblige constamment le personnage à trouver des solutions plus créatives que la confrontation directe.<br /><br />
+        Et il y a cette dimension presque pédagogique, jamais lourde, qui infuse chaque épisode. La série donne envie de comprendre comment les choses fonctionnent, de regarder le monde matériel qui nous entoure comme un ensemble de possibilités plutôt que de contraintes fixes.<br /><br />
+        MacGyver a durablement marqué la culture populaire au point que son nom est devenu un verbe.<br /><br />
+        Peu de séries peuvent revendiquer un tel héritage linguistique.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="macgyver-improvisation.jpg" alt="MacGyver — improvisation en cours" />
+      <p class="img-caption">MacGyver — improvisation en cours</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oubliée</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        MacGyver n'a jamais vraiment disparu de la mémoire collective — mais sa présence s'est progressivement réduite à une poignée de clichés déconnectés de ce qui faisait sa vraie force.<br /><br />
+        Le nom du personnage est devenu si populaire qu'il s'est détaché de la série elle-même. "Macgyveriser" quelque chose est entré dans le langage courant, au point que beaucoup connaissent l'expression sans avoir jamais vu un seul épisode. Le couteau suisse, le trombone, le ruban adhésif — ces symboles ont survécu, mais souvent vidés de leur contexte narratif et de l'éthique qui les portait.<br /><br />
+        Le revival de 2016, tentative de relancer la franchise avec un nouveau casting, n'a pas aidé à raviver l'intérêt pour l'originale. Reçu tièdement par la critique et le public, il a plutôt contribué à brouiller les générations — pour beaucoup de jeunes spectateurs, MacGyver devient cette version récente, sans lien réel avec la série de 1985.<br /><br />
+        Et la structure même de la série — un format procédural, un épisode, un problème résolu, sans grande arche narrative sur la durée — correspond de moins en moins aux habitudes de consommation actuelles, plus tournées vers les séries feuilletonnantes à grande continuité.<br /><br />
+        MacGyver reste un nom que tout le monde connaît.<br /><br />
+        Mais la série elle-même, dans sa substance réelle, s'est progressivement effacée derrière sa propre légende.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi la redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce qu'avant d'être un mème ou une expression toute faite, MacGyver était une proposition radicale — un héros dont la seule arme était l'intelligence pratique, à une époque où ça n'allait absolument pas de soi.<br /><br />
+        La série mérite d'être revue au-delà du folklore qu'elle a engendré. Chaque épisode reste construit avec un vrai sens du rythme, une tension qui repose entièrement sur la résolution de problèmes plutôt que sur la violence, et une conscience scientifique qui donnait envie de comprendre comment le monde fonctionnait.<br /><br />
+        Richard Dean Anderson mérite aussi d'être redécouvert pour ce rôle précis — sa capacité à rendre crédible un personnage qui aurait facilement pu sombrer dans le ridicule, avec un charme et une décontraction qui ont porté la série pendant sept saisons.<br /><br />
+        Et il y a cette éthique de fond, jamais démodée — l'idée qu'on peut affronter n'importe quelle situation par l'intelligence plutôt que par la force, qu'on peut aider les autres sans rien attendre en retour.<br /><br />
+        J'ai reçu le même couteau suisse que le sien pour mes dix ans.<br /><br />
+        Je l'ai encore aujourd'hui, en parfait état.<br /><br />
+        Certains cadeaux d'enfance ne prennent jamais une ride.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Il y a ce geste, répété dans presque chaque épisode — MacGyver qui regarde autour de lui, qui prend le temps d'observer ce qui l'entoure avant d'agir. Jamais de panique visible. Juste cette certitude tranquille qu'une solution existe forcément quelque part dans la pièce.<br /><br />
+        Un trombone. Du ruban adhésif. Un couteau suisse.<br /><br />
+        Le mien est toujours dans un tiroir, celui que mes parents m'ont offert pour mes dix ans. Il fonctionne encore parfaitement.<br /><br />
+        Certains objets traversent les décennies sans jamais perdre leur utilité.<br /><br />
+        Cette série non plus.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">MacGyver</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Action / Aventure</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Diffusion</p>
+        <p class="val">ABC, 1985–1992 (7 saisons)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Créateur</p>
+        <p class="val">Lee David Zlotoff</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Dana Elcar</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Héritage</p>
+        <p class="val">"Macgyveriser" — entré dans le langage courant</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Séries TV cultes — EP. 02</p>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <!-- VIDÉO -->
+    <div class="video-block">
+      <p class="video-label">SOMEDAY — SÉRIES EP. 02</p>
+      <video class="video-player" controls preload="metadata">
+        <source src="series-ep02-macgyver.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="series-tv-cultes.html">Séries TV cultes</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
