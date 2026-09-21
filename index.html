@@ -6,6 +6,8 @@
   <title>SOMEDAY — Films et séries oubliés des années VHS (1982-2005)</title>
   <meta name="description" content="Thrillers, films d'action et séries B américains de 1982 à 2005, ceux que la VHS a portés : un article et un extrait vidéo par film, plus le podcast." />
   <link rel="canonical" href="https://someday-vhs.com/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SOMEDAY" />
   <meta property="og:title" content="SOMEDAY — Films et séries oubliés des années VHS (1982-2005)" />
@@ -23,8 +25,9 @@
       --black: #080808;
       --off-black: #0e0e0e;
       --white: #e8e4dc;
-      --dim: #6b6660;
+      --dim: #8a857d;
       --accent: #c8392b;
+      --accent-text: #e2564a; /* rouge éclairci pour le petit texte (5:1) */
       --tape: #1a1815;
     }
 
@@ -57,8 +60,8 @@
       transition: color 0.2s;
     }
     nav.site-nav a:hover, nav.site-nav a.active { color: var(--white); }
-    nav.site-nav a.nav-boutique { color: var(--accent); }
-    nav.site-nav a.nav-boutique:hover { opacity: 0.8; color: var(--accent); }
+    nav.site-nav a.nav-boutique { color: var(--accent-text); }
+    nav.site-nav a.nav-boutique:hover { opacity: 0.8; color: var(--accent-text); }
     nav.site-nav .nav-links { display: contents; }
     nav.site-nav .nav-logo-mobile { display: none; }
 
@@ -167,7 +170,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.65rem;
       letter-spacing: 0.35em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 2rem;
       opacity: 0.9;
@@ -236,7 +239,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.4em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 3rem;
       display: flex;
@@ -347,7 +350,7 @@
       text-transform: uppercase;
       padding: 0.3rem 0.7rem;
       border: 1px solid var(--accent);
-      color: var(--accent);
+      color: var(--accent-text);
       white-space: nowrap;
     }
 
@@ -487,9 +490,25 @@
       font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em;
       color: var(--dim); margin-top: 0.9rem; min-height: 1.2em;
     }
+    /* Accessibilité : focus clavier, lien d'évitement, mouvement réduit */
+    a:focus-visible, button:focus-visible { outline: 1px solid var(--accent-text); outline-offset: 3px; }
+    .skip-link {
+      position: fixed; top: 0.75rem; left: 0.75rem; z-index: 300;
+      padding: 0.6rem 1rem; background: var(--white); color: var(--black);
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em;
+      transform: translateY(-200%);
+    }
+    .skip-link:focus { transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-title::before { animation: none; opacity: 0; }
+      .hero-scroll, .hero-scroll * { animation: none; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
   <nav class="site-nav">
     <span class="nav-logo-mobile">SOMEDAY</span>
@@ -507,6 +526,8 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+
+  <main id="contenu">
 
   <section class="hero">
     <p class="hero-eyebrow">Someday Production — Podcast</p>
@@ -1103,6 +1124,8 @@
     </div>
   </a>
 
+  </main>
+
   <footer>
     <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
     <p class="footer-sub">© 2026 — Tous droits réservés</p>
@@ -1121,7 +1144,7 @@
     });
     backToTop.addEventListener('click', (e) => {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     });
 
     const navToggle = document.getElementById('navToggle');
@@ -1207,6 +1230,30 @@
       });
 
       sections[0].parentNode.insertBefore(bar, sections[0]);
+    })();
+  </script>
+
+  <script>
+    // Menu actif : surligne la saison en cours de lecture
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      var liens = {};
+      document.querySelectorAll('#navLinks a[href^="#"]').forEach(function (a) { liens[a.getAttribute('href').slice(1)] = a; });
+      function activer(id) {
+        Object.keys(liens).forEach(function (k) {
+          var on = k === id;
+          liens[k].classList.toggle('active', on);
+          if (on) liens[k].setAttribute('aria-current', 'true'); else liens[k].removeAttribute('aria-current');
+        });
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) activer(e.target.id); });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      Object.keys(liens).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+      window.addEventListener('scroll', function () {
+        var premier = document.getElementById('episodes');
+        if (premier && window.scrollY < premier.offsetTop - window.innerHeight * 0.5) activer('');
+      }, { passive: true });
     })();
   </script>
 
