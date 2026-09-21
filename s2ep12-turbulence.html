@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2 EP.12 — Turbulence · SOMEDAY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
+    body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--white); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
+
+    .hero { min-height: 65vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #0a0c10 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 0.5rem; max-width: 700px; }
+    .hero-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--dim); font-style: italic; margin-bottom: 2rem; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 2rem; }
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .meta-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--white); }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 6rem 2rem 8rem; }
+
+    .ep-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ep-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .ep-nav a:hover { color: var(--white); }
+
+    .sequence { margin-bottom: 4rem; }
+    .seq-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .seq-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+    .seq-title { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; }
+    .seq-duration { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: rgba(107,102,96,0.5); margin-left: auto; }
+    .seq-text { font-size: clamp(0.95rem, 2vw, 1.1rem); line-height: 1.95; color: rgba(232, 228, 220, 0.72); }
+    .sequence.opening .seq-text { font-style: italic; color: rgba(232, 228, 220, 0.85); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+    .img-zone { margin: 3rem 0; }
+    .img-zone img { width: 100%; display: block; filter: grayscale(20%) contrast(1.05); }
+    .img-placeholder { width: 100%; aspect-ratio: 16/9; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; }
+    .img-placeholder-icon { font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; color: rgba(255,255,255,0.1); }
+    .img-placeholder-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .img-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--dim); margin-top: 0.75rem; font-style: italic; }
+
+    .tape-divider { display: flex; align-items: center; gap: 1rem; margin: 3rem 0; }
+    .tape-line { height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+    .tape-icon { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--dim); letter-spacing: 0.2em; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0; padding: 2rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
+    .info-block .key { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.4rem; }
+    .info-block .val { font-size: 0.85rem; color: var(--white); line-height: 1.6; }
+
+    .saison-fin { text-align: center; padding: 3rem 0; border: 1px solid rgba(200,57,43,0.2); margin: 3rem 0; background: rgba(200,57,43,0.03); }
+    .saison-fin-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+    .saison-fin-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.5rem; }
+    .saison-fin-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em; }
+
+    .total-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); margin-bottom: 5rem; }
+    .total-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; }
+    .total-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--white); }
+
+    .video-block { margin: 3rem 0 5rem; }
+    .video-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .video-label::after { content: ''; height: 1px; flex: 1; background: var(--accent); opacity: 0.3; }
+    .video-player {
+      width: 100%;
+      display: block;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      aspect-ratio: 16/9;
+    }
+
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-nav { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; }
+    .footer-nav a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-meta { gap: 1.25rem; }
+      .seq-duration { display: none; }
+      .ep-nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-back">← Tous les épisodes</a>
+    <a href="index.html" class="nav-logo">SOMEDAY</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="ep-label">Saison 2 · Épisode 12 &nbsp;·&nbsp; Panique à bord III — le dernier vol</div>
+      <h1 class="hero-title">Turbulence</h1>
+      <p class="hero-subtitle">Ray Liotta · Lauren Holly · Robert Butler, 1997</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-key">Année</span>
+          <span class="meta-val">1997</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Réalisateur</span>
+          <span class="meta-val">Robert Butler</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Avec</span>
+          <span class="meta-val">Ray Liotta · Lauren Holly</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Durée épisode</span>
+          <span class="meta-val">~9 min 30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+
+    <div class="ep-nav">
+      <a href="s2ep11-executive-decision.html">← S2 EP. 11 — Executive Decision</a>
+      <a href="index.html">Tous les épisodes</a>
+      <span style="color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;">FIN SAISON 2</span>
+    </div>
+
+    <!-- 01 INTRO -->
+    <div class="sequence opening">
+      <div class="seq-header">
+        <span class="seq-num">01</span>
+        <span class="seq-title">Intro VHS</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Celui-là, c'est une critique en ligne qui me l'a mis sous les yeux, il n'y a pas si longtemps.<br /><br />
+        Un genre que j'apprécie particulièrement — le thriller enfermé dans un avion. Après Passager 57 et Executive Decision, difficile de résister à un troisième volet.<br /><br />
+        Sur le papier, la promesse était simple : Ray Liotta en psychopathe déchaîné, face à une hôtesse de l'air qui n'a pas l'intention de se laisser faire. Ça suffisait à piquer ma curiosité.<br /><br />
+        Je m'attendais à un thriller correct, dans la lignée de ce qu'on avait déjà vu cette saison.<br /><br />
+        J'ai été agréablement surpris. Ce n'est pas juste correct. C'est un excellent thriller.<br /><br />
+        Ce soir, dernier vol de la saison.
+      </p>
+    </div>
+
+    <!-- IMAGE 1 -->
+    <div class="img-zone">
+      <img src="turbulence-poster.jpg" alt="Turbulences à 30 000 pieds — affiche, 1997" />
+      <p class="img-caption">Turbulences à 30 000 pieds — affiche française, 1997</p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; REC</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 02 PRÉSENTATION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">02</span>
+        <span class="seq-title">Présentation</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Turbulence.<br /><br />
+        1997. Réalisé par Robert Butler. Avec Ray Liotta, Lauren Holly et Brendan Gleeson.<br /><br />
+        Produit par MGM, le film clôt en beauté le mini-fil "Panique à bord" de cette saison — après l'avion détourné de Passager 57 et l'infiltration militaire d'Executive Decision, place à la menace la plus intime des trois : un seul homme, dangereusement instable, au milieu des passagers.<br /><br />
+        Ray Liotta y incarne un tueur en série évadé, escorté à bord d'un vol de nuit presque vide entre New York et Los Angeles. Quand il reprend le contrôle de la situation, c'est une hôtesse de l'air — Lauren Holly — qui se retrouve seule à devoir le contenir, puis à devoir littéralement piloter l'appareil.<br /><br />
+        Turbulence ne mise pas sur l'ampleur du spectacle.<br /><br />
+        Il mise sur la tension d'un huis clos resserré, porté par un antagoniste habité et une héroïne qui refuse de rester une victime.
+      </p>
+    </div>
+
+    <!-- 03 CONTEXTE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">03</span>
+        <span class="seq-title">Contexte de production</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        1997.<br /><br />
+        Le sous-genre du thriller aérien, lancé par Passager 57 en 1992 et solidifié par Executive Decision l'année précédente, continue de prouver sa rentabilité. MGM veut sa propre variation — plus resserrée, plus psychologique, avec un antagoniste unique plutôt qu'un groupe organisé.<br /><br />
+        Robert Butler, réalisateur vétéran venu de la télévision — Hill Street Blues, Star Trek à ses débuts — apporte un sens du rythme habitué aux formats contraints. Le scénario, signé Jonathan Brancato et Brian Sandler, mise tout sur le face-à-face plutôt que sur la complexité du complot.<br /><br />
+        Ray Liotta, révélé par Les Affranchis en 1990, cherche à cette période des rôles qui exploitent sa capacité à basculer instantanément du charme à la menace pure. Ryan Weaver lui offre un terrain de jeu total — un psychopathe manipulateur, imprévisible, jamais tout à fait lisible.<br /><br />
+        Face à lui, Lauren Holly, alors connue pour Dumb and Dumber et la série NCIS naissante, incarne une hôtesse de l'air qui ne se contente jamais du rôle de victime. Le film construit patiemment sa transformation en héroïne pleinement active.<br /><br />
+        Le tournage recrée l'intérieur d'un Boeing 747 en studio, permettant à l'équipe de filmer les séquences de tension dans un espace exigu mais entièrement maîtrisé.<br /><br />
+        Sorti en janvier 1997, Turbulence devient un succès commercial solide pour un budget modeste, porté notamment par la performance de Ray Liotta.
+      </p>
+    </div>
+
+    <!-- IMAGE 2 -->
+    <div class="img-zone">
+      <img src="turbulence-liotta.jpg" alt="Ray Liotta — Turbulence, 1997" />
+      <p class="img-caption">Ray Liotta — Turbulence, 1997</p>
+    </div>
+
+    <!-- 04 RÉSUMÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">04</span>
+        <span class="seq-title">Résumé sans spoiler</span>
+        <span class="seq-duration">1 min 30</span>
+      </div>
+      <p class="seq-text">
+        Un vol de nuit presque vide entre New York et Los Angeles, la veille de Noël.<br /><br />
+        À son bord, quelques passagers ordinaires, un équipage réduit — et deux prisonniers en transfert, escortés par des agents fédéraux. L'un d'eux, Ryan Weaver, est un tueur en série condamné à mort, connu pour manipuler ceux qui l'entourent avec un charme trompeur.<br /><br />
+        Ce qui devait être un simple transfert de routine dérape rapidement. Weaver reprend le contrôle de la situation, éliminant un à un ceux qui se dressent sur son chemin — jusqu'à ce qu'il ne reste, face à lui, qu'une poignée de survivants terrifiés.<br /><br />
+        Teri Halloran, hôtesse de l'air, se retrouve alors seule à devoir gérer l'ingérable — contenir un psychopathe imprévisible, protéger les rares passagers encore en vie, et faire face à un problème bien plus vertigineux encore : l'avion doit atterrir, et personne aux commandes n'est plus en état de le faire.<br /><br />
+        Ce qui commence comme une prise d'otages devient une lutte de tous les instants, à 10 000 mètres d'altitude, sans aucune échappatoire possible.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">— — —</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 05 ANALYSE -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">05</span>
+        <span class="seq-title">Analyse</span>
+        <span class="seq-duration">2 min</span>
+      </div>
+      <p class="seq-text">
+        Turbulence fonctionne parce qu'il resserre l'échelle de la menace là où ses prédécesseurs l'avaient élargie.<br /><br />
+        Passager 57 opposait un homme à une organisation. Executive Decision opposait une équipe à un complot terroriste sophistiqué. Turbulence retire toute cette architecture et ne garde qu'un face-à-face brut — un homme et une femme, dans un espace clos, sans plan d'ensemble, sans renfort extérieur possible. Cette simplification n'est pas un manque d'ambition. C'est un choix qui recentre toute la tension sur la psychologie des deux personnages principaux.<br /><br />
+        Ray Liotta y est absolument redoutable. Ryan Weaver n'est jamais un simple monstre — c'est un manipulateur qui alterne charme, humour noir et violence soudaine avec une fluidité qui rend chaque scène imprévisible. Liotta comprend que la vraie terreur ne vient pas de la force brute, mais de l'incapacité à jamais savoir ce qui va suivre.<br /><br />
+        Face à lui, Lauren Holly construit une progression crédible. Teri Halloran ne devient jamais une héroïne d'action instantanée — sa transformation se fait par nécessité, par épuisement des alternatives, ce qui rend chaque décision qu'elle prend d'autant plus tendue.<br /><br />
+        Le film exploite intelligemment son décor unique. Chaque recoin de l'avion — cabine, soute, cockpit — devient un terrain d'affrontement différent, et Robert Butler varie suffisamment les configurations pour que le huis clos ne s'essouffle jamais.<br /><br />
+        Turbulence n'invente rien du genre. Il en applique la formule avec une précision et une intensité qui dépassent largement ce qu'on attendrait d'un thriller aérien de milieu de gamme.
+      </p>
+    </div>
+
+    <!-- IMAGE 3 -->
+    <div class="img-zone">
+      <img src="turbulence-cabine.jpg" alt="Lauren Holly — Turbulence, affrontement en cabine" />
+      <p class="img-caption">Teri Halloran (Lauren Holly), seule face à la menace</p>
+    </div>
+
+    <!-- 06 POURQUOI OUBLIÉ -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">06</span>
+        <span class="seq-title">Pourquoi oublié</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Turbulence souffre d'un problème de timing cruel dans l'histoire du sous-genre qu'il conclut.<br /><br />
+        Sorti en janvier 1997, après Passager 57 en 1992 et Executive Decision en 1996, le film arrive à un moment où le public commence à ressentir une forme de lassitude face à la formule du thriller aérien. Trois films sur un concept similaire en cinq ans, ça commence à ressembler à une redite plutôt qu'à une nouvelle proposition — même quand l'exécution, comme ici, est solide.<br /><br />
+        La critique de l'époque a été particulièrement sévère, reprochant au film sa simplicité et son manque d'ambition narrative comparé à ses prédécesseurs plus complexes. Un jugement qui, avec le recul, ignore complètement ce que cette simplicité apporte réellement au film — une tension plus directe, plus psychologique, moins diluée par des sous-intrigues.<br /><br />
+        Ray Liotta, malgré une performance remarquée, reste associé prioritairement aux Affranchis dans la mémoire collective — ses autres rôles, même solides, peinent à exister à côté de cette référence écrasante.<br /><br />
+        Et le film clôturant un mini-fil déjà bien identifié comme "le troisième avion", il hérite d'une forme de désintérêt automatique — comme si tout ce qu'il y avait à dire sur le genre avait déjà été dit deux fois avant lui.<br /><br />
+        Un thriller efficace, sorti au moment où plus personne n'attendait vraiment un troisième volet.
+      </p>
+    </div>
+
+    <!-- 07 POURQUOI REDÉCOUVRIR -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">07</span>
+        <span class="seq-title">Pourquoi le redécouvrir</span>
+        <span class="seq-duration">1 min</span>
+      </div>
+      <p class="seq-text">
+        Parce que Ray Liotta y livre l'une de ses performances de vilain les plus abouties, dans un registre différent de ce qu'on associe habituellement à sa carrière.<br /><br />
+        Parce que le film assume pleinement son minimalisme — pas de complot international, pas d'équipe militaire, juste deux personnes et un espace clos — et prouve qu'un thriller n'a pas besoin d'ampleur pour être efficace, seulement d'une tension bien construite.<br /><br />
+        Et parce que Lauren Holly, trop souvent réduite à ses rôles comiques du début des années 90, mérite d'être vue dans ce registre plus dramatique et physique, où elle porte le film à parts égales avec Liotta.<br /><br />
+        Dernier vol du mini-fil "Panique à bord" de cette saison — celui qui referme la trilogie sur la note la plus resserrée et la plus tendue des trois.
+      </p>
+    </div>
+
+    <div class="tape-divider">
+      <div class="tape-line"></div>
+      <span class="tape-icon">▶ &nbsp; PLAY</span>
+      <div class="tape-line"></div>
+    </div>
+
+    <!-- 08 CONCLUSION -->
+    <div class="sequence">
+      <div class="seq-header">
+        <span class="seq-num">08</span>
+        <span class="seq-title">Conclusion</span>
+        <span class="seq-duration">45 sec</span>
+      </div>
+      <p class="seq-text">
+        Turbulence n'a jamais eu l'ambition de réinventer le genre qu'il clôturait.<br /><br />
+        Il avait quelque chose de plus simple à prouver — qu'un huis clos resserré, porté par deux acteurs qui se donnent tout entiers à leur affrontement, tient toujours la route quand tout le reste est mis de côté.<br /><br />
+        Trois avions cette saison. Un consultant en sécurité aérienne piégé dans une prise d'otages, une équipe militaire qui déjoue un complot, une hôtesse seule face à un homme qui ne s'arrête jamais.<br /><br />
+        La cassette est dans le lecteur. On rembobine.
+      </p>
+    </div>
+
+    <!-- FICHE -->
+    <div class="info-grid">
+      <div class="info-block">
+        <p class="key">Titre original</p>
+        <p class="val">Turbulence</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Pays</p>
+        <p class="val">États-Unis</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Genre</p>
+        <p class="val">Thriller</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Durée</p>
+        <p class="val">103 min</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Producteur</p>
+        <p class="val">MGM</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Avec aussi</p>
+        <p class="val">Brendan Gleeson · Rachel Ticotin</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Fil conducteur</p>
+        <p class="val">Panique à bord (3/3)</p>
+      </div>
+      <div class="info-block">
+        <p class="key">Note</p>
+        <p class="val">Découvert récemment via une critique en ligne</p>
+      </div>
+    </div>
+
+    <!-- FIN DE SAISON -->
+    <div class="saison-fin">
+      <div class="saison-fin-label">Fin de saison</div>
+      <div class="saison-fin-title">SOMEDAY — SAISON 2</div>
+      <div class="saison-fin-sub">12 épisodes · 1987–2001 · Someday Production</div>
+    </div>
+
+    <div class="total-bar">
+      <span class="total-label">Durée totale estimée</span>
+      <span class="total-val">~ 9 MIN 30</span>
+    </div>
+
+    <!-- VIDÉO -->
+    <div class="video-block">
+      <p class="video-label">SOMEDAY — S2 EP. 12</p>
+      <video class="video-player" controls preload="metadata">
+        <source src="s2ep12-turbulence.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <nav class="footer-nav">
+      <a href="index.html">← Accueil</a>
+      <a href="index.html#saison2">Saison 2</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
