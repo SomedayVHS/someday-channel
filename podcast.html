@@ -4,23 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SOMEDAY — Podcast</title>
+  <meta name="description" content="Les 12 épisodes de la Saison 1 de SOMEDAY en version audio : thrillers, films d'action et séries B oubliés de 1982 à 2005." />
+  <link rel="canonical" href="https://someday-vhs.com/podcast.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SOMEDAY" />
+  <meta property="og:title" content="SOMEDAY — Podcast" />
+  <meta property="og:description" content="Les 12 épisodes de la Saison 1 de SOMEDAY en version audio : thrillers, films d'action et séries B oubliés de 1982 à 2005." />
+  <meta property="og:url" content="https://someday-vhs.com/podcast.html" />
+  <meta property="og:image" content="https://someday-vhs.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --black: #080808; --white: #e8e4dc; --dim: #6b6660; --accent: #c8392b; }
+    :root { --black: #080808; --white: #e8e4dc; --dim: #8a857d; --accent: #c8392b; --accent-text: #e2564a; --accent-strong: #a82e22; }
     html { scroll-behavior: smooth; }
     body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
     body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 1000; }
     body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 999; }
 
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+    nav.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
     .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--white); }
     .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.3em; color: var(--white); text-decoration: none; opacity: 0.5; }
 
     .hero { min-height: 45vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 2rem 4rem; background: radial-gradient(ellipse at 40% 60%, #100a08 0%, var(--black) 65%); border-bottom: 1px solid rgba(255,255,255,0.05); }
     .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
-    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; color: var(--accent-text); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
     .ep-label::after { content: ''; height: 1px; width: 60px; background: var(--accent); opacity: 0.4; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 7vw, 5rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--white); margin-bottom: 1rem; max-width: 700px; }
     .hero-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; line-height: 1.7; color: var(--dim); max-width: 560px; }
@@ -36,7 +47,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .podcast-ep-top { display: flex; align-items: center; gap: 1.5rem; }
-    .ep-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--accent); white-space: nowrap; }
+    .ep-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.15em; color: var(--accent-text); white-space: nowrap; }
     .ep-info { flex: 1; }
     .ep-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.03em; color: var(--white); margin-bottom: 0.2rem; }
     .ep-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--dim); }
@@ -68,14 +79,31 @@
     @media (max-width: 600px) {
       .podcast-ep-top { flex-wrap: wrap; }
     }
+    /* patch-site : accessibilité */
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.3em; color: var(--dim); text-decoration: none; display: inline-block; margin-bottom: 0.75rem; transition: color 0.2s; }
+    .footer-logo:hover { color: var(--white); }
+    .footer-nav { flex-wrap: wrap; gap: 1rem 2rem; }
+    a:focus-visible, button:focus-visible, video:focus-visible, audio:focus-visible { outline: 1px solid var(--accent-text); outline-offset: 3px; }
+    .skip-link { position: fixed; top: 0.75rem; left: 0.75rem; z-index: 1100; padding: 0.6rem 1rem; background: var(--white); color: var(--black); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; transform: translateY(-200%); }
+    .skip-link:focus { transform: none; }
+    .audio-player[hidden] { display: none; }
+    .podcast-link { margin-top: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; }
+    .podcast-link a { color: var(--white); text-underline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-  <nav>
+  <nav class="site-nav">
     <a href="index.html" class="nav-back">← Accueil</a>
     <a href="index.html" class="nav-logo">SOMEDAY</a>
   </nav>
+
+  <main id="contenu">
 
   <section class="hero">
     <div class="hero-inner">
@@ -89,7 +117,7 @@
 
     <div class="episode-list">
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep01">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 01</span>
           <div class="ep-info">
@@ -98,12 +126,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Harley Davidson et l'homme aux santiags" class="audio-player" controls preload="none">
           <source src="podcast-ep01-harley-davidson.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep02">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 02</span>
           <div class="ep-info">
@@ -112,12 +140,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Au-dessus de la loi (Joshua Tree)" class="audio-player" controls preload="none">
           <source src="podcast-ep02-joshua-tree.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep03">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 03</span>
           <div class="ep-info">
@@ -126,12 +154,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Showdown in Little Tokyo" class="audio-player" controls preload="none">
           <source src="podcast-ep03-showdown-little-tokyo.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep04">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 04</span>
           <div class="ep-info">
@@ -140,12 +168,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Rapid Fire" class="audio-player" controls preload="none">
           <source src="podcast-ep04-rapid-fire.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep05">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 05</span>
           <div class="ep-info">
@@ -154,12 +182,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Espion Junior (If Looks Could Kill)" class="audio-player" controls preload="none">
           <source src="podcast-ep05-espion-junior.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep06">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 06</span>
           <div class="ep-info">
@@ -168,12 +196,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : La Prise de Beverly Hills" class="audio-player" controls preload="none">
           <source src="podcast-ep06-la-prise-de-beverly-hills.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep07">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 07</span>
           <div class="ep-info">
@@ -182,12 +210,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Guet-Apens" class="audio-player" controls preload="none">
           <source src="podcast-ep07-guet-apens.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep08">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 08</span>
           <div class="ep-info">
@@ -196,12 +224,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : The Substitute" class="audio-player" controls preload="none">
           <source src="podcast-ep08-the-substitute.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep09">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 09</span>
           <div class="ep-info">
@@ -210,12 +238,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : BlackJack" class="audio-player" controls preload="none">
           <source src="podcast-ep09-blackjack.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep10">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 10</span>
           <div class="ep-info">
@@ -224,12 +252,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : 3000 Miles to Graceland" class="audio-player" controls preload="none">
           <source src="podcast-ep10-3000-miles-to-graceland.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep11">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 11</span>
           <div class="ep-info">
@@ -238,12 +266,12 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Crying Freeman" class="audio-player" controls preload="none">
           <source src="podcast-ep11-crying-freeman.mp3" type="audio/mpeg">
         </audio>
       </div>
 
-      <div class="podcast-ep">
+      <div class="podcast-ep" id="ep12">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 12</span>
           <div class="ep-info">
@@ -252,7 +280,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Portrait — Dolph Lundgren" class="audio-player" controls preload="none">
           <source src="podcast-ep12-portrait-dolph-lundgren.mp3" type="audio/mpeg">
         </audio>
       </div>
@@ -260,11 +288,14 @@
     </div>
   </div>
 
+  </main>
+
   <footer>
-    <a href="https://somedayvhs.github.io/someday-production/index.html" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.3em;color:var(--dim);text-decoration:none;display:inline-block;margin-bottom:0.75rem;transition:color 0.2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--dim)'">SOMEDAY PRODUCTION</a>
+    <a class="footer-logo" href="https://somedayvhs.github.io/someday-production/index.html">SOMEDAY PRODUCTION</a>
     <nav class="footer-nav">
       <a href="index.html">← Accueil</a>
       <a href="index.html#episodes">Tous les épisodes</a>
+      <a href="mentions-legales.html">Mentions légales</a>
     </nav>
   </footer>
 
