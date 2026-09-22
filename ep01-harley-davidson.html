@@ -4,6 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EP.01 — Harley Davidson et l'homme aux santiags · SOMEDAY</title>
+  <meta name="description" content=" (1991), de Simon Wincer, avec Mickey Rourke, Don Johnson. L'article et l'extrait vidéo de l'épisode SOMEDAY." />
+  <link rel="canonical" href="https://someday-vhs.com/ep01-harley-davidson.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="SOMEDAY" />
+  <meta property="og:title" content="EP.01 — Harley Davidson et l'homme aux santiags" />
+  <meta property="og:description" content=" (1991), de Simon Wincer, avec Mickey Rourke, Don Johnson. L'article et l'extrait vidéo de l'épisode SOMEDAY." />
+  <meta property="og:url" content="https://someday-vhs.com/ep01-harley-davidson.html" />
+  <meta property="og:image" content="https://someday-vhs.com/HDMM.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,8 +22,8 @@
     :root {
       --black: #080808;
       --white: #e8e4dc;
-      --dim: #6b6660;
-      --accent: #c8392b;
+      --dim: #8a857d;
+      --accent: #c8392b; --accent-text: #e2564a; --accent-strong: #a82e22;
     }
 
     html { scroll-behavior: smooth; }
@@ -103,7 +114,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.65rem;
       letter-spacing: 0.4em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 1.5rem;
       display: flex;
@@ -175,7 +186,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.3em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -191,7 +202,7 @@
     .seq-duration {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.6rem;
-      color: rgba(107,102,96,0.5);
+      color: var(--dim);
       margin-left: auto;
     }
 
@@ -316,7 +327,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.3em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
@@ -333,8 +344,7 @@
       font-size: 0.65rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--black);
-      background: var(--accent);
+      color: var(--white); background: var(--accent-strong);
       border: none;
       padding: 0.85rem 1.75rem;
       text-decoration: none;
@@ -348,7 +358,7 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.3em;
-      color: var(--accent);
+      color: var(--accent-text);
       text-transform: uppercase;
       margin-bottom: 1rem;
       display: flex;
@@ -455,14 +465,31 @@
       .ep-label { font-size: 0.5rem; }
       .seq-text { font-size: 0.9rem; }
     }
+    /* patch-site : accessibilité */
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.3em; color: var(--dim); text-decoration: none; display: inline-block; margin-bottom: 0.75rem; transition: color 0.2s; }
+    .footer-logo:hover { color: var(--white); }
+    .footer-nav { flex-wrap: wrap; gap: 1rem 2rem; }
+    a:focus-visible, button:focus-visible, video:focus-visible, audio:focus-visible { outline: 1px solid var(--accent-text); outline-offset: 3px; }
+    .skip-link { position: fixed; top: 0.75rem; left: 0.75rem; z-index: 1100; padding: 0.6rem 1rem; background: var(--white); color: var(--black); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; transform: translateY(-200%); }
+    .skip-link:focus { transform: none; }
+    .audio-player[hidden] { display: none; }
+    .podcast-link { margin-top: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; }
+    .podcast-link a { color: var(--white); text-underline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
   <nav>
     <a href="index.html" class="nav-back">← Tous les épisodes</a>
     <a href="index.html" class="nav-logo">SOMEDAY</a>
   </nav>
+
+  <main id="contenu">
 
   <section class="hero">
     <div class="hero-inner">
@@ -505,7 +532,7 @@
 
     <!-- IMAGE 1 : visuel d'ouverture -->
     <div class="img-zone">
-      <img src="HDMM.jpg" alt="Harley Davidson et l'homme aux santiags — affiche française 1991" />
+      <img loading="lazy" decoding="async" src="HDMM.jpg" alt="Harley Davidson et l'homme aux santiags — affiche française 1991" />
       <p class="img-caption">Harley Davidson et l'homme aux santiags — affiche française, 1991</p>
     </div>
 
@@ -541,7 +568,7 @@
 
     <!-- IMAGE 2 : contexte d'époque -->
     <div class="img-zone">
-      <img src="ep01-harley-davidson-2.jpg" alt="Harley Davidson et l'homme aux santiags — contexte d'époque" />
+      <img loading="lazy" decoding="async" src="ep01-harley-davidson-2.jpg" alt="Harley Davidson et l'homme aux santiags — contexte d'époque" />
       <p class="img-caption"></p>
     </div>
 
@@ -577,7 +604,7 @@
 
     <!-- IMAGE 3 : plan du film -->
     <div class="img-zone">
-      <img src="ep01-harley-davidson-3.jpg" alt="Harley Davidson et l'homme aux santiags — plan du film" />
+      <img loading="lazy" decoding="async" src="ep01-harley-davidson-3.jpg" alt="Harley Davidson et l'homme aux santiags — plan du film" />
       <p class="img-caption"></p>
     </div>
 
@@ -632,7 +659,7 @@
     <!-- VIDÉO -->
     <div class="video-block">
       <p class="video-label">SOMEDAY — EP. 01</p>
-      <video class="video-player" controls preload="metadata">
+      <video class="video-player" controls preload="metadata" playsinline>
         <source src="ep01-harley-davidson.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la lecture vidéo.
       </video>
@@ -640,11 +667,14 @@
 
   </div>
 
+  </main>
+
   <footer>
     <p class="footer-logo">SOMEDAY PRODUCTION</p>
     <nav class="footer-nav">
       <a href="index.html">← Accueil</a>
       <a href="index.html#episodes">Tous les épisodes</a>
+      <a href="mentions-legales.html">Mentions légales</a>
     </nav>
   </footer>
 
