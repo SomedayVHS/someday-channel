@@ -185,7 +185,7 @@
       position: relative;
     }
 
-    .hero-title::before {
+    .hero-title .logo::before {
       content: 'SOMEDAY';
       position: absolute;
       inset: 0;
@@ -204,7 +204,10 @@
       97% { opacity: 0.3; transform: translateX(-2px); clip-path: polygon(0 70%, 100% 70%, 100% 75%, 0 75%); }
     }
 
+    .hero-title .logo { display: block; position: relative; }
     .hero-tagline {
+      display: block;
+      line-height: 1.6;
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.7rem, 2vw, 0.9rem);
       letter-spacing: 0.2em;
@@ -340,6 +343,9 @@
       font-weight: 400;
       font-style: italic;
     }
+
+    .ep-vo { font-weight: 400; font-style: italic; color: var(--dim); }
+    div.episode { cursor: default; }
 
     .ep-meta { font-size: 0.7rem; color: var(--dim); letter-spacing: 0.05em; }
 
@@ -503,11 +509,195 @@
     .footer-legal a { color: inherit; text-underline-offset: 3px; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero-title::before { animation: none; opacity: 0; }
+      .hero-title .logo::before { animation: none; opacity: 0; }
       .hero-scroll, .hero-scroll * { animation: none; }
       *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://someday-vhs.com/#website",
+      "url": "https://someday-vhs.com/",
+      "name": "SOMEDAY",
+      "inLanguage": "fr",
+      "publisher": {
+        "@id": "https://someday-vhs.com/#org"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://someday-vhs.com/#org",
+      "name": "SOMEDAY",
+      "url": "https://someday-vhs.com/",
+      "logo": "https://someday-vhs.com/og-image.png",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Someday Production"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Épisodes SOMEDAY",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://someday-vhs.com/ep01-harley-davidson.html",
+          "name": "Harley Davidson et l'homme aux santiags – Harley Davidson and the Marlboro Man (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://someday-vhs.com/ep02-joshua-tree.html",
+          "name": "Joshua Tree (1993)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://someday-vhs.com/ep03-showdown-little-tokyo.html",
+          "name": "Showdown in Little Tokyo (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://someday-vhs.com/ep04-rapid-fire.html",
+          "name": "Rapid Fire (1992)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://someday-vhs.com/ep05-espion-junior.html",
+          "name": "Espion Junior – If Looks Could Kill (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://someday-vhs.com/ep06-la-prise-de-beverly-hills.html",
+          "name": "La Prise de Beverly Hills – The Taking of Beverly Hills (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://someday-vhs.com/ep07-guet-apens.html",
+          "name": "Guet-Apens – The Getaway (1994)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://someday-vhs.com/ep08-the-substitute.html",
+          "name": "The Substitute (1996)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://someday-vhs.com/ep09-blackjack.html",
+          "name": "BlackJack (1998)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "url": "https://someday-vhs.com/ep10-3000-miles-to-graceland.html",
+          "name": "3000 Miles to Graceland (2001)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "url": "https://someday-vhs.com/ep11-crying-freeman.html",
+          "name": "Crying Freeman (1995)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "url": "https://someday-vhs.com/ep12-portrait-dolph-lundgren.html",
+          "name": "Portrait — Dolph Lundgren"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "url": "https://someday-vhs.com/spec-ep01-die-hard-2.html",
+          "name": "Die Hard 2 (1990)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "url": "https://someday-vhs.com/s2ep01-heavens-prisoners.html",
+          "name": "Vengeance Froide – Heaven's Prisoners (1996)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "url": "https://someday-vhs.com/s2ep02-the-edge.html",
+          "name": "À couteaux tirés – The Edge (1997)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "url": "https://someday-vhs.com/s2ep03-only-the-strong.html",
+          "name": "Only the Strong (1993)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "url": "https://someday-vhs.com/s2ep04-adventures-in-babysitting.html",
+          "name": "Adventures in Babysitting (1987)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "url": "https://someday-vhs.com/s2ep05-breakdown.html",
+          "name": "Breakdown (1997)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "url": "https://someday-vhs.com/s2ep06-the-punisher.html",
+          "name": "The Punisher (1989)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "url": "https://someday-vhs.com/s2ep07-the-hot-spot.html",
+          "name": "The Hot Spot (1990)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "url": "https://someday-vhs.com/s2ep08-passager-57.html",
+          "name": "Passager 57 – Passenger 57 (1992)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "url": "https://someday-vhs.com/s2ep09-drop-zone.html",
+          "name": "Drop Zone (1994)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "url": "https://someday-vhs.com/s2ep10-nowhere-to-run.html",
+          "name": "Cavale sans issue – Nowhere to Run (1993)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "url": "https://someday-vhs.com/s2ep11-executive-decision.html",
+          "name": "Executive Decision (1996)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 25,
+          "url": "https://someday-vhs.com/s2ep12-turbulence.html",
+          "name": "Turbulence (1997)"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -534,9 +724,9 @@
   <section class="hero">
     <p class="hero-eyebrow">Someday Production — Podcast</p>
     <h1 class="hero-title">
-  <span class="logo">SOMEDAY</span>
-  <span class="tagline">Films et séries oubliés des années VHS. Retrouvés. Racontés.</span>
-</h1></p>
+      <span class="logo">SOMEDAY</span>
+      <span class="hero-tagline">Films et séries oubliés des années VHS. <span>Retrouvés. Racontés.</span></span>
+    </h1>
     <p class="hero-scroll">↓ &nbsp; défiler</p>
   </section>
 
@@ -570,7 +760,7 @@
       <a href="ep01-harley-davidson.html" class="episode pilot">
         <span class="ep-num" style="color:var(--white)">EP. 01</span>
         <div class="ep-info">
-          <p class="ep-title">Harley Davidson et l'homme aux santiags</p>
+          <h3 class="ep-title">Harley Davidson et l'homme aux santiags <span class="ep-vo">(Harley Davidson and the Marlboro Man)</span></h3>
           <p class="ep-meta">1991 — Simon Wincer &nbsp;·&nbsp; Mickey Rourke, Don Johnson</p>
         </div>
         <span class="ep-badge">Pilot →</span>
@@ -579,7 +769,7 @@
       <a href="ep02-joshua-tree.html" class="episode">
         <span class="ep-num">EP. 02</span>
         <div class="ep-info">
-          <p class="ep-title">Joshua Tree</p>
+          <h3 class="ep-title">Joshua Tree</h3>
           <p class="ep-meta">1993 — Vic Armstrong &nbsp;·&nbsp; Dolph Lundgren</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -588,7 +778,7 @@
       <a href="ep03-showdown-little-tokyo.html" class="episode">
         <span class="ep-num">EP. 03</span>
         <div class="ep-info">
-          <p class="ep-title">Showdown in Little Tokyo</p>
+          <h3 class="ep-title">Showdown in Little Tokyo</h3>
           <p class="ep-meta">1991 — Mark L. Lester &nbsp;·&nbsp; Dolph Lundgren, Brandon Lee</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -597,7 +787,7 @@
       <a href="ep04-rapid-fire.html" class="episode">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title">Rapid Fire</p>
+          <h3 class="ep-title">Rapid Fire</h3>
           <p class="ep-meta">1992 — Dwight H. Little &nbsp;·&nbsp; Brandon Lee</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -606,7 +796,7 @@
       <a href="ep05-espion-junior.html" class="episode">
         <span class="ep-num">EP. 05</span>
         <div class="ep-info">
-          <p class="ep-title">Espion Junior</p>
+          <h3 class="ep-title">Espion Junior <span class="ep-vo">(If Looks Could Kill)</span></h3>
           <p class="ep-meta">1991 — William Dear &nbsp;·&nbsp; Richard Grieco</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -615,7 +805,7 @@
       <a href="ep06-la-prise-de-beverly-hills.html" class="episode">
         <span class="ep-num">EP. 06</span>
         <div class="ep-info">
-          <p class="ep-title">La Prise de Beverly Hills</p>
+          <h3 class="ep-title">La Prise de Beverly Hills <span class="ep-vo">(The Taking of Beverly Hills)</span></h3>
           <p class="ep-meta">1991 — Sidney J. Furie &nbsp;·&nbsp; Ken Wahl</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -624,7 +814,7 @@
       <a href="ep07-guet-apens.html" class="episode">
         <span class="ep-num">EP. 07</span>
         <div class="ep-info">
-          <p class="ep-title">Guet-Apens</p>
+          <h3 class="ep-title">Guet-Apens <span class="ep-vo">(The Getaway)</span></h3>
           <p class="ep-meta">1994 — Roger Donaldson &nbsp;·&nbsp; Alec Baldwin, Kim Basinger</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -633,7 +823,7 @@
       <a href="ep08-the-substitute.html" class="episode">
         <span class="ep-num">EP. 08</span>
         <div class="ep-info">
-          <p class="ep-title">The Substitute</p>
+          <h3 class="ep-title">The Substitute</h3>
           <p class="ep-meta">1996 — Robert Mandel &nbsp;·&nbsp; Tom Berenger</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -642,7 +832,7 @@
       <a href="ep09-blackjack.html" class="episode">
         <span class="ep-num">EP. 09</span>
         <div class="ep-info">
-          <p class="ep-title">BlackJack</p>
+          <h3 class="ep-title">BlackJack</h3>
           <p class="ep-meta">1998 — John Woo &nbsp;·&nbsp; Dolph Lundgren</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -651,7 +841,7 @@
       <a href="ep10-3000-miles-to-graceland.html" class="episode">
         <span class="ep-num">EP. 10</span>
         <div class="ep-info">
-          <p class="ep-title">3000 Miles to Graceland</p>
+          <h3 class="ep-title">3000 Miles to Graceland</h3>
           <p class="ep-meta">2001 — Demian Lichtenstein &nbsp;·&nbsp; Kurt Russell, Kevin Costner</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -660,7 +850,7 @@
       <a href="ep11-crying-freeman.html" class="episode">
         <span class="ep-num">EP. 11</span>
         <div class="ep-info">
-          <p class="ep-title">Crying Freeman</p>
+          <h3 class="ep-title">Crying Freeman</h3>
           <p class="ep-meta">1995 — Christophe Gans &nbsp;·&nbsp; Mark Dacascos</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -669,7 +859,7 @@
       <a href="ep12-portrait-dolph-lundgren.html" class="episode">
         <span class="ep-num">EP. 12</span>
         <div class="ep-info">
-          <p class="ep-title">Portrait — Dolph Lundgren</p>
+          <h3 class="ep-title">Portrait — Dolph Lundgren</h3>
           <p class="ep-meta">1987–1998 — Épisode spécial &nbsp;·&nbsp; 12–15 min</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -695,56 +885,56 @@
       <a href="spec-ep01-die-hard-2.html" class="episode pilot">
         <span class="ep-num" style="color:var(--white)">EP. 01</span>
         <div class="ep-info">
-          <p class="ep-title">Die Hard 2</p>
+          <h3 class="ep-title">Die Hard 2</h3>
           <p class="ep-meta">1990 — Renny Harlin &nbsp;·&nbsp; Bruce Willis</p>
         </div>
         <span class="ep-badge">Lire →</span>
       </a>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 02</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Rambo 3</p>
+          <h3 class="ep-title tbd">Rambo 3</h3>
           <p class="ep-meta">1988 — Peter MacDonald &nbsp;·&nbsp; Sylvester Stallone</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 03</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Superman III</p>
+          <h3 class="ep-title tbd">Superman III</h3>
           <p class="ep-meta">1983 — Richard Lester &nbsp;·&nbsp; Christopher Reeve, Richard Pryor</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title tbd">L'Arme Fatale 3</p>
+          <h3 class="ep-title tbd">L'Arme Fatale 3</h3>
           <p class="ep-meta">1992 — Richard Donner &nbsp;·&nbsp; Mel Gibson, Danny Glover</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 05</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Le Flic de Beverly Hills 3</p>
+          <h3 class="ep-title tbd">Le Flic de Beverly Hills 3</h3>
           <p class="ep-meta">1994 — John Landis &nbsp;·&nbsp; Eddie Murphy</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 06</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Terminator 2 : Le Jugement Dernier</p>
+          <h3 class="ep-title tbd">Terminator 2 : Le Jugement Dernier</h3>
           <p class="ep-meta">1991 — James Cameron &nbsp;·&nbsp; Arnold Schwarzenegger</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
     </div>
   </section>
@@ -760,7 +950,7 @@
       <a href="s2ep01-heavens-prisoners.html" class="episode">
         <span class="ep-num">EP. 01</span>
         <div class="ep-info">
-          <p class="ep-title">Vengeance Froide</p>
+          <h3 class="ep-title">Vengeance Froide <span class="ep-vo">(Heaven's Prisoners)</span></h3>
           <p class="ep-meta">1996 — Phil Joanou &nbsp;·&nbsp; Alec Baldwin, Eric Roberts</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -769,7 +959,7 @@
       <a href="s2ep02-the-edge.html" class="episode">
         <span class="ep-num">EP. 02</span>
         <div class="ep-info">
-          <p class="ep-title">À couteaux tirés</p>
+          <h3 class="ep-title">À couteaux tirés <span class="ep-vo">(The Edge)</span></h3>
           <p class="ep-meta">1997 — Lee Tamahori &nbsp;·&nbsp; Anthony Hopkins, Alec Baldwin</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -778,7 +968,7 @@
       <a href="s2ep03-only-the-strong.html" class="episode">
         <span class="ep-num">EP. 03</span>
         <div class="ep-info">
-          <p class="ep-title">Only the Strong</p>
+          <h3 class="ep-title">Only the Strong</h3>
           <p class="ep-meta">1993 — Sheldon Lettich &nbsp;·&nbsp; Mark Dacascos</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -787,7 +977,7 @@
       <a href="s2ep04-adventures-in-babysitting.html" class="episode">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title">Adventures in Babysitting</p>
+          <h3 class="ep-title">Adventures in Babysitting</h3>
           <p class="ep-meta">1987 — Chris Columbus &nbsp;·&nbsp; Elisabeth Shue</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -796,7 +986,7 @@
       <a href="s2ep05-breakdown.html" class="episode">
         <span class="ep-num">EP. 05</span>
         <div class="ep-info">
-          <p class="ep-title">Breakdown</p>
+          <h3 class="ep-title">Breakdown</h3>
           <p class="ep-meta">1997 — Jonathan Mostow &nbsp;·&nbsp; Kurt Russell</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -805,7 +995,7 @@
       <a href="s2ep06-the-punisher.html" class="episode">
         <span class="ep-num">EP. 06</span>
         <div class="ep-info">
-          <p class="ep-title">The Punisher</p>
+          <h3 class="ep-title">The Punisher</h3>
           <p class="ep-meta">1989 — Mark Goldblatt &nbsp;·&nbsp; Dolph Lundgren</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -814,7 +1004,7 @@
       <a href="s2ep07-the-hot-spot.html" class="episode">
         <span class="ep-num">EP. 07</span>
         <div class="ep-info">
-          <p class="ep-title">The Hot Spot</p>
+          <h3 class="ep-title">The Hot Spot</h3>
           <p class="ep-meta">1990 — Dennis Hopper &nbsp;·&nbsp; Don Johnson</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -823,7 +1013,7 @@
       <a href="s2ep08-passager-57.html" class="episode">
         <span class="ep-num">EP. 08</span>
         <div class="ep-info">
-          <p class="ep-title">Passager 57</p>
+          <h3 class="ep-title">Passager 57 <span class="ep-vo">(Passenger 57)</span></h3>
           <p class="ep-meta">1992 — Kevin Hooks &nbsp;·&nbsp; Wesley Snipes</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -832,7 +1022,7 @@
       <a href="s2ep09-drop-zone.html" class="episode">
         <span class="ep-num">EP. 09</span>
         <div class="ep-info">
-          <p class="ep-title">Drop Zone</p>
+          <h3 class="ep-title">Drop Zone</h3>
           <p class="ep-meta">1994 — John Badham &nbsp;·&nbsp; Wesley Snipes</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -841,7 +1031,7 @@
       <a href="s2ep10-nowhere-to-run.html" class="episode">
         <span class="ep-num">EP. 10</span>
         <div class="ep-info">
-          <p class="ep-title">Cavale sans issue</p>
+          <h3 class="ep-title">Cavale sans issue <span class="ep-vo">(Nowhere to Run)</span></h3>
           <p class="ep-meta">1993 — Robert Harmon &nbsp;·&nbsp; Jean-Claude Van Damme</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -850,7 +1040,7 @@
       <a href="s2ep11-executive-decision.html" class="episode">
         <span class="ep-num">EP. 11</span>
         <div class="ep-info">
-          <p class="ep-title">Executive Decision</p>
+          <h3 class="ep-title">Executive Decision</h3>
           <p class="ep-meta">1996 — Stuart Baird &nbsp;·&nbsp; Kurt Russell, Steven Seagal</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -859,7 +1049,7 @@
       <a href="s2ep12-turbulence.html" class="episode">
         <span class="ep-num">EP. 12</span>
         <div class="ep-info">
-          <p class="ep-title">Turbulence</p>
+          <h3 class="ep-title">Turbulence</h3>
           <p class="ep-meta">1997 — Robert Butler &nbsp;·&nbsp; Ray Liotta</p>
         </div>
         <span class="ep-badge">Lire →</span>
@@ -882,113 +1072,113 @@
 
     <div class="episode-list">
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 01</span>
         <div class="ep-info">
-          <p class="ep-title tbd">White Men Can't Jump</p>
+          <h3 class="ep-title tbd">White Men Can't Jump</h3>
           <p class="ep-meta">1992 — Ron Shelton &nbsp;·&nbsp; Woody Harrelson, Wesley Snipes</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 02</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Fair Game</p>
+          <h3 class="ep-title tbd">Fair Game</h3>
           <p class="ep-meta">1995 — Andrew Sipes &nbsp;·&nbsp; Cindy Crawford, William Baldwin</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 03</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Alarme fatale</p>
+          <h3 class="ep-title tbd">Alarme fatale</h3>
           <p class="ep-meta">1993 — Gene Quintano &nbsp;·&nbsp; Emilio Estevez, Samuel L. Jackson</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Kickboxer</p>
+          <h3 class="ep-title tbd">Kickboxer</h3>
           <p class="ep-meta">1989 — Mark DiSalle, David Worth &nbsp;·&nbsp; Jean-Claude Van Damme</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 05</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Bloodsport</p>
+          <h3 class="ep-title tbd">Bloodsport</h3>
           <p class="ep-meta">1988 — Newt Arnold &nbsp;·&nbsp; Jean-Claude Van Damme</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 06</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Double Impact</p>
+          <h3 class="ep-title tbd">Double Impact</h3>
           <p class="ep-meta">1991 — Sheldon Lettich &nbsp;·&nbsp; Jean-Claude Van Damme</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 07</span>
         <div class="ep-info">
-          <p class="ep-title tbd">The Shadow</p>
+          <h3 class="ep-title tbd">The Shadow</h3>
           <p class="ep-meta">1994 — Russell Mulcahy &nbsp;·&nbsp; Alec Baldwin</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 08</span>
         <div class="ep-info">
-          <p class="ep-title tbd">RoboCop</p>
+          <h3 class="ep-title tbd">RoboCop</h3>
           <p class="ep-meta">1987 — Paul Verhoeven &nbsp;·&nbsp; Peter Weller</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 09</span>
         <div class="ep-info">
-          <p class="ep-title tbd">True Lies</p>
+          <h3 class="ep-title tbd">True Lies</h3>
           <p class="ep-meta">1994 — James Cameron &nbsp;·&nbsp; Arnold Schwarzenegger</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 10</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Les Tortues Ninjas</p>
+          <h3 class="ep-title tbd">Les Tortues Ninjas</h3>
           <p class="ep-meta">1990 — Steve Barron &nbsp;·&nbsp; Judith Hoag, Elias Koteas</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 11</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Sidekicks</p>
+          <h3 class="ep-title tbd">Sidekicks</h3>
           <p class="ep-meta">1992 — Aaron Norris &nbsp;·&nbsp; Chuck Norris, Jonathan Brandis</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 12</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Portrait — Jean-Claude Van Damme</p>
+          <h3 class="ep-title tbd">Portrait — Jean-Claude Van Damme</h3>
           <p class="ep-meta">1988–1991 — Spécial &nbsp;·&nbsp; Jean-Claude Van Damme</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
     </div>
   </section>
@@ -1007,113 +1197,113 @@
 
     <div class="episode-list">
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 01</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Terminal Velocity</p>
+          <h3 class="ep-title tbd">Terminal Velocity</h3>
           <p class="ep-meta">1994 — Deran Sarafian &nbsp;·&nbsp; Charlie Sheen</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 02</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Étroite surveillance</p>
+          <h3 class="ep-title tbd">Étroite surveillance</h3>
           <p class="ep-meta">1987 — John Badham &nbsp;·&nbsp; Richard Dreyfuss, Emilio Estevez</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 03</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Indiscrétion assurée</p>
+          <h3 class="ep-title tbd">Indiscrétion assurée</h3>
           <p class="ep-meta">1993 — John Badham &nbsp;·&nbsp; Richard Dreyfuss, Emilio Estevez</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 04</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Kickboxer 5 : Le Dernier Combat</p>
+          <h3 class="ep-title tbd">Kickboxer 5 : Le Dernier Combat</h3>
           <p class="ep-meta">1995 — Kristine Peterson &nbsp;·&nbsp; Mark Dacascos</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 05</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Chasse à l'homme</p>
+          <h3 class="ep-title tbd">Chasse à l'homme</h3>
           <p class="ep-meta">1993 — John Woo &nbsp;·&nbsp; Jean-Claude Van Damme</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 06</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Blade</p>
+          <h3 class="ep-title tbd">Blade</h3>
           <p class="ep-meta">1998 — Stephen Norrington &nbsp;·&nbsp; Wesley Snipes</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 07</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Cliffhanger</p>
+          <h3 class="ep-title tbd">Cliffhanger</h3>
           <p class="ep-meta">1993 — Renny Harlin &nbsp;·&nbsp; Sylvester Stallone</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 08</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Au revoir à jamais</p>
+          <h3 class="ep-title tbd">Au revoir à jamais</h3>
           <p class="ep-meta">1996 — Renny Harlin &nbsp;·&nbsp; Geena Davis, Samuel L. Jackson</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 09</span>
         <div class="ep-info">
-          <p class="ep-title tbd">New York 1997</p>
+          <h3 class="ep-title tbd">New York 1997</h3>
           <p class="ep-meta">1981 — John Carpenter &nbsp;·&nbsp; Kurt Russell</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 10</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Cœur de tonnerre</p>
+          <h3 class="ep-title tbd">Cœur de tonnerre</h3>
           <p class="ep-meta">1992 — Michael Apted &nbsp;·&nbsp; Val Kilmer</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 11</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Desperado</p>
+          <h3 class="ep-title tbd">Desperado</h3>
           <p class="ep-meta">1995 — Robert Rodriguez &nbsp;·&nbsp; Antonio Banderas</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
-      <a href="bientot.html" class="episode">
+      <div class="episode" aria-disabled="true">
         <span class="ep-num">EP. 12</span>
         <div class="ep-info">
-          <p class="ep-title tbd">Piège en haute mer</p>
+          <h3 class="ep-title tbd">Piège en haute mer</h3>
           <p class="ep-meta">1992 — Andrew Davis &nbsp;·&nbsp; Steven Seagal</p>
         </div>
         <span class="ep-badge soon">Bientôt</span>
-      </a>
+      </div>
 
     </div>
   </section>
