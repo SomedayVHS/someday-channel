@@ -94,6 +94,70 @@
     }
   </style>
   <link rel="stylesheet" href="theme.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- Jaquettes K7 du podcast ---------- */
+    .content { max-width: 900px; }
+    .podcast-ep { display: grid; grid-template-columns: 250px 1fr; gap: 2.2rem; align-items: center; }
+    .jc-side { min-width: 0; }
+    .jcard {
+      container-type: inline-size;
+      position: relative;
+      aspect-ratio: 1222 / 1332;
+      display: grid;
+      grid-template-columns: 19.6% 11.9% 1fr;
+      padding: 2.4%;
+      background: #0b0a0c;
+      border: 1px solid rgba(232,224,208,.28);
+      border-radius: 2.2%;
+      box-shadow: 0 0 0 4px #141216, 0 18px 40px rgba(0,0,0,.55);
+      overflow: hidden;
+      transition: transform .3s ease;
+    }
+    .jcard::after { /* reflet du boîtier */
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(115deg, rgba(255,255,255,.08) 0%, transparent 30%, transparent 70%, rgba(255,255,255,.04) 100%);
+    }
+    .podcast-ep:hover .jcard { transform: rotate(-1.2deg) translateY(-3px); }
+    .jc-flap, .jc-spine { display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: stretch; gap: 5%; padding: 5% 0; }
+    .jc-flap { background: #121115; padding-inline: 6%; border-right: 1px solid rgba(255,255,255,.05); }
+    .jc-spine { background: #17151a; justify-content: space-between; flex-direction: column; align-items: center; border-right: 1px solid rgba(255,255,255,.08); }
+    .jc-credit, .jc-face, .jc-spine span { writing-mode: vertical-rl; white-space: nowrap; }
+    .jc-credit { font: 1.9cqw/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .25em; color: rgba(232,224,208,.35); }
+    .jc-face { font: 3cqw/1 Arial, sans-serif; color: #e8e0d0; }
+    .jc-face b { font: 400 2.6cqw/1 ui-monospace, monospace; letter-spacing: .3em; margin-bottom: 1.2cqw; }
+    .m { color: #ff3d8b; } .c { color: #39d4e0; }
+    .jc-logo {
+      font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+      color: #f3eee3; line-height: .9;
+      text-shadow: .45cqw 0 rgba(255,45,120,.85), -.45cqw 0 rgba(40,210,225,.85);
+    }
+    .jc-spine .jc-logo { font-size: 8.4cqw; }
+    .jc-title {
+      flex: 1; display: flex; align-items: center; overflow: hidden;
+      margin: 6% 0; font: 4.4cqw/1 "Bebas Neue", Impact, "Arial Narrow", sans-serif; letter-spacing: .02em; color: #f3eee3;
+    }
+    .jc-code { font: 3cqw/1 ui-monospace, monospace; letter-spacing: .12em; color: #39d4e0; }
+    .jc-front {
+      position: relative; display: flex; flex-direction: column; justify-content: space-between;
+      padding: 6% 6% 5%;
+      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, transparent 28%, transparent 72%, rgba(0,0,0,.75) 100%),
+                  var(--img) var(--pos, center) / cover no-repeat, #000;
+      filter: saturate(1.05) contrast(1.05);
+    }
+    .jc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 2%; }
+    .jc-front .jc-logo { font-size: 15cqw; letter-spacing: -.01em; }
+    .jc-pod { margin-top: 1.5cqw; font: 3cqw/1.5 ui-monospace, monospace; letter-spacing: .25em; color: #39d4e0; text-align: right; text-shadow: 0 0 6px rgba(0,0,0,.8); }
+    .jc-pod i { font-style: normal; color: rgba(232,224,208,.7); letter-spacing: .15em; }
+    .jc-bottom { display: flex; justify-content: space-between; align-items: baseline; gap: 3%; white-space: nowrap; font: 2.3cqw/1 ui-monospace, monospace; letter-spacing: .14em; color: #f3eee3; text-shadow: 0 1px 4px #000; }
+    .jc-bottom span:last-child { color: rgba(232,224,208,.6); letter-spacing: .06em; font-size: 2cqw; }
+    @media (max-width: 700px) {
+      .podcast-ep { grid-template-columns: 1fr; gap: 1.2rem; }
+      .jcard { width: min(100%, 340px); margin: 0 auto; }
+    }
+    @media (prefers-reduced-motion: reduce) { .podcast-ep:hover .jcard { transform: none; } }
+
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -123,6 +187,23 @@
     <div class="episode-list">
 
       <div class="podcast-ep" id="ep01">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:3.63cqw">HARLEY DAVIDSON ET L&#x27;HOMME AUX SANTIAGS</span>
+            <span class="jc-code">S01E01</span>
+          </div>
+          <div class="jc-front" style="--img:url('HDMM.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E01</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E01 · 1991</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 01</span>
           <div class="ep-info">
@@ -134,9 +215,27 @@
         <audio aria-label="Écouter : Harley Davidson et l'homme aux santiags" class="audio-player" controls preload="none">
           <source src="podcast-ep01-harley-davidson.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep02">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.53cqw">AU-DESSUS DE LA LOI (JOSHUA TREE)</span>
+            <span class="jc-code">S01E02</span>
+          </div>
+          <div class="jc-front" style="--img:url('joshua-01.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E02</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E02 · 1993</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 02</span>
           <div class="ep-info">
@@ -148,9 +247,27 @@
         <audio aria-label="Écouter : Au-dessus de la loi (Joshua Tree)" class="audio-player" controls preload="none">
           <source src="podcast-ep02-joshua-tree.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep03">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">SHOWDOWN IN LITTLE TOKYO</span>
+            <span class="jc-code">S01E03</span>
+          </div>
+          <div class="jc-front" style="--img:url('SILT.jpg');--pos:60% center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E03</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E03 · 1991</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 03</span>
           <div class="ep-info">
@@ -162,9 +279,27 @@
         <audio aria-label="Écouter : Showdown in Little Tokyo" class="audio-player" controls preload="none">
           <source src="podcast-ep03-showdown-little-tokyo.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep04">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">RAPID FIRE</span>
+            <span class="jc-code">S01E04</span>
+          </div>
+          <div class="jc-front" style="--img:url('62SQgVm.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E04</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E04 · 1992</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 04</span>
           <div class="ep-info">
@@ -176,9 +311,27 @@
         <audio aria-label="Écouter : Rapid Fire" class="audio-player" controls preload="none">
           <source src="podcast-ep04-rapid-fire.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep05">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.39cqw">ESPION JUNIOR (IF LOOKS COULD KILL)</span>
+            <span class="jc-code">S01E05</span>
+          </div>
+          <div class="jc-front" style="--img:url('espion-junior1.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E05</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E05 · 1991</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 05</span>
           <div class="ep-info">
@@ -190,9 +343,27 @@
         <audio aria-label="Écouter : Espion Junior (If Looks Could Kill)" class="audio-player" controls preload="none">
           <source src="podcast-ep05-espion-junior.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep06">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">LA PRISE DE BEVERLY HILLS</span>
+            <span class="jc-code">S01E06</span>
+          </div>
+          <div class="jc-front" style="--img:url('prise-beverly-hills-affiche.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E06</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E06 · 1991</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 06</span>
           <div class="ep-info">
@@ -204,9 +375,27 @@
         <audio aria-label="Écouter : La Prise de Beverly Hills" class="audio-player" controls preload="none">
           <source src="podcast-ep06-la-prise-de-beverly-hills.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep07">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">GUET-APENS</span>
+            <span class="jc-code">S01E07</span>
+          </div>
+          <div class="jc-front" style="--img:url('guet-apens-affiche.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E07</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E07 · 1994</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 07</span>
           <div class="ep-info">
@@ -218,9 +407,27 @@
         <audio aria-label="Écouter : Guet-Apens" class="audio-player" controls preload="none">
           <source src="podcast-ep07-guet-apens.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep08">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">THE SUBSTITUTE</span>
+            <span class="jc-code">S01E08</span>
+          </div>
+          <div class="jc-front" style="--img:url('substitute-affiche.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E08</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E08 · 1996</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 08</span>
           <div class="ep-info">
@@ -232,9 +439,27 @@
         <audio aria-label="Écouter : The Substitute" class="audio-player" controls preload="none">
           <source src="podcast-ep08-the-substitute.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep09">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">BLACKJACK</span>
+            <span class="jc-code">S01E09</span>
+          </div>
+          <div class="jc-front" style="--img:url('blackjack-affiche.jpg');--pos:70% center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E09</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E09 · 1998</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 09</span>
           <div class="ep-info">
@@ -246,9 +471,27 @@
         <audio aria-label="Écouter : BlackJack" class="audio-player" controls preload="none">
           <source src="podcast-ep09-blackjack.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep10">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">3000 MILES TO GRACELAND</span>
+            <span class="jc-code">S01E10</span>
+          </div>
+          <div class="jc-front" style="--img:url('graceland-affiche.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E10</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E10 · 2001</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 10</span>
           <div class="ep-info">
@@ -260,9 +503,27 @@
         <audio aria-label="Écouter : 3000 Miles to Graceland" class="audio-player" controls preload="none">
           <source src="podcast-ep10-3000-miles-to-graceland.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep11">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">CRYING FREEMAN</span>
+            <span class="jc-code">S01E11</span>
+          </div>
+          <div class="jc-front" style="--img:url('crying-freeman-affiche.jpg');--pos:35% center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E11</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E11 · 1995</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 11</span>
           <div class="ep-info">
@@ -274,9 +535,27 @@
         <audio aria-label="Écouter : Crying Freeman" class="audio-player" controls preload="none">
           <source src="podcast-ep11-crying-freeman.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
       <div class="podcast-ep" id="ep12">
+                <div class="jcard" aria-hidden="true">
+          <div class="jc-flap">
+            <span class="jc-credit">SOMEDAY PODCAST · someday-vhs.com · © SOMEDAY PRODUCTION</span>
+            <span class="jc-face"><b class="m">FACE A</b> Partie 1</span>
+            <span class="jc-face"><b class="c">FACE B</b> Partie 2</span>
+          </div>
+          <div class="jc-spine">
+            <span class="jc-logo">SOMEDAY</span>
+            <span class="jc-title" style="font-size:4.6cqw">PORTRAIT — DOLPH LUNDGREN</span>
+            <span class="jc-code">S01E12</span>
+          </div>
+          <div class="jc-front" style="--img:url('lundgren-portrait.jpg');--pos:center">
+            <div class="jc-top"><span class="jc-logo">SOMEDAY</span><span class="jc-pod">PODCAST<br><i>S01E12</i></span></div>
+            <div class="jc-bottom"><span>SAISON 1 · E12 · 87–98</span><span>someday-vhs.com</span></div>
+          </div>
+        </div>
+        <div class="jc-side">
         <div class="podcast-ep-top">
           <span class="ep-num">EP. 12</span>
           <div class="ep-info">
@@ -288,6 +567,7 @@
         <audio aria-label="Écouter : Portrait — Dolph Lundgren" class="audio-player" controls preload="none">
           <source src="podcast-ep12-portrait-dolph-lundgren.mp3" type="audio/mpeg">
         </audio>
+        </div>
       </div>
 
     </div>
