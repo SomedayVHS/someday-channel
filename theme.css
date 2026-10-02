@@ -1,0 +1,34 @@
+/* SOMEDAY — habillage commun des pages annexes (en-tête du nouveau design) */
+.header {
+  height: 90px; display: flex; justify-content: space-between; align-items: center;
+  padding: 0 6%; position: absolute; inset: 0 0 auto 0; z-index: 200;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.header.static { position: relative; background: #0f0c08; }
+.header .logo {
+  color: #e8e0d0; text-decoration: none; font-size: 30px; font-weight: 900; letter-spacing: 2px; line-height: 1;
+  text-shadow: 2px 0 rgba(255,0,80,.18), -2px 0 rgba(0,220,255,.18);
+}
+.header .logo span { display: block; margin-top: 6px; font: 8px/1.2 monospace; letter-spacing: 2px; }
+.header .nav { display: flex; align-items: center; gap: 36px; }
+.header .nav a {
+  color: #e8e0d0; text-decoration: none; text-transform: uppercase;
+  font: 13px/1 Arial, Helvetica, sans-serif; letter-spacing: 1px; transition: opacity .2s ease;
+}
+.header .nav a:hover { opacity: .6; }
+.header .nav a.accent, .header .nav a[aria-current] { color: #c0704a; }
+h1 { letter-spacing: -0.02em !important; }
+@media (max-width: 900px) { .header .nav { gap: 22px; } .header .nav .opt { display: none; } }
+@media (max-width: 700px) {
+  .header { height: 70px; padding: 0 25px; }
+  .header .logo { font-size: 22px; }
+  .header .logo span { display: none; }
+  .header .nav { gap: 15px; }
+  .header .nav a { font-size: 10px; }
+}
+/* neutralise les anciens sélecteurs génériques "nav" */
+.header .nav { position: static; inset: auto; background: none; padding: 0; border: 0; width: auto; height: auto; justify-content: flex-end; }
+.header .nav a { border: 0; padding: 0; background: none; }
+/* l'ancien sélecteur "nav" collait aussi le menu du pied de page en haut de l'écran */
+footer nav, .footer-nav { position: static !important; inset: auto !important; background: none !important; }
