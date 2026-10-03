@@ -1,266 +1,736 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOMEDAY — Ce soir, on rembobine.</title>
-<meta name="description" content="SOMEDAY — Les films qu'on n'oublie pas. Thrillers, polars, action et séries B américains de l'ère VHS : un article et un extrait vidéo par film, plus le podcast.">
-<meta property="og:title" content="SOMEDAY — Ce soir, on rembobine.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://someday-vhs.com/">
-<meta property="og:image" content="https://someday-vhs.com/og-image.png">
-<link rel="canonical" href="https://someday-vhs.com/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#24170f;--bg2:#321f14;--cream:#f3e7d0;--dim:#b9a98c;--amber:#e0a33a;--red:#d9482b;--line:rgba(243,231,208,.16)}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--cream);font-family:'Courier Prime',monospace;line-height:1.55}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px);z-index:50}
-a{color:inherit;text-decoration:none}
-h1,h2,h3,.bebas{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.04em}
-.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--amber);color:#000;padding:6px 10px;z-index:99}
-nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:20px;padding:12px 5vw;background:rgba(36,23,15,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);flex-wrap:wrap}
-.logo{font-family:'Bebas Neue';font-size:30px;letter-spacing:.12em;line-height:1}
-.logo small{display:block;font:400 10px 'Courier Prime';letter-spacing:.18em;color:var(--dim)}
-nav .links{display:flex;gap:18px;margin-left:auto;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
-nav .links a:hover{color:var(--amber)}
-.hero{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:8vh 5vw;position:relative;overflow:hidden;background:radial-gradient(ellipse at 70% 30%,#4a2c1a 0,transparent 60%)}
-.play{position:absolute;top:24px;left:5vw;color:var(--amber);letter-spacing:.2em;font-size:14px}
-.stamp{position:absolute;right:5vw;top:24px;text-align:right;color:var(--amber);font-size:14px;line-height:1.3}
-.hero h1{font-size:clamp(64px,13vw,170px);line-height:.9}
-.hero h1 span{color:var(--amber)}
-.hero p.sub{margin:18px 0 32px;letter-spacing:.2em;color:var(--dim);font-size:13px;text-transform:uppercase}
-.btns{display:flex;gap:14px;flex-wrap:wrap}
-.btn{border:1px solid var(--cream);padding:12px 20px;letter-spacing:.1em;font-size:14px;text-transform:uppercase;transition:.2s}
-.btn:hover{background:var(--cream);color:var(--bg)}
-.btn.new{border-color:var(--amber);color:var(--amber)}.btn.new:hover{background:var(--amber);color:var(--bg)}
-section{padding:64px 5vw}
-.eyebrow{color:var(--amber);font-size:12px;letter-spacing:.25em;text-transform:uppercase}
-h2{font-size:clamp(40px,6vw,72px);line-height:1;margin:6px 0 28px}
-.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px}
-.rail .card{flex:0 0 min(300px,78vw);scroll-snap-align:start}
-.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px;position:sticky;top:62px;z-index:30;background:var(--bg);padding:10px 0}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{background:none;color:var(--cream);border:1px solid var(--line);padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;letter-spacing:.06em}
-.chip[aria-pressed=true]{background:var(--cream);color:var(--bg);border-color:var(--cream)}
-.search{margin-left:auto;display:flex;align-items:center;border-bottom:1px solid var(--cream);min-width:min(260px,100%)}
-.search input{background:none;border:0;color:var(--cream);font:inherit;padding:6px;width:100%;outline:none}
-.toggle{font-size:13px;display:flex;gap:6px;align-items:center;cursor:pointer;color:var(--dim)}
-.season{margin-top:38px}
-.season h3{font-size:34px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
-.season h3 em{font:400 12px 'Courier Prime';letter-spacing:.15em;color:var(--amber);font-style:normal}
-.progress{height:3px;background:var(--line);margin:8px 0 18px;max-width:320px}.progress i{display:block;height:100%;background:var(--amber)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{display:block;background:var(--bg2);border:1px solid var(--line);padding:16px;position:relative;min-height:150px;transition:transform .2s,border-color .2s}
-a.card:hover{transform:translateY(-3px);border-color:var(--amber)}
-.card .tag{font-size:11px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase}
-.card h4{font:400 26px/1.05 'Bebas Neue';letter-spacing:.04em;margin:8px 0 4px}
-.card .orig{font-size:12px;color:var(--dim);font-style:italic}
-.card .meta{font-size:12px;color:var(--dim);margin-top:10px}
-.card .go{position:absolute;right:14px;bottom:12px;color:var(--amber);font-size:12px;letter-spacing:.1em}
-.card.soon{opacity:.45;border-style:dashed}.card.soon .tag{color:var(--dim)}
-.empty{color:var(--dim);padding:30px 0;display:none}
-.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:40px}
-.duo .card{min-height:170px}.duo p{font-size:14px;color:var(--dim);margin-top:6px}
-.manifesto{max-width:760px;margin:auto}
-.manifesto p{margin-bottom:16px}.manifesto .lead{font:400 24px 'Bebas Neue';letter-spacing:.1em;color:var(--amber)}
-footer{padding:30px 5vw 50px;border-top:1px solid var(--line);display:flex;gap:24px;flex-wrap:wrap;color:var(--dim);font-size:13px}
-footer a:hover{color:var(--amber)}
-mark{background:var(--amber);color:#000}
-@media(max-width:640px){nav .links{margin-left:0;gap:12px;font-size:12px}.search{margin-left:0}.controls{top:96px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOMEDAY — Ce soir, on rembobine.</title>
+  <meta name="description" content="SOMEDAY — Les films qu'on n'oublie pas. Thrillers, polars, action et séries B américains de l'ère VHS : un article et un extrait vidéo par film, plus le podcast.">
+  <link rel="canonical" href="https://someday-vhs.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SOMEDAY">
+  <meta property="og:title" content="SOMEDAY — Ce soir, on rembobine.">
+  <meta property="og:description" content="Les films qu'on n'oublie pas. Thrillers, polars et action de l'ère VHS.">
+  <meta property="og:url" content="https://someday-vhs.com/">
+  <meta property="og:image" content="https://someday-vhs.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://someday-vhs.com/#website",
+      "url": "https://someday-vhs.com/",
+      "name": "SOMEDAY",
+      "inLanguage": "fr",
+      "publisher": {
+        "@id": "https://someday-vhs.com/#org"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://someday-vhs.com/#org",
+      "name": "SOMEDAY",
+      "url": "https://someday-vhs.com/",
+      "logo": "https://someday-vhs.com/og-image.png",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Someday Production"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Épisodes SOMEDAY",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://someday-vhs.com/ep01-harley-davidson.html",
+          "name": "Harley Davidson et l'homme aux santiags – Harley Davidson and the Marlboro Man (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://someday-vhs.com/ep02-joshua-tree.html",
+          "name": "Joshua Tree (1993)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://someday-vhs.com/ep03-showdown-little-tokyo.html",
+          "name": "Showdown in Little Tokyo (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://someday-vhs.com/ep04-rapid-fire.html",
+          "name": "Rapid Fire (1992)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://someday-vhs.com/ep05-espion-junior.html",
+          "name": "Espion Junior – If Looks Could Kill (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "url": "https://someday-vhs.com/ep06-la-prise-de-beverly-hills.html",
+          "name": "La Prise de Beverly Hills – The Taking of Beverly Hills (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "url": "https://someday-vhs.com/ep07-guet-apens.html",
+          "name": "Guet-Apens – The Getaway (1994)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "url": "https://someday-vhs.com/ep08-the-substitute.html",
+          "name": "The Substitute (1996)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "url": "https://someday-vhs.com/ep09-blackjack.html",
+          "name": "BlackJack (1998)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "url": "https://someday-vhs.com/ep10-3000-miles-to-graceland.html",
+          "name": "3000 Miles to Graceland (2001)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "url": "https://someday-vhs.com/ep11-crying-freeman.html",
+          "name": "Crying Freeman (1995)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "url": "https://someday-vhs.com/ep12-portrait-dolph-lundgren.html",
+          "name": "Portrait — Dolph Lundgren"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "url": "https://someday-vhs.com/spec-ep01-die-hard-2.html",
+          "name": "Die Hard 2 (1990)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "url": "https://someday-vhs.com/s2ep01-heavens-prisoners.html",
+          "name": "Vengeance Froide – Heaven's Prisoners (1996)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "url": "https://someday-vhs.com/s2ep02-the-edge.html",
+          "name": "À couteaux tirés – The Edge (1997)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "url": "https://someday-vhs.com/s2ep03-only-the-strong.html",
+          "name": "Only the Strong (1993)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "url": "https://someday-vhs.com/s2ep04-adventures-in-babysitting.html",
+          "name": "Adventures in Babysitting (1987)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "url": "https://someday-vhs.com/s2ep05-breakdown.html",
+          "name": "Breakdown (1997)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "url": "https://someday-vhs.com/s2ep06-the-punisher.html",
+          "name": "The Punisher (1989)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "url": "https://someday-vhs.com/s2ep07-the-hot-spot.html",
+          "name": "The Hot Spot (1990)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "url": "https://someday-vhs.com/s2ep08-passager-57.html",
+          "name": "Passager 57 – Passenger 57 (1992)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "url": "https://someday-vhs.com/s2ep09-drop-zone.html",
+          "name": "Drop Zone (1994)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "url": "https://someday-vhs.com/s2ep10-nowhere-to-run.html",
+          "name": "Cavale sans issue – Nowhere to Run (1993)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "url": "https://someday-vhs.com/s2ep11-executive-decision.html",
+          "name": "Executive Decision (1996)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 25,
+          "url": "https://someday-vhs.com/s2ep12-turbulence.html",
+          "name": "Turbulence (1997)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 26,
+          "url": "https://someday-vhs.com/s3ep02-fair-game.html",
+          "name": "Fair Game (1995)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 27,
+          "url": "https://someday-vhs.com/s3ep07-the-shadow.html",
+          "name": "The Shadow (1994)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 28,
+          "url": "https://someday-vhs.com/spec-ep02-rambo-3.html",
+          "name": "Rambo III (1988)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 29,
+          "url": "https://someday-vhs.com/spec-ep03-superman-3.html",
+          "name": "Superman III (1983)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 30,
+          "url": "https://someday-vhs.com/spec-ep04-arme-fatale-3.html",
+          "name": "L'Arme Fatale 3 – Lethal Weapon 3 (1992)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 31,
+          "url": "https://someday-vhs.com/spec-ep05-flic-beverly-hills-3.html",
+          "name": "Le Flic de Beverly Hills 3 – Beverly Hills Cop III (1994)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 32,
+          "url": "https://someday-vhs.com/spec-ep06-terminator-2.html",
+          "name": "Terminator 2 : Le Jugement Dernier – Terminator 2: Judgment Day (1991)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 33,
+          "url": "https://someday-vhs.com/alien-ep01-alien.html",
+          "name": "Alien, le huitième passager – Alien (1979)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 34,
+          "url": "https://someday-vhs.com/alien-ep02-aliens.html",
+          "name": "Aliens, le retour – Aliens (1986)"
+        },
+        {
+          "@type": "ListItem",
+          "position": 35,
+          "url": "https://someday-vhs.com/alien-ep03-alien-3.html",
+          "name": "Alien 3 – Alien³ (1992)"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
-<a class="skip" href="#contenu">Aller au contenu</a>
-<nav>
-  <a class="logo" href="index.html">SOMEDAY<small>LES FILMS QU'ON N'OUBLIE PAS.</small></a>
-  <div class="links">
-    <a href="#films">Vidéoclub</a>
-    <a href="series-tv-cultes.html">Séries TV</a>
-    <a href="podcast.html">Podcast</a>
-    <a href="boutique.html">Boutique</a>
-    <a href="#about">À propos</a>
-  </div>
-</nav>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-<header class="hero">
-  <div class="play">PLAY ▶</div>
-  <div class="stamp">PM 10:24<br>OCT 27 1997</div>
-  <h1 id="tagline">CE SOIR,<br><span>ON REMBOBINE.</span></h1>
-  <p class="sub" id="subtitle"></p>
-  <div class="btns"><a class="btn" href="#films">Découvrir les films →</a><a class="btn new" id="newbtn" href="#films" hidden></a></div>
-</header>
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="SOMEDAY, accueil">
+      SOMEDAY
+      <span>LES FILMS QU'ON N'OUBLIE PAS.</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#films">Vidéoclub</a>
+      <a href="series-tv-cultes.html" class="opt">Séries TV</a>
+      <a href="podcast.html">Podcast</a>
+      <a href="boutique.html" class="accent">Boutique</a>
+      <a href="#about" class="opt">À propos</a>
+      <a href="#films" class="search" id="searchOpen" aria-label="Rechercher un film">⌕</a>
+    </nav>
+  </header>
 
-<main id="contenu">
-  <section id="nouveau">
-    <div class="eyebrow">Derniers enregistrements</div>
-    <h2>NOUVELLES CASSETTES</h2>
-    <div class="rail" id="latest"></div>
-  </section>
+  <main id="contenu">
 
-  <section id="films">
-    <div class="eyebrow">Toutes les saisons</div>
-    <h2>DANS LE VIDÉOCLUB</h2>
-    <div class="controls">
-      <div class="chips" id="chips"></div>
-      <label class="toggle"><input type="checkbox" id="onlyOnline"> en ligne seulement</label>
-      <label class="search">⌕<input id="q" type="search" placeholder="Titre, réalisateur, acteur, année…" aria-label="Rechercher"></label>
-    </div>
-    <div id="seasons"></div>
-    <p class="empty" id="empty">Aucune cassette ne correspond. Rembobine la recherche.</p>
-  </section>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="play">PLAY ▶</div>
+        <h1>CE SOIR,<br>ON REMBOBINE.</h1>
+        <p class="genres">THRILLERS · POLARS · ACTION · SÉRIES B · L'ÈRE VHS</p>
+        <a href="#films" class="button">DÉCOUVRIR LES FILMS <span>→</span></a>
+        <a href="alien-ep03-alien-3.html" class="now">
+          <span class="now-label">NOUVEAU</span>
+          Saga Alien · EP. 03 — Alien 3 <span>→</span>
+        </a>
+      </div>
+      <div class="timestamp" aria-hidden="true">PM 10:24<br>OCT 27 1997</div>
+    </section>
 
-  <section id="series">
-    <div class="eyebrow">Le petit écran</div>
-    <h2>SÉRIES TV CULTES</h2>
-    <div class="grid" id="seriesGrid"></div>
-    <p style="margin-top:18px"><a class="btn" href="series-tv-cultes.html">Toutes les séries →</a></p>
-    <div class="duo">
-      <a class="card" href="podcast.html"><div class="tag">Someday podcast</div><h4>ÉCOUTER LES ÉPISODES</h4><p>Les films, leurs coulisses et les souvenirs qui vont avec.</p><span class="go">ÉCOUTER →</span></a>
-      <a class="card" href="boutique.html"><div class="tag">Vidéo club Someday</div><h4>BOUTIQUE</h4><p>Cassettes VHS chinées d'époque, jaquettes d'origine, à vendre à l'unité.</p><span class="go">VOIR LA BOUTIQUE →</span></a>
-    </div>
-  </section>
+    <!-- NOUVEAUTÉS -->
+    <section class="section" id="nouveau">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">DERNIERS ENREGISTREMENTS</p>
+          <h2>NOUVELLES CASSETTES</h2>
+        </div>
+        <span class="counter">◀◀ REW · FF ▶▶</span>
+      </div>
+      <div class="rail">
+        <a href="alien-ep03-alien-3.html" class="tape" data-search="alien 3  1992 — david fincher · sigourney weaver saga alien">
+          <div class="tape-img"><img src="alien3-affiche.jpg" alt="Alien 3" loading="lazy" decoding="async" style="object-fit:contain;background:#000"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Saga Alien · EP. 03</span><h4>Alien 3</h4><p>1992 — David Fincher · Sigourney Weaver</p></div>
+        </a>
+        <a href="alien-ep02-aliens.html" class="tape" data-search="aliens, le retour aliens 1986 — james cameron · sigourney weaver saga alien">
+          <div class="tape-img"><img src="aliens-ripley.jpg" alt="Aliens, le retour" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Saga Alien · EP. 02</span><h4>Aliens, le retour<span class="vo">Aliens</span></h4><p>1986 — James Cameron · Sigourney Weaver</p></div>
+        </a>
+        <a href="alien-ep01-alien.html" class="tape" data-search="alien, le huitième passager alien 1979 — ridley scott · sigourney weaver saga alien">
+          <div class="tape-img"><img src="alien-epave.jpg" alt="Alien, le huitième passager" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Saga Alien · EP. 01</span><h4>Alien, le huitième passager<span class="vo">Alien</span></h4><p>1979 — Ridley Scott · Sigourney Weaver</p></div>
+        </a>
+        <a href="spec-ep06-terminator-2.html" class="tape" data-search="terminator 2 : le jugement dernier  1991 — james cameron · arnold schwarzenegger les suites">
+          <div class="tape-img"><img src="terminator-2-affiche.jpg" alt="Terminator 2 : Le Jugement Dernier" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Les Suites · EP. 06</span><h4>Terminator 2 : Le Jugement Dernier</h4><p>1991 — James Cameron · Arnold Schwarzenegger</p></div>
+        </a>
+        <a href="spec-ep05-flic-beverly-hills-3.html" class="tape" data-search="le flic de beverly hills 3  1994 — john landis · eddie murphy les suites">
+          <div class="tape-img"><img src="flic-beverly-hills-3-affiche.jpg" alt="Le Flic de Beverly Hills 3" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Les Suites · EP. 05</span><h4>Le Flic de Beverly Hills 3</h4><p>1994 — John Landis · Eddie Murphy</p></div>
+        </a>
+        <a href="spec-ep04-arme-fatale-3.html" class="tape" data-search="l&#x27;arme fatale 3  1992 — richard donner · mel gibson, danny glover les suites">
+          <div class="tape-img"><img src="arme-fatale-3-affiche.jpg" alt="L&#x27;Arme Fatale 3" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Les Suites · EP. 04</span><h4>L&#x27;Arme Fatale 3</h4><p>1992 — Richard Donner · Mel Gibson, Danny Glover</p></div>
+        </a>
+      </div>
+    </section>
 
-  <section id="about">
-    <div class="manifesto">
-      <div class="eyebrow">Manifeste</div>
+    <!-- VIDÉOCLUB -->
+    <section class="section dark" id="films">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">TOUTES LES SAISONS</p>
+          <h2>DANS LE VIDÉOCLUB</h2>
+        </div>
+        <label class="search-box">
+          <span>⌕</span>
+          <input type="search" id="q" placeholder="Un titre, un acteur, un réalisateur…" aria-label="Rechercher un film">
+        </label>
+      </div>
+      <div class="tabs" role="group" aria-label="Filtrer par saison">
+        <button class="tab active" data-tab="all" aria-pressed="true">Tout</button>
+        <button class="tab" data-tab="episodes" aria-pressed="false">Saison 1</button>
+        <button class="tab" data-tab="saison-speciale-suites" aria-pressed="false">Les Suites</button>
+        <button class="tab" data-tab="saison-speciale-alien" aria-pressed="false">Saga Alien</button>
+        <button class="tab" data-tab="saison2" aria-pressed="false">Saison 2</button>
+        <button class="tab" data-tab="saison3" aria-pressed="false">Saison 3</button>
+        <button class="tab" data-tab="saison4" aria-pressed="false">Saison 4</button>
+      </div>
+      <p class="empty" id="empty" hidden>Aucune cassette ne correspond. Essayez un autre nom.</p>
+      <div class="group" data-group="episodes" id="episodes">
+        <div class="group-head"><h3>Saison 1</h3><span>12 / 12 ÉPISODES EN LIGNE</span></div>
+        <div class="grid">
+        <a href="ep01-harley-davidson.html" class="tape" data-search="harley davidson et l&#x27;homme aux santiags harley davidson and the marlboro man 1991 — simon wincer · mickey rourke, don johnson ">
+          <div class="tape-img"><img src="HDMM.jpg" alt="Harley Davidson et l&#x27;homme aux santiags" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 01</span><h4>Harley Davidson et l&#x27;homme aux santiags<span class="vo">Harley Davidson and the Marlboro Man</span></h4><p>1991 — Simon Wincer · Mickey Rourke, Don Johnson</p></div>
+        </a>
+        <a href="ep02-joshua-tree.html" class="tape" data-search="joshua tree  1993 — vic armstrong · dolph lundgren ">
+          <div class="tape-img"><img src="joshua-01.jpg" alt="Joshua Tree" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 02</span><h4>Joshua Tree</h4><p>1993 — Vic Armstrong · Dolph Lundgren</p></div>
+        </a>
+        <a href="ep03-showdown-little-tokyo.html" class="tape" data-search="showdown in little tokyo  1991 — mark l. lester · dolph lundgren, brandon lee ">
+          <div class="tape-img"><img src="SILT.jpg" alt="Showdown in Little Tokyo" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 03</span><h4>Showdown in Little Tokyo</h4><p>1991 — Mark L. Lester · Dolph Lundgren, Brandon Lee</p></div>
+        </a>
+        <a href="ep04-rapid-fire.html" class="tape" data-search="rapid fire  1992 — dwight h. little · brandon lee ">
+          <div class="tape-img"><img src="62SQgVm.jpg" alt="Rapid Fire" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 04</span><h4>Rapid Fire</h4><p>1992 — Dwight H. Little · Brandon Lee</p></div>
+        </a>
+        <a href="ep05-espion-junior.html" class="tape" data-search="espion junior if looks could kill 1991 — william dear · richard grieco ">
+          <div class="tape-img"><img src="espion_junior.jpg" alt="Espion Junior" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 05</span><h4>Espion Junior<span class="vo">If Looks Could Kill</span></h4><p>1991 — William Dear · Richard Grieco</p></div>
+        </a>
+        <a href="ep06-la-prise-de-beverly-hills.html" class="tape" data-search="la prise de beverly hills the taking of beverly hills 1991 — sidney j. furie · ken wahl ">
+          <div class="tape-img"><img src="prise-beverly-hills-affiche.jpg" alt="La Prise de Beverly Hills" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 06</span><h4>La Prise de Beverly Hills<span class="vo">The Taking of Beverly Hills</span></h4><p>1991 — Sidney J. Furie · Ken Wahl</p></div>
+        </a>
+        <a href="ep07-guet-apens.html" class="tape" data-search="guet-apens the getaway 1994 — roger donaldson · alec baldwin, kim basinger ">
+          <div class="tape-img"><img src="guet-apens-cabriolet.jpg" alt="Guet-Apens" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 07</span><h4>Guet-Apens<span class="vo">The Getaway</span></h4><p>1994 — Roger Donaldson · Alec Baldwin, Kim Basinger</p></div>
+        </a>
+        <a href="ep08-the-substitute.html" class="tape" data-search="the substitute  1996 — robert mandel · tom berenger ">
+          <div class="tape-img"><img src="substitute-affiche.jpg" alt="The Substitute" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 08</span><h4>The Substitute</h4><p>1996 — Robert Mandel · Tom Berenger</p></div>
+        </a>
+        <a href="ep09-blackjack.html" class="tape" data-search="blackjack  1998 — john woo · dolph lundgren ">
+          <div class="tape-img"><img src="blackjack-action.jpg" alt="BlackJack" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 09</span><h4>BlackJack</h4><p>1998 — John Woo · Dolph Lundgren</p></div>
+        </a>
+        <a href="ep10-3000-miles-to-graceland.html" class="tape" data-search="3000 miles to graceland  2001 — demian lichtenstein · kurt russell, kevin costner ">
+          <div class="tape-img"><img src="graceland-elvis.jpg" alt="3000 Miles to Graceland" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 10</span><h4>3000 Miles to Graceland</h4><p>2001 — Demian Lichtenstein · Kurt Russell, Kevin Costner</p></div>
+        </a>
+        <a href="ep11-crying-freeman.html" class="tape" data-search="crying freeman  1995 — christophe gans · mark dacascos ">
+          <div class="tape-img"><img src="crying-freeman-affiche.jpg" alt="Crying Freeman" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 11</span><h4>Crying Freeman</h4><p>1995 — Christophe Gans · Mark Dacascos</p></div>
+        </a>
+        <a href="ep12-portrait-dolph-lundgren.html" class="tape" data-search="portrait — dolph lundgren  1987–1998 — épisode spécial · 12–15 min ">
+          <div class="tape-img"><img src="lundgren-portrait.jpg" alt="Portrait — Dolph Lundgren" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 12</span><h4>Portrait — Dolph Lundgren</h4><p>1987–1998 — Épisode spécial · 12–15 min</p></div>
+        </a>
+        </div>
+      </div>
+      <div class="group" data-group="saison-speciale-suites" id="saison-speciale-suites">
+        <div class="group-head"><h3>Saison Spéciale — Les Suites</h3><span>6 / 6 ÉPISODES EN LIGNE</span></div>
+        <div class="grid">
+        <a href="spec-ep01-die-hard-2.html" class="tape" data-search="die hard 2  1990 — renny harlin · bruce willis ">
+          <div class="tape-img"><img src="die-hard-2-poster.jpg" alt="Die Hard 2" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 01</span><h4>Die Hard 2</h4><p>1990 — Renny Harlin · Bruce Willis</p></div>
+        </a>
+        <a href="spec-ep02-rambo-3.html" class="tape" data-search="rambo 3  1988 — peter macdonald · sylvester stallone ">
+          <div class="tape-img"><img src="rambo-3-cheval.jpg" alt="Rambo 3" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 02</span><h4>Rambo 3</h4><p>1988 — Peter MacDonald · Sylvester Stallone</p></div>
+        </a>
+        <a href="spec-ep03-superman-3.html" class="tape" data-search="superman iii  1983 — richard lester · christopher reeve, richard pryor ">
+          <div class="tape-img"><img src="superman-3-casse.jpg" alt="Superman III" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 03</span><h4>Superman III</h4><p>1983 — Richard Lester · Christopher Reeve, Richard Pryor</p></div>
+        </a>
+        <a href="spec-ep04-arme-fatale-3.html" class="tape" data-search="l&#x27;arme fatale 3  1992 — richard donner · mel gibson, danny glover ">
+          <div class="tape-img"><img src="arme-fatale-3-affiche.jpg" alt="L&#x27;Arme Fatale 3" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 04</span><h4>L&#x27;Arme Fatale 3</h4><p>1992 — Richard Donner · Mel Gibson, Danny Glover</p></div>
+        </a>
+        <a href="spec-ep05-flic-beverly-hills-3.html" class="tape" data-search="le flic de beverly hills 3  1994 — john landis · eddie murphy ">
+          <div class="tape-img"><img src="flic-beverly-hills-3-affiche.jpg" alt="Le Flic de Beverly Hills 3" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 05</span><h4>Le Flic de Beverly Hills 3</h4><p>1994 — John Landis · Eddie Murphy</p></div>
+        </a>
+        <a href="spec-ep06-terminator-2.html" class="tape" data-search="terminator 2 : le jugement dernier  1991 — james cameron · arnold schwarzenegger ">
+          <div class="tape-img"><img src="terminator-2-affiche.jpg" alt="Terminator 2 : Le Jugement Dernier" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 06</span><h4>Terminator 2 : Le Jugement Dernier</h4><p>1991 — James Cameron · Arnold Schwarzenegger</p></div>
+        </a>
+        </div>
+      </div>
+      <div class="group" data-group="saison-speciale-alien" id="saison-speciale-alien">
+        <div class="group-head"><h3>Saison Spéciale — La Saga Alien</h3><span>3 / 4 ÉPISODES EN LIGNE</span></div>
+        <div class="grid">
+        <a href="alien-ep01-alien.html" class="tape" data-search="alien, le huitième passager alien 1979 — ridley scott · sigourney weaver ">
+          <div class="tape-img"><img src="alien-epave.jpg" alt="Alien, le huitième passager" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 01</span><h4>Alien, le huitième passager<span class="vo">Alien</span></h4><p>1979 — Ridley Scott · Sigourney Weaver</p></div>
+        </a>
+        <a href="alien-ep02-aliens.html" class="tape" data-search="aliens, le retour aliens 1986 — james cameron · sigourney weaver ">
+          <div class="tape-img"><img src="aliens-ripley.jpg" alt="Aliens, le retour" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 02</span><h4>Aliens, le retour<span class="vo">Aliens</span></h4><p>1986 — James Cameron · Sigourney Weaver</p></div>
+        </a>
+        <a href="alien-ep03-alien-3.html" class="tape" data-search="alien 3  1992 — david fincher · sigourney weaver ">
+          <div class="tape-img"><img src="alien3-affiche.jpg" alt="Alien 3" loading="lazy" decoding="async" style="object-fit:contain;background:#000"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 03</span><h4>Alien 3</h4><p>1992 — David Fincher · Sigourney Weaver</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="alien, la résurrection alien resurrection 1997 — jean-pierre jeunet · sigourney weaver, winona ryder ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 04</span><h4>Alien, la résurrection<span class="vo">Alien Resurrection</span></h4><p>1997 — Jean-Pierre Jeunet · Sigourney Weaver, Winona Ryder</p></div>
+        </a>
+        </div>
+      </div>
+      <div class="group" data-group="saison2" id="saison2">
+        <div class="group-head"><h3>Saison 2</h3><span>12 / 12 ÉPISODES EN LIGNE</span></div>
+        <div class="grid">
+        <a href="s2ep01-heavens-prisoners.html" class="tape" data-search="vengeance froide heaven&#x27;s prisoners 1996 — phil joanou · alec baldwin, eric roberts ">
+          <div class="tape-img"><img src="vengeance-froide-scene.jpg" alt="Vengeance Froide" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 01</span><h4>Vengeance Froide<span class="vo">Heaven&#x27;s Prisoners</span></h4><p>1996 — Phil Joanou · Alec Baldwin, Eric Roberts</p></div>
+        </a>
+        <a href="s2ep02-the-edge.html" class="tape" data-search="à couteaux tirés the edge 1997 — lee tamahori · anthony hopkins, alec baldwin ">
+          <div class="tape-img"><img src="couteaux-tires-affiche.jpg" alt="À couteaux tirés" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 02</span><h4>À couteaux tirés<span class="vo">The Edge</span></h4><p>1997 — Lee Tamahori · Anthony Hopkins, Alec Baldwin</p></div>
+        </a>
+        <a href="s2ep03-only-the-strong.html" class="tape" data-search="only the strong  1993 — sheldon lettich · mark dacascos ">
+          <div class="tape-img"><img src="only-strong-confrontation.jpg" alt="Only the Strong" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 03</span><h4>Only the Strong</h4><p>1993 — Sheldon Lettich · Mark Dacascos</p></div>
+        </a>
+        <a href="s2ep04-adventures-in-babysitting.html" class="tape" data-search="adventures in babysitting  1987 — chris columbus · elisabeth shue ">
+          <div class="tape-img"><img src="babysitting-poster.jpg" alt="Adventures in Babysitting" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 04</span><h4>Adventures in Babysitting</h4><p>1987 — Chris Columbus · Elisabeth Shue</p></div>
+        </a>
+        <a href="s2ep05-breakdown.html" class="tape" data-search="breakdown  1997 — jonathan mostow · kurt russell ">
+          <div class="tape-img"><img src="breakdown-poster.jpg" alt="Breakdown" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 05</span><h4>Breakdown</h4><p>1997 — Jonathan Mostow · Kurt Russell</p></div>
+        </a>
+        <a href="s2ep06-the-punisher.html" class="tape" data-search="the punisher  1989 — mark goldblatt · dolph lundgren ">
+          <div class="tape-img"><img src="punisher-poster.jpg" alt="The Punisher" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 06</span><h4>The Punisher</h4><p>1989 — Mark Goldblatt · Dolph Lundgren</p></div>
+        </a>
+        <a href="s2ep07-the-hot-spot.html" class="tape" data-search="the hot spot  1990 — dennis hopper · don johnson ">
+          <div class="tape-img"><img src="hotspot-poster.jpg" alt="The Hot Spot" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 07</span><h4>The Hot Spot</h4><p>1990 — Dennis Hopper · Don Johnson</p></div>
+        </a>
+        <a href="s2ep08-passager-57.html" class="tape" data-search="passager 57 passenger 57 1992 — kevin hooks · wesley snipes ">
+          <div class="tape-img"><img src="passager57-poster.jpg" alt="Passager 57" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 08</span><h4>Passager 57<span class="vo">Passenger 57</span></h4><p>1992 — Kevin Hooks · Wesley Snipes</p></div>
+        </a>
+        <a href="s2ep09-drop-zone.html" class="tape" data-search="drop zone  1994 — john badham · wesley snipes ">
+          <div class="tape-img"><img src="dropzone-poster.jpg" alt="Drop Zone" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 09</span><h4>Drop Zone</h4><p>1994 — John Badham · Wesley Snipes</p></div>
+        </a>
+        <a href="s2ep10-nowhere-to-run.html" class="tape" data-search="cavale sans issue nowhere to run 1993 — robert harmon · jean-claude van damme ">
+          <div class="tape-img"><img src="cavale-poster.jpg" alt="Cavale sans issue" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 10</span><h4>Cavale sans issue<span class="vo">Nowhere to Run</span></h4><p>1993 — Robert Harmon · Jean-Claude Van Damme</p></div>
+        </a>
+        <a href="s2ep11-executive-decision.html" class="tape" data-search="executive decision  1996 — stuart baird · kurt russell, steven seagal ">
+          <div class="tape-img"><img src="execdecision-poster.jpg" alt="Executive Decision" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 11</span><h4>Executive Decision</h4><p>1996 — Stuart Baird · Kurt Russell, Steven Seagal</p></div>
+        </a>
+        <a href="s2ep12-turbulence.html" class="tape" data-search="turbulence  1997 — robert butler · ray liotta ">
+          <div class="tape-img"><img src="turbulence-liotta.jpg" alt="Turbulence" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 12</span><h4>Turbulence</h4><p>1997 — Robert Butler · Ray Liotta</p></div>
+        </a>
+        </div>
+      </div>
+      <div class="group" data-group="saison3" id="saison3">
+        <div class="group-head"><h3>Saison 3</h3><span>2 / 12 ÉPISODES EN LIGNE</span></div>
+        <div class="grid">
+        <a href="bientot.html" class="tape soon" data-search="white men can&#x27;t jump  1992 — ron shelton · woody harrelson, wesley snipes ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 01</span><h4>White Men Can&#x27;t Jump</h4><p>1992 — Ron Shelton · Woody Harrelson, Wesley Snipes</p></div>
+        </a>
+        <a href="s3ep02-fair-game.html" class="tape" data-search="fair game  1995 — andrew sipes · cindy crawford, william baldwin ">
+          <div class="tape-img"><img src="fair-game-affiche.jpg" alt="Fair Game" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 02</span><h4>Fair Game</h4><p>1995 — Andrew Sipes · Cindy Crawford, William Baldwin</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="alarme fatale  1993 — gene quintano · emilio estevez, samuel l. jackson ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 03</span><h4>Alarme fatale</h4><p>1993 — Gene Quintano · Emilio Estevez, Samuel L. Jackson</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="kickboxer  1989 — mark disalle, david worth · jean-claude van damme ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 04</span><h4>Kickboxer</h4><p>1989 — Mark DiSalle, David Worth · Jean-Claude Van Damme</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="bloodsport  1988 — newt arnold · jean-claude van damme ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 05</span><h4>Bloodsport</h4><p>1988 — Newt Arnold · Jean-Claude Van Damme</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="double impact  1991 — sheldon lettich · jean-claude van damme ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 06</span><h4>Double Impact</h4><p>1991 — Sheldon Lettich · Jean-Claude Van Damme</p></div>
+        </a>
+        <a href="s3ep07-the-shadow.html" class="tape" data-search="the shadow  1994 — russell mulcahy · alec baldwin ">
+          <div class="tape-img"><img src="the-shadow-affiche.jpg" alt="The Shadow" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">EP. 07</span><h4>The Shadow</h4><p>1994 — Russell Mulcahy · Alec Baldwin</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="robocop  1987 — paul verhoeven · peter weller ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 08</span><h4>RoboCop</h4><p>1987 — Paul Verhoeven · Peter Weller</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="true lies  1994 — james cameron · arnold schwarzenegger ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 09</span><h4>True Lies</h4><p>1994 — James Cameron · Arnold Schwarzenegger</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="les tortues ninjas  1990 — steve barron · judith hoag, elias koteas ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 10</span><h4>Les Tortues Ninjas</h4><p>1990 — Steve Barron · Judith Hoag, Elias Koteas</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="sidekicks  1992 — aaron norris · chuck norris, jonathan brandis ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 11</span><h4>Sidekicks</h4><p>1992 — Aaron Norris · Chuck Norris, Jonathan Brandis</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="portrait — jean-claude van damme  1988–1991 — spécial · jean-claude van damme ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 12</span><h4>Portrait — Jean-Claude Van Damme</h4><p>1988–1991 — Spécial · Jean-Claude Van Damme</p></div>
+        </a>
+        </div>
+      </div>
+      <div class="group" data-group="saison4" id="saison4">
+        <div class="group-head"><h3>Saison 4</h3><span>0 / 12 ÉPISODES EN LIGNE</span></div>
+        <div class="grid">
+        <a href="bientot.html" class="tape soon" data-search="terminal velocity  1994 — deran sarafian · charlie sheen ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 01</span><h4>Terminal Velocity</h4><p>1994 — Deran Sarafian · Charlie Sheen</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="étroite surveillance  1987 — john badham · richard dreyfuss, emilio estevez ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 02</span><h4>Étroite surveillance</h4><p>1987 — John Badham · Richard Dreyfuss, Emilio Estevez</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="indiscrétion assurée  1993 — john badham · richard dreyfuss, emilio estevez ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 03</span><h4>Indiscrétion assurée</h4><p>1993 — John Badham · Richard Dreyfuss, Emilio Estevez</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="kickboxer 5 : le dernier combat  1995 — kristine peterson · mark dacascos ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 04</span><h4>Kickboxer 5 : Le Dernier Combat</h4><p>1995 — Kristine Peterson · Mark Dacascos</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="chasse à l&#x27;homme  1993 — john woo · jean-claude van damme ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 05</span><h4>Chasse à l&#x27;homme</h4><p>1993 — John Woo · Jean-Claude Van Damme</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="blade  1998 — stephen norrington · wesley snipes ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 06</span><h4>Blade</h4><p>1998 — Stephen Norrington · Wesley Snipes</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="cliffhanger  1993 — renny harlin · sylvester stallone ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 07</span><h4>Cliffhanger</h4><p>1993 — Renny Harlin · Sylvester Stallone</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="au revoir à jamais  1996 — renny harlin · geena davis, samuel l. jackson ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 08</span><h4>Au revoir à jamais</h4><p>1996 — Renny Harlin · Geena Davis, Samuel L. Jackson</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="new york 1997  1981 — john carpenter · kurt russell ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 09</span><h4>New York 1997</h4><p>1981 — John Carpenter · Kurt Russell</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="cœur de tonnerre  1992 — michael apted · val kilmer ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 10</span><h4>Cœur de tonnerre</h4><p>1992 — Michael Apted · Val Kilmer</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="desperado  1995 — robert rodriguez · antonio banderas ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 11</span><h4>Desperado</h4><p>1995 — Robert Rodriguez · Antonio Banderas</p></div>
+        </a>
+        <a href="bientot.html" class="tape soon" data-search="piège en haute mer  1992 — andrew davis · steven seagal ">
+          <div class="tape-img"><span class="blank">BIENTÔT<br><small>CASSETTE VIERGE</small></span></div>
+          <div class="tape-info"><span class="tape-num">EP. 12</span><h4>Piège en haute mer</h4><p>1992 — Andrew Davis · Steven Seagal</p></div>
+        </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SÉRIES TV -->
+    <section class="section" id="series">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">LE PETIT ÉCRAN</p>
+          <h2>SÉRIES TV CULTES</h2>
+        </div>
+        <a href="series-tv-cultes.html" class="link">TOUTES LES SÉRIES →</a>
+      </div>
+      <div class="grid three">
+        <a href="series-ep01-mission-impossible.html" class="tape" data-search="mission: impossible  1966 · peter graves séries tv">
+          <div class="tape-img"><img src="mi-titre.jpg" alt="Mission: Impossible" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Séries TV · EP. 01</span><h4>Mission: Impossible</h4><p>1966 · Peter Graves</p></div>
+        </a>
+        <a href="series-ep02-macgyver.html" class="tape" data-search="macgyver  1985 · richard dean anderson séries tv">
+          <div class="tape-img"><img src="macgyver-duo.jpg" alt="MacGyver" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Séries TV · EP. 02</span><h4>MacGyver</h4><p>1985 · Richard Dean Anderson</p></div>
+        </a>
+        <a href="series-ep03-booker.html" class="tape" data-search="booker  1989 · richard grieco séries tv">
+          <div class="tape-img"><img src="booker-titre.jpg" alt="Booker" loading="lazy" decoding="async"><span class="rec">▶ PLAY</span></div>
+          <div class="tape-info"><span class="tape-num">Séries TV · EP. 03</span><h4>Booker</h4><p>1989 · Richard Grieco</p></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- PODCAST + BOUTIQUE -->
+    <section class="duo">
+      <a href="podcast.html" class="panel" id="podcast">
+        <p class="eyebrow">SOMEDAY</p>
+        <h2>PODCAST</h2>
+        <p>Les épisodes à écouter, cassette dans le lecteur : les films, leurs coulisses et les souvenirs qui vont avec.</p>
+        <span class="button small">ÉCOUTER <span>→</span></span>
+      </a>
+      <a href="boutique.html" class="panel accent-panel">
+        <p class="eyebrow">VIDÉO CLUB SOMEDAY</p>
+        <h2>BOUTIQUE</h2>
+        <p>Cassettes VHS chinées d'époque, jaquettes d'origine, à vendre à l'unité.</p>
+        <span class="button small">VOIR LA BOUTIQUE <span>→</span></span>
+      </a>
+    </section>
+
+    <!-- MANIFESTE -->
+    <section class="section manifesto" id="about">
+      <p class="eyebrow">MANIFESTE</p>
       <h2>LES FILMS QU'ON N'OUBLIE PAS.</h2>
       <p class="lead">Pas les classiques. Les autres.</p>
       <p>Il y a des films qu'on n'a jamais vus au cinéma. Des films qu'on a découverts un samedi soir avec son grand-père, une cassette enregistrée par son père, une jaquette découpée dans Télé K7, un écran qui grésille.</p>
       <p>SOMEDAY est une série documentaire consacrée aux thrillers, films d'action, néo-noirs et séries B américains de l'ère VHS : ceux que le temps a effacés, ceux que la VHS a portés, ceux dont on se souvient sans savoir pourquoi.</p>
-      <p class="bebas" style="font-size:24px;letter-spacing:.1em">La cassette est dans le lecteur. On rembobine.</p>
-    </div>
-  </section>
-</main>
+      <p class="signature">La cassette est dans le lecteur. On rembobine.</p>
+    </section>
+  </main>
 
-<footer>
-  <span>SOMEDAY © 2026 · LYON, FRANCE</span>
-  <a href="mentions-legales.html">Mentions légales</a>
-  <a href="cgv.html">CGV</a>
-  <a id="mail" href="#">Contact</a>
-  <span>someday-vhs.com</span>
-</footer>
+  <footer class="footer">
+    <a href="https://somedayvhs.github.io/someday-production/index.html" class="foot-logo">SOMEDAY</a>
+    <span>© 2026 · LYON, FRANCE</span>
+    <nav class="foot-nav" aria-label="Liens légaux">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgv.html">CGV</a>
+      <a href="mailto:somedayvhs@outlook.fr">Contact</a>
+    </nav>
+    <span>someday-vhs.com</span>
+  </footer>
 
-<script src="episodes.js"></script>
-<script>
-(() => {
-  const $ = s => document.querySelector(s);
-  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const norm = s => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-  const pad = n => String(n).padStart(2, '0');
-  const state = { season: 'all', q: '', online: false };
-  let DATA, ALL = [];
+  <a href="#contenu" class="to-top" id="toTop" aria-label="Remonter en haut de page">▲</a>
 
-  const year = e => e.year ?? e.yearLabel ?? '';
-  const meta = e => [year(e) && year(e) + (e.director ? ' — ' + e.director : ''), e.cast, e.note].filter(Boolean);
+  <script>
+    (function () {
+      var q = document.getElementById('q');
+      var tabs = [].slice.call(document.querySelectorAll('.tab'));
+      var groups = [].slice.call(document.querySelectorAll('.group'));
+      var empty = document.getElementById('empty');
+      var current = 'all';
 
-  function card(e, { tag, q } = {}) {
-    const live = !!e.url;
-    const hl = t => {
-      if (!q) return esc(t);
-      const i = norm(t).indexOf(norm(q));
-      if (i < 0 || norm(t).length !== String(t).length) return esc(t);
-      return esc(t.slice(0, i)) + '<mark>' + esc(t.slice(i, i + q.length)) + '</mark>' + esc(t.slice(i + q.length));
-    };
-    const m = meta(e);
-    const html = `<div class="tag">${live ? '▶ PLAY · ' : 'BIENTÔT · CASSETTE VIERGE · '}${esc(tag || 'EP. ' + pad(e.n))}</div>
-      <h4>${hl(e.title)}</h4>
-      ${e.original ? `<div class="orig">${esc(e.original)}</div>` : ''}
-      <div class="meta">${m.map(esc).join('<br>')}</div>
-      ${live ? '<span class="go">REGARDER →</span>' : ''}`;
-    return live ? `<a class="card" href="${esc(e.url)}">${html}</a>` : `<div class="card soon">${html}</div>`;
-  }
+      function apply() {
+        var term = (q.value || '').trim().toLowerCase();
+        var shown = 0;
+        groups.forEach(function (g) {
+          var inTab = current === 'all' || g.dataset.group === current;
+          var visible = 0;
+          g.querySelectorAll('.tape').forEach(function (c) {
+            var ok = inTab && (!term || c.dataset.search.indexOf(term) > -1);
+            c.hidden = !ok;
+            if (ok) visible++;
+          });
+          g.hidden = visible === 0;
+          shown += visible;
+        });
+        empty.hidden = shown > 0;
+      }
 
-  function matches(e) {
-    if (state.online && !e.url) return false;
-    if (!state.q) return true;
-    const hay = norm([e.title, e.original, e.year, e.yearLabel, e.director, e.cast].join(' '));
-    return state.q.split(/\s+/).every(w => hay.includes(norm(w)));
-  }
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () {
+          current = t.dataset.tab;
+          tabs.forEach(function (x) {
+            x.classList.toggle('active', x === t);
+            x.setAttribute('aria-pressed', String(x === t));
+          });
+          apply();
+        });
+      });
+      q.addEventListener('input', apply);
 
-  function renderSeasons() {
-    let shown = 0;
-    const html = DATA.seasons
-      .filter(s => state.season === 'all' || state.season === s.id)
-      .map(s => {
-        const eps = s.episodes.filter(matches);
-        if (!eps.length) return '';
-        shown += eps.length;
-        const live = s.episodes.filter(e => e.url).length;
-        return `<div class="season" id="${esc(s.id)}">
-          <h3>${esc(s.title)} <em>${live} / ${s.total} ÉPISODES EN LIGNE</em></h3>
-          <div class="progress"><i style="width:${Math.round(live / s.total * 100)}%"></i></div>
-          <div class="grid">${eps.map(e => card(e, { q: state.q })).join('')}</div></div>`;
-      }).join('');
-    $('#seasons').innerHTML = html;
-    $('#empty').style.display = shown ? 'none' : 'block';
-  }
+      document.getElementById('searchOpen').addEventListener('click', function () {
+        setTimeout(function () { q.focus(); }, 400);
+      });
 
-  function renderChips() {
-    const chips = [['all', 'Tout'], ...DATA.seasons.map(s => [s.id, s.short || s.title])];
-    $('#chips').innerHTML = chips.map(([id, label]) =>
-      `<button class="chip" data-id="${esc(id)}" aria-pressed="${state.season === id}">${esc(label)}</button>`).join('');
-  }
-
-  function syncHash() {
-    const p = new URLSearchParams();
-    if (state.season !== 'all') p.set('s', state.season);
-    if (state.q) p.set('q', state.q);
-    if (state.online) p.set('live', '1');
-    const h = p.toString();
-    history.replaceState(null, '', h ? '#films?' + h : location.pathname + location.search);
-  }
-
-  function readHash() {
-    const m = location.hash.match(/^#films\?(.*)$/);
-    if (!m) return;
-    const p = new URLSearchParams(m[1]);
-    state.season = p.get('s') || 'all';
-    state.q = p.get('q') || '';
-    state.online = p.get('live') === '1';
-    $('#q').value = state.q;
-    $('#onlyOnline').checked = state.online;
-  }
-
-  function update() { renderChips(); renderSeasons(); syncHash(); }
-
-  async function init() {
-    DATA = window.SOMEDAY_DATA;
-    if (!DATA) {
-      $('#seasons').innerHTML = '<p class="empty" style="display:block">Fichier episodes.js introuvable : il doit être au même endroit que index.html (racine du dépôt).</p>';
-      return;
-    }
-    DATA.seasons.forEach(s => s.episodes.forEach(e => { e._season = s; ALL.push(e); }));
-    const byId = Object.fromEntries(ALL.map(e => [e.id, e]));
-
-    $('#subtitle').textContent = DATA.site.subtitle;
-    $('#mail').href = 'mailto:' + DATA.site.email;
-
-    const latest = DATA.latest.map(id => byId[id]).filter(Boolean);
-    $('#latest').innerHTML = latest.map(e => card(e, { tag: (e._season.short || e._season.title) + ' · EP. ' + pad(e.n) })).join('');
-    if (latest[0]) {
-      const b = $('#newbtn');
-      b.hidden = false; b.href = latest[0].url;
-      b.textContent = `NOUVEAU ${latest[0]._season.short || latest[0]._season.title} · EP. ${pad(latest[0].n)} — ${latest[0].title} →`;
-    }
-
-    $('#seriesGrid').innerHTML = DATA.series.map(e => card(e, { tag: 'SÉRIES TV · EP. ' + pad(e.n) })).join('');
-
-    readHash();
-    update();
-
-    $('#chips').addEventListener('click', ev => {
-      const b = ev.target.closest('.chip'); if (!b) return;
-      state.season = b.dataset.id; update();
-    });
-    let t;
-    $('#q').addEventListener('input', ev => { clearTimeout(t); t = setTimeout(() => { state.q = ev.target.value.trim(); update(); }, 120); });
-    $('#onlyOnline').addEventListener('change', ev => { state.online = ev.target.checked; update(); });
-  }
-  init();
-})();
-</script>
+      var top = document.getElementById('toTop');
+      window.addEventListener('scroll', function () {
+        top.classList.toggle('visible', window.scrollY > 600);
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
