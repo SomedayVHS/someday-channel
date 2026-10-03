@@ -94,7 +94,6 @@
     }
   </style>
   <link rel="stylesheet" href="theme.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
     /* ---------- Jaquettes K7 du podcast ---------- */
     .content { max-width: 900px; }
@@ -214,7 +213,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Harley Davidson et l'homme aux santiags" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Harley Davidson et l'homme aux santiags" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep01-harley-davidson.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -246,7 +245,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Au-dessus de la loi (Joshua Tree)" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Au-dessus de la loi (Joshua Tree)" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep02-joshua-tree.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -278,7 +277,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Showdown in Little Tokyo" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Showdown in Little Tokyo" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep03-showdown-little-tokyo.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -310,7 +309,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Rapid Fire" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Rapid Fire" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep04-rapid-fire.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -342,7 +341,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Espion Junior (If Looks Could Kill)" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Espion Junior (If Looks Could Kill)" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep05-espion-junior.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -374,7 +373,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : La Prise de Beverly Hills" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : La Prise de Beverly Hills" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep06-la-prise-de-beverly-hills.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -406,7 +405,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Guet-Apens" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Guet-Apens" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep07-guet-apens.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -438,7 +437,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : The Substitute" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : The Substitute" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep08-the-substitute.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -470,7 +469,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : BlackJack" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : BlackJack" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep09-blackjack.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -502,7 +501,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : 3000 Miles to Graceland" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : 3000 Miles to Graceland" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep10-3000-miles-to-graceland.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -534,7 +533,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Crying Freeman" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Crying Freeman" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep11-crying-freeman.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -566,7 +565,7 @@
           </div>
           <a href="bientot.html" class="ep-badge">Bientôt</a>
         </div>
-        <audio aria-label="Écouter : Portrait — Dolph Lundgren" class="audio-player" controls preload="none">
+        <audio aria-label="Écouter : Portrait — Dolph Lundgren" class="audio-player" controls preload="none" hidden>
           <source src="podcast-ep12-portrait-dolph-lundgren.mp3" type="audio/mpeg">
         </audio>
         </div>
@@ -588,5 +587,18 @@
     </nav>
   </footer>
 
+
+  <script>
+    // Affiche un lecteur dès que son MP3 est en ligne, et retire alors l'étiquette « Bientôt ».
+    document.querySelectorAll('audio.audio-player[hidden]').forEach(function (a) {
+      var src = a.querySelector('source').getAttribute('src');
+      fetch(src, { method: 'HEAD' }).then(function (r) {
+        if (!r.ok) return;
+        a.hidden = false;
+        var badge = a.parentNode.querySelector('.ep-badge');
+        if (badge) badge.remove();
+      }).catch(function () {});
+    });
+  </script>
 </body>
 </html>
