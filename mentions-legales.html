@@ -12,7 +12,8 @@
     :root { --black:#0f0c08; --white:#e8e0d0; --dim:#8a857d; --accent:#8b4a2b; --accent-text:#c0704a; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--white); font-family: Arial, Helvetica, sans-serif; font-weight: 300; line-height: 1.7; padding: 2rem; }
+    body { background: var(--black); color: var(--white); font-family: Arial, Helvetica, sans-serif; font-weight: 300; line-height: 1.7; padding: 0 2rem 2rem; }
+    .header.static { margin: 0 -2rem; }
     main { max-width: 68ch; margin: 0 auto; padding: 3rem 0 5rem; }
     .retour { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--dim); text-decoration: none; }
     .retour:hover { color: var(--white); }
@@ -31,13 +32,15 @@
   <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <header class="header static">
+  <header class="header static" id="top">
     <a href="index.html" class="logo" aria-label="SOMEDAY, accueil">SOMEDAY<span>LES FILMS QU'ON N'OUBLIE PAS.</span></a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="index.html#films">Vidéoclub</a>
+      <a href="index.html">Accueil</a>
+      <a href="videoclub.html">Vidéoclub</a>
       <a href="series-tv-cultes.html" class="opt">Séries TV</a>
       <a href="podcast.html">Podcast</a>
       <a href="boutique.html" class="accent">Boutique</a>
+      <a href="videoclub.html#q" class="search" aria-label="Rechercher un film">⌕</a>
     </nav>
   </header>
 <!-- Texte-type. Les passages en rouge [À COMPLÉTER] / [À VÉRIFIER] sont à remplir ou confirmer, puis à retirer. -->
