@@ -533,3 +533,14 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid 
   .tape h4 { font-size: 14px; }
   .footer { padding: 30px 25px; align-items: flex-start; flex-direction: column; }
 }
+
+/* saison à venir seule sur sa ligne : bandeau pleine largeur */
+@media (min-width: 701px) {
+  .seasons > .season.teaser:last-child:nth-child(3n+1) { grid-column: 1 / -1; flex-direction: row; }
+  .seasons > .season.teaser:last-child:nth-child(3n+1) .season-blank { flex: 0 0 33%; aspect-ratio: auto; min-height: 150px; }
+  .seasons > .season.teaser:last-child:nth-child(3n+1) .season-info { justify-content: center; }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .seasons > .season.teaser:last-child:nth-child(2n+1) { grid-column: 1 / -1; flex-direction: row; }
+  .seasons > .season.teaser:last-child:nth-child(2n+1) .season-blank { flex: 0 0 40%; aspect-ratio: auto; min-height: 150px; }
+}
