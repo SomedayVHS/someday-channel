@@ -143,6 +143,7 @@ mark{background:var(--amber);color:#000}
   <span>someday-vhs.com</span>
 </footer>
 
+<script src="episodes.js"></script>
 <script>
 (() => {
   const $ = s => document.querySelector(s);
@@ -226,12 +227,9 @@ mark{background:var(--amber);color:#000}
   function update() { renderChips(); renderSeasons(); syncHash(); }
 
   async function init() {
-    try {
-      const r = await fetch('data/episodes.json', { cache: 'no-cache' });
-      if (!r.ok) throw new Error(r.status);
-      DATA = await r.json();
-    } catch (err) {
-      $('#seasons').innerHTML = '<p class="empty" style="display:block">Impossible de charger data/episodes.json. En local, lance un petit serveur : <code>python3 -m http.server</code></p>';
+    DATA = window.SOMEDAY_DATA;
+    if (!DATA) {
+      $('#seasons').innerHTML = '<p class="empty" style="display:block">Fichier episodes.js introuvable : il doit être au même endroit que index.html (racine du dépôt).</p>';
       return;
     }
     DATA.seasons.forEach(s => s.episodes.forEach(e => { e._season = s; ALL.push(e); }));
