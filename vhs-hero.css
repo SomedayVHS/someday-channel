@@ -1,0 +1,166 @@
+/* =========================================================
+   SOMEDAY — hero VHS animée
+   S'ajoute APRÈS style.css. Aucune règle existante n'est modifiée.
+   Tout est coupé si le visiteur demande moins de mouvement.
+   ========================================================= */
+
+.hero { isolation: isolate; --vd: 0s; }
+.hero.vhs-boot { --vd: .95s; }
+
+/* ---------- 1. L'image dérive lentement (lecture analogique) ---------- */
+.hero-overlay::after {
+  content: "";
+  position: absolute; inset: -3%; z-index: -1;
+  background-image:
+    linear-gradient(90deg, rgba(8,8,8,.97) 0%, rgba(8,8,8,.72) 40%, rgba(8,8,8,.22) 75%),
+    url("alien-epave.jpg");
+  background-size: cover; background-position: center;
+  transform-origin: 60% 50%;
+  animation: vhsDrift 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes vhsDrift {
+  from { transform: scale(1)    translate3d(0, 0, 0); }
+  to   { transform: scale(1.09) translate3d(-1.6%, -1.2%, 0); }
+}
+@media (max-width: 700px) { .hero-overlay::after { background-position: 65% center; } }
+
+/* ---------- 2. Calque d'effets injecté par vhs-hero.js ---------- */
+.vhs-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.vhs-fx > i { position: absolute; display: block; }
+
+/* grain de bande */
+.vhs-fx .g {
+  inset: -12%;
+  opacity: .13; mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .9 0 0 0 -.15'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation: vhsGrain .6s steps(1) infinite;
+}
+@keyframes vhsGrain {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-4%, 3%); }
+  40%  { transform: translate(3%, -5%); }
+  60%  { transform: translate(-6%, -2%); }
+  80%  { transform: translate(5%, 4%); }
+}
+
+/* bande de « tracking » qui remonte l'écran toutes les 9 s */
+.vhs-fx .t {
+  left: 0; right: 0; top: 0; height: 90px;
+  background:
+    linear-gradient(180deg, transparent, rgba(255,255,255,.05) 35%, rgba(255,255,255,.16) 50%, rgba(255,255,255,.05) 65%, transparent);
+  mix-blend-mode: screen;
+  opacity: 0; transform: translateY(110vh);
+  animation: vhsTrack 9s linear 2.5s infinite;
+}
+.vhs-fx .t::after { /* déchirure RVB sur le bord de la bande */
+  content: ""; position: absolute; left: 0; right: 0; top: 46%; height: 3px;
+  background: linear-gradient(90deg, rgba(255,0,80,.55), rgba(255,255,255,.5), rgba(0,220,255,.55));
+  animation: vhsTear .18s steps(2) infinite;
+}
+@keyframes vhsTrack {
+  0%, 84%  { opacity: 0; transform: translateY(105%); }
+  85%      { opacity: 1; }
+  100%     { opacity: 0; transform: translateY(-130%); }
+}
+@keyframes vhsTear { 50% { transform: translateX(14px); } }
+
+/* bruit de commutation des têtes, en bas de l'image */
+.vhs-fx::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px; opacity: .55;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), rgba(255,0,80,.25), rgba(0,220,255,.25), transparent);
+  background-size: 300% 100%;
+  animation: vhsHead 1.1s steps(7) infinite;
+}
+@keyframes vhsHead { to { background-position: 300% 0; } }
+
+/* séquence d'insertion de la cassette (1re visite de la session) */
+.vhs-fx .b {
+  inset: 0; background: #0a1166;
+  animation: vhsBoot 1.7s steps(1, end) forwards;
+}
+.vhs-fx .b::before {
+  content: "▶ PLAY"; position: absolute; left: 6%; top: 118px;
+  font: 20px/1 monospace; letter-spacing: 3px; color: #e8e0d0;
+  text-shadow: 2px 0 rgba(255,0,80,.5), -2px 0 rgba(0,220,255,.5);
+}
+.vhs-fx .b::after { /* barres de bruit pendant l'accroche du signal */
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.18) 0 2px, transparent 2px 7px, rgba(0,0,0,.35) 7px 9px, transparent 9px 18px);
+  animation: vhsBars .12s steps(2) infinite;
+}
+@keyframes vhsBars { 50% { transform: translateY(9px); } }
+@keyframes vhsBoot {
+  0%, 36% { opacity: 1; }
+  40% { opacity: 0; }
+  44% { opacity: .85; }
+  50% { opacity: 0; }
+  55% { opacity: .5; }
+  62% { opacity: .12; }
+  100% { opacity: 0; }
+}
+
+/* ---------- 3. Le logo : arrivée + glitch périodique ---------- */
+.brand {
+  animation:
+    vhsBrandIn 1.1s cubic-bezier(.2,.7,.2,1) var(--vd) both,
+    vhsGlitch 8s steps(1) calc(var(--vd) + 3s) infinite;
+}
+@keyframes vhsBrandIn {
+  0%   { opacity: 0; filter: blur(8px); text-shadow: 26px 0 rgba(255,0,80,.8), -26px 0 rgba(0,220,255,.8); }
+  55%  { opacity: 1; filter: blur(1px); }
+  100% { opacity: 1; filter: none; text-shadow: 5px 0 rgba(255,0,80,.35), -5px 0 rgba(0,220,255,.35); }
+}
+@keyframes vhsGlitch {
+  0%, 91%, 100% { transform: none; clip-path: none; text-shadow: 5px 0 rgba(255,0,80,.35), -5px 0 rgba(0,220,255,.35); }
+  92% { transform: translateX(-7px) skewX(-4deg); text-shadow: 14px 0 rgba(255,0,80,.75), -14px 0 rgba(0,220,255,.75); }
+  94% { transform: translateX(8px); clip-path: inset(0 0 55% 0); text-shadow: -10px 0 rgba(255,0,80,.65), 10px 0 rgba(0,220,255,.65); }
+  96% { transform: translateX(-3px) skewX(2deg); clip-path: inset(42% 0 0 0); text-shadow: 9px 0 rgba(255,0,80,.6), -9px 0 rgba(0,220,255,.6); }
+  98% { transform: translateX(2px); clip-path: none; }
+}
+
+/* ---------- 4. Entrée échelonnée du reste du texte ---------- */
+.hero-content > *:not(.brand) { animation: vhsUp .8s cubic-bezier(.2,.7,.2,1) both; }
+.hero-content > .play   { animation-delay: calc(var(--vd) + .05s); }
+.hero-content > h1      { animation-delay: calc(var(--vd) + .45s); }
+.hero-content > .hero-lead { animation-delay: calc(var(--vd) + .6s); }
+.hero-content > .genres { animation-delay: calc(var(--vd) + .75s); }
+.hero-content > .hero-actions { animation-delay: calc(var(--vd) + .9s); }
+.hero-content > .now    { animation-delay: calc(var(--vd) + 1.05s); }
+@keyframes vhsUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* ---------- 5. Compteur de bande + horodatage ---------- */
+.play.has-tc { animation: none; display: flex; align-items: baseline; gap: 18px; }
+.play .pl { animation: blink 1.6s steps(2, start) infinite; }
+.play .tc { font-variant-numeric: tabular-nums; color: rgba(232,224,208,.6); letter-spacing: 2px; }
+.timestamp { animation: vhsFlick 5s steps(1) infinite; }
+@keyframes vhsFlick { 0%, 100% { opacity: 1; } 47% { opacity: .55; } 49% { opacity: 1; } 71% { opacity: .75; } }
+
+/* ---------- 6. Reste de l'accueil : apparitions au scroll ---------- */
+.rv {
+  opacity: 0; translate: 0 26px;
+  transition: opacity .7s ease, translate .7s cubic-bezier(.2,.7,.2,1),
+              border-color .2s, transform .2s, background .25s;
+  transition-delay: calc(var(--i, 0) * 70ms), calc(var(--i, 0) * 70ms), 0s, 0s, 0s;
+}
+.rv.in { opacity: 1; translate: 0 0; }
+
+/* petit « tracking » RVB quand on survole une cassette */
+.tape:hover .tape-img img { animation: vhsHover .35s steps(3) 1; }
+@keyframes vhsHover {
+  0%   { filter: drop-shadow(4px 0 rgba(255,0,80,.55)) drop-shadow(-4px 0 rgba(0,220,255,.55)); }
+  100% { filter: none; }
+}
+
+/* ---------- économie d'énergie : on met en pause hors écran ---------- */
+.vhs-off .vhs-fx *, .vhs-off .vhs-fx::before, .vhs-off .hero-overlay::after, .vhs-off .brand, .vhs-off .timestamp {
+  animation-play-state: paused !important;
+}
+
+/* ---------- accessibilité : moins de mouvement ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .vhs-fx { display: none !important; }
+  .hero-overlay::after, .brand, .hero-content > *, .timestamp, .tape:hover .tape-img img { animation: none !important; }
+  .play .pl { animation: none !important; }
+  .rv { opacity: 1 !important; translate: none !important; transition: none !important; }
+}
