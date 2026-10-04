@@ -176,7 +176,7 @@
     var FOCUS = { 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
                   'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
     // horodatage « caméscope » propre à chaque film (date de sortie en salle)
-    var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'OCT 27 1997'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
+    var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'SEP 12 1979'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
                   'aliens-ripley.jpg': ['PM 09:47', 'JUL 18 1986'], 'terminator-2-affiche.jpg': ['PM 11:03', 'JUL 03 1991'],
                   'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'] };
     var stampEl = $('.timestamp', hero);
