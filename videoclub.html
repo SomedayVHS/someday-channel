@@ -13,6 +13,10 @@
   <meta property="og:title" content="Le vidéoclub — SOMEDAY">
   <meta property="og:image" content="https://someday-vhs.com/og-image.png">
   <link rel="stylesheet" href="style.css">
+<!-- vhs-fx -->
+<link rel="stylesheet" href="vhs-fx.css">
+<script>try{var s=sessionStorage,t=+s.getItem('someday-rw');s.removeItem('someday-rw');if(t&&Date.now()-t<6000)document.documentElement.classList.add('rw-in')}catch(e){}</script>
+<!-- /vhs-fx -->
 </head>
 <body class="page-videoclub">
   <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -337,5 +341,6 @@
       window.addEventListener('scroll', function () { top.classList.toggle('visible', window.scrollY > 600); }, { passive: true });
     })();
   </script>
+<!-- vhs-fx --><script src="vhs-fx.js" defer></script><!-- /vhs-fx -->
 </body>
 </html>
