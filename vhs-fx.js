@@ -175,6 +175,15 @@
     // point d'intérêt de chaque image (x,y en %) — sert au cadrage sur téléphone
     var FOCUS = { 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
                   'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
+    // horodatage « caméscope » propre à chaque film (date de sortie en salle)
+    var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'OCT 27 1997'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
+                  'aliens-ripley.jpg': ['PM 09:47', 'JUL 18 1986'], 'terminator-2-affiche.jpg': ['PM 11:03', 'JUL 03 1991'],
+                  'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'] };
+    var stampEl = $('.timestamp', hero);
+    function setStamp(img) {
+      var st = STAMP[img]; if (!stampEl || !st) return;
+      stampEl.innerHTML = st[0] + '<br>' + st[1];
+    }
     var curImg = 'alien-epave.jpg', dims = {};
     function axis(f, box, img, scale) { // % de background-position qui place le point f au centre
       var over = img * scale - box; if (over <= 0) return 50;
@@ -208,7 +217,7 @@
         fx.classList.remove('cut'); void fx.offsetWidth; fx.classList.add('cut');
         setTimeout(function () {
           hero.style.setProperty('--hero-img', 'url("' + s.img + '")');
-          curImg = s.img; measure(s.img, place);
+          curImg = s.img; measure(s.img, place); setStamp(s.img);
           cur = target; firstCut = false; setLabel(s); paintDots();
         }, 140);
         setTimeout(function () { busy = false; }, 600);
