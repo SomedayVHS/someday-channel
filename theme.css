@@ -75,3 +75,24 @@ footer nav, .footer-nav { position: static !important; inset: auto !important; b
 }
 /* hiérarchie : les titres de pages restent sous la marque */
 body > main h1, body > section h1, .hero h1 { font-size: clamp(36px, 5.5vw, 76px) !important; line-height: 1 !important; }
+
+/* ===== v6 — ergonomie mobile & accessibilité ===== */
+/* les ancres (#films, #q…) ne se cachent plus sous l'en-tête fixe */
+html { scroll-padding-top: 96px; }
+/* focus clavier bien visible (2px, couleur de la marque) */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+summary:focus-visible, video:focus-visible, audio:focus-visible {
+  outline: 2px solid #c0704a; outline-offset: 3px;
+}
+/* zone de clic du menu élargie sans changer l'apparence */
+.nav a, .header .nav a { position: relative; }
+.nav a::after, .header .nav a::after { content: ""; position: absolute; inset: -16px 0; }
+/* « Séries TV » reste accessible partout, y compris sur mobile */
+.nav .opt, .header .nav .opt { display: inline; }
+@media (max-width: 700px) {
+  .nav a, .header .nav a { font-size: 11px; letter-spacing: .5px; white-space: nowrap; }
+  .nav, .header .nav { justify-content: space-between; }
+}
+@media (max-width: 360px) {
+  .nav a, .header .nav a { font-size: 10px; letter-spacing: 0; }
+}
