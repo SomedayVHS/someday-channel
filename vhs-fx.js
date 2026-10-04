@@ -172,6 +172,28 @@
       im.src = s.img;
     }
 
+    // point d'intérêt de chaque image (x,y en %) — sert au cadrage sur téléphone
+    var FOCUS = { 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
+                  'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
+    var curImg = 'alien-epave.jpg', dims = {};
+    function axis(f, box, img, scale) { // % de background-position qui place le point f au centre
+      var over = img * scale - box; if (over <= 0) return 50;
+      return Math.max(0, Math.min(100, (f / 100 * img * scale - box / 2) / over * 100));
+    }
+    function place() {
+      var dm = dims[curImg], f = FOCUS[curImg]; if (!dm || !f) return;
+      var w = hero.offsetWidth * 1.06, h = hero.offsetHeight * 1.06, sc = Math.max(w / dm[0], h / dm[1]);
+      hero.style.setProperty('--hero-pos', axis(f[0], w, dm[0], sc).toFixed(1) + '% ' + axis(f[1], h, dm[1], sc).toFixed(1) + '%');
+    }
+    function measure(src, cb) {
+      if (dims[src]) return cb();
+      var im = new Image();
+      im.onload = function () { dims[src] = [im.naturalWidth, im.naturalHeight]; cb(); };
+      im.onerror = cb; im.src = src;
+    }
+    measure(curImg, place);
+    window.addEventListener('resize', place, { passive: true });
+
     var busy = false, firstCut = true;
     function next() {
       if (busy || !visible || d.hidden || slides.length < 2) return;
@@ -186,6 +208,7 @@
         fx.classList.remove('cut'); void fx.offsetWidth; fx.classList.add('cut');
         setTimeout(function () {
           hero.style.setProperty('--hero-img', 'url("' + s.img + '")');
+          curImg = s.img; measure(s.img, place);
           cur = target; firstCut = false; setLabel(s); paintDots();
         }, 140);
         setTimeout(function () { busy = false; }, 600);

@@ -28,7 +28,17 @@ html.rw-in .hero.vhs-home { --vd: .5s; }
   from { transform: scale(1)    translate3d(0, 0, 0); }
   to   { transform: scale(1.09) translate3d(-1.6%, -1.2%, 0); }
 }
-@media (max-width: 700px) { .vhs-home .hero-overlay::after { background-position: 65% center; } }
+@media (max-width: 700px) {
+  .vhs-home .hero-overlay::after {
+    background-position: var(--hero-pos, 65% center);
+    background-image:
+      linear-gradient(180deg, rgba(8,8,8,.55) 0%, rgba(8,8,8,.62) 45%, rgba(8,8,8,.9) 100%),
+      var(--hero-img);
+    transform-origin: 50% 40%;
+    animation-name: vhsDriftM;
+  }
+}
+@keyframes vhsDriftM { from { transform: scale(1) translate3d(0,0,0); } to { transform: scale(1.05) translate3d(-.6%,-.6%,0); } }
 
 /* calque d'effets injecté par vhs-fx.js */
 .vhs-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
