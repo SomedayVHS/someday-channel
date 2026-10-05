@@ -165,6 +165,7 @@
         href: a.getAttribute('href'),
         num: num ? num.textContent.trim() : '',
         title: h4 && h4.firstChild ? h4.firstChild.textContent.trim() : '',
+        year: (function () { var p = $('.tape-info p', a), m = p && p.textContent.match(/\b(19|20)\d\d\b/); return m ? m[0] : ''; })(),
         bad: false
       };
     }).filter(function (s) { return s.img && s.href; });
@@ -206,15 +207,17 @@
     }
 
     // point d'intérêt de chaque image (x,y en %) — sert au cadrage sur téléphone
-    var FOCUS = { 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
+    var FOCUS = { 'temple-maudit-trio.jpg': [62, 45], 'rick-hunter-portrait.jpg': [30, 40], 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
                   'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
     // horodatage « caméscope » propre à chaque film (date de sortie en salle)
     var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'OCT 27 1997'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
                   'aliens-ripley.jpg': ['PM 09:47', 'JUL 18 1986'], 'terminator-2-affiche.jpg': ['PM 11:03', 'JUL 03 1991'],
-                  'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'] };
+                  'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'],
+                  'temple-maudit-trio.jpg': ['PM 09:15', 'MAY 23 1984'], 'rick-hunter-portrait.jpg': ['PM 03:40', 'SEP 18 1984'] };
     var stampEl = $('.timestamp', hero);
-    function setStamp(img) {
-      var st = STAMP[img]; if (!stampEl || !st) return;
+    function setStamp(img, s) {
+      // date connue, sinon l'année de la cassette (jamais la date du film précédent)
+      var st = STAMP[img] || (s && s.year ? ['PM 09:00', s.year] : null); if (!stampEl || !st) return;
       stampEl.innerHTML = st[0] + '<br>' + st[1];
     }
     var curImg = 'alien-epave.jpg', dims = {};
@@ -253,7 +256,7 @@
         fx.classList.remove('cut'); void fx.offsetWidth; fx.classList.add('cut');
         setTimeout(function () {
           hero.style.setProperty('--hero-img', 'url("' + s.img + '")');
-          curImg = s.img; measure(s.img, place); setStamp(s.img);
+          curImg = s.img; measure(s.img, place); setStamp(s.img, s);
           cur = target; firstCut = false; setLabel(s); paintDots();
         }, 140);
         setTimeout(function () { busy = false; }, 600);
