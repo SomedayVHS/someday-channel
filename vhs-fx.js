@@ -136,17 +136,20 @@
         href: a.getAttribute('href'),
         num: num ? num.textContent.trim() : '',
         title: h4 && h4.firstChild ? h4.firstChild.textContent.trim() : '',
-        year: (function () { var p = $('.tape-info p', a), m = p && p.textContent.match(/\b(19|20)\d\d\b/); return m ? m[0] : ''; })(),
         bad: false
       };
     }).filter(function (s) { return s.img && s.href; });
 
-    var dotsBox = null, dots = [];
+    var dotsBox = null, dots = [], btnPrev = null, btnNext = null;
     if (slides.length > 1) {
       dotsBox = mk('div', 'vhs-dots');
       dotsBox.setAttribute('aria-hidden', 'true');
       slides.forEach(function () { var i = d.createElement('i'); dotsBox.appendChild(i); dots.push(i); });
-      hero.appendChild(dotsBox);
+      var ctl = mk('div', 'vhs-ctl');
+      btnPrev = mk('button', 'vhs-btn', '◀◀<span> REW</span>'); btnPrev.type = 'button'; btnPrev.setAttribute('aria-label', 'Film précédent');
+      btnNext = mk('button', 'vhs-btn', '<span>FF </span>▶▶'); btnNext.type = 'button'; btnNext.setAttribute('aria-label', 'Film suivant');
+      ctl.appendChild(btnPrev); ctl.appendChild(dotsBox); ctl.appendChild(btnNext);
+      hero.appendChild(ctl);
     }
     var cur = -1; // l'image d'origine (alien-epave.jpg) compte comme slide courante si elle figure dans la liste
     slides.forEach(function (s, i) { if (s.img === 'alien-epave.jpg') cur = i; });
@@ -174,17 +177,15 @@
     }
 
     // point d'intérêt de chaque image (x,y en %) — sert au cadrage sur téléphone
-    var FOCUS = { 'temple-maudit-trio.jpg': [62, 45], 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
+    var FOCUS = { 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
                   'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
     // horodatage « caméscope » propre à chaque film (date de sortie en salle)
-    var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'SEP 12 1979'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
+    var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'OCT 27 1997'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
                   'aliens-ripley.jpg': ['PM 09:47', 'JUL 18 1986'], 'terminator-2-affiche.jpg': ['PM 11:03', 'JUL 03 1991'],
-                  'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'],
-                  'temple-maudit-trio.jpg': ['PM 09:15', 'MAY 23 1984'] };
+                  'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'] };
     var stampEl = $('.timestamp', hero);
-    function setStamp(img, s) {
-      // date connue, sinon l'année de la cassette (jamais la date du film précédent)
-      var st = STAMP[img] || (s && s.year ? ['PM 09:00', s.year] : null); if (!stampEl || !st) return;
+    function setStamp(img) {
+      var st = STAMP[img]; if (!stampEl || !st) return;
       stampEl.innerHTML = st[0] + '<br>' + st[1];
     }
     var curImg = 'alien-epave.jpg', dims = {};
@@ -204,31 +205,48 @@
       im.onerror = cb; im.src = src;
     }
     measure(curImg, place);
-    setStamp(curImg); // date de l'image d'ouverture
     window.addEventListener('resize', place, { passive: true });
 
-    var busy = false, firstCut = true;
-    function next() {
-      if (busy || !visible || d.hidden || slides.length < 2) return;
-      var i = firstCut ? 0 : cur, n = slides.length, tries = 0; // 1er passage : on va au plus récent
-      if (!firstCut) i = (cur + 1) % n;
-      while (slides[i].bad && tries++ < n) i = (i + 1) % n;
+    var busy = false, firstCut = true, rot = null;
+    function go(dir, manual) {
+      if (busy || slides.length < 2) return;
+      if (!manual && (!visible || d.hidden)) return;
+      var n = slides.length, tries = 0, i;
+      if (!manual && firstCut) i = 0; // 1er passage auto : on va au plus récent
+      else if (cur < 0) i = dir > 0 ? 0 : n - 1;
+      else i = (cur + dir + n) % n;
+      while (slides[i].bad && tries++ < n) i = (i + dir + n) % n;
       if (slides[i].bad || i === cur) return;
       busy = true;
       var target = i, s = slides[target];
       load(s, function (ok) {
-        if (!ok) { busy = false; paintDots(); return; } // portrait : on le saute, au prochain tour
+        if (!ok) { busy = false; paintDots(); if (manual) go(dir, true); return; } // portrait : on le saute
         fx.classList.remove('cut'); void fx.offsetWidth; fx.classList.add('cut');
         setTimeout(function () {
           hero.style.setProperty('--hero-img', 'url("' + s.img + '")');
-          curImg = s.img; measure(s.img, place); setStamp(s.img, s);
+          curImg = s.img; measure(s.img, place); setStamp(s.img);
           cur = target; firstCut = false; setLabel(s); paintDots();
         }, 140);
         setTimeout(function () { busy = false; }, 600);
       });
     }
-    var rot = setInterval(next, 8000);
-    setTimeout(next, first ? 5500 : 4500); // premier changement rapide
+    function next() { go(1, false); }
+    function restart() { clearInterval(rot); rot = setInterval(next, 8000); } // un clic repart pour 8 s
+    var firstT = null;
+    function manual(dir) { clearTimeout(firstT); go(dir, true); restart(); }
+    if (btnPrev) {
+      btnPrev.addEventListener('click', function () { manual(-1); });
+      btnNext.addEventListener('click', function () { manual(1); });
+      // balayage horizontal sur téléphone
+      var tx = 0, ty = 0;
+      hero.addEventListener('touchstart', function (e) { var t = e.touches[0]; tx = t.clientX; ty = t.clientY; }, { passive: true });
+      hero.addEventListener('touchend', function (e) {
+        var t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.8) manual(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+    restart();
+    firstT = setTimeout(next, first ? 5500 : 4500); // premier changement rapide
 
     // pause hors écran / onglet masqué
     if ('IntersectionObserver' in window) {
