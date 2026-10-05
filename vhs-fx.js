@@ -213,7 +213,8 @@
     var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'MAY 25 1979'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
                   'aliens-ripley.jpg': ['PM 09:47', 'JUL 18 1986'], 'terminator-2-affiche.jpg': ['PM 11:03', 'JUL 03 1991'],
                   'flic-beverly-hills-3-affiche.jpg': ['PM 07:35', 'MAY 25 1994'],
-                  'temple-maudit-trio.jpg': ['PM 09:15', 'MAY 23 1984'], 'rick-hunter-portrait.jpg': ['PM 03:40', 'SEP 18 1984'] };
+                  'temple-maudit-trio.jpg': ['PM 09:15', 'MAY 23 1984'], 'rick-hunter-portrait.jpg': ['PM 03:40', 'SEP 18 1984'],
+                  'derniere-croisade-avion.jpg': ['PM 08:45', 'MAY 24 1989'] };
     var stampEl = $('.timestamp', hero);
     function setStamp(img, s) {
       // date connue, sinon l'année de la cassette (jamais la date du film précédent)
