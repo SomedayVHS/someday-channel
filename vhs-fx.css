@@ -116,6 +116,9 @@ html.rw-in .hero.vhs-home { --vd: .5s; }
 /* repères de la rotation (en bas à gauche) */
 .vhs-ctl { position: absolute; left: 6%; bottom: 20px; z-index: 5; display: flex; align-items: center; gap: 14px; }
 .vhs-btn { appearance: none; background: none; border: 1px solid rgba(232,224,208,.22); color: rgba(232,224,208,.7); font: 11px/1 monospace; letter-spacing: 2px; padding: 9px 12px; min-height: 34px; cursor: pointer; text-shadow: 1px 0 rgba(255,0,80,.4), -1px 0 rgba(0,220,255,.4); transition: color .2s, border-color .2s, background .2s; }
+.rail-ctl { display: flex; gap: 10px; }
+.rail-ctl[hidden] { display: none; }
+.vhs-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
 .vhs-btn:hover { color: #e8e0d0; border-color: #c0704a; background: rgba(192,112,74,.14); }
 .vhs-btn:active { background: rgba(192,112,74,.3); }
 .vhs-btn:focus-visible { outline: 2px solid #c0704a; outline-offset: 2px; }
@@ -123,7 +126,7 @@ html.rw-in .hero.vhs-home { --vd: .5s; }
 .vhs-dots i { width: 22px; height: 3px; background: rgba(232,224,208,.22); transition: background .3s; }
 .vhs-dots i.on { background: #c0704a; box-shadow: 0 0 6px rgba(192,112,74,.7); }
 .vhs-dots i[hidden] { display: none; }
-@media (max-width: 700px) { .vhs-ctl { left: 25px; bottom: 10px; gap: 8px; } .vhs-btn { padding: 9px 9px; min-height: 36px; } .vhs-btn span { display: none; } .vhs-dots i { width: 14px; } }
+@media (max-width: 700px) { .vhs-ctl { left: 25px; bottom: 10px; gap: 8px; } .vhs-btn { padding: 9px 9px; min-height: 36px; } .vhs-ctl .vhs-btn span { display: none; } .vhs-dots i { width: 14px; } }
 
 /* logo : arrivée + glitch périodique */
 .vhs-home .brand {

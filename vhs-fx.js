@@ -51,6 +51,35 @@
     update();
   })();
 
+  /* ======================================================
+     4. « Nouvelles cassettes » : ◀◀ REW / FF ▶▶ font défiler le rail
+     ====================================================== */
+  (function railControls() {
+    var rail = $('#nouveau .rail'), counter = $('#nouveau .counter');
+    if (!rail || !counter) return;
+    var ctl = mk('div', 'rail-ctl');
+    var prev = mk('button', 'vhs-btn', '◀◀ REW'), nextB = mk('button', 'vhs-btn', 'FF ▶▶');
+    prev.type = nextB.type = 'button';
+    prev.setAttribute('aria-label', 'Cassettes précédentes'); nextB.setAttribute('aria-label', 'Cassettes suivantes');
+    ctl.appendChild(prev); ctl.appendChild(nextB);
+    counter.replaceWith(ctl);
+    function step() {
+      var t = $('.tape', rail); if (!t) return 300;
+      return t.getBoundingClientRect().width + (parseFloat(getComputedStyle(rail).columnGap) || 20);
+    }
+    function by(dir) { rail.scrollBy({ left: dir * step(), behavior: reduce ? 'auto' : 'smooth' }); }
+    function state() {
+      var max = rail.scrollWidth - rail.clientWidth - 2;
+      prev.disabled = rail.scrollLeft <= 2; nextB.disabled = rail.scrollLeft >= max;
+      ctl.hidden = max <= 0; // tout tient à l'écran : pas de boutons
+    }
+    prev.addEventListener('click', function () { by(-1); });
+    nextB.addEventListener('click', function () { by(1); });
+    rail.addEventListener('scroll', state, { passive: true });
+    window.addEventListener('resize', state, { passive: true });
+    state(); setTimeout(state, 600);
+  })();
+
   if (reduce) return; // en dessous : uniquement des animations
 
   /* ======================================================
