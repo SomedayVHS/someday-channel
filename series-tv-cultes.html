@@ -76,6 +76,24 @@
     @media (max-width: 600px) {
       .episode { flex-wrap: wrap; gap: 0.75rem; }
     }
+
+    /* vignette « écran de télé » */
+    .ep-thumb { position: relative; flex: 0 0 168px; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 12px / 16px; background: #1a1510; box-shadow: inset 0 0 0 1px rgba(232,224,208,.14); }
+    .ep-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(20%) sepia(.12) contrast(1.05); transition: filter .3s, transform .4s; }
+    .episode:hover .ep-thumb img { filter: none; transform: scale(1.04); }
+    .ep-thumb::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.5) 100%),
+                  repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0, rgba(0,0,0,.14) 1px, transparent 1px, transparent 3px); }
+    .ep-thumb.off { display: flex; align-items: center; justify-content: center;
+      background: repeating-linear-gradient(45deg, rgba(232,224,208,.04) 0 8px, transparent 8px 16px), #15110c; }
+    .ep-thumb.off span { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; letter-spacing: .3em; color: rgba(232,224,208,.35); }
+    @media (max-width: 600px) {
+      .ep-thumb { flex: 0 0 112px; }
+      .episode { flex-wrap: nowrap; align-items: center; gap: .9rem; }
+      .ep-num { display: none; }
+      .series-title { font-size: 1.15rem; }
+      .ep-badge { display: none; }
+    }
   </style>
   <link rel="stylesheet" href="theme.css" />
 <!-- vhs-fx -->
@@ -111,6 +129,7 @@
 
       <a href="series-ep01-mission-impossible.html" class="episode">
         <span class="ep-num">EP. 01</span>
+        <span class="ep-thumb"><img src="mi-titre.jpg" alt="Mission: Impossible" loading="lazy" decoding="async"></span>
         <div class="ep-info">
           <p class="series-title">Mission: Impossible</p>
           <p class="ep-meta">1966 — Bruce Geller &nbsp;·&nbsp; Peter Graves</p>
@@ -120,6 +139,7 @@
 
       <a href="series-ep02-macgyver.html" class="episode">
         <span class="ep-num">EP. 02</span>
+        <span class="ep-thumb"><img src="macgyver-duo.jpg" alt="MacGyver" loading="lazy" decoding="async"></span>
         <div class="ep-info">
           <p class="series-title">MacGyver</p>
           <p class="ep-meta">1985 — Lee David Zlotoff &nbsp;·&nbsp; Richard Dean Anderson</p>
@@ -129,6 +149,7 @@
 
       <a href="series-ep03-booker.html" class="episode">
         <span class="ep-num">EP. 03</span>
+        <span class="ep-thumb"><img src="booker-titre.jpg" alt="Booker" loading="lazy" decoding="async"></span>
         <div class="ep-info">
           <p class="series-title">Booker</p>
           <p class="ep-meta">1989 — Stephen J. Cannell &nbsp;·&nbsp; Richard Grieco</p>
@@ -138,6 +159,7 @@
 
       <a href="series-ep04-rick-hunter.html" class="episode">
         <span class="ep-num">EP. 04</span>
+        <span class="ep-thumb"><img src="rick-hunter-portrait.jpg" alt="Rick Hunter" loading="lazy" decoding="async"></span>
         <div class="ep-info">
           <p class="series-title">Rick Hunter</p>
           <p class="ep-meta">1984 — Frank Lupo &nbsp;·&nbsp; Fred Dryer</p>
@@ -147,6 +169,7 @@
 
       <a href="series-ep05-tonnerre-mecanique.html" class="episode">
         <span class="ep-num">EP. 05</span>
+        <span class="ep-thumb"><img src="tonnerre-mecanique-jaquette.jpg" alt="Tonnerre Mécanique" loading="lazy" decoding="async"></span>
         <div class="ep-info">
           <p class="series-title">Tonnerre Mécanique</p>
           <p class="ep-meta">1985 — Street Hawk &nbsp;·&nbsp; Rex Smith</p>
@@ -156,6 +179,7 @@
 
       <a href="series-ep06-agence-acapulco.html" class="episode">
         <span class="ep-num">EP. 06</span>
+        <span class="ep-thumb"><img src="agence-acapulco-equipe.jpg" alt="Agence Acapulco" loading="lazy" decoding="async"></span>
         <div class="ep-info">
           <p class="series-title">Agence Acapulco</p>
           <p class="ep-meta">1993 — Acapulco H.E.A.T. &nbsp;·&nbsp; Catherine Oxenberg</p>
@@ -165,6 +189,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 07</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Miami Vice</p>
           <p class="ep-meta">1984 — Anthony Yerkovich &nbsp;·&nbsp; Don Johnson</p>
@@ -174,6 +199,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 08</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Caraïbe Offshore</p>
           <p class="ep-meta">1994 — Thunder in Paradise &nbsp;·&nbsp; Hulk Hogan</p>
@@ -183,6 +209,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 09</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Hawaï Police d'État</p>
           <p class="ep-meta">1968 — Leonard Freeman &nbsp;·&nbsp; Jack Lord</p>
@@ -192,6 +219,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 10</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">K2000</p>
           <p class="ep-meta">1982 — Knight Rider &nbsp;·&nbsp; David Hasselhoff</p>
@@ -201,6 +229,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 11</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Le Flic de Shanghai</p>
           <p class="ep-meta">1998 — Martial Law &nbsp;·&nbsp; Sammo Hung</p>
@@ -210,6 +239,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 12</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Les Dessous de Palm Beach</p>
           <p class="ep-meta">1991 — Silk Stalkings &nbsp;·&nbsp; Rob Estes</p>
@@ -219,6 +249,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 13</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Supercopter</p>
           <p class="ep-meta">1984 — Airwolf &nbsp;·&nbsp; Jan-Michael Vincent</p>
@@ -228,6 +259,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 14</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Le Caméléon</p>
           <p class="ep-meta">1996 — The Pretender &nbsp;·&nbsp; Michael T. Weiss</p>
@@ -237,6 +269,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 15</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">The Sentinel</p>
           <p class="ep-meta">1996 — Danny Bilson &nbsp;·&nbsp; Richard Burgi</p>
@@ -246,6 +279,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 16</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Le Rebelle</p>
           <p class="ep-meta">1992 — Stephen J. Cannell &nbsp;·&nbsp; Lorenzo Lamas</p>
@@ -255,6 +289,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 17</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Walker Texas Ranger</p>
           <p class="ep-meta">1993 — Christopher Canaan &nbsp;·&nbsp; Chuck Norris</p>
@@ -264,6 +299,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 18</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Magnum</p>
           <p class="ep-meta">1980 — Donald P. Bellisario &nbsp;·&nbsp; Tom Selleck</p>
@@ -273,6 +309,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 19</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">L'Agence Tous Risques</p>
           <p class="ep-meta">1983 — Stephen J. Cannell &nbsp;·&nbsp; George Peppard</p>
@@ -282,6 +319,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 20</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Buffy contre les vampires</p>
           <p class="ep-meta">1997 — Joss Whedon &nbsp;·&nbsp; Sarah Michelle Gellar</p>
@@ -291,6 +329,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 21</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Beverly Hills 90210</p>
           <p class="ep-meta">1990 — Darren Star &nbsp;·&nbsp; Jason Priestley</p>
@@ -300,6 +339,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 22</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Alerte à Malibu</p>
           <p class="ep-meta">1989 — Baywatch &nbsp;·&nbsp; David Hasselhoff</p>
@@ -309,6 +349,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 23</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">21 Jump Street</p>
           <p class="ep-meta">1987 — Stephen J. Cannell &nbsp;·&nbsp; Johnny Depp</p>
@@ -318,6 +359,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 24</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">CHiPs</p>
           <p class="ep-meta">1977 — Rick Rosner &nbsp;·&nbsp; Erik Estrada</p>
@@ -327,6 +369,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 25</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Hooker</p>
           <p class="ep-meta">1982 — T.J. Hooker &nbsp;·&nbsp; William Shatner</p>
@@ -336,6 +379,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 26</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Manimal</p>
           <p class="ep-meta">1983 — Glen A. Larson &nbsp;·&nbsp; Simon MacCorkindale</p>
@@ -345,6 +389,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 27</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Les Rues de San Francisco</p>
           <p class="ep-meta">1972 — Edward Hume &nbsp;·&nbsp; Karl Malden, Michael Douglas</p>
@@ -354,6 +399,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 28</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Le Prince de Bel-Air</p>
           <p class="ep-meta">1990 — Andy et Susan Borowitz &nbsp;·&nbsp; Will Smith</p>
@@ -363,6 +409,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 29</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">X-Files</p>
           <p class="ep-meta">1993 — Chris Carter &nbsp;·&nbsp; David Duchovny</p>
@@ -372,6 +419,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 30</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Ma Sorcière Bien-Aimée</p>
           <p class="ep-meta">1964 — Sol Saks &nbsp;·&nbsp; Elizabeth Montgomery</p>
@@ -381,6 +429,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 31</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Batman</p>
           <p class="ep-meta">1966 — Lorenzo Semple Jr. &nbsp;·&nbsp; Adam West</p>
@@ -390,6 +439,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 32</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Code Quantum</p>
           <p class="ep-meta">1989 — Donald P. Bellisario &nbsp;·&nbsp; Scott Bakula</p>
@@ -399,6 +449,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 33</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Stargate SG-1</p>
           <p class="ep-meta">1997 — Brad Wright, Jonathan Glassner &nbsp;·&nbsp; Richard Dean Anderson</p>
@@ -408,6 +459,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 34</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Loïs et Clark : Les Nouvelles Aventures de Superman</p>
           <p class="ep-meta">1993 — Deborah Joy LeVine &nbsp;·&nbsp; Dean Cain, Teri Hatcher</p>
@@ -417,6 +469,7 @@
 
       <a href="bientot.html" class="episode">
         <span class="ep-num">EP. 35</span>
+        <span class="ep-thumb off" aria-hidden="true"><span>BIENTÔT</span></span>
         <div class="ep-info">
           <p class="series-title">Batman : La Série animée</p>
           <p class="ep-meta">1992 — Bruce Timm, Eric Radomski &nbsp;·&nbsp; Kevin Conroy (voix VO)</p>
