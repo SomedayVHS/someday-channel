@@ -8,7 +8,7 @@
    ========================================================= */
 
 /* ---------- 1. HERO (accueil) ---------- */
-.hero.vhs-home { isolation: isolate; --vd: 0s; --hero-img: url("alien-epave.jpg"); }
+.hero.vhs-home { isolation: isolate; --vd: 0s; --hero-img: none; }
 .hero.vhs-home.vhs-boot { --vd: .95s; }
 html.rw-in .hero.vhs-home { --vd: .5s; }
 

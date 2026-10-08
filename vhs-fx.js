@@ -184,8 +184,7 @@
       ctl.appendChild(btnPrev); ctl.appendChild(dotsBox); ctl.appendChild(btnNext);
       hero.appendChild(ctl);
     }
-    var cur = -1; // l'image d'origine (alien-epave.jpg) compte comme slide courante si elle figure dans la liste
-    slides.forEach(function (s, i) { if (s.img === 'alien-epave.jpg') cur = i; });
+    var cur = -1; // diapo courante : l'accueil démarre toujours sur la plus récente (voir bootFirst)
     function paintDots() { dots.forEach(function (el, i) { el.classList.toggle('on', i === cur); el.hidden = slides[i].bad; }); }
     paintDots();
 
@@ -193,8 +192,10 @@
     function setLabel(s) {
       if (!now) return;
       now.setAttribute('href', s.href);
+      var meta = $('.now-meta', now), ttl = $('.now-title', now);
+      if (meta && ttl) { meta.textContent = s.num; ttl.textContent = s.title; }
       var lab = $('.now-label', now), arrow = now.lastElementChild;
-      if (lab) {
+      if (lab && !(meta && ttl)) {
         // reconstruit : [NOUVEAU] texte →
         while (lab.nextSibling && lab.nextSibling !== arrow) now.removeChild(lab.nextSibling);
         now.insertBefore(d.createTextNode('\n          ' + s.num + ' — ' + s.title + ' '), arrow);
@@ -229,7 +230,7 @@
       var st = STAMP[img] || (s && s.year ? ['PM 09:00', s.year] : null); if (!stampEl || !st) return;
       stampEl.innerHTML = st[0] + '<br>' + st[1];
     }
-    var curImg = 'alien-epave.jpg', dims = {};
+    var curImg = '', dims = {};
     function axis(f, box, img, scale) { // % de background-position qui place le point f au centre
       var over = img * scale - box; if (over <= 0) return 50;
       return Math.max(0, Math.min(100, (f / 100 * img * scale - box / 2) / over * 100));
@@ -245,11 +246,28 @@
       im.onload = function () { dims[src] = [im.naturalWidth, im.naturalHeight]; cb(); };
       im.onerror = cb; im.src = src;
     }
-    measure(curImg, place);
-    setStamp(curImg); // date de l'image d'ouverture (Alien)
     window.addEventListener('resize', place, { passive: true });
 
     var busy = false, firstCut = true, rot = null;
+    // l'accueil s'ouvre directement sur la cassette la plus récente (première de « Nouvelles cassettes »)
+    function bootFirst() {
+      var i = 0;
+      (function tryNext() {
+        if (i >= slides.length) return;
+        var s = slides[i];
+        load(s, function (ok) {
+          if (!ok) { i++; return tryNext(); }
+          var theme = s.theme && THEMES[s.theme];
+          hero.style.setProperty('--hero-img', theme ? THEMES[s.theme] : 'url("' + s.img + '")');
+          curImg = theme ? 'theme:' + s.theme : s.img;
+          if (!theme) measure(s.img, place);
+          setStamp(curImg, s); cur = i; firstCut = false; paintDots();
+          var meta = $('.now-meta', now), ttl = $('.now-title', now);
+          if (now && meta && ttl) { now.setAttribute('href', s.href); meta.textContent = s.num; ttl.textContent = s.title; }
+        });
+      })();
+    }
+    if (slides.length) bootFirst();
     function go(dir, manual) {
       if (busy || slides.length < 2) return;
       if (!manual && (!visible || d.hidden)) return;
