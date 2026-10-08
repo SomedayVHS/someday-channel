@@ -159,7 +159,7 @@
 
     // ---- rotation des films (d'après « Nouvelles cassettes ») ----
     // diapos « thème » : un fond coloré à la place d'une photo (attribut data-theme sur la cassette)
-    var THEMES = { miami: 'radial-gradient(circle at 74% 58%, #ffe36e 0, #ffb04d 7%, #ff4fa0 13%, rgba(255,46,151,.0) 14%), radial-gradient(60% 50% at 18% 8%, rgba(38,231,255,.55), transparent 70%), radial-gradient(55% 55% at 92% 30%, rgba(255,46,151,.55), transparent 70%), linear-gradient(180deg, #0a0220 0%, #2a0a55 52%, #8a1560 100%)' };
+    var THEMES = { classiques: 'radial-gradient(60% 75% at 50% 0%, rgba(255,226,150,.7), transparent 70%), repeating-linear-gradient(90deg, rgba(0,0,0,.35) 0 26px, rgba(255,200,200,.08) 26px 38px, rgba(0,0,0,.2) 38px 70px), linear-gradient(180deg, #2c0710 0%, #4a0f1c 60%, #1d0409 100%)', miami: 'radial-gradient(circle at 74% 58%, #ffe36e 0, #ffb04d 7%, #ff4fa0 13%, rgba(255,46,151,.0) 14%), radial-gradient(60% 50% at 18% 8%, rgba(38,231,255,.55), transparent 70%), radial-gradient(55% 55% at 92% 30%, rgba(255,46,151,.55), transparent 70%), linear-gradient(180deg, #0a0220 0%, #2a0a55 52%, #8a1560 100%)' };
     var slides = [].slice.call(d.querySelectorAll('#nouveau .tape')).map(function (a) {
       var img = $('.tape-img img', a), h4 = $('h4', a), num = $('.tape-num', a);
       return {
@@ -223,7 +223,7 @@
                   'tonnerre-mecanique-jaquette.jpg': ['PM 04:10', 'JAN 04 1985'],
                   'alarme-fatale-voiture.jpg': ['PM 10:05', 'FEB 05 1993'],
                   'blancs-match.jpg': ['PM 02:20', 'MAR 27 1992'],
-                  'mv-testarossa-pont.jpg': ['PM 09:00', 'SEP 16 1984'], 'theme:miami': ['PM 09:00', 'SEP 16 1984'] };
+                  'mv-testarossa-pont.jpg': ['PM 09:00', 'SEP 16 1984'], 'theme:miami': ['PM 09:00', 'SEP 16 1984'], 'theme:classiques': ['PM 08:00', 'DEC 14 1957'] };
     var stampEl = $('.timestamp', hero);
     function setStamp(img, s) {
       // date connue, sinon l'année de la cassette (jamais la date du film précédent)

@@ -1,0 +1,116 @@
+/* SOMEDAY — thème « Classiques » : grande salle de cinéma des années 50
+   (rideau de velours bordeaux, or art déco, projecteur). S'ajoute APRÈS episode.css.
+   Tout est limité à body.cl. */
+body.cl {
+  --gold: #e0b95a;
+  --gold-soft: #f1d58f;
+  --velvet: #4a0f1c;
+  --velvet-dark: #1d0409;
+  --cream: #f6ead0;
+  --brown-text: var(--gold);
+  --brown: #8c1d2f;
+  --line: rgba(224,185,90,.30);
+  --panel: rgba(24,4,10,.84);
+  background: var(--velvet-dark);
+  color: var(--cream);
+  position: relative;
+}
+
+/* ---------- FOND : velours + projecteur ---------- */
+body.cl::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -2;
+  background:
+    radial-gradient(55% 60% at 50% 0%, rgba(255,226,150,.22), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 26px, rgba(255,255,255,.035) 26px 38px, rgba(0,0,0,.18) 38px 70px),
+    linear-gradient(180deg, #2c0710 0%, #4a0f1c 55%, #1d0409 100%);
+}
+body.cl::after {
+  content: "";
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.62) 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 3px);
+}
+.cl-beam {
+  position: fixed; top: 0; left: 50%; width: min(70vw, 760px); height: 70vh; z-index: -1; pointer-events: none;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(255,230,160,.20), rgba(255,230,160,0) 85%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  opacity: .8;
+}
+
+/* ---------- EN-TÊTE / HERO ---------- */
+body.cl .header { border-bottom-color: rgba(224,185,90,.4); }
+body.cl .logo { text-shadow: 0 0 12px rgba(224,185,90,.55), 2px 0 rgba(255,0,80,.2), -2px 0 rgba(0,220,255,.2); }
+body.cl .hero {
+  background-image: none; background-color: transparent;
+  border-bottom: 2px solid var(--gold);
+  box-shadow: 0 2px 30px rgba(224,185,90,.28);
+}
+body.cl .hero::after { opacity: .25; }
+body.cl .hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10,1,4,.88) 0, rgba(10,1,4,0) 18%, rgba(10,1,4,0) 82%, rgba(10,1,4,.88) 100%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.35) 0 22px, rgba(255,200,200,.06) 22px 34px, rgba(0,0,0,.2) 34px 60px);
+  opacity: .9;
+}
+body.cl .ep-label { color: var(--gold); }
+body.cl .ep-label::before { color: rgba(246,234,208,.55); }
+body.cl .hero-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700; text-transform: none; letter-spacing: -1px; line-height: 1;
+  font-size: clamp(42px, 7.4vw, 108px);
+  background: linear-gradient(180deg, #fff3c8 0%, var(--gold) 48%, #a87a22 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+  text-shadow: none; filter: drop-shadow(0 2px 14px rgba(224,185,90,.35));
+  max-width: 1000px;
+}
+body.cl .hero-subtitle { color: var(--cream); }
+body.cl .hero-subtitle::before { content: "✦ "; color: var(--gold); }
+body.cl .hero-meta { background: rgba(20,3,8,.6); border-color: rgba(224,185,90,.45); }
+body.cl .meta-key { color: var(--gold); }
+body.cl .meta-val { color: #fff; }
+
+/* ---------- CONTENU ---------- */
+body.cl .content { max-width: 900px; }
+body.cl .ep-nav { background: var(--panel); border-color: rgba(224,185,90,.35); }
+body.cl .sequence {
+  padding: 32px 36px 36px;
+  background: var(--panel);
+  border: 1px solid rgba(224,185,90,.5);
+  outline: 1px solid rgba(224,185,90,.18); outline-offset: 5px;
+  box-shadow: 0 0 34px rgba(0,0,0,.5);
+}
+body.cl .seq-header { border-bottom-color: rgba(224,185,90,.35); }
+body.cl .seq-num { color: var(--gold); }
+body.cl .seq-title { font-family: Georgia, "Times New Roman", serif; text-transform: none; font-size: 26px; color: #fff; letter-spacing: 0; }
+body.cl .seq-duration { color: rgba(246,234,208,.6); }
+body.cl .seq-text { color: rgba(246,234,208,.9); }
+body.cl .sequence.opening .seq-text { color: #fff; border-left-color: var(--gold); }
+body.cl .img-zone { text-align: center; }
+body.cl .img-zone img {
+  width: auto; max-width: 100%; margin: 0 auto; filter: sepia(.18) contrast(1.05);
+  border: 1px solid var(--gold); box-shadow: 0 0 0 6px rgba(20,3,8,.9), 0 0 0 7px rgba(224,185,90,.6), 0 10px 40px rgba(0,0,0,.6);
+}
+body.cl .img-caption { color: rgba(246,234,208,.75); }
+body.cl .img-caption::before { color: var(--gold); }
+body.cl .tape-line { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+body.cl .tape-icon { color: var(--gold); }
+
+/* ---------- FICHE / VIDÉO ---------- */
+body.cl .info-grid { background: var(--panel); border-color: rgba(224,185,90,.45); }
+body.cl .info-block { border-color: rgba(224,185,90,.22); }
+body.cl .info-block .key { color: var(--gold); }
+body.cl .info-block .val { color: #fff; }
+body.cl .total-bar { background: var(--panel); border-color: rgba(224,185,90,.45); }
+body.cl .total-val { color: var(--gold-soft); text-shadow: none; }
+body.cl .video-label { color: var(--gold); }
+body.cl .video-player { border-color: var(--gold); box-shadow: 0 0 30px rgba(224,185,90,.3); object-fit: contain; }
+body.cl footer { background: rgba(20,3,8,.88); }
+
+@media (max-width: 560px) {
+  body.cl .sequence { padding: 22px 18px 26px; outline-offset: 3px; }
+  body.cl .seq-title { font-size: 22px; }
+}
