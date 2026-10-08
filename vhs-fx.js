@@ -158,11 +158,14 @@
     start();
 
     // ---- rotation des films (d'après « Nouvelles cassettes ») ----
+    // diapos « thème » : un fond coloré à la place d'une photo (attribut data-theme sur la cassette)
+    var THEMES = { miami: 'radial-gradient(circle at 74% 58%, #ffe36e 0, #ffb04d 7%, #ff4fa0 13%, rgba(255,46,151,.0) 14%), radial-gradient(60% 50% at 18% 8%, rgba(38,231,255,.55), transparent 70%), radial-gradient(55% 55% at 92% 30%, rgba(255,46,151,.55), transparent 70%), linear-gradient(180deg, #0a0220 0%, #2a0a55 52%, #8a1560 100%)' };
     var slides = [].slice.call(d.querySelectorAll('#nouveau .tape')).map(function (a) {
       var img = $('.tape-img img', a), h4 = $('h4', a), num = $('.tape-num', a);
       return {
         img: img ? img.getAttribute('src') : null,
         href: a.getAttribute('href'),
+        theme: a.getAttribute('data-theme') || '',
         num: num ? num.textContent.trim() : '',
         title: h4 && h4.firstChild ? h4.firstChild.textContent.trim() : '',
         year: (function () { var p = $('.tape-info p', a), m = p && p.textContent.match(/\b(19|20)\d\d\b/); return m ? m[0] : ''; })(),
@@ -200,6 +203,7 @@
     }
 
     function load(s, cb) { // ne retient que les images en paysage
+      if (s.theme && THEMES[s.theme]) return cb(true);
       var im = new Image();
       im.onload = function () { if (im.naturalWidth / im.naturalHeight >= 1.3) cb(true); else { s.bad = true; cb(false); } };
       im.onerror = function () { s.bad = true; cb(false); };
@@ -218,7 +222,7 @@
                   'tonnerre-mecanique-jaquette.jpg': ['PM 04:10', 'JAN 04 1985'],
                   'alarme-fatale-voiture.jpg': ['PM 10:05', 'FEB 05 1993'],
                   'blancs-match.jpg': ['PM 02:20', 'MAR 27 1992'],
-                  'mv-testarossa-pont.jpg': ['PM 09:00', 'SEP 16 1984'] };
+                  'mv-testarossa-pont.jpg': ['PM 09:00', 'SEP 16 1984'], 'theme:miami': ['PM 09:00', 'SEP 16 1984'] };
     var stampEl = $('.timestamp', hero);
     function setStamp(img, s) {
       // date connue, sinon l'année de la cassette (jamais la date du film précédent)
@@ -261,8 +265,9 @@
         if (!ok) { busy = false; paintDots(); if (manual) go(dir, true); return; } // portrait : on le saute
         fx.classList.remove('cut'); void fx.offsetWidth; fx.classList.add('cut');
         setTimeout(function () {
-          hero.style.setProperty('--hero-img', 'url("' + s.img + '")');
-          curImg = s.img; measure(s.img, place); setStamp(s.img, s);
+          var theme = s.theme && THEMES[s.theme];
+          hero.style.setProperty('--hero-img', theme ? THEMES[s.theme] : 'url("' + s.img + '")');
+          curImg = theme ? 'theme:' + s.theme : s.img; if (!theme) measure(s.img, place); setStamp(curImg, s);
           cur = target; firstCut = false; setLabel(s); paintDots();
         }, 140);
         setTimeout(function () { busy = false; }, 600);
