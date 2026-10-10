@@ -212,7 +212,7 @@
     }
 
     // point d'intérêt de chaque image (x,y en %) — sert au cadrage sur téléphone
-    var FOCUS = { 'kickboxer-combat.jpg': [50, 35], 'caraibes-hogan.jpg': [6, 40], 'kwai-affiche-belge.jpg': [50, 40], 'mv-testarossa-pont.jpg': [62, 50], 'blancs-match.jpg': [50, 45], 'alarme-fatale-voiture.jpg': [75, 45], 'tonnerre-mecanique-jaquette.jpg': [50, 45], 'temple-maudit-trio.jpg': [62, 45], 'rick-hunter-portrait.jpg': [30, 40], 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
+    var FOCUS = { 'hawai-equipe.jpg': [50, 35], 'kickboxer-combat.jpg': [50, 35], 'caraibes-hogan.jpg': [6, 40], 'kwai-affiche-belge.jpg': [50, 40], 'mv-testarossa-pont.jpg': [62, 50], 'blancs-match.jpg': [50, 45], 'alarme-fatale-voiture.jpg': [75, 45], 'tonnerre-mecanique-jaquette.jpg': [50, 45], 'temple-maudit-trio.jpg': [62, 45], 'rick-hunter-portrait.jpg': [30, 40], 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
                   'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
     // horodatage « caméscope » propre à chaque film (date de sortie en salle)
     var STAMP = { 'alien-epave.jpg': ['PM 10:24', 'MAY 25 1979'], 'indy-idole.jpg': ['PM 08:12', 'JUN 12 1981'],
@@ -223,6 +223,7 @@
                   'tonnerre-mecanique-jaquette.jpg': ['PM 04:10', 'JAN 04 1985'],
                   'alarme-fatale-voiture.jpg': ['PM 10:05', 'FEB 05 1993'],
                   'blancs-match.jpg': ['PM 02:20', 'MAR 27 1992'],
+                  'hawai-equipe.jpg': ['PM 09:00', 'SEP 20 1968'],
                   'kickboxer-combat.jpg': ['PM 07:30', 'SEP 08 1989'],
                   'caraibes-hogan.jpg': ['PM 07:00', 'MAR 25 1994'],
                   'kwai-affiche-belge.jpg': ['PM 08:00', 'DEC 14 1957'],
