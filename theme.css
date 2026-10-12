@@ -96,3 +96,11 @@ summary:focus-visible, video:focus-visible, audio:focus-visible {
 @media (max-width: 360px) {
   .nav a, .header .nav a { font-size: 10px; letter-spacing: 0; }
 }
+
+/* nav-6 : six entrées de menu sur téléphone (comme vhs-fx.css, pour les pages qui ne le chargent pas, ex. podcast) */
+@media (max-width: 700px) {
+  .header .nav { gap: 6px; justify-content: space-between; }
+  .header .nav a { font-size: 10px; letter-spacing: 0; white-space: nowrap; }
+}
+@media (max-width: 380px) { .header .nav { gap: 4px; } .header .nav a { font-size: 9px; } }
+@media (max-width: 340px) { .header .nav { flex-wrap: wrap; justify-content: center; gap: 8px 12px; } .header .nav a { font-size: 10px; } }
