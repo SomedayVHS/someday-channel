@@ -1,0 +1,100 @@
+/* SOMEDAY — page spéciale Le Flic de Shanghaï : nuit de Chinatown, lanternes rouges, néons rouge et jade
+   S'ajoute APRÈS episode.css. Tout est limité à body.fs. */
+body.fs {
+  --red: #ff3b30;
+  --gold: #e6c06a;
+  --jade: #3fe0b5;
+  --cream: #f6eddc;
+  --brown-text: var(--gold);
+  --brown: var(--red);
+  --line: rgba(230,192,106,.28);
+  --panel: rgba(7,12,16,.84);
+  background: #05080d;
+  color: var(--cream);
+  position: relative;
+}
+
+/* ---------- FOND : nuit, brume jade, lueur rouge, lumières de ville ---------- */
+body.fs::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -2;
+  background:
+    radial-gradient(50% 38% at 12% 12%, rgba(63,224,181,.16), transparent 70%),
+    radial-gradient(55% 45% at 92% 30%, rgba(255,59,48,.22), transparent 70%),
+    radial-gradient(70% 40% at 50% 100%, rgba(255,59,48,.30), transparent 70%),
+    repeating-linear-gradient(45deg, rgba(230,192,106,.035) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(-45deg, rgba(230,192,106,.035) 0 1px, transparent 1px 22px),
+    linear-gradient(180deg, #05080d 0%, #08141a 46%, #1a0a0c 80%, #3a0c0c 100%);
+}
+/* lumières de ville floues en bas de page */
+body.fs::after {
+  content: "";
+  position: fixed; left: 0; right: 0; bottom: 0; height: 30vh; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 70%, rgba(255,59,48,.55) 0 6px, transparent 14px),
+    radial-gradient(circle at 19% 40%, rgba(230,192,106,.55) 0 5px, transparent 12px),
+    radial-gradient(circle at 31% 78%, rgba(63,224,181,.45) 0 6px, transparent 14px),
+    radial-gradient(circle at 44% 52%, rgba(255,59,48,.5) 0 5px, transparent 12px),
+    radial-gradient(circle at 57% 82%, rgba(230,192,106,.5) 0 6px, transparent 14px),
+    radial-gradient(circle at 69% 46%, rgba(63,224,181,.4) 0 5px, transparent 12px),
+    radial-gradient(circle at 81% 74%, rgba(255,59,48,.55) 0 6px, transparent 14px),
+    radial-gradient(circle at 92% 36%, rgba(230,192,106,.5) 0 5px, transparent 12px);
+  filter: blur(2px);
+  opacity: .55;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 80%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 80%);
+}
+/* lanternes rouges, de chaque côté du texte (grands écrans) */
+.fs-lanterns { position: fixed; top: 0; bottom: 0; width: 120px; z-index: -1; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22300%22 viewBox=%220 0 120 300%22%3E%0A%3Cdefs%3E%3CradialGradient id=%22g%22 cx=%2250%25%22 cy=%2245%25%22 r=%2260%25%22%3E%3Cstop offset=%220%22 stop-color=%22%23ff6a4d%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23d4201a%22/%3E%3Cstop offset=%221%22 stop-color=%22%237a0a08%22/%3E%3C/radialGradient%3E%3C/defs%3E%0A%3Cline x1=%2260%22 y1=%220%22 x2=%2260%22 y2=%2274%22 stroke=%22%23d9b45a%22 stroke-width=%222%22/%3E%0A%3Crect x=%2246%22 y=%2272%22 width=%2228%22 height=%229%22 rx=%222%22 fill=%22%23d9b45a%22/%3E%0A%3Cellipse cx=%2260%22 cy=%22122%22 rx=%2234%22 ry=%2242%22 fill=%22url%28%23g%29%22/%3E%0A%3Cpath d=%22M60 80v84M44 84c-8 24-8 48 0 76M76 84c8 24 8 48 0 76M33 100c-2 16-2 28 0 44M87 100c2 16 2 28 0 44%22 stroke=%22%238f0d09%22 stroke-width=%221.4%22 fill=%22none%22 opacity=%22.7%22/%3E%0A%3Crect x=%2246%22 y=%22160%22 width=%2228%22 height=%229%22 rx=%222%22 fill=%22%23d9b45a%22/%3E%0A%3Cline x1=%2260%22 y1=%22169%22 x2=%2260%22 y2=%22208%22 stroke=%22%23d9b45a%22 stroke-width=%222%22/%3E%0A%3Cpath d=%22M54 208h12l-2 22h-8z%22 fill=%22%23d9b45a%22 opacity=%22.9%22/%3E%0A%3C/svg%3E") repeat-y 50% 0 / 120px 300px;
+  filter: drop-shadow(0 0 16px rgba(255,59,48,.6)); opacity: .9; }
+.fs-lanterns.l { left: max(8px, calc(50% - 760px)); }
+.fs-lanterns.r { right: max(8px, calc(50% - 760px)); background-position: 50% 150px; }
+@media (max-width: 1180px) { .fs-lanterns { display: none; } }
+
+/* ---------- EN-TÊTE / HERO ---------- */
+body.fs .header { border-bottom-color: rgba(255,59,48,.45); }
+body.fs .logo { text-shadow: 0 0 14px rgba(255,59,48,.7); }
+body.fs .hero { border-bottom: 1px solid rgba(255,59,48,.55); box-shadow: 0 1px 24px rgba(255,59,48,.35); }
+body.fs .ep-label { color: var(--gold); }
+body.fs .hero-title { color: #fff; text-shadow: 0 0 6px rgba(255,255,255,.8), 0 0 18px var(--red), 0 0 42px rgba(255,59,48,.8), 3px 0 rgba(63,224,181,.3); }
+body.fs .hero-meta { background: rgba(7,12,16,.62); border-color: rgba(230,192,106,.4); box-shadow: 0 0 18px rgba(255,59,48,.2); }
+body.fs .meta-key { color: var(--jade); }
+body.fs .meta-val { color: #fff; }
+
+/* ---------- CONTENU ---------- */
+body.fs .ep-nav { background: var(--panel); }
+body.fs .sequence {
+  padding: 30px 32px 34px;
+  background: var(--panel);
+  border: 1px solid rgba(230,192,106,.38);
+  box-shadow: 0 0 22px rgba(255,59,48,.18), inset 0 0 40px rgba(63,224,181,.05);
+  backdrop-filter: blur(3px);
+}
+body.fs .seq-header { border-bottom-color: rgba(230,192,106,.3); }
+body.fs .seq-num { color: var(--red); text-shadow: 0 0 10px rgba(255,59,48,.8); }
+body.fs .seq-title { color: #fff; text-shadow: 0 0 12px rgba(230,192,106,.5); }
+body.fs .seq-duration { color: rgba(246,237,220,.6); }
+body.fs .seq-text { color: rgba(246,237,220,.9); }
+body.fs .sequence.opening .seq-text { color: #fff; border-left-color: var(--red); }
+body.fs .img-zone img {
+  border: 1px solid var(--gold); filter: saturate(1.08) contrast(1.04);
+  box-shadow: 0 0 0 4px rgba(5,8,13,.85), 0 0 26px rgba(255,59,48,.45), 0 0 60px rgba(63,224,181,.18);
+}
+body.fs .img-caption { color: rgba(246,237,220,.78); }
+body.fs .img-caption::before { color: var(--red); }
+body.fs .tape-line { background: linear-gradient(90deg, var(--red), var(--gold)); height: 2px; box-shadow: 0 0 10px rgba(255,59,48,.7); }
+body.fs .tape-icon { color: #fff; text-shadow: 0 0 10px var(--red); }
+
+/* ---------- FICHE / VIDÉO ---------- */
+body.fs .info-grid { background: var(--panel); border-color: rgba(230,192,106,.4); box-shadow: 0 0 22px rgba(255,59,48,.2); }
+body.fs .info-block { border-color: rgba(230,192,106,.22); }
+body.fs .info-block .key { color: var(--jade); }
+body.fs .info-block .val { color: #fff; }
+body.fs .total-bar { background: var(--panel); border-color: rgba(255,59,48,.5); }
+body.fs .total-val { color: #fff; text-shadow: 0 0 10px var(--red); }
+body.fs .video-label { color: var(--gold); }
+body.fs .video-player { border-color: var(--red); box-shadow: 0 0 30px rgba(255,59,48,.45); }
+body.fs footer { background: rgba(7,12,16,.88); }
+
+@media (max-width: 560px) { body.fs .sequence { padding: 22px 18px 26px; } body.fs::after { height: 22vh; } }
