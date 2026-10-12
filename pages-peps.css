@@ -1,0 +1,48 @@
+/* SOMEDAY — pages annexes plus peps : vidéoclub, séries, classiques, podcast, boutique. */
+body.pp { --pk:#ff2e93; --cy:#19e3ff; --am:#ffb02e; --vi:#9a6bff; --rd:#c0394b; --gd:#e6c06a; --gr:#2ee6a6; }
+body.pp[data-pp="videoclub"] { --a:var(--am); --b:#ff5a36; --bg:#140a05; --bg2:#2a120a; }
+body.pp[data-pp="series"]    { --a:var(--cy); --b:var(--vi); --bg:#070a14; --bg2:#14103a; }
+body.pp[data-pp="classiques"]{ --a:var(--gd); --b:var(--rd); --bg:#14070a; --bg2:#2a0d14; }
+body.pp[data-pp="podcast"]   { --a:var(--vi); --b:var(--pk); --bg:#0b0714; --bg2:#26103a; }
+body.pp[data-pp="boutique"]  { --a:var(--am); --b:var(--pk); --bg:#120a06; --bg2:#3a1420; }
+body.pp { background: var(--bg); position: relative; }
+body.pp::before { content:""; position:fixed; inset:0; z-index:-2;
+  background: radial-gradient(55% 40% at 8% 6%, color-mix(in srgb,var(--a) 22%,transparent), transparent 70%),
+              radial-gradient(55% 45% at 95% 30%, color-mix(in srgb,var(--b) 22%,transparent), transparent 70%),
+              radial-gradient(70% 40% at 50% 100%, color-mix(in srgb,var(--b) 26%,transparent), transparent 70%),
+              linear-gradient(180deg, var(--bg), var(--bg2)); }
+body.pp::after { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+  background: repeating-linear-gradient(0deg, color-mix(in srgb,var(--a) 7%,transparent) 0 1px, transparent 1px 5px); }
+
+body.pp .header { border-bottom:1px solid color-mix(in srgb,var(--a) 55%,transparent); box-shadow:0 2px 24px color-mix(in srgb,var(--a) 25%,transparent); }
+body.pp .header .nav a[aria-current] { box-shadow:0 2px 0 var(--a); }
+
+/* heros */
+body.pp .hero, body.pp .page-hero { background: linear-gradient(135deg, color-mix(in srgb,var(--a) 22%,transparent), transparent 55%, color-mix(in srgb,var(--b) 24%,transparent)); border-bottom:2px solid var(--a); box-shadow:0 6px 40px color-mix(in srgb,var(--a) 30%,transparent); }
+body.pp .ep-label, body.pp .page-hero .eyebrow { color:var(--a); text-shadow:0 0 12px color-mix(in srgb,var(--a) 70%,transparent); }
+body.pp .hero-title, body.pp .page-hero h1 { color:#fff; text-shadow:0 0 6px rgba(255,255,255,.6),0 0 22px var(--a),0 0 50px color-mix(in srgb,var(--a) 70%,transparent),3px 0 color-mix(in srgb,var(--b) 40%,transparent); }
+body.pp .hero-sub, body.pp .hero-lead { color:rgba(244,239,230,.86); }
+
+/* sections / listes */
+body.pp .section, body.pp .section.dark { background: transparent; border-top:2px solid var(--a); }
+body.pp .group-head { border-bottom:1px solid color-mix(in srgb,var(--a) 45%,transparent); }
+body.pp .group-head h3 { color:#fff; text-shadow:0 0 16px color-mix(in srgb,var(--a) 60%,transparent); }
+body.pp .group-head span { color:var(--a); }
+body.pp .tab { border-color:color-mix(in srgb,var(--a) 40%,transparent); }
+body.pp .tab:hover { color:#fff; border-color:var(--a); }
+body.pp .tab.active { background:var(--a); border-color:var(--a); color:#0b0710; box-shadow:0 0 18px color-mix(in srgb,var(--a) 60%,transparent); }
+body.pp .search-box:focus-within { box-shadow:0 0 16px color-mix(in srgb,var(--a) 55%,transparent); }
+body.pp .tape { background:rgba(0,0,0,.38); border-color:color-mix(in srgb,var(--a) 32%,transparent); }
+body.pp .tape:hover { border-color:var(--a); transform:translateY(-6px) rotate(-.4deg); box-shadow:0 10px 34px color-mix(in srgb,var(--a) 45%,transparent); }
+body.pp .tape-num { color:var(--a); }
+
+body.pp .episode, body.pp .podcast-ep { background:rgba(0,0,0,.4); border:1px solid color-mix(in srgb,var(--a) 30%,transparent); transition:transform .2s, box-shadow .2s, border-color .2s; }
+body.pp .episode:hover, body.pp .podcast-ep:hover { border-color:var(--a); transform:translateX(6px); box-shadow:0 0 28px color-mix(in srgb,var(--a) 40%,transparent); }
+body.pp .ep-num { color:var(--a); text-shadow:0 0 10px color-mix(in srgb,var(--a) 70%,transparent); }
+body.pp .ep-badge { color:var(--a); border-color:var(--a); }
+body.pp .episode:hover .ep-badge { background:var(--a); color:#0b0710; }
+body.pp .series-title, body.pp .ep-title { color:#fff; }
+body.pp .ep-thumb img { box-shadow:0 0 18px color-mix(in srgb,var(--b) 45%,transparent); }
+body.pp .filter-tag { border-color:var(--a); color:var(--a); }
+body.pp footer { background:rgba(0,0,0,.45); border-top:2px solid var(--a); }
+@media (prefers-reduced-motion:reduce) { body.pp .episode, body.pp .tape { transition:none; } }
