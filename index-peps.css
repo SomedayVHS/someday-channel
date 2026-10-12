@@ -1,0 +1,51 @@
+/* SOMEDAY — accueil plus peps : sections colorées, néons, bandeau défilant. S'ajoute après vhs-fx.css */
+:root { --pk:#ff2e93; --cy:#19e3ff; --am:#ffb02e; --vi:#9a6bff; --gr:#2ee6a6; }
+
+/* bandeau défilant */
+.ticker { overflow:hidden; white-space:nowrap; background:linear-gradient(90deg,var(--pk),var(--vi) 50%,var(--cy)); color:#0b0710; border-block:2px solid #000; transform:rotate(-.6deg); margin:-6px 0 6px; position:relative; z-index:3; box-shadow:0 6px 30px rgba(255,46,147,.35); }
+.ticker-track { display:inline-flex; animation:tick 38s linear infinite; }
+.ticker span { font:700 15px/1 monospace; letter-spacing:4px; padding:12px 22px; text-transform:uppercase; }
+.ticker span::after { content:"▶"; margin-left:44px; opacity:.55; }
+@keyframes tick { to { transform:translateX(-50%); } }
+
+/* hero */
+.hero h1 { text-shadow:0 0 8px rgba(255,255,255,.55),0 0 26px var(--pk),0 0 60px rgba(255,46,147,.55),3px 0 rgba(25,227,255,.45); }
+.hero .genres { color:var(--cy); text-shadow:0 0 12px rgba(25,227,255,.6); }
+.hero .button { background:var(--pk); color:#fff; border-color:var(--pk); box-shadow:0 0 22px rgba(255,46,147,.6); }
+.hero .button:hover { background:#fff; color:#000; }
+.now { box-shadow:0 0 24px rgba(255,46,147,.4); }
+.now-label { background:var(--pk) !important; color:#fff !important; animation:blink 1.6s steps(2,jump-none) infinite; }
+@keyframes blink { 50% { opacity:.55; } }
+
+/* bande « c'est quoi » */
+.about-strip { background:linear-gradient(90deg,rgba(255,46,147,.14),rgba(154,107,255,.14),rgba(25,227,255,.14)),#0d0912; }
+.about-item:nth-child(1) span { color:var(--pk); } .about-item:nth-child(2) span { color:var(--vi); } .about-item:nth-child(3) span { color:var(--cy); }
+.about-item span { font-size:20px; text-shadow:0 0 12px currentColor; }
+
+/* sections : une couleur chacune */
+#nouveau { --acc:var(--pk); --acc2:var(--cy); background:radial-gradient(60% 50% at 10% 0,rgba(255,46,147,.22),transparent 70%),radial-gradient(50% 50% at 95% 100%,rgba(25,227,255,.16),transparent 70%),#0b0710; }
+#films { --acc:var(--am); --acc2:#ff5a36; background:radial-gradient(70% 55% at 50% 0,rgba(255,176,46,.20),transparent 70%),linear-gradient(180deg,#120904,#26110a); }
+#series { --acc:var(--cy); --acc2:var(--vi); background:radial-gradient(60% 50% at 90% 0,rgba(25,227,255,.20),transparent 70%),radial-gradient(50% 50% at 5% 100%,rgba(154,107,255,.20),transparent 70%),#070a14; }
+#classiques { --acc:#e6c06a; --acc2:#c0394b; background:radial-gradient(60% 50% at 50% 0,rgba(192,57,75,.22),transparent 70%),linear-gradient(180deg,#14070a,#1e0b10); }
+.manifesto { --acc:var(--gr); background:radial-gradient(60% 60% at 80% 20%,rgba(46,230,166,.14),transparent 70%),#06100e; }
+.section { border-top:2px solid var(--acc,var(--line)); }
+.section .eyebrow { color:var(--acc); text-shadow:0 0 12px color-mix(in srgb,var(--acc) 70%,transparent); }
+.section h2 { text-shadow:0 0 22px color-mix(in srgb,var(--acc) 55%,transparent); background:linear-gradient(90deg,#fff 40%,var(--acc)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.section .link, .section .counter { color:var(--acc); }
+.section .link:hover { color:#fff; }
+
+/* cartes */
+.section .tape, .section .season { border-color:color-mix(in srgb,var(--acc) 35%,transparent); background:rgba(0,0,0,.35); }
+.section .tape:hover, .section .season:hover { border-color:var(--acc); transform:translateY(-6px) rotate(-.4deg); box-shadow:0 10px 34px color-mix(in srgb,var(--acc) 45%,transparent); }
+.section .tape-num, .section .season-kind { color:var(--acc); }
+.section .season-progress span { background:var(--acc) !important; box-shadow:0 0 10px var(--acc); }
+
+/* podcast / boutique */
+.duo .panel:first-child { background:linear-gradient(135deg,rgba(154,107,255,.35),#0d0912 75%); }
+.duo .accent-panel { background:linear-gradient(135deg,rgba(255,176,46,.32),#120904 75%); }
+.duo .panel:first-child .eyebrow { color:var(--vi); } .duo .accent-panel .eyebrow { color:var(--am); }
+.duo .panel:hover { filter:brightness(1.18); }
+
+@media (max-width:560px) { .ticker span { font-size:12px; padding:10px 14px; } .ticker span::after { margin-left:22px; } }
+@media (prefers-reduced-motion:reduce) { .ticker-track, .now-label { animation:none; } }
+main { overflow-x:clip; }
