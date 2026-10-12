@@ -1,0 +1,137 @@
+/* SOMEDAY — thèmes d'épisodes : fond coloré + petit décor par page.
+   S'ajoute APRÈS episode.css. Tout est limité à body.th ; la couleur et le décor se règlent par page
+   (variables --th-1 / --th-2 / --th-3 / --th-a / --th-b / --th-c et attribut data-deco). */
+body.th {
+  --brown-text: var(--th-3);
+  --brown: var(--th-1);
+  --line: color-mix(in srgb, var(--th-3) 28%, transparent);
+  --panel: color-mix(in srgb, var(--th-a) 86%, #000 14%);
+  background: var(--th-a);
+  color: #f4efe6;
+  position: relative;
+}
+body.th::before {
+  content: ""; position: fixed; inset: 0; z-index: -2;
+  background:
+    radial-gradient(52% 40% at 12% 10%, color-mix(in srgb, var(--th-2) 20%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 92% 28%, color-mix(in srgb, var(--th-1) 24%, transparent), transparent 70%),
+    radial-gradient(70% 40% at 50% 100%, color-mix(in srgb, var(--th-1) 30%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--th-a) 0%, var(--th-b) 52%, var(--th-c) 100%);
+}
+body.th::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+/* ---------- panneaux et textes ---------- */
+body.th .header { border-bottom-color: color-mix(in srgb, var(--th-1) 45%, transparent); }
+body.th .logo { text-shadow: 0 0 14px color-mix(in srgb, var(--th-1) 70%, transparent); }
+body.th .hero { border-bottom: 1px solid color-mix(in srgb, var(--th-1) 55%, transparent); box-shadow: 0 1px 24px color-mix(in srgb, var(--th-1) 35%, transparent); }
+body.th .ep-label { color: var(--th-3); }
+body.th .hero-title { color: #fff; text-shadow: 0 0 6px rgba(255,255,255,.7), 0 0 18px var(--th-1), 0 0 42px color-mix(in srgb, var(--th-1) 80%, transparent), 3px 0 color-mix(in srgb, var(--th-2) 35%, transparent); }
+body.th .hero-meta { background: color-mix(in srgb, var(--th-a) 70%, transparent); border-color: color-mix(in srgb, var(--th-3) 40%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--th-1) 22%, transparent); }
+body.th .meta-key { color: var(--th-2); }
+body.th .meta-val { color: #fff; }
+body.th .ep-nav { background: var(--panel); }
+body.th .sequence {
+  padding: 30px 32px 34px;
+  background: var(--panel);
+  border: 1px solid color-mix(in srgb, var(--th-3) 36%, transparent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--th-1) 20%, transparent), inset 0 0 40px color-mix(in srgb, var(--th-2) 7%, transparent);
+  backdrop-filter: blur(3px);
+}
+body.th .seq-header { border-bottom-color: color-mix(in srgb, var(--th-3) 30%, transparent); }
+body.th .seq-num { color: var(--th-1); text-shadow: 0 0 10px color-mix(in srgb, var(--th-1) 80%, transparent); }
+body.th .seq-title { color: #fff; text-shadow: 0 0 12px color-mix(in srgb, var(--th-3) 50%, transparent); }
+body.th .seq-duration { color: rgba(244,239,230,.62); }
+body.th .seq-text { color: rgba(244,239,230,.9); }
+body.th .sequence.opening .seq-text { color: #fff; border-left-color: var(--th-1); }
+body.th .img-zone img {
+  border: 1px solid var(--th-3); filter: saturate(1.08) contrast(1.04);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--th-a) 90%, #000), 0 0 26px color-mix(in srgb, var(--th-1) 45%, transparent), 0 0 60px color-mix(in srgb, var(--th-2) 20%, transparent);
+}
+body.th .img-caption { color: rgba(244,239,230,.78); }
+body.th .img-caption::before { color: var(--th-1); }
+body.th .tape-line { background: linear-gradient(90deg, var(--th-1), var(--th-3)); height: 2px; box-shadow: 0 0 10px color-mix(in srgb, var(--th-1) 70%, transparent); }
+body.th .tape-icon { color: #fff; text-shadow: 0 0 10px var(--th-1); }
+body.th .info-grid { background: var(--panel); border-color: color-mix(in srgb, var(--th-3) 40%, transparent); box-shadow: 0 0 22px color-mix(in srgb, var(--th-1) 20%, transparent); }
+body.th .info-block { border-color: color-mix(in srgb, var(--th-3) 22%, transparent); }
+body.th .info-block .key { color: var(--th-2); }
+body.th .info-block .val { color: #fff; }
+body.th .total-bar { background: var(--panel); border-color: color-mix(in srgb, var(--th-1) 50%, transparent); }
+body.th .total-val { color: #fff; text-shadow: 0 0 10px var(--th-1); }
+body.th .video-label { color: var(--th-3); }
+body.th .video-player { border-color: var(--th-1); box-shadow: 0 0 30px color-mix(in srgb, var(--th-1) 45%, transparent); }
+body.th footer { background: color-mix(in srgb, var(--th-a) 90%, #000); }
+@media (max-width: 560px) { body.th .sequence { padding: 22px 18px 26px; } }
+
+/* ---------- petits décors (un par ambiance) ---------- */
+body.th[data-deco="scan"]::after { background:
+  linear-gradient(var(--th-1),var(--th-1)) 18px 84px/30px 2px no-repeat, linear-gradient(var(--th-1),var(--th-1)) 18px 84px/2px 30px no-repeat,
+  linear-gradient(var(--th-1),var(--th-1)) calc(100% - 18px) 84px/30px 2px no-repeat, linear-gradient(var(--th-1),var(--th-1)) calc(100% - 18px) 84px/2px 30px no-repeat,
+  linear-gradient(var(--th-1),var(--th-1)) 18px calc(100% - 18px)/30px 2px no-repeat, linear-gradient(var(--th-1),var(--th-1)) 18px calc(100% - 18px)/2px 30px no-repeat,
+  linear-gradient(var(--th-1),var(--th-1)) calc(100% - 18px) calc(100% - 18px)/30px 2px no-repeat, linear-gradient(var(--th-1),var(--th-1)) calc(100% - 18px) calc(100% - 18px)/2px 30px no-repeat,
+  repeating-linear-gradient(0deg, color-mix(in srgb, var(--th-1) 9%, transparent) 0 1px, transparent 1px 4px);
+  background-position: 18px 84px, 18px 84px, calc(100% - 18px) 84px, calc(100% - 38px) 84px, 18px calc(100% - 18px), 18px calc(100% - 46px), calc(100% - 48px) calc(100% - 18px), calc(100% - 18px) calc(100% - 48px), 0 0; }
+body.th[data-deco="stars"]::after { background:
+  radial-gradient(1.4px 1.4px at 30px 40px, #fff, transparent), radial-gradient(1px 1px at 120px 90px, #fff, transparent), radial-gradient(1.6px 1.6px at 200px 20px, var(--th-3), transparent),
+  radial-gradient(1px 1px at 70px 160px, #fff, transparent), radial-gradient(1.4px 1.4px at 250px 140px, #fff, transparent);
+  background-size: 280px 200px; opacity: .7;
+  -webkit-mask-image: linear-gradient(180deg,#000 55%,transparent); mask-image: linear-gradient(180deg,#000 55%,transparent); }
+body.th[data-deco="snow"]::after { background:
+  radial-gradient(3px 3px at 40px 50px, rgba(255,255,255,.85), transparent), radial-gradient(2px 2px at 140px 120px, rgba(255,255,255,.7), transparent),
+  radial-gradient(4px 4px at 230px 30px, rgba(255,255,255,.55), transparent), radial-gradient(2px 2px at 90px 210px, rgba(255,255,255,.8), transparent),
+  radial-gradient(3px 3px at 280px 180px, rgba(255,255,255,.7), transparent);
+  background-size: 320px 260px; opacity: .6; }
+body.th[data-deco="rain"]::after { background:
+  radial-gradient(40% 25% at 72% 0, color-mix(in srgb, var(--th-1) 32%, transparent), transparent),
+  repeating-linear-gradient(100deg, rgba(255,255,255,.07) 0 1px, transparent 1px 12px);
+  -webkit-mask-image: linear-gradient(180deg,#000 40%,transparent 95%); mask-image: linear-gradient(180deg,#000 40%,transparent 95%); }
+body.th[data-deco="blinds"]::after { background: repeating-linear-gradient(165deg, rgba(255,255,255,.075) 0 30px, transparent 30px 76px), radial-gradient(50% 40% at 80% 0, color-mix(in srgb, var(--th-3) 14%, transparent), transparent);
+  -webkit-mask-image: linear-gradient(90deg,#000,transparent 75%); mask-image: linear-gradient(90deg,#000,transparent 75%); }
+body.th[data-deco="sun"]::after { background:
+  radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--th-3) 42%, transparent) 0 110px, transparent 112px),
+  radial-gradient(60% 42% at 50% 100%, color-mix(in srgb, var(--th-2) 45%, transparent), transparent 72%),
+  repeating-linear-gradient(0deg, color-mix(in srgb, var(--th-1) 12%, transparent) 0 2px, transparent 2px 18px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 40%, #000 90%); mask-image: linear-gradient(180deg, transparent 40%, #000 90%); }
+body.th[data-deco="waves"]::after { top: auto; height: 36vh;
+  background:
+    radial-gradient(ellipse 60px 8px at 60px 12px, color-mix(in srgb, var(--th-3) 38%, transparent) 0 45%, transparent 50%) 0 0/120px 28px repeat-x,
+    radial-gradient(ellipse 60px 8px at 0px 12px, color-mix(in srgb, var(--th-2) 32%, transparent) 0 45%, transparent 50%) 0 34px/120px 28px repeat-x,
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--th-2) 16%, transparent) 0 2px, transparent 2px 18px);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 75%); mask-image: linear-gradient(180deg, transparent, #000 75%); }
+body.th[data-deco="city"]::after { top: auto; height: 30vh; filter: blur(2px); opacity: .55;
+  background:
+    radial-gradient(circle at 8% 70%, color-mix(in srgb, var(--th-1) 70%, transparent) 0 6px, transparent 14px), radial-gradient(circle at 19% 40%, color-mix(in srgb, var(--th-3) 70%, transparent) 0 5px, transparent 12px),
+    radial-gradient(circle at 31% 78%, color-mix(in srgb, var(--th-2) 60%, transparent) 0 6px, transparent 14px), radial-gradient(circle at 44% 52%, color-mix(in srgb, var(--th-1) 65%, transparent) 0 5px, transparent 12px),
+    radial-gradient(circle at 57% 82%, color-mix(in srgb, var(--th-3) 65%, transparent) 0 6px, transparent 14px), radial-gradient(circle at 69% 46%, color-mix(in srgb, var(--th-2) 55%, transparent) 0 5px, transparent 12px),
+    radial-gradient(circle at 81% 74%, color-mix(in srgb, var(--th-1) 70%, transparent) 0 6px, transparent 14px), radial-gradient(circle at 92% 36%, color-mix(in srgb, var(--th-3) 65%, transparent) 0 5px, transparent 12px);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 80%); mask-image: linear-gradient(180deg, transparent, #000 80%); }
+body.th[data-deco="flames"]::after { background:
+  radial-gradient(90% 46% at 50% 112%, color-mix(in srgb, var(--th-1) 70%, transparent), color-mix(in srgb, var(--th-2) 34%, transparent) 42%, transparent 74%),
+  radial-gradient(2px 2px at 20% 78%, var(--th-3), transparent), radial-gradient(2px 2px at 38% 66%, var(--th-3), transparent), radial-gradient(2px 2px at 63% 74%, var(--th-3), transparent), radial-gradient(1.5px 1.5px at 81% 60%, var(--th-3), transparent), radial-gradient(1.5px 1.5px at 52% 52%, var(--th-3), transparent);
+  opacity: .85; }
+body.th[data-deco="spot"]::after { background:
+  conic-gradient(from 168deg at 50% -4%, transparent 0deg, color-mix(in srgb, var(--th-3) 26%, transparent) 12deg, transparent 24deg),
+  radial-gradient(45% 12% at 50% 100%, color-mix(in srgb, var(--th-1) 34%, transparent), transparent); }
+body.th[data-deco="halftone"]::after { background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--th-1) 40%, transparent) 0 2.2px, transparent 2.8px) 0 0/18px 18px;
+  -webkit-mask-image: linear-gradient(135deg,#000,transparent 55%); mask-image: linear-gradient(135deg,#000,transparent 55%); opacity: .8; }
+body.th[data-deco="stripes"]::after { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--th-1) 24%, transparent) 0 14px, transparent 14px 28px, color-mix(in srgb, var(--th-2) 24%, transparent) 28px 42px, transparent 42px 56px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 20%, #000 100%); mask-image: linear-gradient(180deg, transparent 20%, #000 100%); opacity: .7; }
+body.th[data-deco="rays"]::after { background: repeating-conic-gradient(from 195deg at 86% -8%, color-mix(in srgb, var(--th-3) 17%, transparent) 0 5deg, transparent 5deg 13deg);
+  -webkit-mask-image: radial-gradient(75% 85% at 86% 0, #000, transparent 72%); mask-image: radial-gradient(75% 85% at 86% 0, #000, transparent 72%); }
+body.th[data-deco="split"]::after { background:
+  linear-gradient(90deg, transparent 49.85%, color-mix(in srgb, var(--th-3) 45%, transparent) 50%, transparent 50.15%),
+  linear-gradient(90deg, color-mix(in srgb, var(--th-1) 26%, transparent), transparent 48%, transparent 52%, color-mix(in srgb, var(--th-2) 26%, transparent)); }
+body.th[data-deco="siren"]::after { background:
+  radial-gradient(42% 42% at 0% 0%, color-mix(in srgb, var(--th-1) 42%, transparent), transparent), radial-gradient(42% 42% at 100% 0%, color-mix(in srgb, var(--th-2) 42%, transparent), transparent),
+  repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 4px); }
+body.th[data-deco="scanner"]::after { background:
+  radial-gradient(42% 9% at 50% 82%, color-mix(in srgb, var(--th-1) 45%, transparent), transparent),
+  linear-gradient(90deg, transparent 6%, color-mix(in srgb, var(--th-1) 70%, transparent) 50%, transparent 94%) 50% 82%/72% 5px no-repeat,
+  repeating-linear-gradient(0deg, color-mix(in srgb, var(--th-1) 6%, transparent) 0 1px, transparent 1px 5px); }
+body.th[data-deco="lattice"]::after { background:
+  repeating-linear-gradient(45deg, color-mix(in srgb, var(--th-3) 6%, transparent) 0 1px, transparent 1px 22px), repeating-linear-gradient(-45deg, color-mix(in srgb, var(--th-3) 6%, transparent) 0 1px, transparent 1px 22px),
+  radial-gradient(50% 30% at 50% 0, color-mix(in srgb, var(--th-1) 22%, transparent), transparent); }
+body.th[data-deco="grid"]::after { top: auto; height: 40vh; opacity: .5;
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--th-1) 60%, transparent) 0 2px, transparent 2px 80px), repeating-linear-gradient(0deg, color-mix(in srgb, var(--th-2) 45%, transparent) 0 2px, transparent 2px 48px);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 70%); mask-image: linear-gradient(180deg, transparent, #000 70%);
+  transform: perspective(380px) rotateX(58deg); transform-origin: 50% 100%; }
+@media (max-width: 560px) { body.th[data-deco="waves"]::after, body.th[data-deco="city"]::after { height: 24vh; } }
