@@ -46,3 +46,27 @@ body.pp .ep-thumb img { box-shadow:0 0 18px color-mix(in srgb,var(--b) 45%,trans
 body.pp .filter-tag { border-color:var(--a); color:var(--a); }
 body.pp footer { background:rgba(0,0,0,.45); border-top:2px solid var(--a); }
 @media (prefers-reduced-motion:reduce) { body.pp .episode, body.pp .tape { transition:none; } }
+
+/* ---------- vidéoclub : une couleur par saison ---------- */
+body.pp .group { --ga:var(--a); --gb:var(--b); position:relative; padding:28px 26px 30px; border:1px solid color-mix(in srgb,var(--ga) 35%,transparent); border-left:4px solid var(--ga); background:linear-gradient(135deg,color-mix(in srgb,var(--ga) 14%,transparent),transparent 45%,color-mix(in srgb,var(--gb) 12%,transparent)); box-shadow:0 0 30px color-mix(in srgb,var(--ga) 14%,transparent); }
+body.pp .group[data-group="episodes"]{ --ga:#ff8a1f; --gb:#ff3d3d; }
+body.pp .group[data-group="saison-speciale-suites"]{ --ga:#ff4d3d; --gb:#ffb02e; }
+body.pp .group[data-group="saison-speciale-alien"]{ --ga:#2ee6a6; --gb:#19a8ff; }
+body.pp .group[data-group="saison-speciale-indiana-jones"]{ --ga:#e6b84a; --gb:#c0562b; }
+body.pp .group[data-group="saison2"]{ --ga:#19e3ff; --gb:#9a6bff; }
+body.pp .group[data-group="saison3"]{ --ga:#ff2e93; --gb:#ffb02e; }
+body.pp .group[data-group="saison4"]{ --ga:#9a6bff; --gb:#ff2e93; }
+body.pp .group .group-head { border-bottom-color:color-mix(in srgb,var(--ga) 55%,transparent); }
+body.pp .group .group-head h3 { font-size:clamp(26px,3.4vw,40px); text-transform:uppercase; background:linear-gradient(90deg,#fff 30%,var(--ga)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; text-shadow:none; filter:drop-shadow(0 0 14px color-mix(in srgb,var(--ga) 60%,transparent)); }
+body.pp .group .group-head span { color:var(--ga); }
+body.pp .group .tape { border-color:color-mix(in srgb,var(--ga) 35%,transparent); }
+body.pp .group .tape:hover { border-color:var(--ga); box-shadow:0 10px 34px color-mix(in srgb,var(--ga) 50%,transparent); }
+body.pp .group .tape-num { color:var(--ga); }
+body.pp .tab[data-tab="episodes"].active, body.pp .tab[data-tab="episodes"]:hover { --a:#ff8a1f; }
+body.pp .tab[data-tab="saison-speciale-suites"].active, body.pp .tab[data-tab="saison-speciale-suites"]:hover { --a:#ff4d3d; }
+body.pp .tab[data-tab="saison-speciale-alien"].active, body.pp .tab[data-tab="saison-speciale-alien"]:hover { --a:#2ee6a6; }
+body.pp .tab[data-tab="saison-speciale-indiana-jones"].active, body.pp .tab[data-tab="saison-speciale-indiana-jones"]:hover { --a:#e6b84a; }
+body.pp .tab[data-tab="saison2"].active, body.pp .tab[data-tab="saison2"]:hover { --a:#19e3ff; }
+body.pp .tab[data-tab="saison3"].active, body.pp .tab[data-tab="saison3"]:hover { --a:#ff2e93; }
+body.pp .tab[data-tab="saison4"].active, body.pp .tab[data-tab="saison4"]:hover { --a:#9a6bff; }
+@media (max-width:560px){ body.pp .group { padding:20px 14px 22px; } }
