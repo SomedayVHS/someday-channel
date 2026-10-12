@@ -19,7 +19,7 @@ html.rw-in .hero.vhs-home { --vd: .5s; }
   background-image:
     linear-gradient(90deg, rgba(8,8,8,.97) 0%, rgba(8,8,8,.72) 40%, rgba(8,8,8,.22) 75%),
     var(--hero-img);
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: var(--hero-pos, center);
   transform-origin: 60% 50%;
   animation: vhsDrift 28s ease-in-out infinite alternate;
   will-change: transform;
