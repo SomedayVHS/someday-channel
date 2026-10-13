@@ -135,3 +135,6 @@ body.th[data-deco="grid"]::after { top: auto; height: 40vh; opacity: .5;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 70%); mask-image: linear-gradient(180deg, transparent, #000 70%);
   transform: perspective(380px) rotateX(58deg); transform-origin: 50% 100%; }
 @media (max-width: 560px) { body.th[data-deco="waves"]::after, body.th[data-deco="city"]::after { height: 24vh; } }
+
+/* hero séries : cadrage mobile par page */
+@media (max-width: 700px) { .hero[style*="--hero-px"] { background-position: var(--hero-px) center; } }
