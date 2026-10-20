@@ -347,7 +347,8 @@
     /* ============================================================
        CATALOGUE — pour ajouter une cassette, copie un objet ici.
        Champs :
-         titre      : nom du film
+         titre      : nom du film (titre français)
+         titreOriginal : (facultatif) titre original, affiché sous le titre
          annee      : année de sortie
          genre      : "action" | "thriller" | "neo-noir" | "serie-b"
                        (peut en combiner plusieurs : "action thriller")
@@ -416,11 +417,12 @@
         badge: "Disponible"
       },
       {
-        titre: "Joshua Tree",
+        titre: "Au-dessus de la loi",
+        titreOriginal: "Joshua Tree",
         annee: 1993,
         genre: "action thriller",
         genreLabel: "Action / Thriller",
-        image: "Visuelboutique.jpg",
+        image: "au-dessus-de-la-loi-vhs.jpg",
         synopsis: "Injustement accusé de meurtre, un homme traqué par la police traverse le désert américain pour prouver son innocence. Dolph Lundgren en cavale, sobre et vulnérable.",
         etat: "Boîtier intact. Jaquette d'origine sans accroc. Cassette en parfait état de lecture.",
         prix: 7,
@@ -608,7 +610,7 @@
             <div class="card-body">
               <span class="card-genre">${esc(item.genreLabel)}</span>
               <h3 class="card-title">${esc(item.titre)}</h3>
-              <p class="card-meta">${item.annee ? item.annee + ' · ' : ''}VHS</p>
+              <p class="card-meta">${item.annee ? item.annee + ' · ' : ''}${item.titreOriginal ? esc(item.titreOriginal) + ' · ' : ''}VHS</p>
               <details>
                 <summary>Synopsis et état</summary>
                 <p>${esc(item.synopsis)}</p>
