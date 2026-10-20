@@ -53,7 +53,8 @@
 
     /* ───────── À la une ───────── */
     .featured { max-width: 1120px; margin: 4rem auto 0; padding: 0 2rem; }
-    .featured[hidden] { display: none; }
+    .featured[hidden], .feat-block[hidden] { display: none; }
+    .feat-block + .feat-block { margin-top: 5rem; padding-top: 4rem; border-top: 1px solid color-mix(in srgb, var(--a) 30%, transparent); }
     .section-label {
       display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem;
       font-family: var(--mono); font-size: .65rem; letter-spacing: .35em; text-transform: uppercase; color: var(--a);
@@ -277,7 +278,7 @@
   </section>
 
   <!-- ═══ À LA UNE : rempli par le script depuis le catalogue (fiche marquée « uneLaUne: true ») ═══ -->
-  <section class="featured" id="a-la-une" aria-labelledby="une-titre" hidden></section>
+  <section class="featured" id="a-la-une" aria-label="À la une" hidden></section>
 
   <!-- ═══ TOUTES LES CASSETTES ═══ -->
   <section class="shelf" id="catalogue-section" aria-labelledby="shelf-titre">
@@ -361,7 +362,7 @@
 
        Pour mettre une cassette « À la une » (grande fiche avec galerie
        de photos), ajoute en plus :
-         uneLaUne   : true   (une seule fiche à la fois)
+         uneLaUne   : true   (plusieurs possibles, elles s'empilent)
          fiche      : { format, standard, duree, version }
          photos     : [ { src, alt, legende, detail } ... ]
                        (detail: true = gros plan, affiché en plein cadre)
@@ -420,13 +421,28 @@
         titre: "Au-dessus de la loi",
         titreOriginal: "Joshua Tree",
         annee: 1993,
+        realisateur: "Vic Armstrong",
         genre: "action thriller",
         genreLabel: "Action / Thriller",
         image: "au-dessus-de-la-loi-vhs.jpg",
         synopsis: "Injustement accusé de meurtre, un homme traqué par la police traverse le désert américain pour prouver son innocence. Dolph Lundgren en cavale, sobre et vulnérable.",
         etat: "Boîtier intact. Jaquette d'origine sans accroc. Cassette en parfait état de lecture.",
         prix: 7,
-        badge: "Disponible"
+        badge: "Disponible",
+        uneLaUne: true,
+        fiche: { format: "VHS", standard: "", duree: "1 h 35", version: "V.F. · couleur" },
+        photos: [
+          { src: "au-dessus-de-la-loi-ensemble.jpg", alt: "Cassette VHS Au-dessus de la loi : jaquette, tranche et cassette posées côte à côte", legende: "L'ensemble : jaquette, tranche et cassette.", detail: false },
+          { src: "au-dessus-de-la-loi-jaquette.jpg", alt: "Jaquette française d'Au-dessus de la loi avec Dolph Lundgren", legende: "Jaquette française d'origine.", detail: true },
+          { src: "au-dessus-de-la-loi-tranche.jpg", alt: "Tranche du boîtier d'Au-dessus de la loi", legende: "Tranche — titre rouge, mention Stereo.", detail: true },
+          { src: "au-dessus-de-la-loi-cassette.jpg", alt: "Cassette VHS Au-dessus de la loi avec son étiquette", legende: "La cassette et son étiquette d'origine (V.F., 95 min).", detail: true }
+        ],
+        rapport: [
+          { titre: "Boîtier", texte: "intact.", photo: 0 },
+          { titre: "Jaquette", texte: "d'origine, sans accroc.", photo: 1 },
+          { titre: "Cassette", texte: "en parfait état de lecture, étiquette d'origine.", photo: 3 }
+        ],
+        noteEtat: "Photos prises sur l'exemplaire exact en vente."
       },
       {
         titre: "Titre à renseigner",
@@ -476,8 +492,8 @@
 
     // Seules les fiches renseignées sont publiées
     const vhsItems = catalogueComplet.filter(i => i.titre !== "Titre à renseigner");
-    const une = vhsItems.find(i => i.uneLaUne);
-    const autres = vhsItems.filter(i => i !== une);
+    const unes = vhsItems.filter(i => i.uneLaUne);
+    const autres = vhsItems.filter(i => !i.uneLaUne);
 
     const MAIL = 'somedayvhs@outlook.fr';
     const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -485,12 +501,12 @@
     const badgeClass = b => b === 'Vendu' ? 'vendu' : b === 'Réservé' ? 'reserve' : '';
     const mailto = item => `mailto:${MAIL}?subject=${encodeURIComponent('VHS — ' + item.titre)}`;
 
-    /* ───────── À la une ───────── */
+    /* ───────── À la une (une ou plusieurs fiches) ───────── */
     const featuredEl = document.getElementById('a-la-une');
-    let currentPhoto = 0;
+    const cur = [];          // photo affichée, par fiche
+    let viewerK = 0;         // fiche ouverte dans la visionneuse
 
-    function renderFeatured() {
-      if (!une) return;
+    function featuredHTML(une, k) {
       const vendu = une.badge === 'Vendu';
       const f = une.fiche || {};
       const photos = une.photos || [];
@@ -506,89 +522,94 @@
         <button type="button" class="thumb" data-photo="${i}" aria-label="Photo ${i + 1} sur ${photos.length}" aria-current="${i === 0}">
           <img src="${p.src}" alt="" loading="lazy" decoding="async">
         </button>`).join('');
-
-      featuredEl.innerHTML = `
-        <p class="section-label">À la une</p>
-        <div class="feat-grid">
-          <div class="stage">
-            <button type="button" class="stage-frame" id="stage-frame" aria-label="Agrandir la photo">
-              <img id="stage-img" src="${photos[0] ? photos[0].src : une.image}" alt="${photos[0] ? esc(photos[0].alt) : ''}" decoding="async">
-              <span class="stage-zoom">Agrandir ⤢</span>
-            </button>
-            <p class="stage-caption" id="stage-cap" aria-live="polite">${photos[0] ? esc(photos[0].legende) : ''}</p>
-            ${photos.length > 1 ? `<div class="thumbs" role="group" aria-label="Photos de la cassette">${thumbs}</div>` : ''}
-          </div>
-          <div class="feat-info">
-            <div class="feat-top">
-              <div>
-                <p class="feat-genre">${esc(une.genreLabel)} <span class="status ${badgeClass(une.badge)}">${esc(une.badge)}</span></p>
-                <h2 class="feat-title" id="une-titre">${esc(une.titre)}</h2>
-                <p class="feat-meta">${une.annee ? une.annee + ' · ' : ''}${une.realisateur ? 'Un film de ' + esc(une.realisateur) + ' · ' : ''}VHS française</p>
+      return `
+        <article class="feat-block" data-k="${k}" data-genre="${esc(une.genre)}" aria-label="${esc(une.titre)}">
+          <div class="feat-grid">
+            <div class="stage">
+              <button type="button" class="stage-frame" aria-label="Agrandir la photo">
+                <img class="stage-img" src="${photos[0] ? photos[0].src : une.image}" alt="${photos[0] ? esc(photos[0].alt) : ''}" decoding="async">
+                <span class="stage-zoom">Agrandir ⤢</span>
+              </button>
+              <p class="stage-caption" aria-live="polite">${photos[0] ? esc(photos[0].legende) : ''}</p>
+              ${photos.length > 1 ? `<div class="thumbs" role="group" aria-label="Photos de la cassette">${thumbs}</div>` : ''}
+            </div>
+            <div class="feat-info">
+              <div class="feat-top">
+                <div>
+                  <p class="feat-genre">${esc(une.genreLabel)} <span class="status ${badgeClass(une.badge)}">${esc(une.badge)}</span></p>
+                  <h2 class="feat-title">${esc(une.titre)}</h2>
+                  <p class="feat-meta">${une.titreOriginal ? 'Titre original : ' + esc(une.titreOriginal) + '<br>' : ''}${une.annee ? une.annee + ' · ' : ''}${une.realisateur ? 'Un film de ' + esc(une.realisateur) + ' · ' : ''}VHS française</p>
+                </div>
+                ${une.prix != null ? `<div class="price-sticker" aria-label="Prix : ${une.prix} euros"><small>PRIX</small><strong>${une.prix} €</strong></div>` : ''}
               </div>
-              ${une.prix != null ? `<div class="price-sticker" aria-label="Prix : ${une.prix} euros"><small>PRIX</small><strong>${une.prix} €</strong></div>` : ''}
-            </div>
-            <p class="feat-synopsis">${esc(une.synopsis)}</p>
-            ${specRows ? `<dl class="spec">${specRows}</dl>` : ''}
-            ${rapport ? `<div class="etat"><h3>Rapport d'état</h3><ul>${rapport}</ul>${une.noteEtat ? `<p class="etat-note">${esc(une.noteEtat)}</p>` : ''}</div>` : ''}
-            <div class="feat-cta">
-              <a class="btn primary ${vendu ? 'indispo' : ''}" href="${mailto(une)}">${vendu ? 'Vendu' : 'Réserver cette cassette →'}</a>
-              <button type="button" class="btn" id="open-viewer">Toutes les photos</button>
+              <p class="feat-synopsis">${esc(une.synopsis)}</p>
+              ${specRows ? `<dl class="spec">${specRows}</dl>` : ''}
+              ${rapport ? `<div class="etat"><h3>Rapport d'état</h3><ul>${rapport}</ul>${une.noteEtat ? `<p class="etat-note">${esc(une.noteEtat)}</p>` : ''}</div>` : ''}
+              <div class="feat-cta">
+                <a class="btn primary ${vendu ? 'indispo' : ''}" href="${mailto(une)}">${vendu ? 'Vendu' : 'Réserver cette cassette →'}</a>
+                <button type="button" class="btn open-viewer">Toutes les photos</button>
+              </div>
             </div>
           </div>
-        </div>`;
-      featuredEl.hidden = false;
-      bindFeatured();
+        </article>`;
     }
 
-    function showPhoto(i) {
-      const photos = une.photos || [];
+    function renderFeatured() {
+      if (!unes.length) return;
+      featuredEl.innerHTML = '<p class="section-label">À la une</p>' + unes.map(featuredHTML).join('');
+      unes.forEach((_, k) => { cur[k] = 0; bindFeatured(featuredEl.querySelector(`.feat-block[data-k="${k}"]`), k); });
+      featuredEl.hidden = false;
+    }
+
+    function showPhoto(k, i) {
+      const photos = unes[k].photos || [];
       if (!photos.length) return;
-      currentPhoto = (i + photos.length) % photos.length;
-      const p = photos[currentPhoto];
-      const img = document.getElementById('stage-img');
-      const frame = document.getElementById('stage-frame');
+      cur[k] = (i + photos.length) % photos.length;
+      const p = photos[cur[k]];
+      const blk = featuredEl.querySelector(`.feat-block[data-k="${k}"]`);
+      const img = blk.querySelector('.stage-img');
       img.style.opacity = 0;
       setTimeout(() => { img.src = p.src; img.alt = p.alt; img.style.opacity = 1; }, 120);
-      frame.classList.toggle('is-detail', !!p.detail);
-      document.getElementById('stage-cap').textContent = p.legende;
-      featuredEl.querySelectorAll('.thumb').forEach((t, k) => t.setAttribute('aria-current', String(k === currentPhoto)));
+      blk.querySelector('.stage-caption').textContent = p.legende;
+      blk.querySelectorAll('.thumb').forEach((t, n) => t.setAttribute('aria-current', String(n === cur[k])));
     }
 
     /* ───────── Visionneuse ───────── */
     const viewer = document.getElementById('viewer');
     function viewerShow(i) {
-      const photos = une.photos;
-      currentPhoto = (i + photos.length) % photos.length;
-      const p = photos[currentPhoto];
+      const photos = unes[viewerK].photos;
+      cur[viewerK] = (i + photos.length) % photos.length;
+      const p = photos[cur[viewerK]];
       document.getElementById('viewer-img').src = p.src;
       document.getElementById('viewer-img').alt = p.alt;
-      document.getElementById('viewer-cap').textContent = `${currentPhoto + 1} / ${photos.length} — ${p.legende}`;
+      document.getElementById('viewer-cap').textContent = `${cur[viewerK] + 1} / ${photos.length} — ${p.legende}`;
     }
-    function viewerOpen(i) {
-      if (!une || !une.photos || !une.photos.length) return;
-      viewerShow(i);
+    function viewerOpen(k, i) {
+      const u = unes[k];
+      if (!u || !u.photos || !u.photos.length) return;
+      viewerK = k; viewerShow(i);
       if (typeof viewer.showModal === 'function') viewer.showModal();
     }
     document.getElementById('viewer-close').addEventListener('click', () => viewer.close());
-    document.getElementById('viewer-prev').addEventListener('click', () => viewerShow(currentPhoto - 1));
-    document.getElementById('viewer-next').addEventListener('click', () => viewerShow(currentPhoto + 1));
+    document.getElementById('viewer-prev').addEventListener('click', () => viewerShow(cur[viewerK] - 1));
+    document.getElementById('viewer-next').addEventListener('click', () => viewerShow(cur[viewerK] + 1));
     viewer.addEventListener('click', e => { if (e.target === viewer || e.target.classList.contains('viewer-inner')) viewer.close(); });
     viewer.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') viewerShow(currentPhoto - 1);
-      if (e.key === 'ArrowRight') viewerShow(currentPhoto + 1);
+      if (e.key === 'ArrowLeft') viewerShow(cur[viewerK] - 1);
+      if (e.key === 'ArrowRight') viewerShow(cur[viewerK] + 1);
     });
-    viewer.addEventListener('close', () => showPhoto(currentPhoto));
+    viewer.addEventListener('close', () => showPhoto(viewerK, cur[viewerK]));
 
-    function bindFeatured() {
-      featuredEl.querySelectorAll('[data-photo]').forEach(b =>
+    function bindFeatured(blk, k) {
+      blk.querySelectorAll('[data-photo]').forEach(b =>
         b.addEventListener('click', () => {
-          showPhoto(+b.dataset.photo);
+          showPhoto(k, +b.dataset.photo);
           if (b.closest('.etat') && window.matchMedia('(max-width: 900px)').matches) {
-            document.getElementById('stage-frame').scrollIntoView({ block: 'center', behavior: 'smooth' });
+            blk.querySelector('.stage-frame').scrollIntoView({ block: 'center', behavior: 'smooth' });
           }
         }));
-      document.getElementById('stage-frame').addEventListener('click', () => viewerOpen(currentPhoto));
-      document.getElementById('open-viewer').addEventListener('click', () => viewerOpen(currentPhoto));
+      blk.querySelector('.stage-frame').addEventListener('click', () => viewerOpen(k, cur[k]));
+      blk.querySelector('.open-viewer').addEventListener('click', () => viewerOpen(k, cur[k]));
     }
 
     /* ───────── Catalogue ───────── */
@@ -633,7 +654,14 @@
     function applyFilter(filter) {
       renderCatalogue(autres.filter(i => hasGenre(i, filter)));
       // la fiche « À la une » reste visible tant qu'elle correspond au filtre
-      if (une) featuredEl.hidden = !hasGenre(une, filter);
+      if (unes.length) {
+        let visibles = 0;
+        featuredEl.querySelectorAll('.feat-block').forEach(blk => {
+          const ok = hasGenre({ genre: blk.dataset.genre }, filter);
+          blk.hidden = !ok; if (ok) visibles++;
+        });
+        featuredEl.hidden = !visibles;
+      }
       updateCount(filter);
     }
 
