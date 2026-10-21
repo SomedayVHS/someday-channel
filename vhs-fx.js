@@ -212,11 +212,11 @@
     }
 
     // point d'intérêt de chaque image (x,y en %) — sert au cadrage sur téléphone
-    var FOCUS = { 'sentinel-hero.jpg': [66, 46], 'sidekicks-hero.jpg': [58, 42], 'cameleon-hero.jpg': [66, 42], 'tortues-art.jpg': [45, 44], 'supercopter-hero.jpg': [70, 64], 'truelies-danse.jpg': [50, 18], 'palmbeach-hero.jpg': [64, 38], 'robocop-hero.jpg': [52, 30], 'flic-shanghai-equipe.jpg': [55, 26], 'doubleimpact-freres.jpg': [62, 30], 'k2000-kitt.jpg': [52, 52], 'bloodsport-combat.jpg': [52, 30], 'hawai-equipe.jpg': [68, 33], 'kickboxer-combat.jpg': [78, 33], 'caraibes-hogan.jpg': [6, 40], 'kwai-affiche-belge.jpg': [50, 40], 'mv-testarossa-pont.jpg': [62, 50], 'blancs-match.jpg': [50, 45], 'alarme-fatale-voiture.jpg': [75, 45], 'tonnerre-mecanique-jaquette.jpg': [50, 45], 'temple-maudit-trio.jpg': [62, 45], 'rick-hunter-portrait.jpg': [30, 40], 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
+    var FOCUS = { 'sentinel-home.jpg': [83, 36], 'sidekicks-home.jpg': [55, 41], 'cameleon-hero.jpg': [66, 42], 'tortues-art.jpg': [45, 44], 'supercopter-hero.jpg': [70, 64], 'truelies-danse.jpg': [50, 18], 'palmbeach-hero.jpg': [64, 38], 'robocop-hero.jpg': [52, 30], 'flic-shanghai-equipe.jpg': [55, 26], 'doubleimpact-freres.jpg': [62, 30], 'k2000-kitt.jpg': [52, 52], 'bloodsport-combat.jpg': [52, 30], 'hawai-equipe.jpg': [68, 33], 'kickboxer-combat.jpg': [78, 33], 'caraibes-hogan.jpg': [6, 40], 'kwai-affiche-belge.jpg': [50, 40], 'mv-testarossa-pont.jpg': [62, 50], 'blancs-match.jpg': [50, 45], 'alarme-fatale-voiture.jpg': [75, 45], 'tonnerre-mecanique-jaquette.jpg': [50, 45], 'temple-maudit-trio.jpg': [62, 45], 'rick-hunter-portrait.jpg': [30, 40], 'indy-idole.jpg': [46, 40], 'aliens-ripley.jpg': [50, 35], 'alien-epave.jpg': [48, 55],
                   'terminator-2-affiche.jpg': [84, 45], 'flic-beverly-hills-3-affiche.jpg': [18, 38] };
     // horodatage « caméscope » propre à chaque film (date de sortie en salle)
-    var STAMP = { 'sentinel-hero.jpg': ['PM 09:00', 'MAR 20 1996'],
-                  'sidekicks-hero.jpg': ['PM 09:00', 'APR 09 1993'],
+    var STAMP = { 'sentinel-home.jpg': ['PM 09:00', 'MAR 20 1996'],
+                  'sidekicks-home.jpg': ['PM 09:00', 'APR 09 1993'],
                   'cameleon-hero.jpg': ['PM 09:00', 'SEP 19 1996'],
                   'tortues-art.jpg': ['PM 08:00', 'MAR 30 1990'],
                   'supercopter-hero.jpg': ['PM 09:00', 'JAN 22 1984'],
