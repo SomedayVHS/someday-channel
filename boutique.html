@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La boutique SOMEDAY — cassettes VHS d'occasion</title>
-  <meta name="description" content="Cassettes VHS d'époque chinées en vide-greniers et marchés aux puces : thrillers, action, neo-noirs et séries B. À la une : Terminator (1984), VHS française. Envoi suivi en France métropolitaine." />
+  <meta name="description" content="Cassettes VHS d'époque chinées en vide-greniers et marchés aux puces : thrillers, action, neo-noirs et séries B. À la une : Piège de cristal, Terminator, Au-dessus de la loi. Frais de port inclus, envoi suivi en France métropolitaine." />
   <link rel="canonical" href="https://someday-vhs.com/boutique.html" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SOMEDAY" />
   <meta property="og:title" content="La boutique SOMEDAY — cassettes VHS d'occasion" />
-  <meta property="og:description" content="À la une : Terminator (1984), VHS française, 10 €. Cassettes d'époque chinées en vide-greniers. Envoi suivi en France métropolitaine." />
+  <meta property="og:description" content="À la une : Piège de cristal, VHS française, 7 € port inclus. Cassettes d'époque chinées en vide-greniers. Envoi suivi en France métropolitaine." />
   <meta property="og:url" content="https://someday-vhs.com/boutique.html" />
-  <meta property="og:image" content="https://someday-vhs.com/terminator-vhs-visuel.jpg" />
+  <meta property="og:image" content="https://someday-vhs.com/piege-de-cristal-visuel.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://someday-vhs.com/terminator-vhs-visuel.jpg" />
+  <meta name="twitter:image" content="https://someday-vhs.com/piege-de-cristal-visuel.jpg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -106,6 +106,7 @@
     }
     .price-sticker small { font-family: var(--mono); font-size: .5rem; font-weight: 700; letter-spacing: .3em; margin-bottom: .25rem; }
     .price-sticker strong { font-size: 2.1rem; letter-spacing: -.02em; }
+    .price-sticker em { font-family: var(--mono); font-style: normal; font-size: .46rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-top: .3rem; }
 
     .feat-synopsis { font-size: .98rem; line-height: 1.75; color: rgba(232,224,208,.8); max-width: 60ch; }
 
@@ -172,6 +173,7 @@
     .card details p.etat-txt { font-family: var(--mono); font-size: .68rem; font-style: italic; color: rgba(232,224,208,.6); }
     .card-foot { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-top: auto; padding-top: .9rem; border-top: 1px solid rgba(255,255,255,.08); }
     .card-price { font-family: Arial, Helvetica, sans-serif; font-weight: 900; font-size: 1.5rem; color: #fff; }
+    .card-port { display: block; font-family: var(--mono); font-size: .5rem; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); margin-top: .15rem; }
     .card-price small { font-family: var(--mono); font-size: .7rem; font-weight: 400; color: var(--dim); margin-left: .15rem; }
     .card-cta { font-family: var(--mono); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--white); border: 1px solid var(--a); padding: .55rem .9rem; white-space: nowrap; transition: background .2s, color .2s; }
     .card-cta:hover { background: var(--a); color: #120a06; }
@@ -231,6 +233,7 @@
       .spec { grid-template-columns: repeat(2, auto); gap: .9rem 1.5rem; }
       .price-sticker { width: 88px; height: 88px; }
       .price-sticker strong { font-size: 1.7rem; }
+      .price-sticker em { font-size: .4rem; }
       .etat .go { display: none; }
       .etat button { grid-template-columns: 1.6rem 1fr; }
       .thumbs { gap: .35rem; }
@@ -307,15 +310,15 @@
       </li>
       <li>
         <h3>Réponse sous 48 h</h3>
-        <p>Nous confirmons la disponibilité et les frais d'envoi, indiqués avant toute confirmation.</p>
+        <p>Nous confirmons la disponibilité de la cassette. Le prix affiché inclut déjà les frais de port : rien à ajouter.</p>
       </li>
       <li>
         <h3>Paiement et envoi</h3>
-        <p>Virement ou PayPal. Envoi suivi en France métropolitaine, ou retrait sur place selon disponibilité.</p>
+        <p>Virement ou PayPal. Envoi suivi inclus en France métropolitaine, ou retrait sur place selon disponibilité.</p>
       </li>
     </ol>
     <a href="mailto:somedayvhs@outlook.fr" class="order-mail">somedayvhs@outlook.fr</a>
-    <p class="order-note">Paiement par virement ou PayPal — Envoi suivi uniquement<br />
+    <p class="order-note">Paiement par virement ou PayPal — Prix port inclus, envoi suivi uniquement<br />
       <a href="cgv.html">Conditions générales de vente</a></p>
   </section>
 
@@ -350,6 +353,7 @@
        Champs :
          titre      : nom du film (titre français)
          titreOriginal : (facultatif) titre original, affiché sous le titre
+         edition    : (facultatif, fiche à la une) éditeur / collection
          annee      : année de sortie
          genre      : "action" | "thriller" | "neo-noir" | "serie-b"
                        (peut en combiner plusieurs : "action thriller")
@@ -374,6 +378,36 @@
        brouillon : elles ne sont pas affichées sur le site.
     ============================================================ */
     const catalogueComplet = [
+      {
+        titre: "Piège de cristal",
+        titreOriginal: "Die Hard",
+        annee: 1988,
+        realisateur: "John McTiernan",
+        genre: "action thriller",
+        genreLabel: "Action / Thriller",
+        image: "piege-de-cristal-face.jpg",
+        edition: "Collection « Les plus grands films — Action » · FoxVidéo, 1992",
+        synopsis: "Un 24 décembre à Los Angeles, un policier new-yorkais venu retrouver sa femme se retrouve seul dans une tour prise d'assaut par des terroristes. Bruce Willis face à Alan Rickman, dans l'un des grands classiques du cinéma d'action.",
+        etat: "Boîtier et jaquette sans pli ni déchirure visibles. Étiquette de tranche et étiquette de cassette propres et lisibles.",
+        prix: 7,
+        badge: "Disponible",
+        uneLaUne: true,
+        fiche: { format: "VHS", standard: "SECAM · hi-fi stéréo", duree: "2 h 02", version: "V.F." },
+        photos: [
+          { src: "piege-de-cristal-ensemble.jpg", alt: "Cassette VHS Piège de cristal : jaquette, tranche et cassette posées côte à côte", legende: "L'ensemble : jaquette, tranche et cassette.", detail: false },
+          { src: "piege-de-cristal-face.jpg", alt: "Face avant de la jaquette française de Piège de cristal avec Bruce Willis", legende: "Face avant — « 40 étages en otage ».", detail: true },
+          { src: "piege-de-cristal-tranche.jpg", alt: "Tranche du boîtier de Piège de cristal avec étiquette VHS SECAM", legende: "Tranche — étiquette « VHS SECAM » d'origine.", detail: true },
+          { src: "piege-de-cristal-dos.jpg", alt: "Dos de la jaquette de Piège de cristal : synopsis, générique et mentions FoxVidéo", legende: "Dos — synopsis, générique et mentions FoxVidéo 1992.", detail: true },
+          { src: "piege-de-cristal-cassette.jpg", alt: "Cassette VHS Piège de cristal avec son étiquette FoxVidéo, durée 122 minutes", legende: "La cassette et son étiquette d'origine (122 min).", detail: true }
+        ],
+        rapport: [
+          { titre: "Face avant", texte: "visuel net, sans pli ni déchirure visibles.", photo: 1 },
+          { titre: "Tranche", texte: "étiquette « VHS SECAM » d'origine, propre.", photo: 2 },
+          { titre: "Dos", texte: "texte lisible, mentions complètes (FoxVidéo, 1992, 122').", photo: 3 },
+          { titre: "Cassette", texte: "étiquette propre et lisible, coque sans casse visible.", photo: 4 }
+        ],
+        noteEtat: "Photos prises sur l'exemplaire exact en vente."
+      },
       {
         titre: "Terminator",
         annee: 1984,
@@ -496,6 +530,7 @@
     const autres = vhsItems.filter(i => !i.uneLaUne);
 
     const MAIL = 'somedayvhs@outlook.fr';
+    const PORT_INCLUS = true;   // true = le prix affiché comprend l'envoi (mettre false pour retirer la mention)
     const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const hasGenre = (item, f) => f === 'tout' || item.genre.split(' ').includes(f);
     const badgeClass = b => b === 'Vendu' ? 'vendu' : b === 'Réservé' ? 'reserve' : '';
@@ -538,9 +573,9 @@
                 <div>
                   <p class="feat-genre">${esc(une.genreLabel)} <span class="status ${badgeClass(une.badge)}">${esc(une.badge)}</span></p>
                   <h2 class="feat-title">${esc(une.titre)}</h2>
-                  <p class="feat-meta">${une.titreOriginal ? 'Titre original : ' + esc(une.titreOriginal) + '<br>' : ''}${une.annee ? une.annee + ' · ' : ''}${une.realisateur ? 'Un film de ' + esc(une.realisateur) + ' · ' : ''}VHS française</p>
+                  <p class="feat-meta">${une.titreOriginal ? 'Titre original : ' + esc(une.titreOriginal) + '<br>' : ''}${une.edition ? esc(une.edition) + '<br>' : ''}${une.annee ? une.annee + ' · ' : ''}${une.realisateur ? 'Un film de ' + esc(une.realisateur) + ' · ' : ''}VHS française</p>
                 </div>
-                ${une.prix != null ? `<div class="price-sticker" aria-label="Prix : ${une.prix} euros"><small>PRIX</small><strong>${une.prix} €</strong></div>` : ''}
+                ${une.prix != null ? `<div class="price-sticker" aria-label="Prix : ${une.prix} euros${PORT_INCLUS ? ', port inclus' : ''}"><small>PRIX</small><strong>${une.prix} €</strong>${PORT_INCLUS ? '<em>port inclus</em>' : ''}</div>` : ''}
               </div>
               <p class="feat-synopsis">${esc(une.synopsis)}</p>
               ${specRows ? `<dl class="spec">${specRows}</dl>` : ''}
@@ -624,7 +659,7 @@
           ? `<img src="${item.image}" alt="Jaquette VHS — ${esc(item.titre)}" loading="lazy" decoding="async">`
           : `<div class="card-ph"><span aria-hidden="true">▶</span><small>Photo à venir</small></div>`;
         const vendu = item.badge === 'Vendu';
-        const prix = item.prix != null ? `${item.prix}<small>€</small>` : '—';
+        const prix = item.prix != null ? `${item.prix}<small>€</small>${PORT_INCLUS ? '<span class="card-port">port inclus</span>' : ''}` : '—';
         return `
           <article class="card" data-genre="${item.genre}">
             <div class="card-img">${imgBlock}<span class="status ${badgeClass(item.badge)}">${esc(item.badge)}</span></div>
