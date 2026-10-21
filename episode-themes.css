@@ -138,3 +138,12 @@ body.th[data-deco="grid"]::after { top: auto; height: 40vh; opacity: .5;
 
 /* hero séries : cadrage mobile par page */
 @media (max-width: 700px) { .hero[style*="--hero-px"] { background-position: var(--hero-px) center; } }
+
+/* hero séries/films : image dédiée au mobile (--hero-img-m) — l'image occupe le haut, le texte passe dessous */
+@media (max-width: 900px) {
+  .hero[style*="--hero-img-m"] {
+    background-image: linear-gradient(0deg, rgba(15,12,8,.96) 0%, rgba(8,8,8,.6) 42%, rgba(8,8,8,.1) 70%), var(--hero-img-m);
+    background-position: center top;
+    padding-top: clamp(250px, 56vw, 400px);
+  }
+}
