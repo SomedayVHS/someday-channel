@@ -2,6 +2,7 @@
 body.pp { --pk:#ff2e93; --cy:#19e3ff; --am:#ffb02e; --vi:#9a6bff; --rd:#c0394b; --gd:#e6c06a; --gr:#2ee6a6; }
 body.pp[data-pp="videoclub"] { --a:var(--am); --b:#ff5a36; --bg:#140a05; --bg2:#2a120a; }
 body.pp[data-pp="series"]    { --a:var(--cy); --b:var(--vi); --bg:#070a14; --bg2:#14103a; }
+body.pp[data-pp="nostalgie"]{ --a:var(--am); --b:var(--cy); --bg:#0a1216; --bg2:#2a1a0c; }
 body.pp[data-pp="classiques"]{ --a:var(--gd); --b:var(--rd); --bg:#14070a; --bg2:#2a0d14; }
 body.pp[data-pp="podcast"]   { --a:var(--vi); --b:var(--pk); --bg:#0b0714; --bg2:#26103a; }
 body.pp[data-pp="boutique"]  { --a:var(--am); --b:var(--pk); --bg:#120a06; --bg2:#3a1420; }

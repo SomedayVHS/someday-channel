@@ -27,6 +27,7 @@
 #films { --acc:var(--am); --acc2:#ff5a36; background:radial-gradient(70% 55% at 50% 0,rgba(255,176,46,.20),transparent 70%),linear-gradient(180deg,#120904,#26110a); }
 #series { --acc:var(--cy); --acc2:var(--vi); background:radial-gradient(60% 50% at 90% 0,rgba(25,227,255,.20),transparent 70%),radial-gradient(50% 50% at 5% 100%,rgba(154,107,255,.20),transparent 70%),#070a14; }
 #classiques { --acc:#e6c06a; --acc2:#c0394b; background:radial-gradient(60% 50% at 50% 0,rgba(192,57,75,.22),transparent 70%),linear-gradient(180deg,#14070a,#1e0b10); }
+#nostalgie { --acc:#ffb36b; --acc2:#3aa6b8; background:radial-gradient(60% 50% at 90% 0,rgba(58,166,184,.22),transparent 70%),radial-gradient(50% 50% at 5% 100%,rgba(255,140,60,.18),transparent 70%),#0a1216; }
 .manifesto { --acc:var(--gr); background:radial-gradient(60% 60% at 80% 20%,rgba(46,230,166,.14),transparent 70%),#06100e; }
 .section { border-top:2px solid var(--acc,var(--line)); }
 .section .eyebrow { color:var(--acc); text-shadow:0 0 12px color-mix(in srgb,var(--acc) 70%,transparent); }
