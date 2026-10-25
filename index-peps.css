@@ -9,7 +9,7 @@
 @keyframes tick { to { transform:translateX(-50%); } }
 
 /* hero */
-.hero h1 { text-shadow:0 0 8px rgba(255,255,255,.55),0 0 26px var(--pk),0 0 60px rgba(255,46,147,.55),3px 0 rgba(25,227,255,.45); }
+.hero h1 { text-shadow:0 0 5px rgba(255,255,255,.5),0 0 14px rgba(255,46,147,.85),0 0 30px rgba(255,46,147,.4),2px 0 rgba(25,227,255,.45); }
 .hero .genres { color:var(--cy); text-shadow:0 0 12px rgba(25,227,255,.6); }
 .hero .button { background:var(--pk); color:#fff; border-color:var(--pk); box-shadow:0 0 22px rgba(255,46,147,.6); }
 .hero .button:hover { background:#fff; color:#000; }

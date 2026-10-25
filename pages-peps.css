@@ -21,7 +21,7 @@ body.pp .header .nav a[aria-current] { box-shadow:0 2px 0 var(--a); }
 /* heros */
 body.pp .hero, body.pp .page-hero { background: linear-gradient(135deg, color-mix(in srgb,var(--a) 22%,transparent), transparent 55%, color-mix(in srgb,var(--b) 24%,transparent)); border-bottom:2px solid var(--a); box-shadow:0 6px 40px color-mix(in srgb,var(--a) 30%,transparent); }
 body.pp .ep-label, body.pp .page-hero .eyebrow { color:var(--a); text-shadow:0 0 12px color-mix(in srgb,var(--a) 70%,transparent); }
-body.pp .hero-title, body.pp .page-hero h1 { color:#fff; text-shadow:0 0 6px rgba(255,255,255,.6),0 0 22px var(--a),0 0 50px color-mix(in srgb,var(--a) 70%,transparent),3px 0 color-mix(in srgb,var(--b) 40%,transparent); }
+body.pp .hero-title, body.pp .page-hero h1 { color:#fff; text-shadow:0 0 4px rgba(255,255,255,.5),0 0 12px color-mix(in srgb,var(--a) 85%,transparent),0 0 26px color-mix(in srgb,var(--a) 45%,transparent),2px 0 color-mix(in srgb,var(--b) 40%,transparent); }
 body.pp .hero-sub, body.pp .hero-lead { color:rgba(244,239,230,.86); }
 
 /* sections / listes */

@@ -57,7 +57,7 @@ body.fs .header { border-bottom-color: rgba(255,59,48,.45); }
 body.fs .logo { text-shadow: 0 0 14px rgba(255,59,48,.7); }
 body.fs .hero { border-bottom: 1px solid rgba(255,59,48,.55); box-shadow: 0 1px 24px rgba(255,59,48,.35); }
 body.fs .ep-label { color: var(--gold); }
-body.fs .hero-title { color: #fff; text-shadow: 0 0 6px rgba(255,255,255,.8), 0 0 18px var(--red), 0 0 42px rgba(255,59,48,.8), 3px 0 rgba(63,224,181,.3); }
+body.fs .hero-title { color: #fff; text-shadow: 0 0 4px rgba(255,255,255,.6), 0 0 10px rgba(255,59,48,.85), 0 0 20px rgba(255,59,48,.45), 2px 0 rgba(63,224,181,.3); }
 body.fs .hero-meta { background: rgba(7,12,16,.62); border-color: rgba(230,192,106,.4); box-shadow: 0 0 18px rgba(255,59,48,.2); }
 body.fs .meta-key { color: var(--jade); }
 body.fs .meta-val { color: #fff; }

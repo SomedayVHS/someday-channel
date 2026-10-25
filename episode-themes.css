@@ -25,7 +25,7 @@ body.th .header { border-bottom-color: color-mix(in srgb, var(--th-1) 45%, trans
 body.th .logo { text-shadow: 0 0 14px color-mix(in srgb, var(--th-1) 70%, transparent); }
 body.th .hero { border-bottom: 1px solid color-mix(in srgb, var(--th-1) 55%, transparent); box-shadow: 0 1px 24px color-mix(in srgb, var(--th-1) 35%, transparent); }
 body.th .ep-label { color: var(--th-3); }
-body.th .hero-title { color: #fff; text-shadow: 0 0 6px rgba(255,255,255,.7), 0 0 18px var(--th-1), 0 0 42px color-mix(in srgb, var(--th-1) 80%, transparent), 3px 0 color-mix(in srgb, var(--th-2) 35%, transparent); }
+body.th .hero-title { color: #fff; text-shadow: 0 0 4px rgba(255,255,255,.55), 0 0 10px color-mix(in srgb, var(--th-1) 85%, transparent), 0 0 20px color-mix(in srgb, var(--th-1) 45%, transparent), 2px 0 color-mix(in srgb, var(--th-2) 35%, transparent); }
 body.th .hero-meta { background: color-mix(in srgb, var(--th-a) 70%, transparent); border-color: color-mix(in srgb, var(--th-3) 40%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--th-1) 22%, transparent); }
 body.th .meta-key { color: var(--th-2); }
 body.th .meta-val { color: #fff; }

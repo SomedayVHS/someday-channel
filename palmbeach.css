@@ -14,7 +14,7 @@ body.pb::before {
 .pb-palms.l { left: max(0px, calc(50% - 860px)); }
 .pb-palms.r { right: max(0px, calc(50% - 860px)); transform: scaleX(-1); }
 @media (max-width: 1180px) { .pb-palms { display: none; } }
-body.pb .hero-title { text-shadow: 0 0 6px rgba(255,255,255,.7), 0 0 20px #ff4fa3, 0 0 46px rgba(255,79,163,.75), 3px 0 rgba(46,230,214,.45); }
+body.pb .hero-title { text-shadow: 0 0 4px rgba(255,255,255,.55), 0 0 12px rgba(255,79,163,.85), 0 0 24px rgba(255,79,163,.42), 2px 0 rgba(46,230,214,.45); }
 body.pb .img-zone img { border-color: #ffd9a0; }
 
 /* hero : duo cadré à droite, têtes visibles */
