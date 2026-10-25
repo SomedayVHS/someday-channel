@@ -352,4 +352,9 @@
       });
     }
   })();
+  /* sommaire des épisodes : replié par défaut sur téléphone (reste ouvert sans JavaScript) */
+  (function tocMobile() {
+    var toc = $('.ep-toc');
+    if (toc && window.matchMedia && window.matchMedia('(max-width: 700px)').matches) toc.removeAttribute('open');
+  })();
 })();

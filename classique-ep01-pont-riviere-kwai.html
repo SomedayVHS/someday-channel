@@ -75,8 +75,13 @@
       <a href="classiques.html">D'autres classiques →</a>
     </div>
 
+    <details class="ep-toc" open>
+      <summary>Sommaire<span class="ep-toc-count">4 sections</span></summary>
+      <ol><li><a href="#seq-01"><b>01</b><span>Intro</span></a></li><li><a href="#seq-02"><b>02</b><span>Résumé sans spoiler</span></a></li><li><a href="#seq-03"><b>03</b><span>Analyse</span></a></li><li><a href="#seq-04"><b>04</b><span>Conclusion</span></a></li></ol>
+    </details>
+
     <!-- 01 INTRO -->
-    <div class="sequence opening">
+    <div class="sequence opening" id="seq-01">
       <div class="seq-header">
         <span class="seq-num">01</span>
         <span class="seq-title">Intro</span>
@@ -101,7 +106,7 @@
     </div>
 
     <!-- 02 RÉSUMÉ SANS SPOILER -->
-    <div class="sequence">
+    <div class="sequence" id="seq-02">
       <div class="seq-header">
         <span class="seq-num">02</span>
         <span class="seq-title">Résumé sans spoiler</span>
@@ -121,7 +126,7 @@
     </div>
 
     <!-- 03 ANALYSE -->
-    <div class="sequence">
+    <div class="sequence" id="seq-03">
       <div class="seq-header">
         <span class="seq-num">03</span>
         <span class="seq-title">Analyse</span>
@@ -148,7 +153,7 @@
     </div>
 
     <!-- 04 CONCLUSION -->
-    <div class="sequence">
+    <div class="sequence" id="seq-04">
       <div class="seq-header">
         <span class="seq-num">04</span>
         <span class="seq-title">Conclusion</span>
@@ -212,6 +217,11 @@
         Votre navigateur ne supporte pas la lecture vidéo.
       </video>
     </div>
+
+    <nav class="ep-next" aria-label="Après cet épisode">
+      <span class="ep-next-label">▶▶ FIN DE LA CASSETTE</span>
+      <a class="ep-next-link" href="classiques.html"><span>Retour aux classiques</span><span aria-hidden="true">→</span></a>
+    </nav>
 
   </div>
 

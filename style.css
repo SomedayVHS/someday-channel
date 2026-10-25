@@ -8,7 +8,7 @@
   --black: #0f0c08;
   --charcoal: #1a1510;
   --paper: #e8e0d0;
-  --paper-dim: rgba(232,224,208,.62);
+  --paper-dim: rgba(232,224,208,.74);
   --line: rgba(232,224,208,.18);
   --brown: #8b4a2b;
   --brown-text: #c0704a; /* brun éclairci pour le petit texte (contraste) */
@@ -106,7 +106,7 @@ img { max-width: 100%; display: block; }
 .brand {
   margin: 0;
   font-family: var(--brand);
-  font-size: clamp(96px, 15vw, 210px);
+  font-size: clamp(84px, 13vw, 182px);
   line-height: .82;
   letter-spacing: 6px;
   color: var(--paper);
@@ -114,7 +114,7 @@ img { max-width: 100%; display: block; }
 }
 .hero h1 {
   margin: 18px 0 0;
-  font-size: clamp(28px, 3.4vw, 46px);
+  font-size: clamp(25px, 3vw, 40px);
   line-height: 1.05;
   letter-spacing: -1px;
   font-weight: 900;
@@ -179,7 +179,7 @@ img { max-width: 100%; display: block; }
 .now-title {
   grid-area: title;
   display: block;
-  font: 900 clamp(34px, 5.2vw, 72px)/.95 Arial, Helvetica, sans-serif;
+  font: 900 clamp(30px, 4.5vw, 63px)/.98 Arial, Helvetica, sans-serif;
   letter-spacing: -1.5px;
   text-transform: uppercase;
   color: var(--paper);
@@ -307,8 +307,16 @@ img { max-width: 100%; display: block; }
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 12px;
+  /* les cartes hors écran gardent leur décalage d'apparition (26 px) : la boîte l'absorbe au lieu de créer une barre verticale */
+  padding: 8px 6px 26px;
+  margin: -8px -6px -14px;
+  scroll-padding-inline: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232,224,208,.35) transparent;
 }
+.rail::-webkit-scrollbar { height: 6px; }
+.rail::-webkit-scrollbar-thumb { background: rgba(232,224,208,.35); border-radius: 3px; }
+.rail::-webkit-scrollbar-track { background: transparent; }
 .rail .tape { scroll-snap-align: start; }
 
 .grid {
@@ -541,12 +549,12 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 1px solid 
   .nav { gap: 0; justify-content: space-between; }
   .nav a { font-size: 10px; letter-spacing: 1px; }
   .hero { padding-top: 120px; }
-  .brand { font-size: 92px; letter-spacing: 3px; }
+  .brand { font-size: 80px; letter-spacing: 3px; }
   .seasons { grid-template-columns: 1fr; }
   .page-hero { padding: 110px 25px 36px; }
   .hero { min-height: 100vh; padding: 110px 25px 50px; background-position: 65% center; }
   .play { margin-bottom: 18px; font-size: 13px; }
-  .hero h1 { font-size: 26px; letter-spacing: -.5px; }
+  .hero h1 { font-size: 23px; letter-spacing: -.5px; }
   .hero-lead { font-size: 15px; }
   .genres { font-size: 11px; line-height: 1.8; }
   .timestamp { right: 25px; bottom: 25px; font-size: 12px; }
@@ -626,3 +634,30 @@ summary:focus-visible, video:focus-visible, audio:focus-visible {
     repeating-linear-gradient(0deg, rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 1px, transparent 1px, transparent 3px);
 }
 #nouveau .tape[href^="series-"] .tape-num { color: var(--paper); }
+
+/* ===== AMÉLIORATIONS 2026-10-25 ===== */
+/* 4. jaquettes verticales : cadre 2:3, image entière, sans déformation */
+.tape-img.poster { aspect-ratio: 2 / 3; background: #000; }
+.tape-img.poster img { object-fit: contain; filter: none; }
+.grid .tape:has(.tape-img.poster) { align-self: start; }
+.grid.three:has(.tape-img.poster) { grid-template-columns: repeat(auto-fill, minmax(220px, 280px)); }
+/* 5. informations secondaires plus lisibles */
+.tape-num, .season-kind, .season-count, .group-head span { font-size: 13px; }
+.tape h4 .vo { font-size: 14px; color: rgba(232,224,208,.78); }
+.tape p { font-size: 14px; line-height: 1.55; color: rgba(232,224,208,.8); }
+.season-info p { font-size: 15px; line-height: 1.6; }
+.upcoming-label { font-size: 12px; }
+.upcoming .soon-meta { font-size: 13px; }
+.upcoming .soon-title .vo { font-size: 13px; }
+.signature-prod { font-size: 12px; color: rgba(232,224,208,.74); }
+.hero-lead { color: rgba(232,224,208,.88); }
+@media (min-width: 701px) { .hero { padding-bottom: 96px; } }
+@media (max-width: 700px) {
+  .genres { font-size: 12px; }
+  .now { font-size: 12px; }
+  .hero { padding-bottom: 76px; }
+  .tape h4 { font-size: 15px; }
+  .tape p { font-size: 13px; }
+  .tape-num { font-size: 12px; }
+  .grid.three:has(.tape-img.poster) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

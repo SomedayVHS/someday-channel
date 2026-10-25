@@ -382,3 +382,65 @@ summary:focus-visible, video:focus-visible, audio:focus-visible {
 @media (max-width: 360px) {
   .nav a, .header .nav a { font-size: 10px; letter-spacing: 0; }
 }
+
+/* ===== AMÉLIORATIONS 2026-10-25 ===== */
+:root { --paper-dim: rgba(232,224,208,.76); }
+/* 5. informations secondaires plus lisibles (typographie magnétoscope conservée) */
+.meta-key { font-size: 11px; }
+.meta-val { font-size: 14px; }
+.hero-subtitle { color: #f1eadb; }
+.img-caption { font-size: 13px; line-height: 1.55; color: rgba(232,224,208,.8); }
+.seq-duration, .mouv-duration { font-size: 12px; }
+.info-block .key { font-size: 11px; }
+.info-block .val { font-size: 15px; line-height: 1.5; }
+.filmo-year { font-size: 13px; }
+.filmo-note { font-size: 12px; }
+.saison-fin-sub { font-size: 13px; }
+.total-label { font-size: 12px; }
+.podcast-link { font-size: 13px; }
+.seq-text, .mouv-text { color: rgba(232,224,208,.86); }
+.signature-prod { font-size: 12px; color: rgba(232,224,208,.76); }
+.ep-nav a, .ep-nav span { font-size: 12px !important; }
+@media (max-width: 700px) {
+  .hero-subtitle { font-size: 13px; }
+  .meta-val { font-size: 14px; }
+  .seq-text, .mouv-text { font-size: 17px; line-height: 1.8; }
+}
+
+/* 6. sommaire de l'épisode */
+.ep-toc { margin: -30px 0 70px; border: 1px solid var(--line); background: rgba(232,224,208,.03); }
+.ep-toc > summary {
+  display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; list-style: none;
+  font: 12px/1.3 var(--mono); letter-spacing: 3px; text-transform: uppercase; color: var(--brown-text);
+}
+.ep-toc > summary::-webkit-details-marker { display: none; }
+.ep-toc > summary::before { content: "▶"; font-size: 10px; color: rgba(232,224,208,.6); }
+.ep-toc[open] > summary::before { content: "▼"; }
+.ep-toc > summary .ep-toc-count { margin-left: auto; color: var(--paper-dim); letter-spacing: 1px; }
+.ep-toc ol { margin: 0; padding: 4px 18px 16px; list-style: none; columns: 2; column-gap: 28px; }
+.ep-toc li { break-inside: avoid; }
+.ep-toc a {
+  display: flex; gap: 12px; align-items: baseline; padding: 9px 0; text-decoration: none;
+  font: 14px/1.35 var(--mono); color: var(--paper); border-bottom: 1px dashed rgba(232,224,208,.14);
+}
+.ep-toc a b { font-weight: 400; color: var(--brown-text); letter-spacing: 2px; min-width: 2.2em; }
+.ep-toc a:hover { color: #fff; border-bottom-color: var(--brown-text); }
+@media (max-width: 700px) {
+  .ep-toc { margin: -30px 0 50px; }
+  .ep-toc ol { columns: 1; }
+  .ep-toc > summary { min-height: 48px; }
+  .ep-toc a { min-height: 44px; align-items: center; }
+  [id] { scroll-margin-top: 124px; }
+}
+
+/* 6. épisode suivant, en bas d'article */
+.ep-next { margin: 70px 0 0; padding: 26px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+.ep-next-label { font: 12px/1 var(--mono); letter-spacing: 3px; text-transform: uppercase; color: var(--brown-text); }
+.ep-next-link {
+  display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 18px 20px;
+  border: 1px solid rgba(232,224,208,.5); color: var(--paper); text-decoration: none;
+  font: 15px/1.4 var(--mono); letter-spacing: 1px; text-transform: uppercase;
+  transition: background-color .25s, color .25s;
+}
+.ep-next-link:hover { background: var(--paper); color: var(--black); }
+.ep-next-soon { margin: 0; font: 13px/1.5 var(--mono); color: var(--paper-dim); letter-spacing: 1px; }
