@@ -51,6 +51,32 @@
     .hero-title { font-family: Arial, Helvetica, sans-serif; font-weight: 900; line-height: .92; letter-spacing: .03em; color: var(--white); margin-bottom: 1.25rem; }
     .hero-sub { font-family: var(--mono); font-size: .75rem; letter-spacing: .12em; color: var(--dim); max-width: 520px; margin: 0 auto; line-height: 1.8; }
 
+
+    /* ───────── Étagère de tranches ───────── */
+    .etagere { max-width: 1120px; margin: 3.5rem auto 0; padding: 0 2rem; }
+    .etagere-hint { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; color: var(--dim); margin: -.8rem 0 1rem; }
+    .books-wrap { overflow-x: auto; overflow-y: hidden; padding: 2rem 0 28px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--a) 50%, transparent) transparent; }
+    .books { --k: 1; --bh: calc(300px * var(--k)); list-style: none; position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 7px; width: max-content; min-width: 100%; padding: 0 2rem 0; margin: 0; }
+    .books::after { content: ""; position: absolute; left: 0; right: 0; bottom: -20px; height: 20px; z-index: 0;
+      background: linear-gradient(180deg, #7a4f2e 0, #5a3a22 22%, #3a2314 100%);
+      box-shadow: 0 8px 26px rgba(0,0,0,.65), 0 0 40px color-mix(in srgb, var(--a) 22%, transparent), inset 0 1px 0 rgba(255,220,170,.35); }
+    .books li { position: relative; z-index: 1; scroll-snap-align: center; }
+    .book { position: relative; display: block; height: calc(var(--bh) + var(--dh, 0px)); text-decoration: none; color: inherit; transform-origin: bottom center; transition: transform .22s cubic-bezier(.2,.8,.3,1), filter .22s;
+      box-shadow: 3px 0 7px rgba(0,0,0,.55), -1px 0 2px rgba(0,0,0,.5); filter: brightness(.9); }
+    .book::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,.14), rgba(255,255,255,0) 18%, rgba(0,0,0,0) 78%, rgba(0,0,0,.38)); }
+    .book:hover, .book:focus-visible { transform: translateY(-16px) rotate(-1.6deg); filter: brightness(1.12); z-index: 3; }
+    .book img { display: block; height: 100%; width: auto; max-width: none; }
+    .book.vendu { filter: grayscale(.9) brightness(.55); }
+    .spine { display: flex; flex-direction: column; align-items: center; justify-content: space-between; width: var(--w, 58px); height: 100%; padding: 0 0 .5rem; background: var(--bg); color: var(--fg); overflow: hidden; }
+    .spine-top { align-self: stretch; text-align: center; background: var(--ac); color: var(--bg); font-family: var(--mono); font-size: .5rem; font-weight: 700; letter-spacing: .2em; padding: .5rem 0 .4rem; }
+    .spine-title { flex: 1; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; transform: rotate(180deg); font-family: Arial, Helvetica, sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: .02em; white-space: nowrap; line-height: 1; padding: .9rem 0; font-size: calc(var(--fs, 18) * var(--k) * 1px); }
+    .spine-foot { font-family: var(--mono); font-size: .52rem; letter-spacing: .08em; background: #f2efe6; color: #111; padding: .2rem .35rem; }
+    .etagere-caption { text-align: center; margin-top: 2.2rem; min-height: 1.4em; font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--a); }
+    .flash { animation: flash 1.9s ease-out; }
+    @keyframes flash { 0%, 100% { box-shadow: 0 0 0 0 transparent; } 18% { box-shadow: 0 0 0 2px var(--a), 0 0 46px color-mix(in srgb, var(--a) 55%, transparent); } }
+    @media (prefers-reduced-motion: reduce) { .flash { animation: none; outline: 2px solid var(--a); outline-offset: 6px; } .book { transition: none; } }
+    @media (max-width: 600px) { .etagere { padding-inline: 1.1rem; } .books { --k: .77; justify-content: flex-start; padding-inline: 1rem; } }
+
     /* ───────── À la une ───────── */
     .featured { max-width: 1120px; margin: 4rem auto 0; padding: 0 2rem; }
     .featured[hidden], .feat-block[hidden] { display: none; }
@@ -280,6 +306,14 @@
     </p>
   </section>
 
+  <!-- ═══ ÉTAGÈRE : les tranches, générées depuis le catalogue ═══ -->
+  <section class="etagere" id="etagere" aria-labelledby="etagere-titre" hidden>
+    <p class="section-label" id="etagere-titre">Sur l'étagère</p>
+    <p class="etagere-hint">Cliquez sur une tranche pour aller à la cassette.</p>
+    <div class="books-wrap"><ul class="books" id="books" role="list"></ul></div>
+    <p class="etagere-caption" id="etagere-caption" aria-live="polite"></p>
+  </section>
+
   <!-- ═══ À LA UNE : rempli par le script depuis le catalogue (fiche marquée « uneLaUne: true ») ═══ -->
   <section class="featured" id="a-la-une" aria-label="À la une" hidden></section>
 
@@ -354,6 +388,10 @@
          titre      : nom du film (titre français)
          titreOriginal : (facultatif) titre original, affiché sous le titre
          edition    : (facultatif, fiche à la une) éditeur / collection
+         tranche    : (facultatif) photo de la tranche, portrait, ex. "ma-cassette-tranche.jpg"
+                      sans photo, une tranche illustrée est dessinée avec :
+         teinte     : { bg: "#111", fg: "#fff", accent: "#c33" }  (fond, titre, bandeau du haut)
+         titreCourt : (facultatif) titre abrégé écrit sur la tranche
          annee      : année de sortie
          genre      : "action" | "thriller" | "neo-noir" | "serie-b"
                        (peut en combiner plusieurs : "action thriller")
@@ -380,6 +418,7 @@
     const catalogueComplet = [
       {
         titre: "Piège de cristal",
+        tranche: "piege-de-cristal-tranche-etagere.jpg",
         titreOriginal: "Die Hard",
         annee: 1988,
         realisateur: "John McTiernan",
@@ -410,6 +449,7 @@
       },
       {
         titre: "Terminator",
+        teinte: { bg: "#080b16", fg: "#6aa8ff", accent: "#ff8a1f" },
         annee: 1984,
         realisateur: "James Cameron",
         genre: "action",
@@ -442,6 +482,8 @@
       },
       {
         titre: "Harley Davidson et l'homme aux santiags",
+        titreCourt: "Harley Davidson",
+        teinte: { bg: "#151515", fg: "#f4f1ea", accent: "#c8372d" },
         annee: 1991,
         genre: "action",
         genreLabel: "Action",
@@ -453,6 +495,7 @@
       },
       {
         titre: "Au-dessus de la loi",
+        tranche: "au-dessus-de-la-loi-tranche-etagere.jpg",
         titreOriginal: "Joshua Tree",
         annee: 1993,
         realisateur: "Vic Armstrong",
@@ -502,6 +545,7 @@
       },
       {
         titre: "Showdown in Little Tokyo",
+        teinte: { bg: "#0a0a0a", fg: "#e8362f", accent: "#e8362f" },
         annee: 1991,
         genre: "action",
         genreLabel: "Action",
@@ -531,6 +575,7 @@
 
     const MAIL = 'somedayvhs@outlook.fr';
     const PORT_INCLUS = true;   // true = le prix affiché comprend l'envoi (mettre false pour retirer la mention)
+    const slug = t => 'cassette-' + String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const hasGenre = (item, f) => f === 'tout' || item.genre.split(' ').includes(f);
     const badgeClass = b => b === 'Vendu' ? 'vendu' : b === 'Réservé' ? 'reserve' : '';
@@ -558,7 +603,7 @@
           <img src="${p.src}" alt="" loading="lazy" decoding="async">
         </button>`).join('');
       return `
-        <article class="feat-block" data-k="${k}" data-genre="${esc(une.genre)}" aria-label="${esc(une.titre)}">
+        <article class="feat-block" id="${slug(une.titre)}" data-k="${k}" data-genre="${esc(une.genre)}" aria-label="${esc(une.titre)}">
           <div class="feat-grid">
             <div class="stage">
               <button type="button" class="stage-frame" aria-label="Agrandir la photo">
@@ -661,7 +706,7 @@
         const vendu = item.badge === 'Vendu';
         const prix = item.prix != null ? `${item.prix}<small>€</small>${PORT_INCLUS ? '<span class="card-port">port inclus</span>' : ''}` : '—';
         return `
-          <article class="card" data-genre="${item.genre}">
+          <article class="card" id="${slug(item.titre)}" data-genre="${item.genre}">
             <div class="card-img">${imgBlock}<span class="status ${badgeClass(item.badge)}">${esc(item.badge)}</span></div>
             <div class="card-body">
               <span class="card-genre">${esc(item.genreLabel)}</span>
@@ -716,8 +761,69 @@
       });
     });
 
+
+    /* ───────── Étagère ───────── */
+    const DH = [0, -12, 8, -5, 10, -9, 4];   // petites variations de hauteur, comme de vraies cassettes
+    function spineHTML(item, i) {
+      const dh = DH[i % DH.length];
+      const vendu = item.badge === 'Vendu' ? ' vendu' : '';
+      const label = `${item.titre}${item.annee ? ', ' + item.annee : ''}${item.prix != null ? ', ' + item.prix + ' euros' : ''} — aller à la fiche`;
+      let inner;
+      if (item.tranche) {
+        inner = `<img src="${item.tranche}" alt="" loading="lazy" decoding="async">`;
+      } else {
+        const t = item.teinte || { bg: '#17120e', fg: '#e8e0d0', accent: '#c0704a' };
+        const nom = (item.titreCourt || item.titre).toUpperCase();
+        const fs = Math.max(11, Math.min(22, Math.round(205 / (nom.length * 0.66))));
+        const w = 54 + ((i * 5) % 11);
+        inner = `<span class="spine" style="--bg:${t.bg};--fg:${t.fg};--ac:${t.accent};--w:${w}px">
+            <span class="spine-top">VHS</span>
+            <span class="spine-title" style="--fs:${fs}">${esc(nom)}</span>
+            <span class="spine-foot">${item.annee || ''}</span>
+          </span>`;
+      }
+      return `<li><a class="book${vendu}" href="#${slug(item.titre)}" style="--dh:${dh}px" data-nom="${esc(item.titre)}${item.annee ? ' · ' + item.annee : ''}${item.prix != null ? ' · ' + item.prix + ' €' : ''}" aria-label="${esc(label)}" title="${esc(item.titre)}">${inner}</a></li>`;
+    }
+    function renderShelf() {
+      if (!vhsItems.length) return;
+      const ul = document.getElementById('books');
+      ul.innerHTML = vhsItems.map(spineHTML).join('');
+      document.getElementById('etagere').hidden = false;
+      const cap = document.getElementById('etagere-caption');
+      const show = e => { const b = e.target.closest('.book'); if (b) cap.textContent = b.dataset.nom; };
+      const clear = () => { cap.textContent = ''; };
+      ul.addEventListener('mouseover', show);
+      ul.addEventListener('focusin', show);
+      ul.addEventListener('mouseout', clear);
+      ul.addEventListener('focusout', clear);
+      ul.addEventListener('click', e => {
+        const a = e.target.closest('.book');
+        if (!a) return;
+        e.preventDefault();
+        goTo(a.getAttribute('href').slice(1));
+      });
+    }
+
+    /* Va à une cassette : remet le filtre sur « Tout » si besoin, fait défiler, puis la fait clignoter */
+    function goTo(id) {
+      let el = document.getElementById(id);
+      if (!el || el.hidden || el.closest('[hidden]')) {
+        document.querySelector('.filter-tag[data-filter="tout"]').click();
+        el = document.getElementById(id);
+      }
+      if (!el) return;
+      const calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ behavior: calme ? 'auto' : 'smooth', block: el.classList.contains('card') ? 'center' : 'start' });
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 2000);
+      try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    }
+    window.addEventListener('hashchange', () => { if (location.hash.startsWith('#cassette-')) goTo(location.hash.slice(1)); });
+
+    renderShelf();
     renderFeatured();
     applyFilter('tout');
+    if (location.hash.startsWith('#cassette-')) setTimeout(() => goTo(location.hash.slice(1)), 350);
   </script>
 
 <!-- vhs-fx --><script src="vhs-fx.js" defer></script><!-- /vhs-fx -->
